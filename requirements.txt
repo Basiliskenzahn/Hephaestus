@@ -1,0 +1,7 @@
+cadquery>=2.4
+pydantic>=2.6
+numpy
+pillow
+scipy
+jsonschema
+pytest
