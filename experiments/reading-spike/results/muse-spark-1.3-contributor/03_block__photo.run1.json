@@ -1,0 +1,107 @@
+{
+  "sketch": "03_block__photo.jpg",
+  "model": "muse-spark-1.3-contributor",
+  "effort": "medium",
+  "spec": {
+    "bodies": [
+      {
+        "dx": 70,
+        "dy": 40,
+        "dz": 20,
+        "name": "base",
+        "x0": 0,
+        "y0": 0,
+        "z0": 0
+      }
+    ],
+    "chamfers": [
+      {
+        "edges": "top_outer",
+        "size": 1
+      }
+    ],
+    "fillets": [
+      {
+        "edges": "vertical_outer",
+        "radius": 5
+      }
+    ],
+    "holes": [
+      {
+        "axis": "Z",
+        "diameter": 6,
+        "through": true,
+        "u": 12,
+        "v": 20
+      },
+      {
+        "axis": "Z",
+        "diameter": 12,
+        "through": true,
+        "u": 35,
+        "v": 20
+      },
+      {
+        "axis": "Z",
+        "diameter": 6,
+        "through": true,
+        "u": 58,
+        "v": 20
+      }
+    ],
+    "overall": {
+      "x": 70,
+      "y": 40,
+      "z": 20
+    },
+    "part_name": "rectangular_plate",
+    "slots": [],
+    "uncertainties": "46 is center-to-center between the two dia 6 holes; assumed symmetric about X-centre (35) giving x=12 and x=58. All three holes assumed on Y-centreline y=20; 20 dimension explicitly shows midline for right hole, assumed same for centre and left holes and that dia 12 is centred at x=35.",
+    "views_identified": [
+      "FRONT",
+      "TOP"
+    ]
+  },
+  "usage": {
+    "input_tokens": 4128,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 1594,
+    "output_tokens_details": {
+      "reasoning_tokens": 1284
+    },
+    "total_tokens": 5722
+  },
+  "cost_usd": 0.0007316,
+  "seconds": 16.0,
+  "score": {
+    "overall_ok": "3/3",
+    "body_iou": 1.0,
+    "features_ok": "5/5",
+    "extra_features": 0,
+    "perfect": true,
+    "detail": {
+      "holes": {
+        "ok": 3,
+        "missing": 0,
+        "extra": 0
+      },
+      "slots": {
+        "ok": 0,
+        "missing": 0,
+        "extra": 0
+      },
+      "fillets": {
+        "ok": 1,
+        "missing": 0,
+        "extra": 0
+      },
+      "chamfers": {
+        "ok": 1,
+        "missing": 0,
+        "extra": 0
+      }
+    }
+  }
+}
