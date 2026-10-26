@@ -40,6 +40,7 @@ $150 Meta API credits for the whole project. Default to `muse-spark-1.3-contribu
 - `examples/` — v1 specs: plate, l_bracket, block (the three spike parts), bushing (revolve), enclosure (shell).
 - `docs/spec-v1.md` — spec reference with one example per feature type.
 - `tests/` — pytest (`python -m pytest tests`); analytic volumes, silhouettes, errors, schema export.
+- `experiments/reading-spike-v2/` — Muse Spark filling in spec v1, scored on compiled geometry (bbox, volume IoU, written dimensions, parameter intent). Run `python spike2.py --set clean --runs 3`. Result: 26/27 perfect.
 - `experiments/reading-spike/` — first test: can Muse Spark read a dimensioned sketch into a correct spec? Auto-scored against ground truth. Run `python spike.py`. Uses the older v0 box spec.
 - `requirements.txt` — `pip install -r requirements.txt` (CadQuery 2.8 installs from pip).
 
