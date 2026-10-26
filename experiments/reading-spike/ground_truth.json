@@ -1,0 +1,42 @@
+{
+  "01_plate.png": {
+    "overall": {"x": 80, "y": 50, "z": 6},
+    "bodies": [{"name": "plate", "x0": 0, "y0": 0, "z0": 0, "dx": 80, "dy": 50, "dz": 6}],
+    "holes": [
+      {"axis": "Z", "u": 8, "v": 8, "diameter": 6, "through": true},
+      {"axis": "Z", "u": 72, "v": 8, "diameter": 6, "through": true},
+      {"axis": "Z", "u": 8, "v": 42, "diameter": 6, "through": true},
+      {"axis": "Z", "u": 72, "v": 42, "diameter": 6, "through": true},
+      {"axis": "Z", "u": 40, "v": 25, "diameter": 20, "through": true}
+    ],
+    "slots": [],
+    "fillets": [],
+    "chamfers": []
+  },
+  "02_l_bracket.png": {
+    "overall": {"x": 60, "y": 40, "z": 40},
+    "bodies": [
+      {"name": "base", "x0": 0, "y0": 0, "z0": 0, "dx": 60, "dy": 40, "dz": 5},
+      {"name": "upright", "x0": 0, "y0": 35, "z0": 0, "dx": 60, "dy": 5, "dz": 40}
+    ],
+    "holes": [
+      {"axis": "Y", "u": 15, "v": 28, "diameter": 5, "through": true},
+      {"axis": "Y", "u": 45, "v": 28, "diameter": 5, "through": true}
+    ],
+    "slots": [{"axis": "Z", "u": 30, "v": 17.5, "length": 20, "width": 6, "long_direction": "X"}],
+    "fillets": [],
+    "chamfers": []
+  },
+  "03_block.png": {
+    "overall": {"x": 70, "y": 40, "z": 20},
+    "bodies": [{"name": "block", "x0": 0, "y0": 0, "z0": 0, "dx": 70, "dy": 40, "dz": 20}],
+    "holes": [
+      {"axis": "Z", "u": 35, "v": 20, "diameter": 12, "through": true},
+      {"axis": "Z", "u": 12, "v": 20, "diameter": 6, "through": true},
+      {"axis": "Z", "u": 58, "v": 20, "diameter": 6, "through": true}
+    ],
+    "slots": [],
+    "fillets": [{"edges": "vertical_outer", "radius": 5}],
+    "chamfers": [{"edges": "top_outer", "size": 1}]
+  }
+}
