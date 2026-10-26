@@ -16,11 +16,11 @@
       {
         "dx": 60,
         "dy": 5,
-        "dz": 40,
+        "dz": 35,
         "name": "upright",
         "x0": 0,
         "y0": 35,
-        "z0": 0
+        "z0": 5
       }
     ],
     "chamfers": [],
@@ -57,7 +57,7 @@
         "width": 6
       }
     ],
-    "uncertainties": "Hole Z=28 assumed measured from outer bottom Z=0; hole X=15 and 45 from left with 30 spacing symmetric about center; vertical leg assumed at back Y=35-40 with base at Z=0-5; slot assumed thru base along Z, centered in X at 30 symmetric, Y=17.5 assumed to slot centre.",
+    "uncertainties": "Hole Z=28 assumed measured from bottom z=0; slot X-centre assumed symmetric at x=30 and Y=17.5 assumed to slot centreline from front edge; upright assumed at back Y 35-40 sitting on top of base Z 5-40.",
     "views_identified": [
       "FRONT",
       "SIDE",
@@ -67,16 +67,16 @@
   "usage": {
     "input_tokens": 2348,
     "input_tokens_details": {
-      "cached_tokens": 0
+      "cached_tokens": 753
     },
-    "output_tokens": 3578,
+    "output_tokens": 3471,
     "output_tokens_details": {
-      "reasoning_tokens": 3233
+      "reasoning_tokens": 3143
     },
-    "total_tokens": 5926
+    "total_tokens": 5819
   },
-  "cost_usd": 0.0009504000000000001,
-  "seconds": 29.6,
+  "cost_usd": 0.0008552060000000001,
+  "seconds": 29.5,
   "score": {
     "overall_ok": "3/3",
     "body_iou": 1.0,

@@ -19,38 +19,38 @@
     "holes": [
       {
         "axis": "Z",
+        "diameter": 6,
+        "through": true,
+        "u": 8,
+        "v": 8
+      },
+      {
+        "axis": "Z",
+        "diameter": 6,
+        "through": true,
+        "u": 8,
+        "v": 42
+      },
+      {
+        "axis": "Z",
+        "diameter": 6,
+        "through": true,
+        "u": 72,
+        "v": 42
+      },
+      {
+        "axis": "Z",
+        "diameter": 6,
+        "through": true,
+        "u": 72,
+        "v": 8
+      },
+      {
+        "axis": "Z",
         "diameter": 20,
         "through": true,
         "u": 40,
         "v": 25
-      },
-      {
-        "axis": "Z",
-        "diameter": 6,
-        "through": true,
-        "u": 8,
-        "v": 8
-      },
-      {
-        "axis": "Z",
-        "diameter": 6,
-        "through": true,
-        "u": 8,
-        "v": 42
-      },
-      {
-        "axis": "Z",
-        "diameter": 6,
-        "through": true,
-        "u": 72,
-        "v": 8
-      },
-      {
-        "axis": "Z",
-        "diameter": 6,
-        "through": true,
-        "u": 72,
-        "v": 42
       }
     ],
     "overall": {
@@ -60,7 +60,7 @@
     },
     "part_name": "plate",
     "slots": [],
-    "uncertainties": "Central O20 hole position not explicitly dimensioned; assumed centered at plate centre (40,25), symmetric with 4-hole pattern and plate edges.",
+    "uncertainties": "Central \u00d820 hole position not dimensioned; assumed centered at part centre (40,25) symmetric in X and Y.",
     "views_identified": [
       "TOP"
     ]
@@ -70,14 +70,14 @@
     "input_tokens_details": {
       "cached_tokens": 0
     },
-    "output_tokens": 1405,
+    "output_tokens": 1968,
     "output_tokens_details": {
-      "reasoning_tokens": 1111
+      "reasoning_tokens": 1676
     },
-    "total_tokens": 3105
+    "total_tokens": 3668
   },
-  "cost_usd": 0.000451,
-  "seconds": 10.5,
+  "cost_usd": 0.0005636,
+  "seconds": 15.2,
   "score": {
     "overall_ok": "3/3",
     "body_iou": 1.0,

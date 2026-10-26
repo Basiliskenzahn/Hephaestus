@@ -1,0 +1,109 @@
+{
+  "sketch": "02_l_bracket.png",
+  "model": "muse-spark-1.3-contributor",
+  "effort": "medium",
+  "spec": {
+    "bodies": [
+      {
+        "dx": 60.0,
+        "dy": 40.0,
+        "dz": 5.0,
+        "name": "base",
+        "x0": 0.0,
+        "y0": 0.0,
+        "z0": 0.0
+      },
+      {
+        "dx": 60.0,
+        "dy": 5.0,
+        "dz": 35.0,
+        "name": "upright",
+        "x0": 0.0,
+        "y0": 35.0,
+        "z0": 5.0
+      }
+    ],
+    "chamfers": [],
+    "fillets": [],
+    "holes": [
+      {
+        "axis": "Y",
+        "diameter": 5.0,
+        "through": true,
+        "u": 15.0,
+        "v": 28.0
+      },
+      {
+        "axis": "Y",
+        "diameter": 5.0,
+        "through": true,
+        "u": 45.0,
+        "v": 28.0
+      }
+    ],
+    "overall": {
+      "x": 60.0,
+      "y": 40.0,
+      "z": 40.0
+    },
+    "part_name": "L-bracket",
+    "slots": [
+      {
+        "axis": "Z",
+        "length": 20.0,
+        "long_direction": "X",
+        "u": 30.0,
+        "v": 17.5,
+        "width": 6.0
+      }
+    ],
+    "uncertainties": "28 mm hole height assumed measured from bottom of part (z=0) to hole centres; slot X-centre assumed symmetric about part centre X=30 as 20 mm slot shown centred in 60 mm width; L orientation assumed with base at bottom Z=0-5 and vertical leg at back Y=35-40.",
+    "views_identified": [
+      "FRONT",
+      "SIDE",
+      "TOP"
+    ]
+  },
+  "usage": {
+    "input_tokens": 2348,
+    "input_tokens_details": {
+      "cached_tokens": 753
+    },
+    "output_tokens": 3389,
+    "output_tokens_details": {
+      "reasoning_tokens": 3003
+    },
+    "total_tokens": 5737
+  },
+  "cost_usd": 0.000838806,
+  "seconds": 29.9,
+  "score": {
+    "overall_ok": "3/3",
+    "body_iou": 1.0,
+    "features_ok": "3/3",
+    "extra_features": 0,
+    "perfect": true,
+    "detail": {
+      "holes": {
+        "ok": 2,
+        "missing": 0,
+        "extra": 0
+      },
+      "slots": {
+        "ok": 1,
+        "missing": 0,
+        "extra": 0
+      },
+      "fillets": {
+        "ok": 0,
+        "missing": 0,
+        "extra": 0
+      },
+      "chamfers": {
+        "ok": 0,
+        "missing": 0,
+        "extra": 0
+      }
+    }
+  }
+}

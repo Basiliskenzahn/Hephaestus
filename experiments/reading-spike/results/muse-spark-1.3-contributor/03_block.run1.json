@@ -56,7 +56,7 @@
     },
     "part_name": "plate",
     "slots": [],
-    "uncertainties": "Hole Y=20 places them on midline (symmetric front-back). Hole X positions inferred as symmetric about center: 46 spacing centered in 70 width gives x=12 and x=58, center hole assumed at mid-width x=35.",
+    "uncertainties": "Hole X positions not explicitly located from an edge; assumed symmetric about part centre: overall 70 mm with 46 mm spacing between outer holes places center hole at x=35 and outer holes at x=12 and x=58. All holes assumed centered in Y at y=20 from the stated 20 dimension.",
     "views_identified": [
       "FRONT",
       "TOP"
@@ -65,16 +65,16 @@
   "usage": {
     "input_tokens": 2060,
     "input_tokens_details": {
-      "cached_tokens": 0
+      "cached_tokens": 753
     },
-    "output_tokens": 1401,
+    "output_tokens": 1322,
     "output_tokens_details": {
-      "reasoning_tokens": 1116
+      "reasoning_tokens": 1024
     },
-    "total_tokens": 3461
+    "total_tokens": 3382
   },
-  "cost_usd": 0.0004862,
-  "seconds": 11.2,
+  "cost_usd": 0.00039660600000000003,
+  "seconds": 11.4,
   "score": {
     "overall_ok": "3/3",
     "body_iou": 1.0,
