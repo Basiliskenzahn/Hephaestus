@@ -39,6 +39,7 @@ DIA_TOL = 0.2   # mm, diameters/widths/radii
 def build_request(image_path, model, effort):
     with open(image_path, "rb") as f:
         b64 = base64.b64encode(f.read()).decode()
+    mime = "image/jpeg" if image_path.lower().endswith((".jpg", ".jpeg")) else "image/png"
     return {
         "model": model,
         "reasoning": {"effort": effort},
@@ -47,7 +48,7 @@ def build_request(image_path, model, effort):
             "type": "message", "role": "user",
             "content": [
                 {"type": "input_text", "text": "Convert this sketch into the part spec."},
-                {"type": "input_image", "image_url": f"data:image/png;base64,{b64}"},
+                {"type": "input_image", "image_url": f"data:{mime};base64,{b64}"},
             ],
         }],
         "text": {"format": {"type": "json_schema", "name": "PartSpec", "schema": PART_SPEC}},
@@ -148,13 +149,20 @@ def score(pred, truth):
             "detail": {k: dict(zip(("ok", "missing", "extra"), v)) for k, v in feats.items()}}
 
 
+def truth_key(image_name):
+    """01_plate__photo.jpg -> 01_plate.png (photo variants share the clean sketch's ground truth)."""
+    return os.path.splitext(image_name)[0].split("__")[0] + ".png"
+
+
 # ---------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="muse-spark-1.3-contributor")
     ap.add_argument("--effort", default="medium", choices=["low", "medium", "high"])
     ap.add_argument("--runs", type=int, default=1)
-    ap.add_argument("--only", help="run a single sketch, e.g. 02_l_bracket.png")
+    ap.add_argument("--set", default="clean", choices=["clean", "photo", "rough", "all"],
+                    help="clean = original PNGs, photo/rough = fake phone photos from make_photos.py")
+    ap.add_argument("--only", help="run a single image, e.g. 02_l_bracket__photo.jpg")
     ap.add_argument("--max-usd", type=float, default=1.0, help="stop if spend in this run exceeds this")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--score", help="re-score a saved result JSON instead of calling the API")
@@ -164,10 +172,15 @@ def main():
 
     if args.score:
         saved = json.load(open(args.score))
-        print(json.dumps(score(saved["spec"], truth_all[saved["sketch"]]), indent=2))
+        print(json.dumps(score(saved["spec"], truth_all[truth_key(saved["sketch"])]), indent=2))
         return
 
-    sketches = [args.only] if args.only else sorted(truth_all)
+    if args.only:
+        sketches = [args.only]
+    else:
+        suffixes = {"clean": [".png"], "photo": ["__photo.jpg"], "rough": ["__rough.jpg"],
+                    "all": [".png", "__photo.jpg", "__rough.jpg"]}[args.set]
+        sketches = [k[:-4] + suf for suf in suffixes for k in sorted(truth_all)]
     outdir = os.path.join(HERE, "results", args.model)
     os.makedirs(outdir, exist_ok=True)
     spent, rows = 0.0, []
@@ -184,10 +197,10 @@ def main():
             spec, usage, secs = call(body)
             c = cost(args.model, usage)
             spent += c
-            s = score(spec, truth_all[name])
+            s = score(spec, truth_all[truth_key(name)])
             json.dump({"sketch": name, "model": args.model, "effort": args.effort, "spec": spec,
                        "usage": usage, "cost_usd": c, "seconds": round(secs, 1), "score": s},
-                      open(os.path.join(outdir, f"{name[:-4]}.run{run}.json"), "w"), indent=2)
+                      open(os.path.join(outdir, f"{os.path.splitext(name)[0]}.run{run}.json"), "w"), indent=2)
             rows.append((name, run, s, usage.get("output_tokens", 0), c, secs))
             print(f"{name} run {run}: perfect={s['perfect']} overall {s['overall_ok']} "
                   f"iou {s['body_iou']} features {s['features_ok']} extra {s['extra_features']} "

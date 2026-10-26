@@ -13,6 +13,9 @@ export MODEL_API_KEY=...        # not needed in a cloud environment with a netwo
 python spike.py                                      # 3 sketches, contributor model, medium reasoning
 python spike.py --model muse-spark-1.3 --effort high # stronger setting, for comparison
 python spike.py --runs 3                             # consistency check
+python spike.py --set photo                          # fake phone photos of the printed sketches
+python spike.py --set rough                          # shakier pencil sketches, steeper angle, harder shadow
+python spike.py --set all --runs 3                   # everything, 27 calls
 ```
 Each result is saved in `results/<model>/` with the spec, token usage, cost and score.
 `--max-usd` (default 1.0) stops a run before it spends more than that.
@@ -21,7 +24,9 @@ Each result is saved in `results/<model>/` with the spec, token usage, cost and 
 - `sketches/` – three test parts: plate with hole pattern, L-bracket (3 views, slot, holes in the upright), block with fillets and chamfer
 - `ground_truth.json` – the correct spec for each sketch
 - `schema.py` – spec v0 (JSON schema) and the system prompt
-- `draw_sketches.py` – regenerates the sketches
+- `sketches/*__photo.jpg`, `sketches/*__rough.jpg` – fake phone photos (perspective, paper, uneven light, shadow, blur, noise, JPEG); same ground truth as the clean version
+- `draw_sketches.py` – regenerates the clean sketches
+- `make_photos.py` – regenerates the photo variants (fixed seeds, reproducible)
 
 ## Reading the score
 - `overall` – bounding box dims within ±0.5 mm
