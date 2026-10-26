@@ -1,0 +1,28 @@
+{
+  "name": "pillow_block",
+  "description": "Base plate with a raised centre block and a blind bore. Assumed: the centre block and the bore are centred (drawn symmetric, not dimensioned from an edge).",
+  "parameters": {
+    "length": {"value": 64, "description": "overall length along X"},
+    "depth": {"value": 30, "description": "overall depth along Y"},
+    "base_t": {"value": 6, "description": "base plate thickness"},
+    "block_w": {"value": 24, "description": "centre block width along X"},
+    "height": {"value": 22, "description": "overall height"},
+    "bore_dia": {"value": 12, "description": "bore diameter"},
+    "bore_depth": {"value": 14, "description": "bore depth from the top of the block"},
+    "hole_dia": {"value": 5, "description": "mounting hole diameter"},
+    "hole_inset": {"value": 7, "description": "mounting hole centre from each end"}
+  },
+  "features": [
+    {"id": "base", "type": "extrude", "plane": "XY",
+     "profile": {"shape": "rect", "width": "length", "height": "depth"}, "distance": "base_t"},
+    {"id": "block", "type": "extrude", "plane": "XY",
+     "profile": {"shape": "rect", "u": "(length - block_w) / 2", "width": "block_w", "height": "depth"},
+     "distance": "height"},
+    {"id": "bore", "type": "hole", "face": "top_of_feature:block", "center": ["length / 2", "depth / 2"],
+     "diameter": "bore_dia", "depth": "bore_depth"},
+    {"id": "mount_hole", "type": "hole", "face": "top_of_feature:base", "center": ["hole_inset", "depth / 2"],
+     "diameter": "hole_dia", "through": true},
+    {"id": "mount_holes", "type": "linear_pattern", "feature": "mount_hole",
+     "count_u": 2, "spacing_u": "length - 2 * hole_inset"}
+  ]
+}

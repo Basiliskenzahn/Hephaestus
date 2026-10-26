@@ -1,0 +1,62 @@
+{
+  "_doc": "Per part: the true spec (examples/), the images (in experiments/reading-spike/sketches/), the parameter that drives overall X in the true spec, and every dimension written on the drawing as a measurement on the compiled part. Points are (u, v) in the plane perpendicular to the axis: z -> (x, y), y -> (x, z), x -> (y, z). See score.py for the check kinds.",
+  "01_plate": {
+    "spec": "examples/plate.json",
+    "images": {"clean": "01_plate.png", "photo": "01_plate__photo.jpg", "rough": "01_plate__rough.jpg"},
+    "x_param": "width",
+    "dimensions": [
+      {"label": "80", "check": "extent", "axis": "x", "value": 80},
+      {"label": "50", "check": "extent", "axis": "y", "value": 50},
+      {"label": "t = 6", "check": "extent", "axis": "z", "value": 6},
+      {"label": "4x Ø6 (8, 8)", "check": "cyl", "axis": "z", "at": [8, 8], "dia": 6},
+      {"label": "4x Ø6 (72, 8)", "check": "cyl", "axis": "z", "at": [72, 8], "dia": 6},
+      {"label": "4x Ø6 (8, 42)", "check": "cyl", "axis": "z", "at": [8, 42], "dia": 6},
+      {"label": "4x Ø6 (72, 42)", "check": "cyl", "axis": "z", "at": [72, 42], "dia": 6},
+      {"label": "Ø20", "check": "cyl", "axis": "z", "at": [40, 25], "dia": 20},
+      {"label": "64", "check": "spacing", "axis": "z", "a": [8, 8], "b": [72, 8], "along": "u", "value": 64},
+      {"label": "34", "check": "spacing", "axis": "z", "a": [8, 8], "b": [8, 42], "along": "v", "value": 34},
+      {"label": "8 (x)", "check": "inset", "axis": "z", "at": [8, 8], "along": "u", "value": 8},
+      {"label": "8 (y)", "check": "inset", "axis": "z", "at": [8, 8], "along": "v", "value": 8}
+    ]
+  },
+  "02_l_bracket": {
+    "spec": "examples/l_bracket.json",
+    "images": {"clean": "02_l_bracket.png", "photo": "02_l_bracket__photo.jpg", "rough": "02_l_bracket__rough.jpg"},
+    "x_param": "width",
+    "dimensions": [
+      {"label": "60", "check": "extent", "axis": "x", "value": 60},
+      {"label": "40 (depth)", "check": "extent", "axis": "y", "value": 40},
+      {"label": "40 (height)", "check": "extent", "axis": "z", "value": 40},
+      {"label": "5 (base)", "check": "probe", "dir": "-z", "at": [30, 8], "measure": "from_min", "value": 5},
+      {"label": "5 (upright)", "check": "probe", "dir": "+y", "at": [30, 20], "measure": "from_max", "value": 5},
+      {"label": "2x Ø5 (15, 28)", "check": "cyl", "axis": "y", "at": [15, 28], "dia": 5},
+      {"label": "2x Ø5 (45, 28)", "check": "cyl", "axis": "y", "at": [45, 28], "dia": 5},
+      {"label": "15", "check": "inset", "axis": "y", "at": [15, 28], "along": "u", "value": 15},
+      {"label": "30", "check": "spacing", "axis": "y", "a": [15, 28], "b": [45, 28], "along": "u", "value": 30},
+      {"label": "28", "check": "inset", "axis": "y", "at": [15, 28], "along": "v", "value": 28},
+      {"label": "slot 20", "check": "slot", "axis": "z", "at": [30, 17.5], "measure": "length", "along": "u", "value": 20},
+      {"label": "slot w = 6", "check": "slot", "axis": "z", "at": [30, 17.5], "measure": "width", "value": 6},
+      {"label": "17.5", "check": "slot", "axis": "z", "at": [30, 17.5], "measure": "inset_v", "value": 17.5}
+    ]
+  },
+  "03_block": {
+    "spec": "examples/block.json",
+    "images": {"clean": "03_block.png", "photo": "03_block__photo.jpg", "rough": "03_block__rough.jpg"},
+    "x_param": "length",
+    "dimensions": [
+      {"label": "70", "check": "extent", "axis": "x", "value": 70},
+      {"label": "40", "check": "extent", "axis": "y", "value": 40},
+      {"label": "20 (height)", "check": "extent", "axis": "z", "value": 20},
+      {"label": "Ø12", "check": "cyl", "axis": "z", "at": [35, 20], "dia": 12},
+      {"label": "2x Ø6 (12, 20)", "check": "cyl", "axis": "z", "at": [12, 20], "dia": 6},
+      {"label": "2x Ø6 (58, 20)", "check": "cyl", "axis": "z", "at": [58, 20], "dia": 6},
+      {"label": "46", "check": "spacing", "axis": "z", "a": [12, 20], "b": [58, 20], "along": "u", "value": 46},
+      {"label": "20 (hole y)", "check": "inset", "axis": "z", "at": [35, 20], "along": "v", "value": 20},
+      {"label": "R5 (5, 5)", "check": "cyl", "axis": "z", "at": [5, 5], "dia": 10},
+      {"label": "R5 (65, 5)", "check": "cyl", "axis": "z", "at": [65, 5], "dia": 10},
+      {"label": "R5 (5, 35)", "check": "cyl", "axis": "z", "at": [5, 35], "dia": 10},
+      {"label": "R5 (65, 35)", "check": "cyl", "axis": "z", "at": [65, 35], "dia": 10},
+      {"label": "1 x 45°", "check": "chamfer", "value": 1}
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "shape": "raw",
+  "strict": true,
+  "image": "01_plate.png",
+  "model": "muse-spark-1.3-contributor",
+  "schema_bytes": 16638,
+  "http_status": 400,
+  "error": "{\"error\":{\"code\":null,\"message\":\"'required' is required to be supplied and to be an array including every key in properties. Missing 'description'.\",\"param\":\"schema\",\"type\":\"invalid_request_error\"}}"
+}
