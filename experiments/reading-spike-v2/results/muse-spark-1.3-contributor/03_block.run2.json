@@ -1,0 +1,140 @@
+{
+  "part": "03_block",
+  "set": "clean",
+  "image": "03_block.png",
+  "run": 2,
+  "model": "muse-spark-1.3-contributor",
+  "effort": "medium",
+  "spec": {
+    "description": "Flat 70x40x20 plate with R5 corners, central O12 thru and two O6 thru holes on the midline, 1x45 deg chamfer on all top outer edges. Assumed: the 20 dimension in TOP puts all three holes on the mid-depth (depth/2); the central bore is centred in X (length/2); the two O6 holes are symmetric about the centre with 46 pitch.",
+    "features": [
+      {
+        "distance": "thickness",
+        "id": "base",
+        "plane": "XY",
+        "profile": {
+          "height": "depth",
+          "radius": "corner_r",
+          "shape": "rounded_rect",
+          "width": "length"
+        },
+        "type": "extrude"
+      },
+      {
+        "center": [
+          "(length - hole_pitch) / 2",
+          "depth / 2"
+        ],
+        "diameter": "hole_dia",
+        "face": "top",
+        "id": "mount_hole",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "count_u": 2,
+        "feature": "mount_hole",
+        "id": "mount_holes",
+        "spacing_u": "hole_pitch",
+        "type": "linear_pattern"
+      },
+      {
+        "center": [
+          "length / 2",
+          "depth / 2"
+        ],
+        "diameter": "bore_dia",
+        "face": "top",
+        "id": "bore",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "edges": "top_outer",
+        "id": "top_chamfer",
+        "size": "chamfer_size",
+        "type": "chamfer"
+      }
+    ],
+    "name": "drilled_plate",
+    "parameters": {
+      "bore_dia": {
+        "description": "central through hole diameter",
+        "value": 12
+      },
+      "chamfer_size": {
+        "description": "45 deg chamfer size on all top edges",
+        "value": 1
+      },
+      "corner_r": {
+        "description": "plate corner radius in TOP view",
+        "value": 5
+      },
+      "depth": {
+        "description": "overall depth along Y",
+        "value": 40
+      },
+      "hole_dia": {
+        "description": "outer mounting hole diameter",
+        "value": 6
+      },
+      "hole_pitch": {
+        "description": "centre-to-centre distance between the two O6 holes",
+        "value": 46
+      },
+      "length": {
+        "description": "overall length along X",
+        "value": 70
+      },
+      "thickness": {
+        "description": "overall thickness/height along Z",
+        "value": 20
+      }
+    }
+  },
+  "output_text": "{\"description\": \"Flat 70x40x20 plate with R5 corners, central O12 thru and two O6 thru holes on the midline, 1x45 deg chamfer on all top outer edges. Assumed: the 20 dimension in TOP puts all three holes on the mid-depth (depth/2); the central bore is centred in X (length/2); the two O6 holes are symmetric about the centre with 46 pitch.\",\n  \"features\": [\n    {\n      \"distance\": \"thickness\",\n      \"id\": \"base\",\n      \"plane\": \"XY\",\n      \"profile\": {\n        \"height\": \"depth\",\n        \"radius\": \"corner_r\",\n        \"shape\": \"rounded_rect\",\n        \"width\": \"length\"\n      },\n      \"type\": \"extrude\"\n    },\n    {\n      \"center\": [\n        \"(length - hole_pitch) / 2\",\n        \"depth / 2\"\n      ],\n      \"diameter\": \"hole_dia\",\n      \"face\": \"top\",\n      \"id\": \"mount_hole\",\n      \"through\": true,\n      \"type\": \"hole\"\n    },\n    {\n      \"count_u\": 2,\n      \"feature\": \"mount_hole\",\n      \"id\": \"mount_holes\",\n      \"spacing_u\": \"hole_pitch\",\n      \"type\": \"linear_pattern\"\n    },\n    {\n      \"center\": [\n        \"length / 2\",\n        \"depth / 2\"\n      ],\n      \"diameter\": \"bore_dia\",\n      \"face\": \"top\",\n      \"id\": \"bore\",\n      \"through\": true,\n      \"type\": \"hole\"\n    },\n    {\n      \"edges\": \"top_outer\",\n      \"id\": \"top_chamfer\",\n      \"size\": \"chamfer_size\",\n      \"type\": \"chamfer\"\n    }\n  ],\n  \"name\": \"drilled_plate\",\n  \"parameters\": {\n    \"bore_dia\": {\n      \"description\": \"central through hole diameter\",\n      \"value\": 12\n    },\n    \"chamfer_size\": {\n      \"description\": \"45 deg chamfer size on all top edges\",\n      \"value\": 1\n    },\n    \"corner_r\": {\n      \"description\": \"plate corner radius in TOP view\",\n      \"value\": 5\n    },\n    \"depth\": {\n      \"description\": \"overall depth along Y\",\n      \"value\": 40\n    },\n    \"hole_dia\": {\n      \"description\": \"outer mounting hole diameter\",\n      \"value\": 6\n    },\n    \"hole_pitch\": {\n      \"description\": \"centre-to-centre distance between the two O6 holes\",\n      \"value\": 46\n    },\n    \"length\": {\n      \"description\": \"overall length along X\",\n      \"value\": 70\n    },\n    \"thickness\": {\n      \"description\": \"overall thickness/height along Z\",\n      \"value\": 20\n    }\n  }\n}",
+  "usage": {
+    "input_tokens": 6512,
+    "input_tokens_details": {
+      "cached_tokens": 5105
+    },
+    "output_tokens": 2946,
+    "output_tokens_details": {
+      "reasoning_tokens": 2315
+    },
+    "total_tokens": 9458
+  },
+  "cost_usd": 0.0007401100000000001,
+  "seconds": 21.9,
+  "score": {
+    "compiles": true,
+    "bbox_ok": true,
+    "bbox": [
+      70.0,
+      40.0,
+      20.0
+    ],
+    "iou": 1.0,
+    "dims_ok": "13/13",
+    "perfect": true,
+    "failed_dims": [],
+    "warnings": [],
+    "params": {
+      "parameters": 8,
+      "expr_fields": 12,
+      "computed_exprs": 4,
+      "literal_numbers": 1,
+      "examples": [
+        "(length - hole_pitch) / 2",
+        "depth / 2",
+        "length / 2",
+        "depth / 2"
+      ]
+    },
+    "x_param": {
+      "param": "length",
+      "iou_after_change": 1.0,
+      "ok": true
+    }
+  }
+}
