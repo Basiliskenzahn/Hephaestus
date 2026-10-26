@@ -1,0 +1,109 @@
+{
+  "sketch": "02_l_bracket__rough.jpg",
+  "model": "muse-spark-1.3-contributor",
+  "effort": "medium",
+  "spec": {
+    "bodies": [
+      {
+        "dx": 60,
+        "dy": 40,
+        "dz": 5,
+        "name": "base",
+        "x0": 0,
+        "y0": 0,
+        "z0": 0
+      },
+      {
+        "dx": 60,
+        "dy": 5,
+        "dz": 35,
+        "name": "upright",
+        "x0": 0,
+        "y0": 35,
+        "z0": 5
+      }
+    ],
+    "chamfers": [],
+    "fillets": [],
+    "holes": [
+      {
+        "axis": "Y",
+        "diameter": 5,
+        "through": true,
+        "u": 15,
+        "v": 28
+      },
+      {
+        "axis": "Y",
+        "diameter": 5,
+        "through": true,
+        "u": 45,
+        "v": 28
+      }
+    ],
+    "overall": {
+      "x": 60,
+      "y": 40,
+      "z": 40
+    },
+    "part_name": "L-bracket",
+    "slots": [
+      {
+        "axis": "Z",
+        "length": 20,
+        "long_direction": "Y",
+        "u": 30,
+        "v": 17.5,
+        "width": 6
+      }
+    ],
+    "uncertainties": "Hole Z=28 assumed measured from bottom (Z=0) to hole centres; hole X=15 and 45 from 15 left offset and 30 spacing, symmetric in 60 width. Vertical wall assumed at back Y=35-40 and base at bottom Z=0-5 from SIDE and FRONT/TOP strips. Slot in base assumed axis Z, width 6 in X, length 20 along Y, centred in X at 30 by symmetry and centred in Y at 17.5 from front edge to slot centre; 20 and 17.5 labelling ambiguous in sketch.",
+    "views_identified": [
+      "FRONT",
+      "SIDE",
+      "TOP"
+    ]
+  },
+  "usage": {
+    "input_tokens": 3664,
+    "input_tokens_details": {
+      "cached_tokens": 3569
+    },
+    "output_tokens": 4297,
+    "output_tokens_details": {
+      "reasoning_tokens": 3904
+    },
+    "total_tokens": 7961
+  },
+  "cost_usd": 0.0008760380000000001,
+  "seconds": 36.3,
+  "score": {
+    "overall_ok": "3/3",
+    "body_iou": 1.0,
+    "features_ok": "2/3",
+    "extra_features": 1,
+    "perfect": false,
+    "detail": {
+      "holes": {
+        "ok": 2,
+        "missing": 0,
+        "extra": 0
+      },
+      "slots": {
+        "ok": 0,
+        "missing": 1,
+        "extra": 1
+      },
+      "fillets": {
+        "ok": 0,
+        "missing": 0,
+        "extra": 0
+      },
+      "chamfers": {
+        "ok": 0,
+        "missing": 0,
+        "extra": 0
+      }
+    }
+  }
+}
