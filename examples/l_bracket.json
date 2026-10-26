@@ -1,0 +1,27 @@
+{
+  "name": "l_bracket",
+  "description": "Reading-spike sketch 02: 60 wide L-bracket, 40 x 40 legs, 5 thick, 2x Ø5 in the upright, 20 x 6 slot in the base.",
+  "parameters": {
+    "width": {"value": 60, "description": "bracket width along X"},
+    "leg": {"value": 40, "description": "base depth (Y) and upright height (Z)"},
+    "t": {"value": 5, "description": "sheet thickness"},
+    "hole_d": {"value": 5, "description": "upright hole diameter"},
+    "hole_x": {"value": 15, "description": "first upright hole from the left edge"},
+    "hole_pitch": {"value": 30, "description": "upright hole spacing"},
+    "hole_z": {"value": 28, "description": "upright hole height above the bottom"},
+    "slot_y": {"value": 17.5, "description": "slot centre from the front edge"},
+    "slot_len": {"value": 20, "description": "slot overall length"},
+    "slot_w": {"value": 6, "description": "slot width"}
+  },
+  "features": [
+    {"id": "base", "type": "extrude", "plane": "XY",
+     "profile": {"shape": "rect", "width": "width", "height": "leg"}, "distance": "t"},
+    {"id": "upright", "type": "extrude", "plane": "XY",
+     "profile": {"shape": "rect", "v": "leg - t", "width": "width", "height": "t"}, "distance": "leg"},
+    {"id": "upright_hole", "type": "hole", "face": "back", "center": ["hole_x", "hole_z"],
+     "diameter": "hole_d", "through": true},
+    {"id": "upright_holes", "type": "linear_pattern", "feature": "upright_hole", "count_u": 2, "spacing_u": "hole_pitch"},
+    {"id": "base_slot", "type": "slot", "face": "top", "center": ["width / 2", "slot_y"],
+     "length": "slot_len", "width": "slot_w", "angle": 0, "through": true}
+  ]
+}

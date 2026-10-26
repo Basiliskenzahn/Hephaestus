@@ -1,0 +1,28 @@
+{
+  "name": "enclosure",
+  "description": "Open-top electronics enclosure: rounded box shelled to 2 mm walls, cable hole in the front wall, 4 floor screw holes.",
+  "parameters": {
+    "length": {"value": 100, "description": "outer length along X"},
+    "width": {"value": 60, "description": "outer width along Y"},
+    "height": {"value": 40, "description": "outer height"},
+    "corner_r": {"value": 6, "description": "outer vertical corner radius"},
+    "wall": {"value": 2, "description": "wall and floor thickness"},
+    "cable_d": {"value": 8, "description": "cable hole diameter"},
+    "cable_z": {"value": 20, "description": "cable hole centre height"},
+    "screw_d": {"value": 3.2, "description": "floor screw hole diameter"},
+    "screw_inset": {"value": 10, "description": "floor screw hole centre from the outer edges"}
+  },
+  "features": [
+    {"id": "box", "type": "extrude", "plane": "XY",
+     "profile": {"shape": "rect", "width": "length", "height": "width"}, "distance": "height"},
+    {"id": "corners", "type": "fillet", "radius": "corner_r", "edges": "vertical_outer"},
+    {"id": "hollow", "type": "shell", "thickness": "wall", "open_faces": ["top"]},
+    {"id": "cable_hole", "type": "hole", "face": "front", "center": ["length / 2", "cable_z"],
+     "diameter": "cable_d", "depth": "wall + 1"},
+    {"id": "cable_edge", "type": "chamfer", "size": 0.5, "edges": "top_of_feature:cable_hole"},
+    {"id": "screw_hole", "type": "hole", "face": "bottom", "center": ["screw_inset", "screw_inset"],
+     "diameter": "screw_d", "depth": "wall + 1"},
+    {"id": "screw_holes", "type": "linear_pattern", "feature": "screw_hole",
+     "count_u": 2, "spacing_u": "length - 2 * screw_inset", "count_v": 2, "spacing_v": "width - 2 * screw_inset"}
+  ]
+}

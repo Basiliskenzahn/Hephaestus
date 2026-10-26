@@ -1,0 +1,23 @@
+{
+  "name": "flanged_bushing",
+  "description": "Revolved flanged bushing on a vertical axis with 4 bolt holes in the flange.",
+  "parameters": {
+    "flange_d": {"value": 40, "description": "flange outer diameter"},
+    "flange_t": {"value": 5, "description": "flange thickness"},
+    "body_d": {"value": 24, "description": "body outer diameter"},
+    "length": {"value": 30, "description": "overall length"},
+    "bore_d": {"value": 16, "description": "bore diameter"},
+    "bolt_circle_d": {"value": 32, "description": "bolt hole circle diameter"},
+    "bolt_d": {"value": 4, "description": "bolt hole diameter"},
+    "c": {"value": "flange_d / 2", "description": "axis position in X and Y (bbox starts at 0)"}
+  },
+  "features": [
+    {"id": "body", "type": "revolve", "plane": "XZ", "offset": "c", "axis": "v", "axis_origin": ["c", 0],
+     "profile": {"shape": "polygon", "points": [
+       ["c + bore_d / 2", 0], ["c + flange_d / 2", 0], ["c + flange_d / 2", "flange_t"],
+       ["c + body_d / 2", "flange_t"], ["c + body_d / 2", "length"], ["c + bore_d / 2", "length"]]}},
+    {"id": "bolt_hole", "type": "hole", "plane": "XY", "offset": 0, "direction": "positive",
+     "center": ["c + bolt_circle_d / 2", "c"], "diameter": "bolt_d", "through": true},
+    {"id": "bolt_holes", "type": "circular_pattern", "feature": "bolt_hole", "center": ["c", "c"], "count": 4}
+  ]
+}

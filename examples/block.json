@@ -1,0 +1,24 @@
+{
+  "name": "block",
+  "description": "Reading-spike sketch 03: 70 x 40 x 20 block, R5 vertical corners, 1 mm top chamfer, Ø12 and 2x Ø6 through.",
+  "parameters": {
+    "length": {"value": 70, "description": "along X"},
+    "width": {"value": 40, "description": "along Y"},
+    "height": {"value": 20, "description": "along Z"},
+    "corner_r": {"value": 5, "description": "vertical corner radius"},
+    "top_chamfer": {"value": 1, "description": "chamfer on the top outer edges"},
+    "bore_d": {"value": 12, "description": "centre hole diameter"},
+    "side_d": {"value": 6, "description": "side hole diameter"},
+    "side_pitch": {"value": 46, "description": "distance between the two side holes"}
+  },
+  "features": [
+    {"id": "body", "type": "extrude", "plane": "XY",
+     "profile": {"shape": "rect", "width": "length", "height": "width"}, "distance": "height"},
+    {"id": "bore", "type": "hole", "face": "top", "center": ["length / 2", "width / 2"], "diameter": "bore_d", "through": true},
+    {"id": "side_hole", "type": "hole", "face": "top", "center": ["(length - side_pitch) / 2", "width / 2"],
+     "diameter": "side_d", "through": true},
+    {"id": "side_holes", "type": "linear_pattern", "feature": "side_hole", "count_u": 2, "spacing_u": "side_pitch"},
+    {"id": "corners", "type": "fillet", "radius": "corner_r", "edges": "vertical_outer"},
+    {"id": "top_edges", "type": "chamfer", "size": "top_chamfer", "edges": "top_outer"}
+  ]
+}
