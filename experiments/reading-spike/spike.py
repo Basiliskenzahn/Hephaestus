@@ -55,18 +55,50 @@ def build_request(image_path, model, effort):
     }
 
 
-def call(body):
+def read_stream(lines):
+    """Parse a Responses API SSE stream. Returns the final response object.
+
+    Streaming keeps bytes flowing while the model reasons, so idle-connection
+    timeouts (~30 s somewhere on the path) don't kill long requests.
+    """
+    final, deltas, event = None, [], None
+    for raw in lines:
+        line = raw.decode() if isinstance(raw, bytes) else raw
+        if line.startswith("event:"):
+            event = line[6:].strip()
+        elif line.startswith("data:"):
+            payload = line[5:].strip()
+            if payload == "[DONE]":
+                break
+            d = json.loads(payload)
+            kind = d.get("type") or event
+            if kind == "response.output_text.delta":
+                deltas.append(d.get("delta", ""))
+            elif kind in ("response.completed", "response.incomplete"):
+                final = d.get("response", d)
+            elif kind in ("response.failed", "error"):
+                sys.exit(f"Stream error: {json.dumps(d)[:800]}")
+    if final is None:
+        if not deltas:
+            sys.exit("Stream ended without a response")
+        final = {"output": [{"type": "message", "content": [{"type": "output_text",
+                                                             "text": "".join(deltas)}]}]}
+    return final
+
+
+def call(body, stream=True):
     # Locally: set MODEL_API_KEY. In a Claude Code cloud environment the key can instead be a
     # network secret for api.meta.ai, which the proxy attaches outside the VM, so no header is sent here.
     key = os.environ.get("MODEL_API_KEY")
     headers = {"Authorization": f"Bearer {key}"} if key else {}
     t0 = time.time()
-    r = requests.post(API, headers=headers, json=body, timeout=300)
+    r = requests.post(API, headers=headers, json={**body, "stream": stream},
+                      timeout=(15, 120), stream=stream)  # 120 s max gap between bytes
     if r.status_code == 401 and not key:
         sys.exit("401 from Meta API: set MODEL_API_KEY, or add a network secret for api.meta.ai")
     if r.status_code != 200:
         sys.exit(f"API error {r.status_code}: {r.text[:800]}")
-    data = r.json()
+    data = read_stream(r.iter_lines()) if stream else r.json()
     text = None
     for item in data.get("output", []):
         if item.get("type") == "message":
@@ -164,6 +196,7 @@ def main():
                     help="clean = original PNGs, photo/rough = fake phone photos from make_photos.py")
     ap.add_argument("--only", help="run a single image, e.g. 02_l_bracket__photo.jpg")
     ap.add_argument("--max-usd", type=float, default=1.0, help="stop if spend in this run exceeds this")
+    ap.add_argument("--no-stream", action="store_true", help="disable streaming (not recommended: ~30 s timeouts)")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--score", help="re-score a saved result JSON instead of calling the API")
     args = ap.parse_args()
@@ -194,7 +227,7 @@ def main():
             if spent > args.max_usd:
                 print(f"Stopping: spent ${spent:.3f} > --max-usd {args.max_usd}")
                 break
-            spec, usage, secs = call(body)
+            spec, usage, secs = call(body, stream=not args.no_stream)
             c = cost(args.model, usage)
             spent += c
             s = score(spec, truth_all[truth_key(name)])
