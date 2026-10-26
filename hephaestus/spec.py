@@ -44,8 +44,8 @@ class Parameter(_Model):
 # ---------------------------------------------------------------- profiles (2D, in plane coordinates)
 class Rect(_Model):
     shape: Literal["rect"]
-    u: Num = 0
-    v: Num = 0
+    u: Num = 0.0
+    v: Num = 0.0
     width: Num = Field(description="extent along u")
     height: Num = Field(description="extent along v")
     anchor: Literal["corner", "center"] = Field("corner", description="(u, v) is the lower-left corner or the centre")
@@ -53,8 +53,8 @@ class Rect(_Model):
 
 class RoundedRect(_Model):
     shape: Literal["rounded_rect"]
-    u: Num = 0
-    v: Num = 0
+    u: Num = 0.0
+    v: Num = 0.0
     width: Num
     height: Num
     radius: Num = Field(description="corner radius, at most half the smaller side")
@@ -112,7 +112,7 @@ class _Feature(_Model):
 class Extrude(_Feature):
     type: Literal["extrude"]
     plane: PlaneName
-    offset: Num = Field(0, description="position of the sketch plane along its normal axis")
+    offset: Num = Field(0.0, description="position of the sketch plane along its normal axis")
     profile: Profile
     distance: Num
     direction: Direction = Field("positive", description="along the plane's normal axis (+Z for XY, +Y for XZ, +X for YZ)")
@@ -122,11 +122,11 @@ class Extrude(_Feature):
 class Revolve(_Feature):
     type: Literal["revolve"]
     plane: PlaneName
-    offset: Num = 0
+    offset: Num = 0.0
     profile: Profile
     axis: Literal["u", "v"] = Field(description="axis direction in the sketch plane")
-    axis_origin: Point = Field(default_factory=lambda: [0, 0], description="a point on the axis, in (u, v)")
-    angle: Num = 360
+    axis_origin: Point = Field(default_factory=lambda: [0.0, 0.0], description="a point on the axis, in (u, v)")
+    angle: Num = 360.0
     operation: Operation = "add"
 
 
@@ -137,14 +137,14 @@ class Counterbore(_Model):
 
 class Countersink(_Model):
     diameter: Num
-    angle: Num = Field(90, description="included angle in degrees")
+    angle: Num = Field(90.0, description="included angle in degrees")
 
 
 class _Placed(_Feature):
     """Holes and slots: placed on a bounding-box face, or on an explicit plane."""
     face: Optional[FaceName] = Field(None, description="drill into this face of the part's bounding box")
     plane: Optional[PlaneName] = Field(None, description="alternative to face: start on this plane at offset")
-    offset: Num = 0
+    offset: Num = 0.0
     direction: Literal["positive", "negative"] = Field("negative", description="drill direction when using plane")
     center: Point
     depth: Optional[Num] = None
@@ -176,16 +176,16 @@ class Slot(_Placed):
     type: Literal["slot"]
     length: Num = Field(description="overall end-to-end length")
     width: Num
-    angle: Num = Field(0, description="degrees from the u axis, counter-clockwise in (u, v)")
+    angle: Num = Field(0.0, description="degrees from the u axis, counter-clockwise in (u, v)")
 
 
 class LinearPattern(_Feature):
     type: Literal["linear_pattern"]
     feature: str = Field(description="id of an earlier hole or slot")
-    count_u: Num = 1
-    spacing_u: Num = 0
-    count_v: Num = 1
-    spacing_v: Num = 0
+    count_u: Num = 1.0
+    spacing_u: Num = 0.0
+    count_v: Num = 1.0
+    spacing_v: Num = 0.0
 
 
 class CircularPattern(_Feature):
@@ -193,7 +193,7 @@ class CircularPattern(_Feature):
     feature: str = Field(description="id of an earlier hole or slot")
     center: Point
     count: Num
-    angle: Num = Field(360, description="total angle; 360 spreads the copies evenly around")
+    angle: Num = Field(360.0, description="total angle; 360 spreads the copies evenly around")
 
 
 class Fillet(_Feature):
