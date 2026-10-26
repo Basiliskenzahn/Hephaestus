@@ -64,6 +64,7 @@ Conventions (follow exactly):
 - Model the solid as a union of axis-aligned boxes in "bodies" (one box for a plate, two for an L-bracket).
 - Hole and slot centres are in the plane perpendicular to their axis: axis Z -> (u,v)=(x,y); axis Y -> (u,v)=(x,z); axis X -> (u,v)=(y,z).
 - Slot "length" is the overall end-to-end length, "width" is the slot width.
+- A slot's "long_direction" is the axis along which its length dimension is measured, not the direction it appears to run in the drawing.
 - A note like "t = 6" is the plate thickness.
 - Positions not dimensioned explicitly are usually symmetric about the part centre; if you assume that, say so in "uncertainties".
 - Use only dimensions that are written on the drawing or follow directly from them. Do not guess unstated features.
