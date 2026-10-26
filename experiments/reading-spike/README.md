@@ -5,7 +5,7 @@ First experiment of the build. Question it answers: can Muse Spark read a dimens
 ## Setup
 ```
 pip install requests numpy matplotlib
-export MODEL_API_KEY=...        # Windows PowerShell: $env:MODEL_API_KEY="..."
+export MODEL_API_KEY=...        # not needed in a cloud environment with a network secret for api.meta.ai
 ```
 
 ## Run

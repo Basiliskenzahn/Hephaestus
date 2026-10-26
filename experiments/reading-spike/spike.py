@@ -55,11 +55,14 @@ def build_request(image_path, model, effort):
 
 
 def call(body):
+    # Locally: set MODEL_API_KEY. In a Claude Code cloud environment the key can instead be a
+    # network secret for api.meta.ai, which the proxy attaches outside the VM, so no header is sent here.
     key = os.environ.get("MODEL_API_KEY")
-    if not key:
-        sys.exit("MODEL_API_KEY is not set")
+    headers = {"Authorization": f"Bearer {key}"} if key else {}
     t0 = time.time()
-    r = requests.post(API, headers={"Authorization": f"Bearer {key}"}, json=body, timeout=300)
+    r = requests.post(API, headers=headers, json=body, timeout=300)
+    if r.status_code == 401 and not key:
+        sys.exit("401 from Meta API: set MODEL_API_KEY, or add a network secret for api.meta.ai")
     if r.status_code != 200:
         sys.exit(f"API error {r.status_code}: {r.text[:800]}")
     data = r.json()
