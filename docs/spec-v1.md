@@ -24,6 +24,8 @@ python -m hephaestus.spec            # print the JSON Schema (for structured out
 - **Faces** (`top`, `bottom`, `front`, `back`, `left`, `right`) are the faces of the current part's
   *bounding box*. Holes and slots placed on a face use that face's plane: top/bottom → XY, front/back → XZ,
   left/right → YZ. Note that "top" of an L-bracket is the top of the upright (z = 40), not the base.
+  To start on a face of one feature instead, use `<face>_of_feature:<id>` with an earlier added extrude or
+  revolve: `"face": "top_of_feature:base"` is the top of the base plate (z = 5).
 
 ## Parameters and expressions
 Every dimension is a number or a string expression: numbers, parameter names, `+ - * /`, parentheses
@@ -79,10 +81,12 @@ on one side of it.
  "counterbore": {"diameter": 6.5, "depth": 3.5}}
 {"id": "csk", "type": "hole", "face": "top", "center": [30, 10], "diameter": 4.5, "through": true,
  "countersink": {"diameter": 9, "angle": 90}}
+{"id": "base_pocket", "type": "hole", "face": "top_of_feature:base", "center": [30, 15],
+ "diameter": 6, "depth": 3}
 {"id": "from_below", "type": "hole", "plane": "XY", "offset": 0, "direction": "positive",
  "center": [15, 15], "diameter": 8, "depth": 4}
 ```
-Give exactly one of `face` or `plane` (plane + `offset` + drill `direction`), and exactly one of
+`face` is a bbox face of the part or `<face>_of_feature:<id>` (see Conventions). Give exactly one of `face` or `plane` (plane + `offset` + drill `direction`), and exactly one of
 `through: true` or `depth`. Through-holes cut across the whole part along w.
 
 ### slot

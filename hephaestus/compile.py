@@ -149,7 +149,7 @@ def resolve(spec, overrides=None):
 
 
 def check_references(feats):
-    errors, seen = [], {}
+    errors, seen, op_of = [], {}, {}
     if feats[0]["type"] not in ("extrude", "revolve") or feats[0]["operation"] != "add":
         errors.append(f"feature {feats[0]['id']}: the first feature must create material "
                       "(an extrude or revolve with operation 'add')")
@@ -169,7 +169,16 @@ def check_references(feats):
             elif seen[ref] in ("revolve", "fillet", "chamfer", "shell"):
                 errors.append(f"feature {fid}: top_of_feature works for extrude, hole, slot and patterns, "
                               f"not for a {seen[ref]} ('{ref}')")
+        if t in ("hole", "slot") and f["face"] and "_of_feature:" in f["face"]:
+            ref = f["face"].split("_of_feature:", 1)[1]
+            if ref not in seen:
+                errors.append(f"feature {fid}: face '{f['face']}' refers to '{ref}', which is not an earlier feature"
+                              f" (earlier: {', '.join(seen) or 'none'})")
+            elif seen[ref] not in ("extrude", "revolve") or op_of[ref] != "add":
+                errors.append(f"feature {fid}: face '{f['face']}' must refer to an added extrude or revolve; "
+                              f"'{ref}' is a {seen[ref]}")
         seen[fid] = t
+        op_of[fid] = f.get("operation")
     if errors:
         raise SpecError(errors)
 
@@ -272,24 +281,35 @@ def profile_face(prof, plane, w, fid):
 
 
 # ---------------------------------------------------------------- tools for holes and slots
-def placement(f, bbox):
-    """Where a hole/slot starts: (plane, w_start, drill sign, description)."""
+def split_face(face):
+    """'top' -> ('top', None); 'top_of_feature:base' -> ('top', 'base')."""
+    if "_of_feature:" in face:
+        name, ref = face.split("_of_feature:", 1)
+        return name, ref
+    return face, None
+
+
+def placement(f, bbox, boxes):
+    """Where a hole/slot starts: (plane, w_start, drill sign, description, bbox its centre must lie in)."""
     if f["face"]:
-        plane, side = FACES[f["face"]]
-        w_rng = in_plane(bbox, plane)[2]
+        name, ref = split_face(f["face"])
+        plane, side = FACES[name]
+        box = boxes[ref] if ref else bbox
+        w_rng = in_plane(box, plane)[2]
         w_start = w_rng[1] if side == "max" else w_rng[0]
-        return plane, w_start, (-1.0 if side == "max" else 1.0), f"the {f['face']} face"
+        where = f"the {name} face of feature {ref}" if ref else f"the {name} face"
+        return plane, w_start, (-1.0 if side == "max" else 1.0), where, box
     sign = 1.0 if f["direction"] == "positive" else -1.0
-    return f["plane"], f["offset"], sign, f"plane {f['plane']} at offset {fmt(f['offset'])}"
+    return f["plane"], f["offset"], sign, f"plane {f['plane']} at offset {fmt(f['offset'])}", bbox
 
 
-def check_center(fid, center, plane, where, bbox):
+def check_center(fid, center, plane, where, bbox, whose="the part"):
     (ulo, uhi), (vlo, vhi), _ = in_plane(bbox, plane)
     u, v = center
     if ulo - TOL <= u <= uhi + TOL and vlo - TOL <= v <= vhi + TOL:
         return
     un, vn = (AXIS_NAMES[i] for i in PLANE_AXES[plane][:2])
-    raise SpecError([f"feature {fid}: centre {pt(center)} on {where} is outside the part bbox in {plane} "
+    raise SpecError([f"feature {fid}: centre {pt(center)} on {where} is outside {whose} bbox in {plane} "
                      f"({fmt(uhi - ulo)} x {fmt(vhi - vlo)}: {un} {fmt(ulo)}..{fmt(uhi)}, "
                      f"{vn} {fmt(vlo)}..{fmt(vhi)})"])
 
@@ -307,16 +327,16 @@ def _cylinder(plane, u, v, w0, length, d):
     return cq.Solid.makeCylinder(d / 2, length, world(plane, u, v, w0), axis_vec(plane, "w"))
 
 
-def hole_tool(f, bbox):
+def hole_tool(f, bbox, boxes):
     fid = f["id"]
-    plane, w_start, sign, where = placement(f, bbox)
+    plane, w_start, sign, where, box = placement(f, bbox, boxes)
     d = f["diameter"]
     if d <= 0:
         raise SpecError([f"feature {fid}: diameter must be positive (got {fmt(d)})"])
     if not f["through"] and f["depth"] <= 0:
         raise SpecError([f"feature {fid}: depth must be positive (got {fmt(f['depth'])})"])
     u, v = f["center"]
-    check_center(fid, (u, v), plane, where, bbox)
+    check_center(fid, (u, v), plane, where, box, "the part" if box is bbox else "that feature's")
     w0, length = _span(f, plane, w_start, sign, bbox, f["depth"])
     tool = _cylinder(plane, u, v, w0, length, d)
     cb, cs = f.get("counterbore"), f.get("countersink")
@@ -343,9 +363,9 @@ def hole_tool(f, bbox):
     return tool, plane, (u, v), cap
 
 
-def slot_tool(f, bbox):
+def slot_tool(f, bbox, boxes):
     fid = f["id"]
-    plane, w_start, sign, where = placement(f, bbox)
+    plane, w_start, sign, where, box = placement(f, bbox, boxes)
     L, W = f["length"], f["width"]
     if W <= 0 or L < W - TOL:
         raise SpecError([f"feature {fid}: slot needs width > 0 and length >= width (got length {fmt(L)}, width {fmt(W)}); "
@@ -353,7 +373,7 @@ def slot_tool(f, bbox):
     if not f["through"] and f["depth"] <= 0:
         raise SpecError([f"feature {fid}: depth must be positive (got {fmt(f['depth'])})"])
     cu, cv = f["center"]
-    check_center(fid, (cu, cv), plane, where, bbox)
+    check_center(fid, (cu, cv), plane, where, box, "the part" if box is bbox else "that feature's")
     w0, length = _span(f, plane, w_start, sign, bbox, f["depth"])
     th = math.radians(f["angle"])
     e, n = (math.cos(th), math.sin(th)), (-math.sin(th), math.cos(th))
@@ -510,7 +530,7 @@ def _pattern(f, part, records, feats_by_id, bbox):
     fid, src = f["id"], feats_by_id[f["feature"]]
     tools, caps = records[src["id"]]
     base_tool, cap0 = tools[0], caps[0]
-    plane = src["plane"] if src["plane"] else FACES[src["face"]][0]
+    plane = src["plane"] if src["plane"] else FACES[split_face(src["face"])[0]][0]
     U, Vv = axis_vec(plane, "u"), axis_vec(plane, "v")
     cu, cv = src["center"]
     copies = []
@@ -610,7 +630,7 @@ def _shell(f, part, bbox):
 
 def build(feats):
     """Run the feature list. Returns (solid, feature_status). Raises SpecError on the first failing feature."""
-    part, status, records, by_id = None, [], {}, {}
+    part, status, records, by_id, boxes = None, [], {}, {}, {}
     for idx, f in enumerate(feats):
         fid, t = f["id"], f["type"]
         before = part.Volume() if part is not None else 0.0
@@ -621,7 +641,7 @@ def build(feats):
             elif t == "revolve":
                 part, rec = _revolve(f, part)
             elif t in ("hole", "slot"):
-                tool, plane, center, cap = (hole_tool if t == "hole" else slot_tool)(f, bbox)
+                tool, plane, center, cap = (hole_tool if t == "hole" else slot_tool)(f, bbox, boxes)
                 part = _combine(part, tool, "cut", fid, f"{t} at {pt(center)}")
                 rec = ([tool], [cap])
             elif t in ("linear_pattern", "circular_pattern"):
@@ -636,6 +656,8 @@ def build(feats):
             raise SpecError(e.errors, status) from None
         if rec[0] is not None:
             records[fid] = rec
+        if t in ("extrude", "revolve") and f["operation"] == "add":
+            boxes[fid] = bbox_of(rec[0][0])
         by_id[fid] = f
         status.append({"id": fid, "type": t, "status": "ok",
                        "volume_delta_mm3": round(part.Volume() - before, 4)})

@@ -112,3 +112,43 @@ def test_vertical_outer_skips_hole_and_concave_edges():
     side = r.silhouettes["side"]
     assert side.at(35.2, 5.2)                                         # inner corner stays sharp (filled)
     assert not side.at(0.2, 4.8)                                      # outer front-top corner is chamfered
+
+
+def bracket(*extra):
+    return part(box(60, 40, 5, "base"),
+                {"id": "upright", "type": "extrude", "plane": "XY", "distance": 40,
+                 "profile": {"shape": "rect", "v": 35, "width": 60, "height": 5}}, *extra)
+
+
+def test_blind_hole_from_the_top_of_an_earlier_feature():
+    hole = {"id": "h", "type": "hole", "face": "top_of_feature:base", "center": [30, 15], "diameter": 6, "depth": 3}
+    r = compile(bracket(hole))
+    full = 60 * 40 * 5 + 60 * 5 * 35
+    assert r.metrics["volume_mm3"] == pytest.approx(full - pi * 9 * 3, rel=1e-6)
+    assert count_holes(r.silhouettes["top"].mask) == 0           # blind, starts at z = 5 and stops at z = 2
+    # the same hole on the part's top face would start at z = 40, above the base, and miss
+    hole["face"] = "top"
+    with pytest.raises(Exception, match="feature h: hole at \\(30, 15\\) removes no material"):
+        compile(bracket(hole))
+
+
+def test_feature_face_on_the_front_of_the_upright():
+    hole = {"id": "h", "type": "hole", "face": "front_of_feature:upright", "center": [30, 25], "diameter": 5,
+            "depth": 2}
+    r = compile(bracket(hole))
+    assert r.metrics["volume_mm3"] == pytest.approx(60 * 40 * 5 + 60 * 5 * 35 - pi * 6.25 * 2, rel=1e-6)
+
+
+def test_feature_face_errors():
+    bad_ref = {"id": "h", "type": "hole", "face": "top_of_feature:bse", "center": [30, 15], "diameter": 6, "depth": 3}
+    with pytest.raises(Exception, match="feature h: face 'top_of_feature:bse' refers to 'bse', which is not an earlier"):
+        compile(bracket(bad_ref))
+    outside = {"id": "h", "type": "hole", "face": "top_of_feature:upright", "center": [30, 15], "diameter": 4,
+               "depth": 3}
+    with pytest.raises(Exception, match=r"feature h: centre \(30, 15\) on the top face of feature upright is outside "
+                                        r"that feature's bbox in XY \(60 x 5: x 0..60, y 35..40\)"):
+        compile(bracket(outside))
+    first = {"id": "h1", "type": "hole", "face": "top", "center": [30, 15], "diameter": 4, "through": True}
+    on_hole = {"id": "h2", "type": "hole", "face": "top_of_feature:h1", "center": [30, 15], "diameter": 4, "depth": 1}
+    with pytest.raises(Exception, match="must refer to an added extrude or revolve; 'h1' is a hole"):
+        compile(bracket(first, on_hole))

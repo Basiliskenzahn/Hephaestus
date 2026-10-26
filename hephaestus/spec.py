@@ -10,6 +10,8 @@ Sketch planes and their 2D coordinates (u, v); w is the plane normal axis:
   YZ -> (u, v, w) = (y, z, x)
 Holes and slots can instead name a face of the current part's bounding box
 ("top", "bottom", "front", "back", "left", "right"); top/bottom use XY, front/back XZ, left/right YZ.
+"<face>_of_feature:<id>" uses the bounding box of an earlier added extrude/revolve instead, e.g.
+"top_of_feature:base" is the top of the base plate even when an upright sticks up above it.
 
 Run `python -m hephaestus.spec` to print the JSON Schema.
 """
@@ -28,6 +30,7 @@ Operation = Literal["add", "cut"]
 
 EDGE_SELECTOR_RE = r"^(vertical_outer|top_outer|bottom_outer|all_outer|top_of_feature:[A-Za-z][A-Za-z0-9_\-]*)$"
 FEATURE_ID_RE = r"^[A-Za-z][A-Za-z0-9_\-]*$"
+FACE_RE = r"^(top|bottom|front|back|left|right)(_of_feature:[A-Za-z][A-Za-z0-9_\-]*)?$"
 
 
 class _Model(BaseModel):
@@ -142,7 +145,9 @@ class Countersink(_Model):
 
 class _Placed(_Feature):
     """Holes and slots: placed on a bounding-box face, or on an explicit plane."""
-    face: Optional[FaceName] = Field(None, description="drill into this face of the part's bounding box")
+    face: Optional[str] = Field(None, pattern=FACE_RE,
+                                description="drill into this face of the part's bounding box (top, bottom, front, back, "
+                                            "left, right), or of an earlier added feature: '<face>_of_feature:<id>'")
     plane: Optional[PlaneName] = Field(None, description="alternative to face: start on this plane at offset")
     offset: Num = 0.0
     direction: Literal["positive", "negative"] = Field("negative", description="drill direction when using plane")
