@@ -646,13 +646,16 @@ def build(feats):
 
 
 # ---------------------------------------------------------------- exports
-def step_bytes(solid):
+def step_bytes(solid, name):
     with tempfile.TemporaryDirectory() as d:
         path = os.path.join(d, "part.step")
         cq.exporters.export(solid, path, cq.exporters.ExportTypes.STEP)
         text = open(path, encoding="latin-1").read()
     # fixed timestamp so the same spec gives byte-identical files
     text = re.sub(r"(FILE_NAME\('[^']*',)'[^']*'", r"\1'2026-01-01T00:00:00'", text, count=1)
+    # OCC numbers product names with a process-wide counter ("... translator 7.9 2"); use the part name
+    safe = re.sub(r"[^A-Za-z0-9_\- ]", "_", name)
+    text = re.sub(r"Open CASCADE STEP translator [\d.]+ \d+", safe, text)
     return text.encode("latin-1")
 
 
@@ -681,7 +684,7 @@ def compile(spec, overrides=None, mm_per_px=0.2):  # noqa: A001 - the name is th
     verts = np.array([v.toTuple() for v in verts], dtype=float)
     tris = np.array(tris, dtype=np.int64)
     stl = render.stl_bytes(verts, tris, f"hephaestus {spec.name}")
-    step = step_bytes(solid)
+    step = step_bytes(solid, spec.name)
     timings["export"] = time.perf_counter() - t
 
     t = time.perf_counter()
