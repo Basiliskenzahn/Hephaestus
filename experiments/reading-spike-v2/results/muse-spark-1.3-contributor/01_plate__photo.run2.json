@@ -1,0 +1,133 @@
+{
+  "part": "01_plate",
+  "set": "photo",
+  "image": "01_plate__photo.jpg",
+  "run": 2,
+  "model": "muse-spark-1.3-contributor",
+  "effort": "medium",
+  "spec": {
+    "description": "80x50x6 flat plate with central O20 thru and 4x O6 thru corner holes. Assumed: central bore is centred on plate (drawn symmetric on centrelines); 4 mounting holes form a symmetric rectangular pattern inset 8 from edges with 64x34 centre distances ((80-64)/2=8, (50-34)/2=8 consistent).",
+    "features": [
+      {
+        "distance": "thickness",
+        "id": "base",
+        "plane": "XY",
+        "profile": {
+          "height": "depth",
+          "shape": "rect",
+          "width": "length"
+        },
+        "type": "extrude"
+      },
+      {
+        "center": [
+          "length / 2",
+          "depth / 2"
+        ],
+        "diameter": "bore_dia",
+        "face": "top",
+        "id": "bore",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "center": [
+          "hole_inset",
+          "hole_inset"
+        ],
+        "diameter": "hole_dia",
+        "face": "top",
+        "id": "mount_hole",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "count_u": 2,
+        "count_v": 2,
+        "feature": "mount_hole",
+        "id": "mount_holes",
+        "spacing_u": "hole_pitch_x",
+        "spacing_v": "hole_pitch_y",
+        "type": "linear_pattern"
+      }
+    ],
+    "name": "mounting_plate",
+    "parameters": {
+      "bore_dia": {
+        "description": "central through hole diameter",
+        "value": 20
+      },
+      "depth": {
+        "description": "overall depth along Y (50 dim)",
+        "value": 50
+      },
+      "hole_dia": {
+        "description": "mounting hole diameter, 4x",
+        "value": 6
+      },
+      "hole_inset": {
+        "description": "mounting hole centre distance from plate edge in X and Y (8 dim both sides)",
+        "value": 8
+      },
+      "hole_pitch_x": {
+        "description": "mounting hole centre-to-centre distance along X (64 dim)",
+        "value": 64
+      },
+      "hole_pitch_y": {
+        "description": "mounting hole centre-to-centre distance along Y (34 dim)",
+        "value": 34
+      },
+      "length": {
+        "description": "overall length along X (80 dim)",
+        "value": 80
+      },
+      "thickness": {
+        "description": "plate thickness, t = 6",
+        "value": 6
+      }
+    }
+  },
+  "output_text": "{\"description\": \"80x50x6 flat plate with central O20 thru and 4x O6 thru corner holes. Assumed: central bore is centred on plate (drawn symmetric on centrelines); 4 mounting holes form a symmetric rectangular pattern inset 8 from edges with 64x34 centre distances ((80-64)/2=8, (50-34)/2=8 consistent).\",\n  \"features\": [\n    {\n      \"distance\": \"thickness\",\n      \"id\": \"base\",\n      \"plane\": \"XY\",\n      \"profile\": {\n        \"height\": \"depth\",\n        \"shape\": \"rect\",\n        \"width\": \"length\"\n      },\n      \"type\": \"extrude\"\n    },\n    {\n      \"center\": [\n        \"length / 2\",\n        \"depth / 2\"\n      ],\n      \"diameter\": \"bore_dia\",\n      \"face\": \"top\",\n      \"id\": \"bore\",\n      \"through\": true,\n      \"type\": \"hole\"\n    },\n    {\n      \"center\": [\n        \"hole_inset\",\n        \"hole_inset\"\n      ],\n      \"diameter\": \"hole_dia\",\n      \"face\": \"top\",\n      \"id\": \"mount_hole\",\n      \"through\": true,\n      \"type\": \"hole\"\n    },\n    {\n      \"count_u\": 2,\n      \"count_v\": 2,\n      \"feature\": \"mount_hole\",\n      \"id\": \"mount_holes\",\n      \"spacing_u\": \"hole_pitch_x\",\n      \"spacing_v\": \"hole_pitch_y\",\n      \"type\": \"linear_pattern\"\n    }\n  ],\n  \"name\": \"mounting_plate\",\n  \"parameters\": {\n    \"bore_dia\": {\n      \"description\": \"central through hole diameter\",\n      \"value\": 20\n    },\n    \"depth\": {\n      \"description\": \"overall depth along Y (50 dim)\",\n      \"value\": 50\n    },\n    \"hole_dia\": {\n      \"description\": \"mounting hole diameter, 4x\",\n      \"value\": 6\n    },\n    \"hole_inset\": {\n      \"description\": \"mounting hole centre distance from plate edge in X and Y (8 dim both sides)\",\n      \"value\": 8\n    },\n    \"hole_pitch_x\": {\n      \"description\": \"mounting hole centre-to-centre distance along X (64 dim)\",\n      \"value\": 64\n    },\n    \"hole_pitch_y\": {\n      \"description\": \"mounting hole centre-to-centre distance along Y (34 dim)\",\n      \"value\": 34\n    },\n    \"length\": {\n      \"description\": \"overall length along X (80 dim)\",\n      \"value\": 80\n    },\n    \"thickness\": {\n      \"description\": \"plate thickness, t = 6\",\n      \"value\": 6\n    }\n  }\n}",
+  "usage": {
+    "input_tokens": 7884,
+    "input_tokens_details": {
+      "cached_tokens": 7793
+    },
+    "output_tokens": 3379,
+    "output_tokens_details": {
+      "reasoning_tokens": 2765
+    },
+    "total_tokens": 11263
+  },
+  "cost_usd": 0.0007004860000000001,
+  "seconds": 29.1,
+  "score": {
+    "compiles": true,
+    "bbox_ok": true,
+    "bbox": [
+      80.0,
+      50.0,
+      6.0
+    ],
+    "iou": 1.0,
+    "dims_ok": "12/12",
+    "perfect": true,
+    "failed_dims": [],
+    "warnings": [],
+    "params": {
+      "parameters": 8,
+      "expr_fields": 11,
+      "computed_exprs": 2,
+      "literal_numbers": 2,
+      "examples": [
+        "length / 2",
+        "depth / 2"
+      ]
+    },
+    "x_param": {
+      "param": "length",
+      "iou_after_change": 0.9756,
+      "ok": false
+    }
+  }
+}

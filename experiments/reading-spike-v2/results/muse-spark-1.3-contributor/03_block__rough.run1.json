@@ -1,0 +1,142 @@
+{
+  "part": "03_block",
+  "set": "rough",
+  "image": "03_block__rough.jpg",
+  "run": 1,
+  "model": "muse-spark-1.3-contributor",
+  "effort": "medium",
+  "spec": {
+    "features": [
+      {
+        "distance": "height",
+        "id": "base",
+        "plane": "XY",
+        "profile": {
+          "height": "depth",
+          "radius": "corner_r",
+          "shape": "rounded_rect",
+          "width": "length"
+        },
+        "type": "extrude"
+      },
+      {
+        "center": [
+          "length / 2",
+          "hole_y"
+        ],
+        "diameter": "bore_dia",
+        "face": "top_of_feature:base",
+        "id": "bore",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "center": [
+          "(length - hole_pitch) / 2",
+          "hole_y"
+        ],
+        "diameter": "mount_dia",
+        "face": "top_of_feature:base",
+        "id": "mount_hole",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "count_u": 2,
+        "feature": "mount_hole",
+        "id": "mount_holes",
+        "spacing_u": "hole_pitch",
+        "type": "linear_pattern"
+      },
+      {
+        "edges": "top_of_feature:base",
+        "id": "top_chamfer",
+        "size": "chamfer_size",
+        "type": "chamfer"
+      }
+    ],
+    "name": "drilled_plate",
+    "parameters": {
+      "bore_dia": {
+        "description": "central thru hole diameter",
+        "value": 12
+      },
+      "chamfer_size": {
+        "description": "1 x 45 deg chamfer on all top edges",
+        "value": 1
+      },
+      "corner_r": {
+        "description": "plate corner radius, 4x",
+        "value": 5
+      },
+      "depth": {
+        "description": "overall depth along Y",
+        "value": 40
+      },
+      "height": {
+        "description": "plate thickness / height along Z",
+        "value": 20
+      },
+      "hole_pitch": {
+        "description": "center distance between the two 6mm holes along X",
+        "value": 46
+      },
+      "hole_y": {
+        "description": "hole centre Y from front edge, centred (depth / 2)",
+        "value": 20
+      },
+      "length": {
+        "description": "overall length along X",
+        "value": 70
+      },
+      "mount_dia": {
+        "description": "2x mounting thru hole diameter",
+        "value": 6
+      }
+    },
+    "units": "mm"
+  },
+  "output_text": "{\"features\": [{\"distance\": \"height\", \"id\": \"base\", \"plane\": \"XY\", \"profile\": {\"height\": \"depth\", \"radius\": \"corner_r\", \"shape\": \"rounded_rect\", \"width\": \"length\"}, \"type\": \"extrude\"}, {\"center\": [\"length / 2\", \"hole_y\"], \"diameter\": \"bore_dia\", \"face\": \"top_of_feature:base\", \"id\": \"bore\", \"through\": true, \"type\": \"hole\"}, {\"center\": [\"(length - hole_pitch) / 2\", \"hole_y\"], \"diameter\": \"mount_dia\", \"face\": \"top_of_feature:base\", \"id\": \"mount_hole\", \"through\": true, \"type\": \"hole\"}, {\"count_u\": 2, \"feature\": \"mount_hole\", \"id\": \"mount_holes\", \"spacing_u\": \"hole_pitch\", \"type\": \"linear_pattern\"}, {\"edges\": \"top_of_feature:base\", \"id\": \"top_chamfer\", \"size\": \"chamfer_size\", \"type\": \"chamfer\"}], \"name\": \"drilled_plate\", \"parameters\": {\"bore_dia\": {\"description\": \"central thru hole diameter\", \"value\": 12}, \"chamfer_size\": {\"description\": \"1 x 45 deg chamfer on all top edges\", \"value\": 1}, \"corner_r\": {\"description\": \"plate corner radius, 4x\", \"value\": 5}, \"depth\": {\"description\": \"overall depth along Y\", \"value\": 40}, \"height\": {\"description\": \"plate thickness / height along Z\", \"value\": 20}, \"hole_pitch\": {\"description\": \"center distance between the two 6mm holes along X\", \"value\": 46}, \"hole_y\": {\"description\": \"hole centre Y from front edge, centred (depth / 2)\", \"value\": 20}, \"length\": {\"description\": \"overall length along X\", \"value\": 70}, \"mount_dia\": {\"description\": \"2x mounting thru hole diameter\", \"value\": 6}}, \"units\": \"mm\"}",
+  "usage": {
+    "input_tokens": 8580,
+    "input_tokens_details": {
+      "cached_tokens": 5105
+    },
+    "output_tokens": 2511,
+    "output_tokens_details": {
+      "reasoning_tokens": 2048
+    },
+    "total_tokens": 11091
+  },
+  "cost_usd": 0.0008599100000000001,
+  "seconds": 27.8,
+  "score": {
+    "compiles": true,
+    "bbox_ok": true,
+    "bbox": [
+      70.0,
+      40.0,
+      20.0
+    ],
+    "iou": 0.9992,
+    "dims_ok": "13/13",
+    "perfect": true,
+    "failed_dims": [],
+    "warnings": [],
+    "params": {
+      "parameters": 9,
+      "expr_fields": 12,
+      "computed_exprs": 2,
+      "literal_numbers": 1,
+      "examples": [
+        "length / 2",
+        "(length - hole_pitch) / 2"
+      ]
+    },
+    "x_param": {
+      "param": "length",
+      "iou_after_change": 0.9994,
+      "ok": true
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "part": "02_l_bracket",
+  "set": "photo",
+  "image": "02_l_bracket__photo.jpg",
+  "run": 1,
+  "model": "muse-spark-1.3-contributor",
+  "effort": "medium",
+  "spec": {
+    "description": "L-bracket 60x40x40 with 5mm wall, upright at back, two thru holes in upright and central thru slot in base. Assumed: upright at back overlapping base, holes measured from left edge and bottom, slot centred in X and 17.5 from front which centres it in exposed base flat.",
+    "features": [
+      {
+        "distance": "wall_t",
+        "id": "base",
+        "plane": "XY",
+        "profile": {
+          "height": "depth",
+          "shape": "rect",
+          "width": "width"
+        },
+        "type": "extrude"
+      },
+      {
+        "distance": "wall_t",
+        "id": "upright",
+        "offset": "depth - wall_t",
+        "plane": "XZ",
+        "profile": {
+          "height": "height",
+          "shape": "rect",
+          "width": "width"
+        },
+        "type": "extrude"
+      },
+      {
+        "center": [
+          "hole_inset",
+          "hole_z"
+        ],
+        "diameter": "hole_dia",
+        "face": "front",
+        "id": "hole1",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "count_u": 2,
+        "feature": "hole1",
+        "id": "holes",
+        "spacing_u": "hole_pitch",
+        "type": "linear_pattern"
+      },
+      {
+        "angle": 0.0,
+        "center": [
+          "width / 2",
+          "slot_y"
+        ],
+        "face": "top_of_feature:base",
+        "id": "base_slot",
+        "length": "slot_len",
+        "through": true,
+        "type": "slot",
+        "width": "slot_w"
+      }
+    ],
+    "name": "l_bracket",
+    "parameters": {
+      "depth": {
+        "description": "overall depth along Y",
+        "value": 40
+      },
+      "height": {
+        "description": "overall height along Z",
+        "value": 40
+      },
+      "hole_dia": {
+        "description": "upright hole diameter",
+        "value": 5
+      },
+      "hole_inset": {
+        "description": "left hole centre from left edge",
+        "value": 15
+      },
+      "hole_pitch": {
+        "description": "hole spacing along X",
+        "value": 30
+      },
+      "hole_z": {
+        "description": "hole centre height above bottom",
+        "value": 28
+      },
+      "slot_len": {
+        "description": "base slot overall length along X",
+        "value": 20
+      },
+      "slot_w": {
+        "description": "base slot width along Y",
+        "value": 6
+      },
+      "slot_y": {
+        "description": "slot centre distance from front edge",
+        "value": 17.5
+      },
+      "wall_t": {
+        "description": "wall thickness of base and upright",
+        "value": 5
+      },
+      "width": {
+        "description": "overall width along X",
+        "value": 60
+      }
+    }
+  },
+  "output_text": "{\"description\": \"L-bracket 60x40x40 with 5mm wall, upright at back, two thru holes in upright and central thru slot in base. Assumed: upright at back overlapping base, holes measured from left edge and bottom, slot centred in X and 17.5 from front which centres it in exposed base flat.\", \"features\": [{\"distance\": \"wall_t\", \"id\": \"base\", \"plane\": \"XY\", \"profile\": {\"height\": \"depth\", \"shape\": \"rect\", \"width\": \"width\"}, \"type\": \"extrude\"}, {\"distance\": \"wall_t\", \"id\": \"upright\", \"offset\": \"depth - wall_t\", \"plane\": \"XZ\", \"profile\": {\"height\": \"height\", \"shape\": \"rect\", \"width\": \"width\"}, \"type\": \"extrude\"}, {\"center\": [\"hole_inset\", \"hole_z\"], \"diameter\": \"hole_dia\", \"face\": \"front\", \"id\": \"hole1\", \"through\": true, \"type\": \"hole\"}, {\"count_u\": 2, \"feature\": \"hole1\", \"id\": \"holes\", \"spacing_u\": \"hole_pitch\", \"type\": \"linear_pattern\"}, {\"angle\": 0.0, \"center\": [\"width / 2\", \"slot_y\"], \"face\": \"top_of_feature:base\", \"id\": \"base_slot\", \"length\": \"slot_len\", \"through\": true, \"type\": \"slot\", \"width\": \"slot_w\"}], \"name\": \"l_bracket\", \"parameters\": {\"depth\": {\"description\": \"overall depth along Y\", \"value\": 40}, \"height\": {\"description\": \"overall height along Z\", \"value\": 40}, \"hole_dia\": {\"description\": \"upright hole diameter\", \"value\": 5}, \"hole_inset\": {\"description\": \"left hole centre from left edge\", \"value\": 15}, \"hole_pitch\": {\"description\": \"hole spacing along X\", \"value\": 30}, \"hole_z\": {\"description\": \"hole centre height above bottom\", \"value\": 28}, \"slot_len\": {\"description\": \"base slot overall length along X\", \"value\": 20}, \"slot_w\": {\"description\": \"base slot width along Y\", \"value\": 6}, \"slot_y\": {\"description\": \"slot centre distance from front edge\", \"value\": 17.5}, \"wall_t\": {\"description\": \"wall thickness of base and upright\", \"value\": 5}, \"width\": {\"description\": \"overall width along X\", \"value\": 60}}}",
+  "usage": {
+    "input_tokens": 8116,
+    "input_tokens_details": {
+      "cached_tokens": 5105
+    },
+    "output_tokens": 8919,
+    "output_tokens_details": {
+      "reasoning_tokens": 8357
+    },
+    "total_tokens": 17035
+  },
+  "cost_usd": 0.0020951100000000003,
+  "seconds": 79.4,
+  "score": {
+    "compiles": true,
+    "bbox_ok": true,
+    "bbox": [
+      60.0,
+      40.0,
+      40.0
+    ],
+    "iou": 1.0,
+    "dims_ok": "13/13",
+    "perfect": true,
+    "failed_dims": [],
+    "warnings": [],
+    "params": {
+      "parameters": 11,
+      "expr_fields": 15,
+      "computed_exprs": 2,
+      "literal_numbers": 2,
+      "examples": [
+        "depth - wall_t",
+        "width / 2"
+      ]
+    },
+    "x_param": {
+      "param": "width",
+      "iou_after_change": 1.0,
+      "ok": true
+    }
+  }
+}

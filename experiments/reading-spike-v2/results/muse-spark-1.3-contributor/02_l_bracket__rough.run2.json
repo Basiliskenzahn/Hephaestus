@@ -1,0 +1,157 @@
+{
+  "part": "02_l_bracket",
+  "set": "rough",
+  "image": "02_l_bracket__rough.jpg",
+  "run": 2,
+  "model": "muse-spark-1.3-contributor",
+  "effort": "medium",
+  "spec": {
+    "features": [
+      {
+        "distance": "thick",
+        "id": "base",
+        "plane": "XY",
+        "profile": {
+          "height": "depth",
+          "shape": "rect",
+          "width": "width"
+        },
+        "type": "extrude"
+      },
+      {
+        "distance": "thick",
+        "id": "upright",
+        "offset": "depth - thick",
+        "plane": "XZ",
+        "profile": {
+          "height": "height",
+          "shape": "rect",
+          "width": "width"
+        },
+        "type": "extrude"
+      },
+      {
+        "center": [
+          "hole_inset",
+          "hole_height"
+        ],
+        "diameter": "hole_dia",
+        "face": "back",
+        "id": "wall_hole",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "count_u": 2,
+        "feature": "wall_hole",
+        "id": "wall_holes",
+        "spacing_u": "hole_pitch",
+        "type": "linear_pattern"
+      },
+      {
+        "angle": 0.0,
+        "center": [
+          "width / 2",
+          "slot_y"
+        ],
+        "face": "top_of_feature:base",
+        "id": "base_slot",
+        "length": "slot_len",
+        "through": true,
+        "type": "slot",
+        "width": "slot_w"
+      }
+    ],
+    "name": "l_bracket",
+    "parameters": {
+      "depth": {
+        "description": "overall depth along Y (base length, SIDE 40)",
+        "value": 40
+      },
+      "height": {
+        "description": "overall height along Z (FRONT 40)",
+        "value": 40
+      },
+      "hole_dia": {
+        "description": "upright hole diameter, 2x",
+        "value": 5
+      },
+      "hole_height": {
+        "description": "hole centre height from bottom of part",
+        "value": 28
+      },
+      "hole_inset": {
+        "description": "first hole centre from left edge",
+        "value": 15
+      },
+      "hole_pitch": {
+        "description": "hole-to-hole pitch along X",
+        "value": 30
+      },
+      "slot_len": {
+        "description": "base slot overall length along X",
+        "value": 20
+      },
+      "slot_w": {
+        "description": "base slot width",
+        "value": 6
+      },
+      "slot_y": {
+        "description": "base slot centre distance from front edge along Y",
+        "value": 17.5
+      },
+      "thick": {
+        "description": "wall thickness of base and upright",
+        "value": 5
+      },
+      "width": {
+        "description": "overall width along X",
+        "value": 60
+      }
+    },
+    "units": "mm"
+  },
+  "output_text": "{\"features\": [{\"distance\": \"thick\", \"id\": \"base\", \"plane\": \"XY\", \"profile\": {\"height\": \"depth\", \"shape\": \"rect\", \"width\": \"width\"}, \"type\": \"extrude\"}, {\"distance\": \"thick\", \"id\": \"upright\", \"offset\": \"depth - thick\", \"plane\": \"XZ\", \"profile\": {\"height\": \"height\", \"shape\": \"rect\", \"width\": \"width\"}, \"type\": \"extrude\"}, {\"center\": [\"hole_inset\", \"hole_height\"], \"diameter\": \"hole_dia\", \"face\": \"back\", \"id\": \"wall_hole\", \"through\": true, \"type\": \"hole\"}, {\"count_u\": 2, \"feature\": \"wall_hole\", \"id\": \"wall_holes\", \"spacing_u\": \"hole_pitch\", \"type\": \"linear_pattern\"}, {\"angle\": 0.0, \"center\": [\"width / 2\", \"slot_y\"], \"face\": \"top_of_feature:base\", \"id\": \"base_slot\", \"length\": \"slot_len\", \"through\": true, \"type\": \"slot\", \"width\": \"slot_w\"}], \"name\": \"l_bracket\", \"parameters\": {\"depth\": {\"description\": \"overall depth along Y (base length, SIDE 40)\", \"value\": 40}, \"height\": {\"description\": \"overall height along Z (FRONT 40)\", \"value\": 40}, \"hole_dia\": {\"description\": \"upright hole diameter, 2x\", \"value\": 5}, \"hole_height\": {\"description\": \"hole centre height from bottom of part\", \"value\": 28}, \"hole_inset\": {\"description\": \"first hole centre from left edge\", \"value\": 15}, \"hole_pitch\": {\"description\": \"hole-to-hole pitch along X\", \"value\": 30}, \"slot_len\": {\"description\": \"base slot overall length along X\", \"value\": 20}, \"slot_w\": {\"description\": \"base slot width\", \"value\": 6}, \"slot_y\": {\"description\": \"base slot centre distance from front edge along Y\", \"value\": 17.5}, \"thick\": {\"description\": \"wall thickness of base and upright\", \"value\": 5}, \"width\": {\"description\": \"overall width along X\", \"value\": 60}}, \"units\": \"mm\"}",
+  "usage": {
+    "input_tokens": 8116,
+    "input_tokens_details": {
+      "cached_tokens": 8049
+    },
+    "output_tokens": 6496,
+    "output_tokens_details": {
+      "reasoning_tokens": 5978
+    },
+    "total_tokens": 14612
+  },
+  "cost_usd": 0.001321998,
+  "seconds": 57.4,
+  "score": {
+    "compiles": true,
+    "bbox_ok": true,
+    "bbox": [
+      60.0,
+      40.0,
+      40.0
+    ],
+    "iou": 1.0,
+    "dims_ok": "13/13",
+    "perfect": true,
+    "failed_dims": [],
+    "warnings": [],
+    "params": {
+      "parameters": 11,
+      "expr_fields": 15,
+      "computed_exprs": 2,
+      "literal_numbers": 2,
+      "examples": [
+        "depth - thick",
+        "width / 2"
+      ]
+    },
+    "x_param": {
+      "param": "width",
+      "iou_after_change": 1.0,
+      "ok": true
+    }
+  }
+}

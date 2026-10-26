@@ -1,0 +1,137 @@
+{
+  "part": "01_plate",
+  "set": "photo",
+  "image": "01_plate__photo.jpg",
+  "run": 1,
+  "model": "muse-spark-1.3-contributor",
+  "effort": "medium",
+  "spec": {
+    "description": "Flat rectangular plate with central thru hole and four corner thru holes. Assumed: central hole is centred (drawn symmetric with centrelines, not dimensioned from edges).",
+    "features": [
+      {
+        "distance": "thickness",
+        "id": "base",
+        "plane": "XY",
+        "profile": {
+          "height": "depth",
+          "shape": "rect",
+          "width": "length"
+        },
+        "type": "extrude"
+      },
+      {
+        "center": [
+          "length / 2",
+          "depth / 2"
+        ],
+        "diameter": "center_dia",
+        "face": "top_of_feature:base",
+        "id": "center_hole",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "center": [
+          "hole_inset",
+          "hole_inset"
+        ],
+        "diameter": "hole_dia",
+        "face": "top_of_feature:base",
+        "id": "mount_hole",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "count_u": 2,
+        "count_v": 2,
+        "feature": "mount_hole",
+        "id": "mount_holes",
+        "spacing_u": "length - 2 * hole_inset",
+        "spacing_v": "depth - 2 * hole_inset",
+        "type": "linear_pattern"
+      }
+    ],
+    "name": "mounting_plate",
+    "parameters": {
+      "center_dia": {
+        "description": "central through hole diameter",
+        "value": 20
+      },
+      "depth": {
+        "description": "overall depth along Y",
+        "value": 50
+      },
+      "hole_dia": {
+        "description": "corner mounting hole diameter",
+        "value": 6
+      },
+      "hole_inset": {
+        "description": "corner hole centre distance from plate edges",
+        "value": 8
+      },
+      "hole_pitch_x": {
+        "description": "corner hole centre-to-centre distance along X, length - 2 * hole_inset",
+        "value": 64
+      },
+      "hole_pitch_y": {
+        "description": "corner hole centre-to-centre distance along Y, depth - 2 * hole_inset",
+        "value": 34
+      },
+      "length": {
+        "description": "overall length along X",
+        "value": 80
+      },
+      "thickness": {
+        "description": "plate thickness t",
+        "value": 6
+      }
+    },
+    "spec_version": "1",
+    "units": "mm"
+  },
+  "output_text": "{\"description\":\"Flat rectangular plate with central thru hole and four corner thru holes. Assumed: central hole is centred (drawn symmetric with centrelines, not dimensioned from edges).\",\"features\":[{\"distance\":\"thickness\",\"id\":\"base\",\"plane\":\"XY\",\"profile\":{\"height\":\"depth\",\"shape\":\"rect\",\"width\":\"length\"},\"type\":\"extrude\"},{\"center\":[\"length / 2\",\"depth / 2\"],\"diameter\":\"center_dia\",\"face\":\"top_of_feature:base\",\"id\":\"center_hole\",\"through\":true,\"type\":\"hole\"},{\"center\":[\"hole_inset\",\"hole_inset\"],\"diameter\":\"hole_dia\",\"face\":\"top_of_feature:base\",\"id\":\"mount_hole\",\"through\":true,\"type\":\"hole\"},{\"count_u\":2,\"count_v\":2,\"feature\":\"mount_hole\",\"id\":\"mount_holes\",\"spacing_u\":\"length - 2 * hole_inset\",\"spacing_v\":\"depth - 2 * hole_inset\",\"type\":\"linear_pattern\"}],\"name\":\"mounting_plate\",\"parameters\":{\"center_dia\":{\"description\":\"central through hole diameter\",\"value\":20},\"depth\":{\"description\":\"overall depth along Y\",\"value\":50},\"hole_dia\":{\"description\":\"corner mounting hole diameter\",\"value\":6},\"hole_inset\":{\"description\":\"corner hole centre distance from plate edges\",\"value\":8},\"hole_pitch_x\":{\"description\":\"corner hole centre-to-centre distance along X, length - 2 * hole_inset\",\"value\":64},\"hole_pitch_y\":{\"description\":\"corner hole centre-to-centre distance along Y, depth - 2 * hole_inset\",\"value\":34},\"length\":{\"description\":\"overall length along X\",\"value\":80},\"thickness\":{\"description\":\"plate thickness t\",\"value\":6}},\"spec_version\":\"1\",\"units\":\"mm\"}",
+  "usage": {
+    "input_tokens": 7884,
+    "input_tokens_details": {
+      "cached_tokens": 5105
+    },
+    "output_tokens": 3465,
+    "output_tokens_details": {
+      "reasoning_tokens": 3092
+    },
+    "total_tokens": 11349
+  },
+  "cost_usd": 0.00098111,
+  "seconds": 29.0,
+  "score": {
+    "compiles": true,
+    "bbox_ok": true,
+    "bbox": [
+      80.0,
+      50.0,
+      6.0
+    ],
+    "iou": 1.0,
+    "dims_ok": "12/12",
+    "perfect": true,
+    "failed_dims": [],
+    "warnings": [],
+    "params": {
+      "parameters": 8,
+      "expr_fields": 11,
+      "computed_exprs": 4,
+      "literal_numbers": 2,
+      "examples": [
+        "length / 2",
+        "depth / 2",
+        "length - 2 * hole_inset",
+        "depth - 2 * hole_inset"
+      ]
+    },
+    "x_param": {
+      "param": "length",
+      "iou_after_change": 1.0,
+      "ok": true
+    }
+  }
+}

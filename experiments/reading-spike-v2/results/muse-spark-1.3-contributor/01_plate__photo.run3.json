@@ -1,0 +1,133 @@
+{
+  "part": "01_plate",
+  "set": "photo",
+  "image": "01_plate__photo.jpg",
+  "run": 3,
+  "model": "muse-spark-1.3-contributor",
+  "effort": "medium",
+  "spec": {
+    "features": [
+      {
+        "distance": "thickness",
+        "id": "base",
+        "plane": "XY",
+        "profile": {
+          "height": "depth",
+          "shape": "rect",
+          "width": "length"
+        },
+        "type": "extrude"
+      },
+      {
+        "center": [
+          "length / 2",
+          "depth / 2"
+        ],
+        "diameter": "bore_dia",
+        "face": "top",
+        "id": "bore",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "center": [
+          "hole_inset",
+          "hole_inset"
+        ],
+        "diameter": "mount_dia",
+        "face": "top",
+        "id": "mount_hole",
+        "through": true,
+        "type": "hole"
+      },
+      {
+        "count_u": 2,
+        "count_v": 2,
+        "feature": "mount_hole",
+        "id": "mount_holes",
+        "spacing_u": "hole_pitch_x",
+        "spacing_v": "hole_pitch_y",
+        "type": "linear_pattern"
+      }
+    ],
+    "name": "mount_plate",
+    "parameters": {
+      "bore_dia": {
+        "description": "central hole diameter",
+        "value": 20
+      },
+      "depth": {
+        "description": "overall depth along Y",
+        "value": 50
+      },
+      "hole_inset": {
+        "description": "mounting hole centre inset from plate edges",
+        "value": 8
+      },
+      "hole_pitch_x": {
+        "description": "mounting hole centre spacing along X",
+        "value": 64
+      },
+      "hole_pitch_y": {
+        "description": "mounting hole centre spacing along Y",
+        "value": 34
+      },
+      "length": {
+        "description": "overall length along X",
+        "value": 80
+      },
+      "mount_dia": {
+        "description": "mounting hole diameter",
+        "value": 6
+      },
+      "thickness": {
+        "description": "plate thickness along Z",
+        "value": 6
+      }
+    },
+    "units": "mm"
+  },
+  "output_text": "{\"features\": [{\"distance\": \"thickness\", \"id\": \"base\", \"plane\": \"XY\", \"profile\": {\"height\": \"depth\", \"shape\": \"rect\", \"width\": \"length\"}, \"type\": \"extrude\"}, {\"center\": [\"length / 2\", \"depth / 2\"], \"diameter\": \"bore_dia\", \"face\": \"top\", \"id\": \"bore\", \"through\": true, \"type\": \"hole\"}, {\"center\": [\"hole_inset\", \"hole_inset\"], \"diameter\": \"mount_dia\", \"face\": \"top\", \"id\": \"mount_hole\", \"through\": true, \"type\": \"hole\"}, {\"count_u\": 2, \"count_v\": 2, \"feature\": \"mount_hole\", \"id\": \"mount_holes\", \"spacing_u\": \"hole_pitch_x\", \"spacing_v\": \"hole_pitch_y\", \"type\": \"linear_pattern\"}], \"name\": \"mount_plate\", \"parameters\": {\"bore_dia\": {\"description\": \"central hole diameter\", \"value\": 20}, \"depth\": {\"description\": \"overall depth along Y\", \"value\": 50}, \"hole_inset\": {\"description\": \"mounting hole centre inset from plate edges\", \"value\": 8}, \"hole_pitch_x\": {\"description\": \"mounting hole centre spacing along X\", \"value\": 64}, \"hole_pitch_y\": {\"description\": \"mounting hole centre spacing along Y\", \"value\": 34}, \"length\": {\"description\": \"overall length along X\", \"value\": 80}, \"mount_dia\": {\"description\": \"mounting hole diameter\", \"value\": 6}, \"thickness\": {\"description\": \"plate thickness along Z\", \"value\": 6}}, \"units\": \"mm\"}",
+  "usage": {
+    "input_tokens": 7884,
+    "input_tokens_details": {
+      "cached_tokens": 5105
+    },
+    "output_tokens": 1922,
+    "output_tokens_details": {
+      "reasoning_tokens": 1537
+    },
+    "total_tokens": 9806
+  },
+  "cost_usd": 0.00067251,
+  "seconds": 18.8,
+  "score": {
+    "compiles": true,
+    "bbox_ok": true,
+    "bbox": [
+      80.0,
+      50.0,
+      6.0
+    ],
+    "iou": 1.0,
+    "dims_ok": "12/12",
+    "perfect": true,
+    "failed_dims": [],
+    "warnings": [],
+    "params": {
+      "parameters": 8,
+      "expr_fields": 11,
+      "computed_exprs": 2,
+      "literal_numbers": 2,
+      "examples": [
+        "length / 2",
+        "depth / 2"
+      ]
+    },
+    "x_param": {
+      "param": "length",
+      "iou_after_change": 0.9756,
+      "ok": false
+    }
+  }
+}
