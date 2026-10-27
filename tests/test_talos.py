@@ -43,6 +43,7 @@ def wrong_block():
 
 
 def events_of(client, **kw):
+    kw.setdefault("use_shape", False)           # the shape check has its own tests (test_shape_check.py)
     return list(run(DRAWING, client=client, **kw))
 
 

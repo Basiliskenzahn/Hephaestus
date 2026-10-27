@@ -129,3 +129,17 @@ def test_compile_with_overrides(api):
     assert not bad["ok"] and "below its minimum" in bad["errors"][0]
     worse = client.post("/compile", json={"spec": {"name": "x"}}).json()
     assert not worse["ok"] and worse["errors"]
+
+
+def test_shape_check_event_is_published_with_relative_paths(api, tmp_path):
+    from server.runs import publish_shape
+    ev = {"event": "shape_check", "files": {"sheet_rectified": str(tmp_path / "shape" / "sheet_rectified.jpg")},
+          "views": [{"view": "top", "files": {"compare": str(tmp_path / "iter_0" / "shape_top.png"), "input": None}}]}
+    out = publish_shape(ev, str(tmp_path))
+    assert out["files"] == {"sheet_rectified": "shape/sheet_rectified.jpg"}
+    assert out["views"][0]["files"] == {"compare": "iter_0/shape_top.png"}
+    client, _ = api       # mock mode: no recorded view boxes and no SAM calls, so the check reports itself unavailable
+    r = client.post("/runs", files={"image": ("bracket.png", sketch_bytes(), "image/png")})
+    events = [e for _, e in read_events(client, r.json()["run_id"])]
+    sc = [e for e in events if e["event"] == "shape_check"]
+    assert sc and not sc[0]["available"] and events[-1]["event"] == "done"

@@ -20,7 +20,8 @@ image = (
     modal.Image.debian_slim(python_version="3.12")
     .apt_install("libgl1", "libglib2.0-0", "libxrender1", "libxext6", "libsm6")
     .pip_install("cadquery==2.8.0", "fastapi[standard]==0.162.0", "python-multipart", "pydantic>=2.6", "numpy",
-                 "scipy", "pillow", "pillow-heif", "trimesh", "requests", "matplotlib", "meta-sam-parser==0.1.0")
+                 "scipy", "pillow", "pillow-heif", "trimesh", "requests", "matplotlib", "meta-sam-parser==0.1.0",
+                 "opencv-python-headless")
     .env({"DATA_DIR": "/data", "TALOS_PRESET": "live", "MPLBACKEND": "Agg"})
     .add_local_python_source("hephaestus", "server", ignore=SKIP)   # includes fewshot/ and mock_data/ JSON
 )

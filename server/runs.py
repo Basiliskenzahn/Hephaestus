@@ -15,7 +15,7 @@ import traceback
 
 import trimesh
 
-from hephaestus import meta_api, talos
+from hephaestus import meta_api, sam, talos
 
 from . import config
 
@@ -59,6 +59,14 @@ def publish_files(event, run_dir):
     return {**event, "files": out}
 
 
+def publish_shape(event, run_dir):
+    """shape_check events: overlay paths -> names relative to the run folder."""
+    def rel(files):
+        return {k: os.path.relpath(v, run_dir) for k, v in (files or {}).items() if v}
+    views = [{**v, "files": rel(v.get("files"))} for v in event.get("views") or []]
+    return {**event, "files": rel(event.get("files")), "views": views}
+
+
 class Run:
     def __init__(self, run_id, ip, kind, prompt=None):
         self.id, self.ip, self.kind, self.prompt = run_id, ip, kind, prompt
@@ -96,11 +104,17 @@ class RunManager:
         budget = GuardedBudget(config.RUN_CAP_USD)
         client = self.client_factory(run, budget)
         settings = talos.PRESETS[config.PRESET]
+        # SAM 3.1 shares the run's budget and the daily cap; its cache lives (and is deleted) with the run.
+        # Mock mode never calls SAM: the cache is empty, so the shape check reports itself unavailable.
+        segmenter = sam.Segmenter(budget=budget, cache_dir=os.path.join(run.dir, "sam"), offline=config.MOCK_MODELS,
+                                  tag=run.id)
         try:
             kwargs = {"prompt": run.prompt} if run.kind == "text" else {"drawing": os.path.join(run.dir, "input.jpg")}
-            for event in talos.run(client=client, out_dir=run.dir, settings=settings, **kwargs):
+            for event in talos.run(client=client, out_dir=run.dir, settings=settings, segmenter=segmenter, **kwargs):
                 if event["event"] == "compiled":
                     event = publish_files(event, run.dir)
+                elif event["event"] == "shape_check":
+                    event = publish_shape(event, run.dir)
                 self._emit(run, event)
         except Exception as e:  # noqa: BLE001 - never leave a run hanging without a done event
             traceback.print_exc()

@@ -3,8 +3,10 @@
     for event in run("drawing.png", settings=PRESETS["live"], out_dir="out/run1"):
         print(event["event"])
 
-Each iteration builds the current spec, then checks it: compile errors, then the callouts measured on the part, and
-only if those pass, the visual critic (the slow part). Anything wrong goes into one correction call.
+Each iteration builds the current spec, then checks it: compile errors, then the callouts measured on the part and
+the SAM 3.1 shape check (in parallel), and only if those pass, the visual critic (the slow part). Anything wrong goes
+into one correction call. The shape check (shape_check.py) compares each view's outline in the drawing with the part's
+silhouette; it is optional: without view boxes, or if SAM fails, the run continues without it.
 
 Callouts are the contract. They come from the first read and stay fixed: a correction changes the spec, not the
 callouts. A correction may dispute a callout it believes was misread. The disputed callout is replaced provisionally
@@ -16,7 +18,7 @@ Stops: pass | max_iters | stuck (same issues twice) | disputed (spec returned un
 earlier version) | budget | error. The returned spec is the best version seen (fewest issues).
 
 Events are JSON-serialisable dicts with an "event" key:
-  read_started, spec, compiled, checks, correction_started, error, done
+  read_started, spec, compiled, shape_check, checks, correction_started, error, done
 
 CLI: python -m hephaestus.talos drawing.png --out out/run1/ [--preset live|benchmark] [--max-iters 4] [--max-usd 0.5]
 """
@@ -26,10 +28,11 @@ import json
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, replace
 
 from . import critic as critic_mod
-from . import measure, meta_api
+from . import measure, meta_api, sam, shape_check
 from .compile import SpecError, compile, write_outputs
 from .drawing import render_sheet
 from .prompts import CORRECT_PROMPT, READ_PROMPT, READ_TEXT_PROMPT, correction_request
@@ -125,13 +128,20 @@ def critic_issues(crit):
 
 
 def verify(result, sheet, callouts, drawing, client=None, settings=Settings(), use_critic=True, force_critic=False,
-           text=None):
-    """Callouts first; the critic only if the callouts pass (or `force_critic`). Returns (checks fields, issues)."""
+           text=None, shape=None):
+    """Callouts and the shape check first; the critic only if both pass (or `force_critic`).
+    `shape`: a shape_check.compare result, or a function returning one (it runs in parallel with the callouts).
+    Returns (checks fields, issues)."""
     rows, issues = callout_check(result, callouts)
-    checks = {"callouts": rows, "critic": None, "critic_call": None, "advisories": []}
+    shape = shape() if callable(shape) else shape
+    if shape:
+        issues = issues + shape["issues"]
+    checks = {"callouts": rows, "critic": None, "critic_call": None, "advisories": [],
+              "shape_advisories": (shape or {}).get("advisories", [])}
     if use_critic and client is not None:
         if issues and not force_critic:
-            checks["critic_skipped"] = "callouts failed; fixing those first"
+            checks["critic_skipped"] = ("callouts failed; fixing those first" if any(i["source"] == "callout" for i in issues)
+                                        else "the shape check failed; fixing that first")
         else:
             crit, call, err = run_critic(client, drawing, sheet, settings, text)
             checks.update(critic=crit, critic_call=call)
@@ -166,14 +176,16 @@ def _feature_key(callout):
 
 
 def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use_critic=True, settings=None,
-        prompt=None):
+        prompt=None, segmenter=None, use_shape=True):
     """Generator of events for a drawing (image path or bytes) or a text `prompt`.
-    `start` = {"spec", "callouts"} skips the read and begins at the check (for evaluation)."""
+    `start` = {"spec", "callouts", optional "views"} skips the read and begins at the check (for evaluation).
+    `segmenter`: a sam.Segmenter for the shape check (default: one on the client's budget); use_shape=False skips it."""
     settings = settings or Settings()
     max_iters = settings.max_iters if max_iters is None else max_iters
     client = client or meta_api.Client()
     t0, iteration, history, best, seen = time.time(), 0, [], None, []
     spent = [0.0]           # this run's own calls (the budget may be shared by parallel runs)
+    shape_cost = [0.0]      # SAM spend already counted in `spent`
     disputes = []           # every dispute raised, with its outcome
     critic_flagged = set()  # features the critic consensus flagged in the latest check
 
@@ -188,6 +200,14 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
                   seconds=round(time.time() - t0, 1), settings=asdict(settings))
 
     spec = callouts = original = None
+    shape_input, pool = None, ThreadPoolExecutor(max_workers=1)
+    if use_shape and prompt is None and drawing is not None:
+        try:
+            seg = segmenter or sam.Segmenter(budget=client.budget, tag=getattr(client, "tag", None))
+            shape_input = shape_check.InputShape(drawing, seg, out_dir=out_dir).start_sheet()   # parallel with the read
+        except Exception as e:  # noqa: BLE001 - the shape check is optional
+            print(f"shape check off: {type(e).__name__}: {str(e)[:160]}", file=sys.stderr)
+            shape_input = None
     try:
         if start is None:
             yield ev("read_started")
@@ -201,9 +221,13 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
                                        model=settings.read_model, effort=settings.read_effort)
             spec, callouts = out.get("spec"), out.get("callouts") or []
             spent[0] += info["cost_usd"]
+            if shape_input is not None:
+                shape_input.start_views(out.get("views"))          # SAM on the views, parallel with the compile
             yield ev("spec", spec=spec, callouts=callouts, changelog=None, call=_call_info(info))
         else:
             spec, callouts = start["spec"], start.get("callouts") or []
+            if shape_input is not None:
+                shape_input.start_views(start.get("views"))
             yield ev("spec", spec=spec, callouts=callouts, changelog="(given)", call=None)
         original = copy.deepcopy(callouts)      # the contract
         callouts = copy.deepcopy(callouts)      # effective list: originals + provisionally accepted replacements
@@ -220,8 +244,17 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
             if result is None:
                 checks = {"issues": issues, "callouts": [], "critic": None, "critic_call": None}
             else:
+                shape = None
+                if shape_input is not None:
+                    fut = pool.submit(shape_check.compare, shape_input, result, idir)
+                    shape = fut.result
                 checks, issues = verify(result, sheet, callouts, drawing, client, settings, use_critic,
-                                        force_critic=bool(pending), text=prompt)
+                                        force_critic=bool(pending), text=prompt, shape=shape)
+                if shape_input is not None:
+                    sc = fut.result()
+                    spent[0] += sc["sam"]["cost_usd"] - shape_cost[0]
+                    shape_cost[0] = sc["sam"]["cost_usd"]
+                    yield ev("shape_check", **sc)
                 spent[0] += (checks.get("critic_call") or {}).get("cost_usd", 0)
                 crit = checks.get("critic")
                 critic_flagged = set(crit.get("agreed_features", [])) if crit else set()
