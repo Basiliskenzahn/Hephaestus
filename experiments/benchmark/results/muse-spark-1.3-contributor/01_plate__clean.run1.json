@@ -1,0 +1,627 @@
+{
+ "part": "01_plate",
+ "set": "clean",
+ "run": 1,
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "final_iteration": 0,
+ "cost_off": 0.001448,
+ "cost_on": 0.003859,
+ "seconds_off": 28.9,
+ "seconds_on": 47.1,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "12/12",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 6,
+   "expr_fields": 11,
+   "computed_exprs": 4,
+   "literal_numbers": 2,
+   "examples": [
+    "length / 2",
+    "depth / 2",
+    "length - 2 * hole_inset",
+    "depth - 2 * hole_inset"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "12/12",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 6,
+   "expr_fields": 11,
+   "computed_exprs": 4,
+   "literal_numbers": 2,
+   "examples": [
+    "length / 2",
+    "depth / 2",
+    "length - 2 * hole_inset",
+    "depth - 2 * hole_inset"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [],
+   "critic_seconds": 17.6
+  }
+ ],
+ "corrections_log": [],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 28.9,
+   "spec": {
+    "description": "Flat rectangular plate with central through bore and four corner mounting holes. Assumed: the central \u00d820 hole is centred (drawn symmetric on centrelines, not dimensioned from an edge).",
+    "features": [
+     {
+      "distance": "thickness",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "depth / 2"
+      ],
+      "diameter": "center_dia",
+      "face": "top",
+      "id": "center_bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "mounting_plate",
+    "parameters": {
+     "center_dia": {
+      "description": "central through bore diameter",
+      "value": 20
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 50
+     },
+     "hole_dia": {
+      "description": "mounting hole diameter",
+      "value": 6
+     },
+     "hole_inset": {
+      "description": "mounting hole centre inset from all edges; hole spacings follow as length - 2 * hole_inset and depth - 2 * hole_inset",
+      "value": 8
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "thickness": {
+      "description": "plate thickness along Z",
+      "value": 6
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "y",
+     "label": "50",
+     "measure": "overall",
+     "value": 50
+    },
+    {
+     "feature": "base",
+     "label": "t = 6",
+     "measure": "thickness",
+     "value": 6
+    },
+    {
+     "feature": "center_bore",
+     "label": "\u00d820 thru",
+     "measure": "diameter",
+     "value": 20
+    },
+    {
+     "feature": "mount_hole",
+     "label": "4x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "axis": "x",
+     "feature": "mount_holes[0]",
+     "feature_b": "mount_holes[1]",
+     "label": "64",
+     "measure": "distance",
+     "value": 64
+    },
+    {
+     "axis": "y",
+     "feature": "mount_holes[0]",
+     "feature_b": "mount_holes[2]",
+     "label": "34",
+     "measure": "distance",
+     "value": 34
+    },
+    {
+     "edge": "x_min",
+     "feature": "center_bore",
+     "label": "center bore centred",
+     "measure": "distance_to_edge",
+     "value": 40
+    },
+    {
+     "edge": "y_min",
+     "feature": "center_bore",
+     "label": "center bore centred",
+     "measure": "distance_to_edge",
+     "value": 25
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.001448,
+    "seconds": 28.9,
+    "input_tokens": 7178,
+    "output_tokens": 3649
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 29.5,
+   "ok": true,
+   "metrics": {
+    "name": "mounting_plate",
+    "volume_mm3": 21436.4604,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      50.0,
+      6.0
+     ],
+     "size": [
+      80.0,
+      50.0,
+      6.0
+     ]
+    },
+    "faces": 11,
+    "edges": 27,
+    "triangles": 2552,
+    "parameters": {
+     "center_dia": 20.0,
+     "depth": 50.0,
+     "hole_dia": 6.0,
+     "hole_inset": 8.0,
+     "length": 80.0,
+     "thickness": 6.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 24000.0
+     },
+     {
+      "id": "center_bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1884.9556
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -169.646
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -508.938
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       270
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       50
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       270,
+       50
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 47.1,
+   "clean": true,
+   "issues": [],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "50",
+     "value": 50,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 50.0
+    },
+    {
+     "label": "t = 6",
+     "value": 6,
+     "measure": "thickness",
+     "what": "thickness of base",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "\u00d820 thru",
+     "value": 20,
+     "measure": "diameter",
+     "what": "diameter of center_bore",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "4x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "64",
+     "value": 64,
+     "measure": "distance",
+     "what": "distance mount_holes[0] \u2192 mount_holes[1] along x",
+     "status": "ok",
+     "measured": 64.0
+    },
+    {
+     "label": "34",
+     "value": 34,
+     "measure": "distance",
+     "what": "distance mount_holes[0] \u2192 mount_holes[2] along y",
+     "status": "ok",
+     "measured": 34.0
+    },
+    {
+     "label": "center bore centred",
+     "value": 40,
+     "measure": "distance_to_edge",
+     "what": "distance from center_bore to x_min",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "center bore centred",
+     "value": 25,
+     "measure": "distance_to_edge",
+     "what": "distance from center_bore to y_min",
+     "status": "ok",
+     "measured": 25.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": []
+   },
+   "critic_call": {
+    "cost_usd": 0.000443,
+    "seconds": 17.6,
+    "input_tokens": 2687,
+    "output_tokens": 1491
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 47.1,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Flat rectangular plate with central through bore and four corner mounting holes. Assumed: the central \u00d820 hole is centred (drawn symmetric on centrelines, not dimensioned from an edge).",
+    "features": [
+     {
+      "distance": "thickness",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "depth / 2"
+      ],
+      "diameter": "center_dia",
+      "face": "top",
+      "id": "center_bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "mounting_plate",
+    "parameters": {
+     "center_dia": {
+      "description": "central through bore diameter",
+      "value": 20
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 50
+     },
+     "hole_dia": {
+      "description": "mounting hole diameter",
+      "value": 6
+     },
+     "hole_inset": {
+      "description": "mounting hole centre inset from all edges; hole spacings follow as length - 2 * hole_inset and depth - 2 * hole_inset",
+      "value": 8
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "thickness": {
+      "description": "plate thickness along Z",
+      "value": 6
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "y",
+     "label": "50",
+     "measure": "overall",
+     "value": 50
+    },
+    {
+     "feature": "base",
+     "label": "t = 6",
+     "measure": "thickness",
+     "value": 6
+    },
+    {
+     "feature": "center_bore",
+     "label": "\u00d820 thru",
+     "measure": "diameter",
+     "value": 20
+    },
+    {
+     "feature": "mount_hole",
+     "label": "4x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "axis": "x",
+     "feature": "mount_holes[0]",
+     "feature_b": "mount_holes[1]",
+     "label": "64",
+     "measure": "distance",
+     "value": 64
+    },
+    {
+     "axis": "y",
+     "feature": "mount_holes[0]",
+     "feature_b": "mount_holes[2]",
+     "label": "34",
+     "measure": "distance",
+     "value": 34
+    },
+    {
+     "edge": "x_min",
+     "feature": "center_bore",
+     "label": "center bore centred",
+     "measure": "distance_to_edge",
+     "value": 40
+    },
+    {
+     "edge": "y_min",
+     "feature": "center_bore",
+     "label": "center bore centred",
+     "measure": "distance_to_edge",
+     "value": 25
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 0,
+   "corrections": 0,
+   "cost_usd": 0.003859,
+   "seconds": 47.1
+  }
+ ]
+}
