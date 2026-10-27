@@ -1,0 +1,35 @@
+{
+ "kind": "correct",
+ "name": "l_bracket",
+ "part": "l_bracket",
+ "copy": 1,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 49.1,
+   "output_tokens": 4592,
+   "cost_usd": 0.00106521
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "base_slot",
+      "issue": "slot centered front-to-back instead of 17.5 mm from front edge as dimensioned",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 58.1,
+   "output_tokens": 5541,
+   "cost_usd": 0.0011170260000000001
+  }
+ ]
+}

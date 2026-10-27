@@ -1,0 +1,213 @@
+{
+ "part": "01_plate",
+ "set": "rough",
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "seconds": 19.2,
+ "output_tokens": 2614,
+ "cost_usd": 0.0014275,
+ "output": {
+  "callouts": [
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "80",
+    "measure": "overall",
+    "value": 80
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "50",
+    "measure": "overall",
+    "value": 50
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base",
+    "feature_b": null,
+    "label": "t = 6",
+    "measure": "thickness",
+    "value": 6
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "bore",
+    "feature_b": null,
+    "label": "\u00d820 thru",
+    "measure": "diameter",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "4x \u00d86 thru",
+    "measure": "diameter",
+    "value": 6
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": "mount_holes[0]",
+    "feature_b": "mount_holes[2]",
+    "label": "34",
+    "measure": "distance",
+    "value": 34
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "8",
+    "measure": "distance_to_edge",
+    "value": 8
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "8",
+    "measure": "distance_to_edge",
+    "value": 8
+   },
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": "mount_holes[0]",
+    "feature_b": "mount_holes[1]",
+    "label": "64",
+    "measure": "distance",
+    "value": 64
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "bore",
+    "feature_b": null,
+    "label": "bore centred",
+    "measure": "distance_to_edge",
+    "value": 40
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "bore",
+    "feature_b": null,
+    "label": "bore centred",
+    "measure": "distance_to_edge",
+    "value": 25
+   }
+  ],
+  "spec": {
+   "description": "Flat rectangular plate with central thru bore and 4 corner mounting holes. Assumed: central bore is centred (drawn symmetric on centrelines, not dimensioned from an edge). Hole insets 8 from edges imply spacings 64 and 34.",
+   "features": [
+    {
+     "distance": "thickness",
+     "id": "base",
+     "operation": "add",
+     "plane": "XY",
+     "profile": {
+      "height": "depth",
+      "shape": "rect",
+      "width": "length"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "length / 2",
+      "depth / 2"
+     ],
+     "diameter": "bore_dia",
+     "face": "top",
+     "id": "bore",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "center": [
+      "hole_inset",
+      "hole_inset"
+     ],
+     "diameter": "hole_dia",
+     "face": "top",
+     "id": "mount_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "count_u": 2,
+     "count_v": 2,
+     "feature": "mount_hole",
+     "id": "mount_holes",
+     "spacing_u": "length - 2 * hole_inset",
+     "spacing_v": "depth - 2 * hole_inset",
+     "type": "linear_pattern"
+    }
+   ],
+   "name": "mount_plate",
+   "parameters": {
+    "bore_dia": {
+     "description": "central thru hole diameter",
+     "value": 20
+    },
+    "depth": {
+     "description": "overall depth along Y",
+     "value": 50
+    },
+    "hole_dia": {
+     "description": "corner mounting hole diameter",
+     "value": 6
+    },
+    "hole_inset": {
+     "description": "mounting hole centre inset from each edge; spacings follow as length - 2*inset = 64 and depth - 2*inset = 34",
+     "value": 8
+    },
+    "length": {
+     "description": "overall length along X",
+     "value": 80
+    },
+    "thickness": {
+     "description": "plate thickness along Z",
+     "value": 6
+    }
+   }
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "12/12",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 6,
+   "expr_fields": 11,
+   "computed_exprs": 4,
+   "literal_numbers": 2,
+   "examples": [
+    "length / 2",
+    "depth / 2",
+    "length - 2 * hole_inset",
+    "depth - 2 * hole_inset"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ }
+}

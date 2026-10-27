@@ -1,0 +1,294 @@
+{
+ "part": "06_angled_bracket",
+ "set": "rough",
+ "model": "muse-spark-1.3-contributor",
+ "effort": "medium",
+ "seconds": 191.6,
+ "output_tokens": 17858,
+ "cost_usd": 0.003932714,
+ "output": {
+  "callouts": [
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "80",
+    "measure": "overall",
+    "value": 80
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "30",
+    "measure": "overall",
+    "value": 30
+   },
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "40",
+    "measure": "overall",
+    "value": 40
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base",
+    "feature_b": null,
+    "label": "10",
+    "measure": "thickness",
+    "value": 10
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "30",
+    "measure": "unchecked",
+    "value": 30
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "gusset",
+    "feature_b": null,
+    "label": "8",
+    "measure": "thickness",
+    "value": 8
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "\u00d88 thru",
+    "measure": "diameter",
+    "value": 8
+   },
+   {
+    "axis": null,
+    "edge": "x_max",
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "20",
+    "measure": "distance_to_edge",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": "z_min",
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "15",
+    "measure": "distance_to_edge",
+    "value": 15
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "top_hole",
+    "feature_b": null,
+    "label": "2x \u00d86 thru",
+    "measure": "diameter",
+    "value": 6
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "top_hole",
+    "feature_b": null,
+    "label": "15",
+    "measure": "distance_to_edge",
+    "value": 15
+   }
+  ],
+  "spec": {
+   "description": "Base plate with full-depth upright block at left and central triangular gusset. Assumed: upright occupies full depth and sits at x=0; gusset is centred in Y; side-hole 15 is from the bottom (z_min) and 20 from the right (x_max); top 2x holes share x=15 and are symmetric about the Y centreline at quarter-depth points (Y positions not dimensioned).",
+   "features": [
+    {
+     "distance": "base_t",
+     "id": "base",
+     "plane": "XY",
+     "profile": {
+      "height": "depth",
+      "shape": "rect",
+      "width": "length"
+     },
+     "type": "extrude"
+    },
+    {
+     "distance": "height",
+     "id": "upright",
+     "plane": "XY",
+     "profile": {
+      "height": "depth",
+      "shape": "rect",
+      "u": 0,
+      "v": 0,
+      "width": "upright_w"
+     },
+     "type": "extrude"
+    },
+    {
+     "distance": "gusset_t",
+     "id": "gusset",
+     "offset": "(depth - gusset_t) / 2",
+     "plane": "XZ",
+     "profile": {
+      "points": [
+       [
+        "upright_w",
+        "base_t"
+       ],
+       [
+        "upright_w",
+        "height"
+       ],
+       [
+        "length",
+        "base_t"
+       ]
+      ],
+      "shape": "polygon"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "length - side_inset",
+      "side_hole_h"
+     ],
+     "diameter": "side_dia",
+     "face": "front",
+     "id": "side_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "center": [
+      "hole_inset",
+      "depth / 4"
+     ],
+     "diameter": "hole_dia",
+     "face": "top_of_feature:upright",
+     "id": "top_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "count_u": 1,
+     "count_v": 2,
+     "feature": "top_hole",
+     "id": "top_holes",
+     "spacing_v": "depth / 2",
+     "type": "linear_pattern"
+    }
+   ],
+   "name": "angled_bracket",
+   "parameters": {
+    "base_t": {
+     "description": "base plate thickness in Z",
+     "value": 10
+    },
+    "depth": {
+     "description": "overall depth along Y",
+     "value": 30
+    },
+    "gusset_t": {
+     "description": "triangular gusset thickness in Y",
+     "value": 8
+    },
+    "height": {
+     "description": "overall height along Z",
+     "value": 40
+    },
+    "hole_dia": {
+     "description": "top mounting hole diameter",
+     "value": 6
+    },
+    "hole_inset": {
+     "description": "top hole centre from left edge in X",
+     "value": 15
+    },
+    "length": {
+     "description": "overall length along X",
+     "value": 80
+    },
+    "side_dia": {
+     "description": "gusset hole diameter",
+     "value": 8
+    },
+    "side_hole_h": {
+     "description": "gusset hole centre height from bottom",
+     "value": 15
+    },
+    "side_inset": {
+     "description": "gusset hole centre from right edge in X",
+     "value": 20
+    },
+    "upright_w": {
+     "description": "upright block width along X",
+     "value": 30
+    }
+   }
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.714,
+  "bbox_ok": true,
+  "dims_ok": "9/13",
+  "failed_dims": [
+   {
+    "label": "slope",
+    "ok": false,
+    "expected": 27.5,
+    "measured": 25.0
+   },
+   {
+    "label": "15",
+    "ok": false,
+    "expected": 15.25,
+    "measured": 10.3
+   },
+   {
+    "label": "\u00d88 thru",
+    "ok": false,
+    "expected": 8,
+    "measured": null,
+    "note": "nearest y-cylinder is \u00d88.00 at [60.0, 15.0]"
+   },
+   {
+    "label": "10",
+    "ok": false,
+    "expected": 10,
+    "measured": 15.0
+   }
+  ],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 21,
+   "computed_exprs": 4,
+   "literal_numbers": 4,
+   "examples": [
+    "(depth - gusset_t) / 2",
+    "length - side_inset",
+    "depth / 4",
+    "depth / 2"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.6771,
+   "ok": false
+  }
+ }
+}

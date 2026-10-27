@@ -1,0 +1,41 @@
+{
+ "kind": "error",
+ "name": "through_rear_wall",
+ "part": "enclosure",
+ "copy": 1,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "extra hole on short side wall, drawing shows only one \u00d88 hole on front wall",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 22.4,
+   "output_tokens": 2154,
+   "cost_usd": 0.000745738
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "extra \u00d88 thru hole in rear wall, drawing shows \u00d88 thru front wall only",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 19.8,
+   "output_tokens": 1834,
+   "cost_usd": 0.0006817380000000001
+  }
+ ]
+}

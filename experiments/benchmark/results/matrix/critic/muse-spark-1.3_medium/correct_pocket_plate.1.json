@@ -1,0 +1,29 @@
+{
+ "kind": "correct",
+ "name": "pocket_plate",
+ "part": "pocket_plate",
+ "copy": 1,
+ "model": "muse-spark-1.3",
+ "effort": "medium",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 19.9,
+   "output_tokens": 4087,
+   "cost_usd": 0.021242599999999997
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 20.1,
+   "output_tokens": 3838,
+   "cost_usd": 0.02018435
+  }
+ ]
+}

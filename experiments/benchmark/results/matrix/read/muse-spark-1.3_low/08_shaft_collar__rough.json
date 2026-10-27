@@ -1,0 +1,210 @@
+{
+ "part": "08_shaft_collar",
+ "set": "rough",
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "seconds": 21.8,
+ "output_tokens": 5373,
+ "cost_usd": 0.03458525,
+ "output": {
+  "callouts": [
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "15",
+    "measure": "overall",
+    "value": 15.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base",
+    "feature_b": null,
+    "label": "\u00d840",
+    "measure": "diameter",
+    "value": 40.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "bore",
+    "feature_b": null,
+    "label": "\u00d820 thru",
+    "measure": "diameter",
+    "value": 20.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "slit",
+    "feature_b": null,
+    "label": "slit 2",
+    "measure": "unchecked",
+    "value": 2.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "clamp_hole",
+    "feature_b": null,
+    "label": "\u00d84 thru",
+    "measure": "diameter",
+    "value": 4.0
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "clamp_hole",
+    "feature_b": null,
+    "label": "35",
+    "measure": "distance_to_edge",
+    "value": 35.0
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "bore",
+    "feature_b": null,
+    "label": "bore centred",
+    "measure": "distance_to_edge",
+    "value": 20.0
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "bore",
+    "feature_b": null,
+    "label": "bore centred",
+    "measure": "distance_to_edge",
+    "value": 20.0
+   },
+   {
+    "axis": null,
+    "edge": "z_min",
+    "feature": "clamp_hole",
+    "feature_b": null,
+    "label": "clamp hole centred",
+    "measure": "distance_to_edge",
+    "value": 7.5
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "slit",
+    "feature_b": null,
+    "label": "slit centred",
+    "measure": "distance_to_edge",
+    "value": 20.0
+   }
+  ],
+  "spec": {
+   "description": "Split shaft collar with vertical bore. Assumed: bore is coaxial with outer, slit is radial to the east on the Y-centreline from bore to outer through full height, clamp hole axis along Y on the X position 35 from left and centred in Z.",
+   "features": [
+    {
+     "distance": "height",
+     "id": "base",
+     "operation": "add",
+     "plane": "XY",
+     "profile": {
+      "diameter": "outer_dia",
+      "shape": "circle",
+      "u": "outer_dia / 2",
+      "v": "outer_dia / 2"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "outer_dia / 2",
+      "outer_dia / 2"
+     ],
+     "diameter": "inner_dia",
+     "face": "top",
+     "id": "bore",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "distance": "height",
+     "id": "slit",
+     "operation": "cut",
+     "plane": "XY",
+     "profile": {
+      "height": "slit_w",
+      "shape": "rect",
+      "u": "outer_dia / 2",
+      "v": "outer_dia / 2 - slit_w / 2",
+      "width": "outer_dia / 2"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "clamp_x",
+      "height / 2"
+     ],
+     "diameter": "clamp_dia",
+     "face": "front",
+     "id": "clamp_hole",
+     "through": true,
+     "type": "hole"
+    }
+   ],
+   "name": "shaft_collar",
+   "parameters": {
+    "clamp_dia": {
+     "description": "cross clamp hole diameter",
+     "value": 4.0
+    },
+    "clamp_x": {
+     "description": "clamp hole centre from left outer edge along X",
+     "value": 35.0
+    },
+    "height": {
+     "description": "overall height along Z, collar thickness",
+     "value": 15.0
+    },
+    "inner_dia": {
+     "description": "bore diameter through Z",
+     "value": 20.0
+    },
+    "outer_dia": {
+     "description": "outer diameter",
+     "value": 40.0
+    },
+    "slit_w": {
+     "description": "radial slit width along Y",
+     "value": 2.0
+    }
+   }
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "7/7",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 6,
+   "expr_fields": 15,
+   "computed_exprs": 8,
+   "literal_numbers": 0,
+   "examples": [
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "outer_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ }
+}

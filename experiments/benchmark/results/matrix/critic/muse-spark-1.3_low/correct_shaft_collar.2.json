@@ -1,0 +1,29 @@
+{
+ "kind": "correct",
+ "name": "shaft_collar",
+ "part": "shaft_collar",
+ "copy": 2,
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 36.1,
+   "output_tokens": 6049,
+   "cost_usd": 0.029291099999999997
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 10.3,
+   "output_tokens": 2041,
+   "cost_usd": 0.0091595
+  }
+ ]
+}

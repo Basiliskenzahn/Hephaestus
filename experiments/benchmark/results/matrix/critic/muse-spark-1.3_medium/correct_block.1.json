@@ -1,0 +1,29 @@
+{
+ "kind": "correct",
+ "name": "block",
+ "part": "block",
+ "copy": 1,
+ "model": "muse-spark-1.3",
+ "effort": "medium",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 16.5,
+   "output_tokens": 3552,
+   "cost_usd": 0.017090849999999998
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 17.9,
+   "output_tokens": 3524,
+   "cost_usd": 0.01697185
+  }
+ ]
+}

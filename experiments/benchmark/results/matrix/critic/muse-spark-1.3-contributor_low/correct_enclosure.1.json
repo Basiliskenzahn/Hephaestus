@@ -1,0 +1,51 @@
+{
+ "kind": "correct",
+ "name": "enclosure",
+ "part": "enclosure",
+ "copy": 1,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "cable_hole",
+      "issue": "front wall \u00d88 hole lacks the required 0.5 x 45\u00b0 edge break",
+      "severity": "low"
+     },
+     {
+      "feature_id": "screw_holes",
+      "issue": "floor holes are placed close to the corners instead of 10 mm in from the outer edges",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 14.6,
+   "output_tokens": 1654,
+   "cost_usd": 0.0006457380000000001
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "screw_holes 4x \u00d83.2",
+      "issue": "holes are too close to the corners instead of 10 mm inset from outer edges",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "cable_hole \u00d88",
+      "issue": "missing 0.5 x 45\u00b0 chamfer on the thru hole",
+      "severity": "low"
+     }
+    ]
+   },
+   "seconds": 17.2,
+   "output_tokens": 1302,
+   "cost_usd": 0.0006115
+  }
+ ]
+}

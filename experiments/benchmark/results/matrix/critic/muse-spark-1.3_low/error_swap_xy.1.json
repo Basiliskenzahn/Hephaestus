@@ -1,0 +1,29 @@
+{
+ "kind": "error",
+ "name": "swap_xy",
+ "part": "plate",
+ "copy": 1,
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "callouts_fail": true,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 3.7,
+   "output_tokens": 671,
+   "cost_usd": 0.0058046
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 3.0,
+   "output_tokens": 584,
+   "cost_usd": 0.0029004499999999997
+  }
+ ]
+}

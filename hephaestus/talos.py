@@ -46,15 +46,26 @@ class Settings:
     critic_model: str = meta_api.DEFAULT_MODEL
     critic_effort: str = "medium"
     critic_samples: int = 2
-    critic_max_tokens: int = 8000
+    critic_max_tokens: int = 10000
     max_iters: int = 4
 
 
+# Chosen from experiments/benchmark/results/matrix (photo + rough reads, injected-error critic eval), Oct 2026:
+# - muse-spark-1.3 is 2-3x faster than the contributor model in every role.
+# - read: medium effort; low halves the time (14 s vs 27 s median) but lost one rough L-bracket.
+# - critic: low effort, one sample. It flagged more real errors than medium or than 2-sample consensus (10/16 vs
+#   6-8/16) with no false alarms on the correct parts, at 9 s median. Low effort peaked at 7.2k output tokens
+#   (reasoning included), so the cap is 10k; medium effort hit 8k without answering in 3 of 112 calls.
+LIVE = Settings(read_model="muse-spark-1.3", read_effort="medium",
+                correct_model="muse-spark-1.3", correct_effort="medium",
+                critic_model="muse-spark-1.3", critic_effort="low", critic_samples=1, critic_max_tokens=10000)
 PRESETS = {
-    # benchmark / development: cheap contributor models
-    "benchmark": Settings(),
     # live app: user uploads must not go to training, so no contributor models
-    "live": Settings(read_model="muse-spark-1.3", correct_model="muse-spark-1.3", critic_model="muse-spark-1.3"),
+    "live": LIVE,
+    # the benchmark measures the product, so it runs the live settings
+    "benchmark": LIVE,
+    # development: contributor models are ~12x cheaper but slower; read effort low matched medium on them
+    "dev": Settings(read_effort="low", critic_effort="medium", critic_samples=1, critic_max_tokens=10000),
 }
 
 
@@ -285,7 +296,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(prog="python -m hephaestus.talos")
     ap.add_argument("drawing")
     ap.add_argument("--out", required=True)
-    ap.add_argument("--preset", default="benchmark", choices=sorted(PRESETS))
+    ap.add_argument("--preset", default="live", choices=sorted(PRESETS))
     ap.add_argument("--max-iters", type=int, default=None, help="maximum correction calls")
     ap.add_argument("--max-usd", type=float, default=0.5)
     ap.add_argument("--no-critic", action="store_true")

@@ -1,0 +1,35 @@
+{
+ "kind": "correct",
+ "name": "enclosure",
+ "part": "enclosure",
+ "copy": 2,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "medium",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "screw_holes",
+      "issue": "floor holes sit at the wall rim instead of 10 mm inset from the outer edges",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 49.4,
+   "output_tokens": 4177,
+   "cost_usd": 0.001150338
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 36.1,
+   "output_tokens": 3131,
+   "cost_usd": 0.0009411380000000001
+  }
+ ]
+}

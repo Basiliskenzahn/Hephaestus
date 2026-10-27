@@ -1,0 +1,29 @@
+{
+ "kind": "correct",
+ "name": "plate",
+ "part": "plate",
+ "copy": 1,
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 3.9,
+   "output_tokens": 797,
+   "cost_usd": 0.0063401
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 3.9,
+   "output_tokens": 619,
+   "cost_usd": 0.0030491999999999997
+  }
+ ]
+}

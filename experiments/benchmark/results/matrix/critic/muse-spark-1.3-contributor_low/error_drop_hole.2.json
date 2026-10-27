@@ -1,0 +1,51 @@
+{
+ "kind": "error",
+ "name": "drop_hole",
+ "part": "block",
+ "copy": 2,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "callouts_fail": true,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "one of the two \u00d86 thru holes is missing, only left hole present",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 20.5,
+   "output_tokens": 1987,
+   "cost_usd": 0.0007021
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "second \u00d86 thru hole is missing, only one \u00d86 hole is modelled",
+      "severity": "high"
+     },
+     {
+      "feature_id": "bore \u00d812",
+      "issue": "bore is positioned off-centre toward the remaining side hole instead of centred",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "bore \u00d812",
+      "issue": "top edges of the thru holes lack the required 1 x 45\u00b0 chamfer",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 31.4,
+   "output_tokens": 3126,
+   "cost_usd": 0.000893738
+  }
+ ]
+}

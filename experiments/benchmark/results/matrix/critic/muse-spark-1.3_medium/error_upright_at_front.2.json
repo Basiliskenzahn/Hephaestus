@@ -1,0 +1,29 @@
+{
+ "kind": "error",
+ "name": "upright_at_front",
+ "part": "l_bracket",
+ "copy": 2,
+ "model": "muse-spark-1.3",
+ "effort": "medium",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 14.9,
+   "output_tokens": 3440,
+   "cost_usd": 0.01514445
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 21.0,
+   "output_tokens": 4070,
+   "cost_usd": 0.02106035
+  }
+ ]
+}

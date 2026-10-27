@@ -1,0 +1,71 @@
+[   10s] muse-spark-1.3 low 01_plate photo: ok
+[   12s] muse-spark-1.3 low 03_block photo: ok
+[   15s] muse-spark-1.3 low 04_bushing photo: ok
+[   21s] muse-spark-1.3 low 02_l_bracket photo: ok
+[   25s] muse-spark-1.3 low 05_enclosure photo: ok
+[   29s] muse-spark-1.3 low 07_pocket_plate photo: ok
+[   36s] muse-spark-1.3 low 01_plate rough: ok
+[   40s] muse-spark-1.3 low 08_shaft_collar photo: ok
+[   51s] muse-spark-1.3 low 03_block rough: ok
+[   51s] muse-spark-1.3 low 02_l_bracket rough: ok
+[   56s] muse-spark-1.3 low 06_angled_bracket photo: ok
+[   59s] muse-spark-1.3 low 04_bushing rough: ok
+[   65s] muse-spark-1.3 low 05_enclosure rough: ok
+[   69s] muse-spark-1.3 low 07_pocket_plate rough: ok
+[   74s] muse-spark-1.3 low 06_angled_bracket rough: ok
+[   79s] muse-spark-1.3 medium 01_plate photo: ok
+[   82s] muse-spark-1.3 low 08_shaft_collar rough: ok
+[   92s] muse-spark-1.3 medium 03_block photo: ok
+[  105s] muse-spark-1.3 medium 02_l_bracket photo: ok
+[  106s] muse-spark-1.3 medium 04_bushing photo: ok
+[  111s] muse-spark-1.3 medium 05_enclosure photo: ok
+[  123s] muse-spark-1.3 medium 01_plate rough: ok
+[  126s] muse-spark-1.3 medium 07_pocket_plate photo: ok
+[  140s] muse-spark-1.3 medium 08_shaft_collar photo: ok
+[  147s] muse-spark-1.3 medium 03_block rough: ok
+[  159s] muse-spark-1.3 medium 04_bushing rough: ok
+[  160s] muse-spark-1.3 medium 02_l_bracket rough: ok
+[  168s] muse-spark-1.3 medium 05_enclosure rough: ok
+[  174s] muse-spark-1.3 medium 06_angled_bracket photo: ok
+[  189s] muse-spark-1.3 medium 07_pocket_plate rough: ok
+[  200s] muse-spark-1.3-contributor low 01_plate photo: ok
+[  206s] muse-spark-1.3 medium 08_shaft_collar rough: ok
+[  213s] muse-spark-1.3 medium 06_angled_bracket rough: ok
+[  230s] muse-spark-1.3-contributor low 03_block photo: ok
+[  237s] muse-spark-1.3-contributor low 04_bushing photo: ok
+[  238s] muse-spark-1.3-contributor low 05_enclosure photo: ok
+[  246s] muse-spark-1.3-contributor low 02_l_bracket photo: ok
+[  266s] muse-spark-1.3-contributor low 07_pocket_plate photo: ok
+[  267s] muse-spark-1.3-contributor low 01_plate rough: ok
+[  284s] muse-spark-1.3-contributor low 08_shaft_collar photo: ok
+[  299s] muse-spark-1.3-contributor low 02_l_bracket rough: ok
+[  303s] muse-spark-1.3-contributor low 03_block rough: ok
+[  314s] muse-spark-1.3-contributor low 06_angled_bracket photo: ok
+[  318s] muse-spark-1.3-contributor low 04_bushing rough: ok
+[  326s] muse-spark-1.3-contributor low 05_enclosure rough: ok
+[  345s] muse-spark-1.3-contributor low 07_pocket_plate rough: ok
+[  348s] muse-spark-1.3-contributor medium 01_plate photo: ok
+[  358s] muse-spark-1.3-contributor low 08_shaft_collar rough: ok
+[  398s] muse-spark-1.3-contributor medium 03_block photo: ok
+[  399s] muse-spark-1.3-contributor medium 04_bushing photo: ok
+[  405s] muse-spark-1.3-contributor low 06_angled_bracket rough: ok
+[  457s] muse-spark-1.3-contributor medium 05_enclosure photo: ok
+[  469s] muse-spark-1.3-contributor medium 07_pocket_plate photo: ok
+[  477s] muse-spark-1.3-contributor medium 02_l_bracket photo: ok
+[  504s] muse-spark-1.3-contributor medium 01_plate rough: ok
+[  512s] muse-spark-1.3-contributor medium 06_angled_bracket photo: ok
+[  522s] muse-spark-1.3-contributor medium 08_shaft_collar photo: ok
+[  539s] muse-spark-1.3-contributor medium 02_l_bracket rough: ok
+[  551s] muse-spark-1.3-contributor medium 03_block rough: ok
+[  565s] muse-spark-1.3-contributor medium 05_enclosure rough: ok
+[  566s] muse-spark-1.3-contributor medium 04_bushing rough: ok
+[  615s] muse-spark-1.3-contributor medium 07_pocket_plate rough: ok
+[  665s] muse-spark-1.3-contributor medium 08_shaft_collar rough: ok
+[  732s] muse-spark-1.3-contributor medium 06_angled_bracket rough: ok
+spent $1.1630
+| read model | effort | perfect | compiles | median s | p90 s | median out tok | cost / read |
+|---|---|---|---|---|---|---|---|
+| muse-spark-1.3 | low | 13/16 (photo 7/8, rough 6/8) | 16/16 | 14 | 23 | 3627 | $0.0273 |
+| muse-spark-1.3 | medium | 14/16 (photo 7/8, rough 7/8) | 16/16 | 27 | 54 | 6604 | $0.0418 |
+| muse-spark-1.3-contributor | low | 13/16 (photo 7/8, rough 6/8) | 16/16 | 31 | 84 | 3782 | $0.0016 |
+| muse-spark-1.3-contributor | medium | 13/16 (photo 7/8, rough 6/8) | 15/16 | 60 | 131 | 6763 | $0.0021 |

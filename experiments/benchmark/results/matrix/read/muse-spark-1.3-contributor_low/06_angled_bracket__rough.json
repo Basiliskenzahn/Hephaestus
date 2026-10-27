@@ -1,0 +1,285 @@
+{
+ "part": "06_angled_bracket",
+ "set": "rough",
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "seconds": 100.9,
+ "output_tokens": 9199,
+ "cost_usd": 0.0028141000000000004,
+ "output": {
+  "callouts": [
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "80",
+    "measure": "overall",
+    "value": 80
+   },
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "40",
+    "measure": "overall",
+    "value": 40
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "30",
+    "measure": "overall",
+    "value": 30
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "30",
+    "measure": "unchecked",
+    "value": 30
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base",
+    "feature_b": null,
+    "label": "10",
+    "measure": "thickness",
+    "value": 10
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "\u00d88 thru",
+    "measure": "diameter",
+    "value": 8
+   },
+   {
+    "axis": null,
+    "edge": "x_max",
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "20",
+    "measure": "distance_to_edge",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": "z_min",
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "15",
+    "measure": "distance_to_edge",
+    "value": 15
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "2x \u00d86 thru",
+    "measure": "diameter",
+    "value": 6
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "15",
+    "measure": "distance_to_edge",
+    "value": 15
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "8",
+    "measure": "distance_to_edge",
+    "value": 8
+   }
+  ],
+  "spec": {
+   "description": "Base plate with a full-depth tapered rib on top. Assumed: rib spans the full depth; vertical mounting holes are 8 from the front/back edges so spacing follows as depth - 2 * hole edge.",
+   "features": [
+    {
+     "distance": "base_t",
+     "id": "base",
+     "operation": "add",
+     "plane": "XY",
+     "profile": {
+      "height": "depth",
+      "shape": "rect",
+      "width": "length"
+     },
+     "type": "extrude"
+    },
+    {
+     "distance": "depth",
+     "id": "rib",
+     "offset": 0.0,
+     "operation": "add",
+     "plane": "XZ",
+     "profile": {
+      "points": [
+       [
+        0,
+        "base_t"
+       ],
+       [
+        0,
+        "height"
+       ],
+       [
+        "top_len",
+        "height"
+       ],
+       [
+        "length",
+        "base_t"
+       ]
+      ],
+      "shape": "polygon"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "hole_inset_x",
+      "hole_edge_y"
+     ],
+     "diameter": "mount_dia",
+     "face": "top_of_feature:base",
+     "id": "mount_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "count_u": 1,
+     "count_v": 2,
+     "feature": "mount_hole",
+     "id": "mount_holes",
+     "spacing_v": "depth - 2 * hole_edge_y",
+     "type": "linear_pattern"
+    },
+    {
+     "center": [
+      "length - side_inset_x",
+      "side_h"
+     ],
+     "diameter": "side_dia",
+     "face": "front",
+     "id": "side_hole",
+     "through": true,
+     "type": "hole"
+    }
+   ],
+   "name": "angled_bracket",
+   "parameters": {
+    "base_t": {
+     "description": "base plate thickness, also tip height at right end",
+     "value": 10
+    },
+    "depth": {
+     "description": "overall depth along Y",
+     "value": 30
+    },
+    "height": {
+     "description": "overall height along Z",
+     "value": 40
+    },
+    "hole_edge_y": {
+     "description": "mounting hole centre from front/back edges",
+     "value": 8
+    },
+    "hole_inset_x": {
+     "description": "mounting hole centre from left edge",
+     "value": 15
+    },
+    "length": {
+     "description": "overall length along X",
+     "value": 80
+    },
+    "mount_dia": {
+     "description": "mounting hole diameter",
+     "value": 6
+    },
+    "side_dia": {
+     "description": "side hole diameter",
+     "value": 8
+    },
+    "side_h": {
+     "description": "side hole centre height from bottom",
+     "value": 15
+    },
+    "side_inset_x": {
+     "description": "side hole centre from right edge",
+     "value": 20
+    },
+    "top_len": {
+     "description": "flat top length of rib",
+     "value": 30
+    }
+   }
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.9198,
+  "bbox_ok": true,
+  "dims_ok": "9/13",
+  "failed_dims": [
+   {
+    "label": "slope",
+    "ok": false,
+    "expected": 27.5,
+    "measured": 25.0
+   },
+   {
+    "label": "15",
+    "ok": false,
+    "expected": 15.25,
+    "measured": 10.3
+   },
+   {
+    "label": "\u00d88 thru",
+    "ok": false,
+    "expected": 8,
+    "measured": null,
+    "note": "nearest y-cylinder is \u00d88.00 at [60.0, 15.0]"
+   },
+   {
+    "label": "10",
+    "ok": false,
+    "expected": 10,
+    "measured": 15.0
+   }
+  ],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 17,
+   "computed_exprs": 2,
+   "literal_numbers": 5,
+   "examples": [
+    "depth - 2 * hole_edge_y",
+    "length - side_inset_x"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.9186,
+   "ok": false
+  }
+ }
+}

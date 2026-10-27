@@ -1,0 +1,41 @@
+{
+ "kind": "error",
+ "name": "drop_hole",
+ "part": "block",
+ "copy": 1,
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "callouts_fail": true,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "one of the two \u00d86 thru holes is missing, part shows only one side hole",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 8.9,
+   "output_tokens": 1730,
+   "cost_usd": 0.01116125
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "only one \u00d86 thru hole is present, drawing requires two",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 10.7,
+   "output_tokens": 2363,
+   "cost_usd": 0.0138515
+  }
+ ]
+}

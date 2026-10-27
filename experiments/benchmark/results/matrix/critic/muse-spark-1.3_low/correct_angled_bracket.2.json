@@ -1,0 +1,40 @@
+{
+ "kind": "correct",
+ "name": "angled_bracket",
+ "part": "angled_bracket",
+ "copy": 2,
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "body",
+      "issue": "small right-end height is about 8-10 mm, drawing shows 15 mm",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "cross_hole",
+      "issue": "hole centre is ~10 mm from right edge, drawing shows 20 mm from right edge with centre 10 mm up",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 15.5,
+   "output_tokens": 3198,
+   "cost_usd": 0.0172756
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 11.6,
+   "output_tokens": 2320,
+   "cost_usd": 0.0135441
+  }
+ ]
+}

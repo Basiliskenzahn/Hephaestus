@@ -1,0 +1,285 @@
+{
+ "part": "06_angled_bracket",
+ "set": "photo",
+ "model": "muse-spark-1.3-contributor",
+ "effort": "medium",
+ "seconds": 113.2,
+ "output_tokens": 12437,
+ "cost_usd": 0.002509826,
+ "output": {
+  "callouts": [
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "80",
+    "measure": "overall",
+    "value": 80
+   },
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "40",
+    "measure": "overall",
+    "value": 40
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "30",
+    "measure": "overall",
+    "value": 30
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "30",
+    "measure": "unchecked",
+    "value": 30
+   },
+   {
+    "axis": null,
+    "edge": "x_max",
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "20",
+    "measure": "distance_to_edge",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "\u00d88 thru",
+    "measure": "diameter",
+    "value": 8
+   },
+   {
+    "axis": null,
+    "edge": "z_min",
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "15",
+    "measure": "distance_to_edge",
+    "value": 15
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "10",
+    "measure": "unchecked",
+    "value": 10
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "15",
+    "measure": "distance_to_edge",
+    "value": 15
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "2x \u00d86 thru",
+    "measure": "diameter",
+    "value": 6
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "8",
+    "measure": "distance_to_edge",
+    "value": 8
+   },
+   {
+    "axis": null,
+    "edge": "y_max",
+    "feature": "mount_holes[1]",
+    "feature_b": null,
+    "label": "mount holes symmetric",
+    "measure": "distance_to_edge",
+    "value": 8
+   }
+  ],
+  "spec": {
+   "description": "Solid wedge block extruded in Y with sloped top. Assumed: top profile is a single straight slope from end of top flat to the top of the short right edge; front vertical holes appear as dashed lines in FRONT; top holes are symmetric front-back about the centreline (drawn symmetric).",
+   "features": [
+    {
+     "distance": "depth",
+     "id": "base",
+     "offset": 0.0,
+     "plane": "XZ",
+     "profile": {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        "length",
+        0
+       ],
+       [
+        "length",
+        "right_h"
+       ],
+       [
+        "top_len",
+        "height"
+       ],
+       [
+        0,
+        "height"
+       ]
+      ],
+      "shape": "polygon"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "length - hole8_inset_x",
+      "hole8_z"
+     ],
+     "diameter": "hole8_dia",
+     "face": "front",
+     "id": "side_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "center": [
+      "hole6_x",
+      "hole6_inset_y"
+     ],
+     "diameter": "hole6_dia",
+     "face": "top",
+     "id": "mount_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "count_u": 1,
+     "count_v": 2,
+     "feature": "mount_hole",
+     "id": "mount_holes",
+     "spacing_v": "depth - 2 * hole6_inset_y",
+     "type": "linear_pattern"
+    }
+   ],
+   "name": "angled_bracket",
+   "parameters": {
+    "depth": {
+     "description": "overall depth along Y",
+     "value": 30
+    },
+    "height": {
+     "description": "overall height along Z",
+     "value": 40
+    },
+    "hole6_dia": {
+     "description": "vertical mounting hole diameter",
+     "value": 6
+    },
+    "hole6_inset_y": {
+     "description": "mounting hole centre from front/back edges; holes symmetric",
+     "value": 8
+    },
+    "hole6_x": {
+     "description": "mounting hole centre from left edge",
+     "value": 15
+    },
+    "hole8_dia": {
+     "description": "side hole diameter",
+     "value": 8
+    },
+    "hole8_inset_x": {
+     "description": "side hole centre from right edge",
+     "value": 20
+    },
+    "hole8_z": {
+     "description": "side hole centre height from bottom",
+     "value": 15
+    },
+    "length": {
+     "description": "overall length along X",
+     "value": 80
+    },
+    "right_h": {
+     "description": "profile height at right edge",
+     "value": 10
+    },
+    "top_len": {
+     "description": "length of flat top from left edge",
+     "value": 30
+    }
+   }
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.9198,
+  "bbox_ok": true,
+  "dims_ok": "9/13",
+  "failed_dims": [
+   {
+    "label": "slope",
+    "ok": false,
+    "expected": 27.5,
+    "measured": 25.0
+   },
+   {
+    "label": "15",
+    "ok": false,
+    "expected": 15.25,
+    "measured": 10.3
+   },
+   {
+    "label": "\u00d88 thru",
+    "ok": false,
+    "expected": 8,
+    "measured": null,
+    "note": "nearest y-cylinder is \u00d88.00 at [60.0, 15.0]"
+   },
+   {
+    "label": "10",
+    "ok": false,
+    "expected": 10,
+    "measured": 15.0
+   }
+  ],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 14,
+   "computed_exprs": 2,
+   "literal_numbers": 7,
+   "examples": [
+    "length - hole8_inset_x",
+    "depth - 2 * hole6_inset_y"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.9186,
+   "ok": false
+  }
+ }
+}

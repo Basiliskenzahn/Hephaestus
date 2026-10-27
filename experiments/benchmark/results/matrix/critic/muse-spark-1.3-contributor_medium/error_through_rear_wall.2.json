@@ -1,0 +1,56 @@
+{
+ "kind": "error",
+ "name": "through_rear_wall",
+ "part": "enclosure",
+ "copy": 2,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "medium",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "extra \u00d88 hole in rear wall opposite front, drawing shows only one hole thru front wall",
+      "severity": "high"
+     },
+     {
+      "feature_id": "screw_holes 4x \u00d83.2",
+      "issue": "holes placed too close to corners, not 10 mm from outer edges as drawn",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "cable_hole \u00d88",
+      "issue": "missing 0.5 x 45\u00b0 chamfer on hole edge",
+      "severity": "low"
+     }
+    ]
+   },
+   "seconds": 51.5,
+   "output_tokens": 5039,
+   "cost_usd": 0.001322738
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "extra \u00d88 through hole in rear wall duplicates front hole, drawing shows hole only in front wall.",
+      "severity": "high"
+     },
+     {
+      "feature_id": "cable_hole \u00d88",
+      "issue": "front \u00d88 hole lacks required 0.5 x 45\u00b0 chamfer.",
+      "severity": "low"
+     }
+    ]
+   },
+   "seconds": 38.0,
+   "output_tokens": 3622,
+   "cost_usd": 0.000738282
+  }
+ ]
+}

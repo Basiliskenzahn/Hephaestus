@@ -1,0 +1,152 @@
+[   11s] muse-spark-1.3 low error move_hole 1: ok
+[   16s] muse-spark-1.3 low error rotate_slot 2: ok
+[   18s] muse-spark-1.3 low error move_hole 2: ok
+[   24s] muse-spark-1.3 low error rotate_slot 1: ok
+[   31s] muse-spark-1.3 low error drop_hole 2: ok
+[   32s] muse-spark-1.3 low error drop_hole 1: ok
+[   40s] muse-spark-1.3 low error wrong_diameter 1: ok
+[   42s] muse-spark-1.3 low error wrong_diameter 2: ok
+[   47s] muse-spark-1.3 low error swap_xy 1: ok
+[   51s] muse-spark-1.3 low error swap_xy 2: ok
+[   51s] muse-spark-1.3 low error chamfer_for_fillet 1: ok
+[   53s] muse-spark-1.3 low error chamfer_for_fillet 2: ok
+[   66s] muse-spark-1.3 low error through_rear_wall 1: ok
+[   70s] muse-spark-1.3 low error through_rear_wall 2: ok
+[   73s] muse-spark-1.3 low error upright_at_front 1: ok
+[   74s] muse-spark-1.3 low correct plate 1: ok
+[   75s] muse-spark-1.3 low error upright_at_front 2: ok
+[   83s] muse-spark-1.3 low correct plate 2: ok
+[   96s] muse-spark-1.3 low correct l_bracket 2: ok
+[  101s] muse-spark-1.3 low correct l_bracket 1: ok
+[  102s] muse-spark-1.3 low correct bushing 1: ok
+[  105s] muse-spark-1.3 low correct block 1: ok
+[  106s] muse-spark-1.3 low correct block 2: ok
+[  113s] muse-spark-1.3 low correct bushing 2: ok
+[  121s] muse-spark-1.3 low correct enclosure 1: ok
+[  123s] muse-spark-1.3 low correct enclosure 2: ok
+[  136s] muse-spark-1.3 low correct angled_bracket 1: ok
+[  140s] muse-spark-1.3 low correct angled_bracket 2: ok
+[  142s] muse-spark-1.3 low correct pocket_plate 1: ok
+[  153s] muse-spark-1.3 low correct pocket_plate 2: ok
+[  166s] muse-spark-1.3 medium error rotate_slot 1: ok
+[  170s] muse-spark-1.3 medium error rotate_slot 2: ok
+[  185s] muse-spark-1.3 medium error move_hole 1: ok
+[  186s] muse-spark-1.3 medium error move_hole 2: ok
+[  187s] muse-spark-1.3 low correct shaft_collar 2: ok
+[  191s] muse-spark-1.3 low correct shaft_collar 1: ok
+[  207s] muse-spark-1.3 medium error drop_hole 1: ok
+[  212s] muse-spark-1.3 medium error drop_hole 2: ok
+[  218s] muse-spark-1.3 medium error wrong_diameter 1: ok
+[  236s] muse-spark-1.3 medium error wrong_diameter 2: ok
+[  237s] muse-spark-1.3 medium error chamfer_for_fillet 1: ok
+[  240s] muse-spark-1.3 medium error chamfer_for_fillet 2: ok
+[  243s] muse-spark-1.3 medium error swap_xy 1: ok
+[  251s] muse-spark-1.3 medium error swap_xy 2: ok
+[  267s] muse-spark-1.3 medium error through_rear_wall 1: ok
+[  280s] muse-spark-1.3 medium error through_rear_wall 2: ok
+[  284s] muse-spark-1.3 medium error upright_at_front 1: ok
+[  287s] muse-spark-1.3 medium error upright_at_front 2: ok
+[  288s] muse-spark-1.3 medium correct plate 1: ok
+[  310s] muse-spark-1.3 medium correct plate 2: ok
+[  321s] muse-spark-1.3 medium correct l_bracket 2: ok
+[  322s] muse-spark-1.3 medium correct block 1: ok
+[  324s] muse-spark-1.3 medium correct l_bracket 1: ok
+[  334s] muse-spark-1.3 medium correct bushing 1: ok
+[  351s] muse-spark-1.3 medium correct block 2: ok
+[  355s] muse-spark-1.3 medium correct enclosure 1: ok
+[  356s] muse-spark-1.3 medium correct enclosure 2: ok
+[  366s] muse-spark-1.3 medium correct bushing 2: ok
+[  396s] muse-spark-1.3 medium correct pocket_plate 1: ok
+[  407s] muse-spark-1.3 medium correct pocket_plate 2: ok
+[  410s] muse-spark-1.3 medium correct angled_bracket 1: ok
+[  420s] muse-spark-1.3 medium correct angled_bracket 2: ok
+[  430s] muse-spark-1.3-contributor low error rotate_slot 1: ok
+[  441s] muse-spark-1.3-contributor low error rotate_slot 2: ok
+[  455s] muse-spark-1.3 medium correct shaft_collar 2: ok
+[  458s] muse-spark-1.3-contributor low error move_hole 2: ok
+[  460s] muse-spark-1.3 medium correct shaft_collar 1: ok
+[  477s] muse-spark-1.3-contributor low error move_hole 1: ok
+[  488s] muse-spark-1.3-contributor low error drop_hole 1: ok
+[  488s] muse-spark-1.3-contributor low error wrong_diameter 1: ok
+[  510s] muse-spark-1.3-contributor low error drop_hole 2: ok
+[  514s] muse-spark-1.3-contributor low error wrong_diameter 2: ok
+[  521s] muse-spark-1.3-contributor low error swap_xy 1: ok
+[  522s] muse-spark-1.3-contributor low error chamfer_for_fillet 2: ok
+[  532s] muse-spark-1.3-contributor low error swap_xy 2: ok
+[  533s] muse-spark-1.3-contributor low error chamfer_for_fillet 1: ok
+[  563s] muse-spark-1.3-contributor low error through_rear_wall 1: ok
+[  569s] muse-spark-1.3-contributor low error through_rear_wall 2: ok
+[  577s] muse-spark-1.3-contributor low correct plate 1: ok
+[  577s] muse-spark-1.3-contributor low error upright_at_front 1: ok
+[  582s] muse-spark-1.3-contributor low error upright_at_front 2: ok
+[  585s] muse-spark-1.3-contributor low correct plate 2: ok
+[  622s] muse-spark-1.3-contributor low correct block 1: ok
+[  635s] muse-spark-1.3-contributor low correct block 2: ok
+[  638s] muse-spark-1.3-contributor low correct bushing 1: ok
+[  653s] muse-spark-1.3-contributor low correct l_bracket 2: ok
+[  658s] muse-spark-1.3-contributor low correct bushing 2: ok
+[  670s] muse-spark-1.3-contributor low correct enclosure 1: ok
+[  684s] muse-spark-1.3-contributor low correct l_bracket 1: ok
+[  700s] muse-spark-1.3-contributor low correct enclosure 2: ok
+[  728s] muse-spark-1.3-contributor low correct angled_bracket 1: ok
+[  730s] muse-spark-1.3-contributor low correct pocket_plate 1: ok
+[  742s] muse-spark-1.3-contributor low correct pocket_plate 2: ok
+[  777s] muse-spark-1.3-contributor low correct angled_bracket 2: ok
+[  783s] muse-spark-1.3-contributor medium error rotate_slot 1: ok
+[  822s] muse-spark-1.3-contributor low correct shaft_collar 2: ok
+[  822s] muse-spark-1.3-contributor medium error move_hole 1: ok
+[  830s] muse-spark-1.3-contributor medium error rotate_slot 2: ok
+[  847s] muse-spark-1.3-contributor low correct shaft_collar 1: ok
+[  856s] muse-spark-1.3-contributor medium error move_hole 2: ok
+[  871s] muse-spark-1.3-contributor medium error drop_hole 2: ok
+[  875s] muse-spark-1.3-contributor medium error drop_hole 1: ok
+[  905s] muse-spark-1.3-contributor medium error wrong_diameter 1: ok
+[  926s] muse-spark-1.3-contributor medium error wrong_diameter 2: ok
+[  940s] muse-spark-1.3-contributor medium error chamfer_for_fillet 1: ok
+[  942s] muse-spark-1.3-contributor medium error swap_xy 1: ok
+[  944s] muse-spark-1.3-contributor medium error chamfer_for_fillet 2: ok
+[  981s] muse-spark-1.3-contributor medium error swap_xy 2: ok
+[ 1013s] muse-spark-1.3-contributor medium error upright_at_front 1: ok
+[ 1031s] muse-spark-1.3-contributor medium error through_rear_wall 1: ok
+[ 1032s] muse-spark-1.3-contributor medium error through_rear_wall 2: ok
+[ 1038s] muse-spark-1.3-contributor medium correct plate 1: ok
+[ 1090s] muse-spark-1.3-contributor medium correct plate 2: ok
+[ 1107s] muse-spark-1.3-contributor medium correct l_bracket 2: ok
+[ 1127s] muse-spark-1.3-contributor medium error upright_at_front 2: ok
+[ 1150s] muse-spark-1.3-contributor medium correct l_bracket 1: ok
+[ 1179s] muse-spark-1.3-contributor medium correct bushing 1: ok
+[ 1217s] muse-spark-1.3-contributor medium correct bushing 2: ok
+[ 1228s] muse-spark-1.3-contributor medium correct block 2: ok
+[ 1231s] muse-spark-1.3-contributor medium correct block 1: ok
+[ 1273s] muse-spark-1.3-contributor medium correct enclosure 1: ok
+[ 1303s] muse-spark-1.3-contributor medium correct enclosure 2: ok
+[ 1315s] muse-spark-1.3-contributor medium correct angled_bracket 1: ok
+[ 1370s] muse-spark-1.3-contributor medium correct pocket_plate 1: ok
+[ 1375s] muse-spark-1.3-contributor medium correct pocket_plate 2: ok
+[ 1383s] muse-spark-1.3-contributor medium correct angled_bracket 2: ok
+[ 1437s] muse-spark-1.3-contributor medium correct shaft_collar 1: ok
+[ 1541s] muse-spark-1.3-contributor medium correct shaft_collar 2: ok
+spent $1.9233
+| critic model | effort | samples | flags injected errors | loop detects (callout or critic) | false alarms (correct parts) | median s | p90 s | median out tok / sample | cost / check |
+|---|---|---|---|---|---|---|---|---|---|
+| muse-spark-1.3 | low | 1 | 10/16 | 14/16 | 0/16 | 9 | 16 | 1926 | $0.0122 |
+| muse-spark-1.3 | low | 2 | 8/16 | 14/16 | 0/16 | 11 | 17 | 1876 | $0.0219 |
+| muse-spark-1.3 | medium | 1 | 8/16 | 14/16 | 0/16 | 15 | 20 | 3156 | $0.0166 | (1 failed calls)
+| muse-spark-1.3 | medium | 2 | 6/16 | 14/16 | 0/16 | 19 | 28 | 3350 | $0.0328 | (2 failed calls)
+| muse-spark-1.3-contributor | low | 1 | 8/16 | 14/16 | 1/16 | 21 | 42 | 1938 | $0.0007 |
+| muse-spark-1.3-contributor | low | 2 | 7/16 | 14/16 | 1/16 | 22 | 53 | 1819 | $0.0013 |
+| muse-spark-1.3-contributor | medium | 1 | 8/16 | 14/16 | 0/16 | 33 | 62 | 3023 | $0.0010 | (1 failed calls)
+| muse-spark-1.3-contributor | medium | 2 | 6/16 | 14/16 | 0/16 | 43 | 72 | 3126 | $0.0017 | (3 failed calls)
+
+Critic flags per injected error (C = flagged, - = not), copies 1 and 2:
+
+| config | rotate_slot | move_hole | drop_hole | wrong_diameter | chamfer_for_fillet | swap_xy | through_rear_wall | upright_at_front |
+|---|---|---|---|---|---|---|---|---|
+| 1.3 low x1 | CC | -- | CC | CC | CC | -- | CC | -- |
+| 1.3 low x2 | CC | -- | CC | -- | CC | -- | CC | -- |
+| 1.3 medium x1 | CC | -- | CC | -- | CC | -- | CC | -- |
+| 1.3 medium x2 | CC | -- | -C | -- | C- | -- | CC | -- |
+| 1.3-contributor low x1 | CC | -- | CC | -- | CC | -- | CC | -- |
+| 1.3-contributor low x2 | CC | -- | CC | -- | C- | -- | CC | -- |
+| 1.3-contributor medium x1 | CC | -- | CC | -- | CC | -- | CC | -- |
+| 1.3-contributor medium x2 | CC | -- | -C | -- | -C | -- | CC | -- |

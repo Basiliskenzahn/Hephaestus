@@ -1,0 +1,250 @@
+{
+ "part": "05_enclosure",
+ "set": "photo",
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "seconds": 21.8,
+ "output_tokens": 2383,
+ "cost_usd": 0.0008145140000000001,
+ "output": {
+  "callouts": [
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "100",
+    "measure": "overall",
+    "value": 100
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "60",
+    "measure": "overall",
+    "value": 60
+   },
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "40",
+    "measure": "overall",
+    "value": 40
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "body_shell",
+    "feature_b": null,
+    "label": "wall 2",
+    "measure": "thickness",
+    "value": 2
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "body",
+    "feature_b": null,
+    "label": "R6 (4x)",
+    "measure": "radius",
+    "value": 6
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "4x \u00d83.2 thru floor",
+    "measure": "diameter",
+    "value": 3.2
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "10",
+    "measure": "distance_to_edge",
+    "value": 10
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "10",
+    "measure": "distance_to_edge",
+    "value": 10
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "front_hole",
+    "feature_b": null,
+    "label": "\u00d88 thru front wall",
+    "measure": "diameter",
+    "value": 8
+   },
+   {
+    "axis": null,
+    "edge": "z_min",
+    "feature": "front_hole",
+    "feature_b": null,
+    "label": "20",
+    "measure": "distance_to_edge",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "0.5 x 45\u00b0",
+    "measure": "unchecked",
+    "value": 0.5
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "front_hole",
+    "feature_b": null,
+    "label": "front hole centred",
+    "measure": "distance_to_edge",
+    "value": 50
+   }
+  ],
+  "spec": {
+   "description": "Rectangular enclosure with rounded corners, shelled open-top with 2mm walls, 4 floor mounting holes inset 10mm from edges, and a central front-wall hole. Assumed: front hole is centred along X and 20 from the bottom (drawn centred, 20 dimension from base); floor holes are inset 10 from all sides.",
+   "features": [
+    {
+     "distance": "height",
+     "id": "body",
+     "operation": "add",
+     "plane": "XY",
+     "profile": {
+      "height": "depth",
+      "radius": "corner_r",
+      "shape": "rounded_rect",
+      "width": "length"
+     },
+     "type": "extrude"
+    },
+    {
+     "id": "body_shell",
+     "open_faces": [
+      "top"
+     ],
+     "thickness": "wall_t",
+     "type": "shell"
+    },
+    {
+     "center": [
+      "hole_inset",
+      "hole_inset"
+     ],
+     "diameter": "mount_dia",
+     "face": "bottom",
+     "id": "mount_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "count_u": 2,
+     "count_v": 2,
+     "feature": "mount_hole",
+     "id": "mount_holes",
+     "spacing_u": "length - 2 * hole_inset",
+     "spacing_v": "depth - 2 * hole_inset",
+     "type": "linear_pattern"
+    },
+    {
+     "center": [
+      "length / 2",
+      "front_hole_z"
+     ],
+     "diameter": "front_dia",
+     "face": "front",
+     "id": "front_hole",
+     "through": true,
+     "type": "hole"
+    }
+   ],
+   "name": "open_enclosure",
+   "parameters": {
+    "corner_r": {
+     "description": "outer corner radius, 4 places",
+     "value": 6
+    },
+    "depth": {
+     "description": "overall depth along Y",
+     "value": 60
+    },
+    "front_dia": {
+     "description": "front wall hole diameter",
+     "value": 8
+    },
+    "front_hole_z": {
+     "description": "front hole centre height from bottom",
+     "value": 20
+    },
+    "height": {
+     "description": "overall height along Z",
+     "value": 40
+    },
+    "hole_inset": {
+     "description": "floor hole centre inset from each side wall; spacing follows",
+     "value": 10
+    },
+    "length": {
+     "description": "overall length along X",
+     "value": 100
+    },
+    "mount_dia": {
+     "description": "floor mounting hole diameter",
+     "value": 3.2
+    },
+    "wall_t": {
+     "description": "enclosure wall and floor thickness",
+     "value": 2
+    }
+   }
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.997,
+  "bbox_ok": true,
+  "dims_ok": "14/15",
+  "failed_dims": [
+   {
+    "label": "\u00d88 front wall only (rear wall closed)",
+    "ok": false,
+    "expected": 0,
+    "measured": null,
+    "note": "ray misses the part"
+   }
+  ],
+  "errors": null,
+  "params": {
+   "parameters": 9,
+   "expr_fields": 13,
+   "computed_exprs": 3,
+   "literal_numbers": 2,
+   "examples": [
+    "length - 2 * hole_inset",
+    "depth - 2 * hole_inset",
+    "length / 2"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.9974,
+   "ok": true
+  }
+ }
+}

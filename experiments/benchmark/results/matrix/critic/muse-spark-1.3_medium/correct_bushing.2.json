@@ -1,0 +1,35 @@
+{
+ "kind": "correct",
+ "name": "bushing",
+ "part": "bushing",
+ "copy": 2,
+ "model": "muse-spark-1.3",
+ "effort": "medium",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 14.0,
+   "output_tokens": 2778,
+   "cost_usd": 0.01538935
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "central \u00d816 bore is blind, drawing shows \u00d816 thru",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 29.6,
+   "output_tokens": 6319,
+   "cost_usd": 0.027341
+  }
+ ]
+}

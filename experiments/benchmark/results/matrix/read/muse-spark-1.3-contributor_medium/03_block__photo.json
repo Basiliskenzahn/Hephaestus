@@ -1,0 +1,234 @@
+{
+ "part": "03_block",
+ "set": "photo",
+ "model": "muse-spark-1.3-contributor",
+ "effort": "medium",
+ "seconds": 48.2,
+ "output_tokens": 6129,
+ "cost_usd": 0.0022001,
+ "output": {
+  "callouts": [
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "20",
+    "measure": "overall",
+    "value": 20
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "40",
+    "measure": "overall",
+    "value": 40
+   },
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "70",
+    "measure": "overall",
+    "value": 70
+   },
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": "mount_hole",
+    "feature_b": "mount_holes[1]",
+    "label": "46",
+    "measure": "distance",
+    "value": 46
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "center_hole",
+    "feature_b": null,
+    "label": "20",
+    "measure": "distance_to_edge",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "2x \u00d86 thru",
+    "measure": "diameter",
+    "value": 6
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "center_hole",
+    "feature_b": null,
+    "label": "\u00d812 thru",
+    "measure": "diameter",
+    "value": 12
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base",
+    "feature_b": null,
+    "label": "R5 (4x)",
+    "measure": "radius",
+    "value": 5
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "top_chamfer",
+    "feature_b": null,
+    "label": "1 x 45\u00b0 all top edges",
+    "measure": "chamfer_size",
+    "value": 1
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "center_hole",
+    "feature_b": null,
+    "label": "center hole centred",
+    "measure": "distance_to_edge",
+    "value": 35
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "mount holes on centreline",
+    "measure": "distance_to_edge",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "mount holes centred",
+    "measure": "distance_to_edge",
+    "value": 12
+   }
+  ],
+  "spec": {
+   "description": "Rectangular plate with rounded plan corners, central thru hole and two symmetric thru holes, chamfered top edges. Assumed: all three holes are on the Y-centreline (20 dimension shows centreline) and the hole pattern is centred in X (drawn symmetric, located as length / 2 +/- hole_pitch / 2).",
+   "features": [
+    {
+     "distance": "thickness",
+     "id": "base",
+     "plane": "XY",
+     "profile": {
+      "height": "depth",
+      "radius": "corner_r",
+      "shape": "rounded_rect",
+      "width": "length"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "length / 2",
+      "depth / 2"
+     ],
+     "diameter": "center_dia",
+     "face": "top_of_feature:base",
+     "id": "center_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "center": [
+      "length / 2 - hole_pitch / 2",
+      "depth / 2"
+     ],
+     "diameter": "mount_dia",
+     "face": "top_of_feature:base",
+     "id": "mount_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "count_u": 2,
+     "feature": "mount_hole",
+     "id": "mount_holes",
+     "spacing_u": "hole_pitch",
+     "type": "linear_pattern"
+    },
+    {
+     "edges": "top_of_feature:base",
+     "id": "top_chamfer",
+     "size": "chamfer_size",
+     "type": "chamfer"
+    }
+   ],
+   "name": "drilled_plate",
+   "parameters": {
+    "center_dia": {
+     "description": "central thru hole diameter",
+     "value": 12
+    },
+    "chamfer_size": {
+     "description": "45 deg chamfer size on all top edges",
+     "value": 1
+    },
+    "corner_r": {
+     "description": "plan corner radius, 4x",
+     "value": 5
+    },
+    "depth": {
+     "description": "overall depth along Y",
+     "value": 40
+    },
+    "hole_pitch": {
+     "description": "distance between the two mounting hole centres along X, pattern centred on part",
+     "value": 46
+    },
+    "length": {
+     "description": "overall length along X",
+     "value": 70
+    },
+    "mount_dia": {
+     "description": "mounting hole diameter, 2x",
+     "value": 6
+    },
+    "thickness": {
+     "description": "overall height along Z / plate thickness",
+     "value": 20
+    }
+   }
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 0.9992,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 8,
+   "expr_fields": 12,
+   "computed_exprs": 4,
+   "literal_numbers": 1,
+   "examples": [
+    "length / 2",
+    "depth / 2",
+    "length / 2 - hole_pitch / 2",
+    "depth / 2"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.9994,
+   "ok": true
+  }
+ }
+}

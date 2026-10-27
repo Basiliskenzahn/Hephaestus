@@ -1,0 +1,46 @@
+{
+ "kind": "error",
+ "name": "wrong_diameter",
+ "part": "block",
+ "copy": 1,
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "callouts_fail": true,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "bore",
+      "issue": "center bore is \u00d810, drawing specifies \u00d812 thru",
+      "severity": "medium"
+     },
+     {
+      "feature_id": null,
+      "issue": "hole top edges have no chamfer, drawing requires 1x45 deg on all top edges",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 11.5,
+   "output_tokens": 2615,
+   "cost_usd": 0.014516600000000001
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "bore",
+      "issue": "central through hole is \u00d810, drawing shows \u00d812 thru",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 9.9,
+   "output_tokens": 1434,
+   "cost_usd": 0.00668135
+  }
+ ]
+}

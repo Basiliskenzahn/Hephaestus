@@ -1,0 +1,29 @@
+{
+ "kind": "correct",
+ "name": "l_bracket",
+ "part": "l_bracket",
+ "copy": 1,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "medium",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 46.4,
+   "output_tokens": 4439,
+   "cost_usd": 0.001185138
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 71.6,
+   "output_tokens": 7049,
+   "cost_usd": 0.0014186260000000003
+  }
+ ]
+}

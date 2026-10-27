@@ -1,0 +1,35 @@
+{
+ "kind": "correct",
+ "name": "angled_bracket",
+ "part": "angled_bracket",
+ "copy": 2,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "body",
+      "issue": "right-end vertical height is ~8 mm, drawing shows 15 mm",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 45.5,
+   "output_tokens": 4060,
+   "cost_usd": 0.001103038
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 61.8,
+   "output_tokens": 5655,
+   "cost_usd": 0.001422038
+  }
+ ]
+}

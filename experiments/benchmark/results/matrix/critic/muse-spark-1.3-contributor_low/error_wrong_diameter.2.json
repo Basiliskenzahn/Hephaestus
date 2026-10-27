@@ -1,0 +1,46 @@
+{
+ "kind": "error",
+ "name": "wrong_diameter",
+ "part": "block",
+ "copy": 2,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "callouts_fail": true,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "bore",
+      "issue": "center thru hole is \u00d810, drawing shows \u00d812 thru",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "side_holes",
+      "issue": "left \u00d86 hole is offset off centerline, drawing shows holes centered 20 from edge",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 20.1,
+   "output_tokens": 1890,
+   "cost_usd": 0.000646538
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "bore",
+      "issue": "center bore is \u00d810, drawing specifies \u00d812 thru",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 16.8,
+   "output_tokens": 1647,
+   "cost_usd": 0.0006341000000000001
+  }
+ ]
+}

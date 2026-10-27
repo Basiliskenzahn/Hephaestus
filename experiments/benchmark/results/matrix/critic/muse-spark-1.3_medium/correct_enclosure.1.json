@@ -1,0 +1,35 @@
+{
+ "kind": "correct",
+ "name": "enclosure",
+ "part": "enclosure",
+ "copy": 1,
+ "model": "muse-spark-1.3",
+ "effort": "medium",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "cable_hole \u00d88",
+      "issue": "0.5 x 45\u00b0 edge break on \u00d88 hole missing",
+      "severity": "low"
+     }
+    ]
+   },
+   "seconds": 16.5,
+   "output_tokens": 3775,
+   "cost_usd": 0.0200266
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 15.1,
+   "output_tokens": 3020,
+   "cost_usd": 0.01681785
+  }
+ ]
+}

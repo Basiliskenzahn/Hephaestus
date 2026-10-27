@@ -1,0 +1,41 @@
+{
+ "kind": "error",
+ "name": "wrong_diameter",
+ "part": "block",
+ "copy": 2,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "medium",
+ "callouts_fail": true,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "bore",
+      "issue": "central bore is \u00d810, drawing requires \u00d812 thru",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 37.5,
+   "output_tokens": 3578,
+   "cost_usd": 0.000984138
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "bore",
+      "issue": "center bore is \u00d810, drawing specifies \u00d812 thru",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 32.4,
+   "output_tokens": 2690,
+   "cost_usd": 0.000806538
+  }
+ ]
+}

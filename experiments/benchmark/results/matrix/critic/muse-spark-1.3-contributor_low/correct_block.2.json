@@ -1,0 +1,51 @@
+{
+ "kind": "correct",
+ "name": "block",
+ "part": "block",
+ "copy": 2,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "bore",
+      "issue": "top circular edge has no 1x45\u00b0 chamfer, drawing requires chamfer on all top edges",
+      "severity": "high"
+     },
+     {
+      "feature_id": "side_holes",
+      "issue": "top circular edges have no 1x45\u00b0 chamfer, drawing requires chamfer on all top edges",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 25.2,
+   "output_tokens": 2389,
+   "cost_usd": 0.0007825
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "bore \u00d812",
+      "issue": "top 1x45\u00b0 chamfer missing around central hole",
+      "severity": "high"
+     },
+     {
+      "feature_id": "side_holes 2x \u00d86",
+      "issue": "top 1x45\u00b0 chamfer missing around side holes",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 24.5,
+   "output_tokens": 2316,
+   "cost_usd": 0.0007679000000000001
+  }
+ ]
+}

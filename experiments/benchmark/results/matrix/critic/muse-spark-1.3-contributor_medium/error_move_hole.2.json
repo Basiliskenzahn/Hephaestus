@@ -1,0 +1,29 @@
+{
+ "kind": "error",
+ "name": "move_hole",
+ "part": "plate",
+ "copy": 2,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "medium",
+ "callouts_fail": true,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 15.5,
+   "output_tokens": 1399,
+   "cost_usd": 0.0005485
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 19.4,
+   "output_tokens": 1897,
+   "cost_usd": 0.0006119380000000001
+  }
+ ]
+}

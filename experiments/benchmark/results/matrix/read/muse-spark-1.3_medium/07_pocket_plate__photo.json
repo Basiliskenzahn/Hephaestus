@@ -1,0 +1,298 @@
+{
+ "part": "07_pocket_plate",
+ "set": "photo",
+ "model": "muse-spark-1.3",
+ "effort": "medium",
+ "seconds": 19.6,
+ "output_tokens": 5772,
+ "cost_usd": 0.03627475,
+ "output": {
+  "callouts": [
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "100",
+    "measure": "overall",
+    "value": 100
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "60",
+    "measure": "overall",
+    "value": 60
+   },
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "10",
+    "measure": "overall",
+    "value": 10
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base",
+    "feature_b": null,
+    "label": "10",
+    "measure": "thickness",
+    "value": 10
+   },
+   {
+    "axis": "x",
+    "edge": "x_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "10",
+    "measure": "distance_to_edge",
+    "value": 10
+   },
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": "mount_holes[0]",
+    "feature_b": "mount_holes[1]",
+    "label": "80",
+    "measure": "distance",
+    "value": 80
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "10",
+    "measure": "distance_to_edge",
+    "value": 10
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": "mount_holes[0]",
+    "feature_b": "mount_holes[2]",
+    "label": "40",
+    "measure": "distance",
+    "value": 40
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "50",
+    "measure": "unchecked",
+    "value": 50
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "30",
+    "measure": "unchecked",
+    "value": 30
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "pocket",
+    "feature_b": null,
+    "label": "R3",
+    "measure": "radius",
+    "value": 3
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "pocket",
+    "feature_b": null,
+    "label": "pocket 4 deep",
+    "measure": "depth",
+    "value": 4
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "4x \u00d86.6 thru",
+    "measure": "diameter",
+    "value": 6.6
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "\u00d811",
+    "measure": "unchecked",
+    "value": 11
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "6.4 deep",
+    "measure": "unchecked",
+    "value": 6.4
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "pocket",
+    "feature_b": null,
+    "label": "pocket centred",
+    "measure": "distance_to_edge",
+    "value": 25
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "pocket",
+    "feature_b": null,
+    "label": "pocket centred",
+    "measure": "distance_to_edge",
+    "value": 15
+   }
+  ],
+  "spec": {
+   "description": "Flat plate with central rounded pocket and four counterbored holes. Assumed: the pocket is centred in the plate (drawn symmetric, not dimensioned from an edge).",
+   "features": [
+    {
+     "distance": "thickness",
+     "id": "base",
+     "operation": "add",
+     "plane": "XY",
+     "profile": {
+      "height": "depth",
+      "shape": "rect",
+      "width": "length"
+     },
+     "type": "extrude"
+    },
+    {
+     "direction": "negative",
+     "distance": "pocket_depth",
+     "id": "pocket",
+     "offset": "thickness",
+     "operation": "cut",
+     "plane": "XY",
+     "profile": {
+      "anchor": "center",
+      "height": "pocket_w",
+      "radius": "corner_r",
+      "shape": "rounded_rect",
+      "u": "length / 2",
+      "v": "depth / 2",
+      "width": "pocket_len"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "hole_inset",
+      "hole_inset"
+     ],
+     "counterbore": {
+      "depth": "cbore_depth",
+      "diameter": "cbore_dia"
+     },
+     "diameter": "hole_dia",
+     "face": "top_of_feature:base",
+     "id": "mount_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "count_u": 2,
+     "count_v": 2,
+     "feature": "mount_hole",
+     "id": "mount_holes",
+     "spacing_u": "length - 2 * hole_inset",
+     "spacing_v": "depth - 2 * hole_inset",
+     "type": "linear_pattern"
+    }
+   ],
+   "name": "pocket_plate",
+   "parameters": {
+    "cbore_depth": {
+     "description": "counterbore depth from top",
+     "value": 6.4
+    },
+    "cbore_dia": {
+     "description": "counterbore diameter",
+     "value": 11
+    },
+    "corner_r": {
+     "description": "pocket corner radius",
+     "value": 3
+    },
+    "depth": {
+     "description": "overall depth along Y",
+     "value": 60
+    },
+    "hole_dia": {
+     "description": "through hole diameter",
+     "value": 6.6
+    },
+    "hole_inset": {
+     "description": "hole centre inset from edges; hole spacings follow as length/depth - 2 * hole_inset",
+     "value": 10
+    },
+    "length": {
+     "description": "overall length along X",
+     "value": 100
+    },
+    "pocket_depth": {
+     "description": "pocket depth from top",
+     "value": 4
+    },
+    "pocket_len": {
+     "description": "pocket length along X, centred",
+     "value": 50
+    },
+    "pocket_w": {
+     "description": "pocket width along Y, centred",
+     "value": 30
+    },
+    "thickness": {
+     "description": "plate thickness, overall height",
+     "value": 10
+    }
+   }
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "16/16",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 17,
+   "computed_exprs": 4,
+   "literal_numbers": 2,
+   "examples": [
+    "length / 2",
+    "depth / 2",
+    "length - 2 * hole_inset",
+    "depth - 2 * hole_inset"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ }
+}

@@ -24,7 +24,7 @@ sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "experiments", "reading-spike-v2"))
 
 from hephaestus import meta_api  # noqa: E402
-from hephaestus.talos import check, run  # noqa: E402
+from hephaestus.talos import PRESETS, check, run  # noqa: E402
 from score import GROUND_TRUTH, score  # noqa: E402
 
 SKETCHES = os.path.join(ROOT, "experiments", "reading-spike", "sketches")
@@ -90,12 +90,12 @@ def injected(name):
     return part, spec
 
 
-def run_case(name, run_no, client, outdir):
+def run_case(name, run_no, client, outdir, settings=None):
     part, desc, _ = ERRORS[name]
     gt_key, img_dir, image = PARTS[part]
     _, spec = injected(name)
     start = {"spec": spec, "callouts": load(part, "callouts")}
-    events = list(run(os.path.join(img_dir, image), max_iters=3, client=client, start=start))
+    events = list(run(os.path.join(img_dir, image), max_iters=3, client=client, start=start, settings=settings))
     first = next(e for e in events if e["event"] == "checks")
     sources = {i["source"] for i in first["issues"]}
     detected = ("both" if {"callout", "critic"} <= sources else "callout" if "callout" in sources
@@ -112,10 +112,11 @@ def run_case(name, run_no, client, outdir):
     return rec
 
 
-def false_alarm(part, run_no, client, outdir):
+def false_alarm(part, run_no, client, outdir, settings=None):
     gt_key, img_dir, image = PARTS[part]
     t0 = time.time()
-    _, checks, issues = check(load(part, "spec"), load(part, "callouts"), os.path.join(img_dir, image), client)
+    _, checks, issues = check(load(part, "spec"), load(part, "callouts"), os.path.join(img_dir, image), client,
+                              settings=settings or PRESETS["live"])
     rec = {"part": part, "run": run_no, "clean": not issues, "issues": issues, "critic": checks["critic"],
            "critic_call": checks["critic_call"], "seconds": round(time.time() - t0, 1)}
     with open(os.path.join(outdir, f"false_alarm_{part}.run{run_no}.json"), "w") as f:
@@ -160,15 +161,17 @@ def main():
     ap.add_argument("--max-usd", type=float, default=0.5)
     ap.add_argument("--model", default=meta_api.DEFAULT_MODEL)
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--preset", default="live", help="talos.PRESETS key")
+    ap.add_argument("--tag", default="", help="results subfolder instead of the model name")
     ap.add_argument("--summarize", action="store_true", help="rebuild the tables from saved results, no API calls")
     args = ap.parse_args()
     if args.summarize:
-        print(summarize(os.path.join(HERE, "results", args.model)))
+        print(summarize(os.path.join(HERE, "results", args.tag or args.model)))
         return
 
     budget = meta_api.Budget(args.max_usd)
     client = meta_api.Client(args.model, budget=budget)
-    outdir = os.path.join(HERE, "results", args.model)
+    outdir = os.path.join(HERE, "results", args.tag or args.model)
     os.makedirs(outdir, exist_ok=True)
     lock = threading.Lock()
     jobs = []
@@ -182,7 +185,9 @@ def main():
     def do(job):
         kind, name, r = job
         try:
-            rec = run_case(name, r, client, outdir) if kind == "case" else false_alarm(name, r, client, outdir)
+            settings = PRESETS[args.preset]
+            rec = (run_case(name, r, client, outdir, settings) if kind == "case"
+                   else false_alarm(name, r, client, outdir, settings))
         except meta_api.ModelError as e:
             rec = {"error" if kind == "case" else "part": name, "run": r, "failed": str(e)}
         with lock:

@@ -1,8 +1,9 @@
 """Visual critic: compare the input drawing with a render of the compiled part. Fresh context, no generator reasoning.
 
-The critic is sampled twice in parallel and an issue only blocks when both samples raise a high-severity issue on
-the same feature: real errors (a rotated slot, a missing hole) were reported consistently, while misreadings
-of photos flip from one sample to the next.
+consensus() can sample the critic several times and block only on high-severity issues every sample raises on the
+same feature. With the contributor model at medium effort that removed flip-flopping misreadings of photos; with
+muse-spark-1.3 at low effort (the live default) a single sample had no false alarms and caught more real errors,
+so the presets use one sample. Frozen callouts (talos.py) now guard against a wrong critic instead.
 """
 import re
 from concurrent.futures import ThreadPoolExecutor
@@ -40,7 +41,7 @@ Do not report differences in line style, colour, label placement, view layout, o
 Use the feature ids from image 2. If the part matches the drawing, return matches: true and an empty list."""
 
 
-def critique(client, drawing, sheet_png, model=None, effort=None, max_tokens=8000):
+def critique(client, drawing, sheet_png, model=None, effort=None, max_tokens=10000):
     """Returns (CriticOutput as dict, call info). max_tokens caps reasoning + answer: the critic only lists issues."""
     content = [meta_api.text("Image 1: the drawing."), meta_api.image(drawing),
                meta_api.text("Image 2: the part built from it."), meta_api.image(sheet_png, "image/png")]
@@ -54,7 +55,7 @@ def _key(issue):
     return m.group(0).lower() if m else None
 
 
-def consensus(client, drawing, sheet_png, samples=2, model=None, effort=None, max_tokens=8000):
+def consensus(client, drawing, sheet_png, samples=2, model=None, effort=None, max_tokens=10000):
     """Run the critic `samples` times in parallel and merge. Returns (merged output, summed call info).
 
     merged = {matches, issues (high issues raised by every sample, on the same feature), advisories (the rest),

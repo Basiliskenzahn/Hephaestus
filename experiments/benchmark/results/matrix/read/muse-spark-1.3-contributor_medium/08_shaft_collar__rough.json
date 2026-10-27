@@ -1,0 +1,134 @@
+{
+ "part": "08_shaft_collar",
+ "set": "rough",
+ "model": "muse-spark-1.3-contributor",
+ "effort": "medium",
+ "seconds": 100.7,
+ "output_tokens": 9810,
+ "cost_usd": 0.0022888139999999997,
+ "output": {
+  "callouts": [
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "15",
+    "measure": "overall",
+    "value": 15.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base",
+    "feature_b": null,
+    "label": "\u00d840",
+    "measure": "diameter",
+    "value": 40.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "bore",
+    "feature_b": null,
+    "label": "\u00d820 thru",
+    "measure": "diameter",
+    "value": 20.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "clamp_hole",
+    "feature_b": null,
+    "label": "\u00d84 thru",
+    "measure": "diameter",
+    "value": 4.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "slit",
+    "feature_b": null,
+    "label": "slit 2",
+    "measure": "unchecked",
+    "value": 2.0
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "clamp_hole",
+    "feature_b": null,
+    "label": "35",
+    "measure": "distance_to_edge",
+    "value": 35.0
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "bore",
+    "feature_b": null,
+    "label": "bore centred",
+    "measure": "distance_to_edge",
+    "value": 20.0
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "bore",
+    "feature_b": null,
+    "label": "bore centred",
+    "measure": "distance_to_edge",
+    "value": 20.0
+   },
+   {
+    "axis": null,
+    "edge": "z_min",
+    "feature": "clamp_hole",
+    "feature_b": null,
+    "label": "clamp hole centred",
+    "measure": "distance_to_edge",
+    "value": 7.5
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "slit",
+    "feature_b": null,
+    "label": "slit centred",
+    "measure": "distance_to_edge",
+    "value": 20.0
+   }
+  ],
+  "spec": {
+   "description": "Split shaft collar with axis along Z. Assumed: bore is concentric with outer diameter, slit connects bore to outer on the +X side on the Y centreline, clamp hole is along Y at 35 from the left edge and centred vertically.",
+   "features": [
+    {
+     "id": "base",
+     "open_faces": [],
+     "thickness": 0.0,
+     "type": "shell"
+    }
+   ],
+   "name": "x"
+  }
+ },
+ "score": {
+  "compiles": false,
+  "perfect": false,
+  "iou": null,
+  "bbox_ok": null,
+  "dims_ok": null,
+  "failed_dims": null,
+  "errors": [
+   "feature base: the first feature must create material (an extrude or revolve with operation 'add')"
+  ],
+  "params": {
+   "parameters": 0,
+   "expr_fields": 0,
+   "computed_exprs": 0,
+   "literal_numbers": 1,
+   "examples": []
+  },
+  "x_param": null
+ }
+}

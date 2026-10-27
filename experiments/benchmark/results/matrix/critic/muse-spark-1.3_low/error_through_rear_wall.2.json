@@ -1,0 +1,51 @@
+{
+ "kind": "error",
+ "name": "through_rear_wall",
+ "part": "enclosure",
+ "copy": 2,
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "extra \u00d88 thru hole on opposite wall, drawing shows only one front-wall hole",
+      "severity": "high"
+     },
+     {
+      "feature_id": "cable_hole \u00d88",
+      "issue": "missing 0.5 x 45\u00b0 edge break on \u00d88 hole",
+      "severity": "low"
+     }
+    ]
+   },
+   "seconds": 9.9,
+   "output_tokens": 2025,
+   "cost_usd": 0.0125891
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "extra \u00d88 hole through rear long wall, drawing shows hole only through front wall",
+      "severity": "high"
+     },
+     {
+      "feature_id": "cable_hole \u00d88",
+      "issue": "front hole missing 0.5 x 45 deg break called out on drawing",
+      "severity": "low"
+     }
+    ]
+   },
+   "seconds": 9.4,
+   "output_tokens": 2322,
+   "cost_usd": 0.01385135
+  }
+ ]
+}

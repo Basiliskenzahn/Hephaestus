@@ -1,0 +1,41 @@
+{
+ "kind": "correct",
+ "name": "enclosure",
+ "part": "enclosure",
+ "copy": 2,
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "cable_hole",
+      "issue": "front wall \u00d88 hole modeled without the specified 0.5 x 45\u00b0 break",
+      "severity": "low"
+     }
+    ]
+   },
+   "seconds": 8.4,
+   "output_tokens": 1797,
+   "cost_usd": 0.008240899999999999
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "screw_holes",
+      "issue": "floor holes are placed almost at the outer edges instead of 10 mm inset from edges",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 9.9,
+   "output_tokens": 2344,
+   "cost_usd": 0.01394485
+  }
+ ]
+}

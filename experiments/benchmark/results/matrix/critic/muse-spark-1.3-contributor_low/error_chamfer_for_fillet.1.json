@@ -1,0 +1,46 @@
+{
+ "kind": "error",
+ "name": "chamfer_for_fillet",
+ "part": "block",
+ "copy": 1,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "callouts_fail": true,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "body",
+      "issue": "vertical corners are chamfered flats, drawing requires R5 rounded corners",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 19.9,
+   "output_tokens": 2084,
+   "cost_usd": 0.0007215
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "block corners are modelled as chamfered flats, drawing shows R5 rounded corners",
+      "severity": "high"
+     },
+     {
+      "feature_id": "bore \u00d812",
+      "issue": "central bore is offset along the length and not centred between the side holes",
+      "severity": "medium"
+     }
+    ]
+   },
+   "seconds": 26.0,
+   "output_tokens": 2715,
+   "cost_usd": 0.0008477000000000001
+  }
+ ]
+}

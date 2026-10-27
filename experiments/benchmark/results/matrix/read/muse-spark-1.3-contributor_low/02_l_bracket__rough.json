@@ -1,0 +1,276 @@
+{
+ "part": "02_l_bracket",
+ "set": "rough",
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "seconds": 32.4,
+ "output_tokens": 4259,
+ "cost_usd": 0.0017797000000000004,
+ "output": {
+  "callouts": [
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "60",
+    "measure": "overall",
+    "value": 60.0
+   },
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "40",
+    "measure": "overall",
+    "value": 40.0
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "40",
+    "measure": "overall",
+    "value": 40.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base",
+    "feature_b": null,
+    "label": "5",
+    "measure": "thickness",
+    "value": 5.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "upright",
+    "feature_b": null,
+    "label": "5",
+    "measure": "thickness",
+    "value": 5.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "2x \u00d85 thru",
+    "measure": "diameter",
+    "value": 5.0
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "15",
+    "measure": "distance_to_edge",
+    "value": 15.0
+   },
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": "mount_hole",
+    "feature_b": "mount_holes[1]",
+    "label": "30",
+    "measure": "distance",
+    "value": 30.0
+   },
+   {
+    "axis": null,
+    "edge": "z_min",
+    "feature": "mount_hole",
+    "feature_b": null,
+    "label": "28",
+    "measure": "distance_to_edge",
+    "value": 28.0
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base_slot",
+    "feature_b": null,
+    "label": "slot w = 6",
+    "measure": "slot_width",
+    "value": 6.0
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": "base_slot",
+    "feature_b": null,
+    "label": "20",
+    "measure": "slot_length",
+    "value": 20.0
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "base_slot",
+    "feature_b": null,
+    "label": "17.5",
+    "measure": "distance_to_edge",
+    "value": 17.5
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "base_slot",
+    "feature_b": null,
+    "label": "slot centred",
+    "measure": "distance_to_edge",
+    "value": 30.0
+   }
+  ],
+  "spec": {
+   "description": "L-bracket with 60x40 base and 60x40 upright, 5 thick. Assumed: the two mounting holes are symmetric (15 from each side); the base slot is centred in X and its 17.5 dimension is to the slot centre from the front edge.",
+   "features": [
+    {
+     "distance": "thick",
+     "id": "base",
+     "operation": "add",
+     "plane": "XY",
+     "profile": {
+      "height": "depth",
+      "shape": "rect",
+      "width": "width"
+     },
+     "type": "extrude"
+    },
+    {
+     "distance": "thick",
+     "id": "upright",
+     "offset": "depth - thick",
+     "operation": "add",
+     "plane": "XZ",
+     "profile": {
+      "height": "height",
+      "shape": "rect",
+      "width": "width"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "hole_inset",
+      "hole_height"
+     ],
+     "diameter": "hole_dia",
+     "face": "back",
+     "id": "mount_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "count_u": 2.0,
+     "feature": "mount_hole",
+     "id": "mount_holes",
+     "spacing_u": "hole_pitch",
+     "type": "linear_pattern"
+    },
+    {
+     "angle": 90.0,
+     "center": [
+      "width / 2",
+      "slot_y"
+     ],
+     "face": "top_of_feature:base",
+     "id": "base_slot",
+     "length": "slot_len",
+     "through": true,
+     "type": "slot",
+     "width": "slot_w"
+    }
+   ],
+   "name": "l_bracket",
+   "parameters": {
+    "depth": {
+     "description": "overall depth along Y, base depth and total height of upright",
+     "value": 40.0
+    },
+    "height": {
+     "description": "overall height along Z",
+     "value": 40.0
+    },
+    "hole_dia": {
+     "description": "mounting hole diameter in upright",
+     "value": 5.0
+    },
+    "hole_height": {
+     "description": "mounting hole centre height from bottom",
+     "value": 28.0
+    },
+    "hole_inset": {
+     "description": "mounting hole centre from left/right edge",
+     "value": 15.0
+    },
+    "hole_pitch": {
+     "description": "spacing between the two mounting holes",
+     "value": 30.0
+    },
+    "slot_len": {
+     "description": "base slot overall length along Y",
+     "value": 20.0
+    },
+    "slot_w": {
+     "description": "base slot width along X",
+     "value": 6.0
+    },
+    "slot_y": {
+     "description": "base slot centre distance from front edge",
+     "value": 17.5
+    },
+    "thick": {
+     "description": "sheet thickness of both legs",
+     "value": 5.0
+    },
+    "width": {
+     "description": "overall width along X",
+     "value": 60.0
+    }
+   }
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.9655,
+  "bbox_ok": true,
+  "dims_ok": "11/13",
+  "failed_dims": [
+   {
+    "label": "5 (base)",
+    "ok": false,
+    "expected": 5,
+    "measured": null,
+    "note": "ray misses the part"
+   },
+   {
+    "label": "slot 20",
+    "ok": false,
+    "expected": 20,
+    "measured": 6.0
+   }
+  ],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 15,
+   "computed_exprs": 2,
+   "literal_numbers": 2,
+   "examples": [
+    "depth - thick",
+    "width / 2"
+   ]
+  },
+  "x_param": {
+   "param": "width",
+   "iou_after_change": 0.9743,
+   "ok": false
+  }
+ }
+}

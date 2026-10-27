@@ -1,0 +1,41 @@
+{
+ "kind": "error",
+ "name": "through_rear_wall",
+ "part": "enclosure",
+ "copy": 1,
+ "model": "muse-spark-1.3",
+ "effort": "medium",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "extra \u00d88 hole through opposite long (rear) wall, drawing shows \u00d88 thru front wall only",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 12.3,
+   "output_tokens": 2772,
+   "cost_usd": 0.01576385
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "extra \u00d88 hole in rear wall, drawing shows hole only in front wall",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 17.0,
+   "output_tokens": 3838,
+   "cost_usd": 0.02029435
+  }
+ ]
+}

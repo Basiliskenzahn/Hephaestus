@@ -1,0 +1,211 @@
+{
+ "part": "08_shaft_collar",
+ "set": "photo",
+ "model": "muse-spark-1.3-contributor",
+ "effort": "medium",
+ "seconds": 64.0,
+ "output_tokens": 7824,
+ "cost_usd": 0.0018916140000000002,
+ "output": {
+  "callouts": [
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "15",
+    "measure": "overall",
+    "value": 15
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "screw",
+    "feature_b": null,
+    "label": "\u00d84 thru",
+    "measure": "diameter",
+    "value": 4
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "collar",
+    "feature_b": null,
+    "label": "\u00d840",
+    "measure": "diameter",
+    "value": 40
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "bore",
+    "feature_b": null,
+    "label": "\u00d820 thru",
+    "measure": "diameter",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "screw",
+    "feature_b": null,
+    "label": "35",
+    "measure": "distance_to_edge",
+    "value": 35
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "slit",
+    "feature_b": null,
+    "label": "slit 2",
+    "measure": "unchecked",
+    "value": 2
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "bore",
+    "feature_b": null,
+    "label": "bore centred",
+    "measure": "distance_to_edge",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "bore",
+    "feature_b": null,
+    "label": "bore centred",
+    "measure": "distance_to_edge",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": "z_min",
+    "feature": "screw",
+    "feature_b": null,
+    "label": "screw hole centred",
+    "measure": "distance_to_edge",
+    "value": 7.5
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "slit",
+    "feature_b": null,
+    "label": "slit centred",
+    "measure": "distance_to_edge",
+    "value": 20
+   }
+  ],
+  "spec": {
+   "description": "Split shaft collar with OD 40 by 15 high, 20 through bore, 2 wide radial slit and 4 cross-hole. Assumed: bore concentric with OD; slit on centreline from bore region to OD full height; cross-hole axis across slit (Y) centred vertically.",
+   "features": [
+    {
+     "distance": "height",
+     "id": "collar",
+     "operation": "add",
+     "plane": "XY",
+     "profile": {
+      "diameter": "outer_dia",
+      "shape": "circle",
+      "u": "outer_dia / 2",
+      "v": "outer_dia / 2"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "outer_dia / 2",
+      "outer_dia / 2"
+     ],
+     "diameter": "inner_dia",
+     "face": "top",
+     "id": "bore",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "distance": "height",
+     "id": "slit",
+     "operation": "cut",
+     "plane": "XY",
+     "profile": {
+      "height": "slit_w",
+      "shape": "rect",
+      "u": "outer_dia / 2",
+      "v": "outer_dia / 2 - slit_w / 2",
+      "width": "outer_dia / 2"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "screw_x",
+      "height / 2"
+     ],
+     "diameter": "screw_dia",
+     "face": "front",
+     "id": "screw",
+     "through": true,
+     "type": "hole"
+    }
+   ],
+   "name": "shaft_collar",
+   "parameters": {
+    "height": {
+     "description": "overall height along Z, collar width",
+     "value": 15
+    },
+    "inner_dia": {
+     "description": "through bore diameter",
+     "value": 20
+    },
+    "outer_dia": {
+     "description": "outer diameter",
+     "value": 40
+    },
+    "screw_dia": {
+     "description": "clamp screw cross-hole diameter",
+     "value": 4
+    },
+    "screw_x": {
+     "description": "screw centre distance from opposite (left) edge along X",
+     "value": 35
+    },
+    "slit_w": {
+     "description": "radial slit width along Y",
+     "value": 2
+    }
+   },
+   "units": "mm"
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "7/7",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 6,
+   "expr_fields": 15,
+   "computed_exprs": 8,
+   "literal_numbers": 0,
+   "examples": [
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "outer_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ }
+}

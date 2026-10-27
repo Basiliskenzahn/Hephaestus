@@ -1,0 +1,29 @@
+{
+ "kind": "correct",
+ "name": "bushing",
+ "part": "bushing",
+ "copy": 2,
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 9.9,
+   "output_tokens": 845,
+   "cost_usd": 0.000451938
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 13.0,
+   "output_tokens": 1115,
+   "cost_usd": 0.0005059379999999999
+  }
+ ]
+}

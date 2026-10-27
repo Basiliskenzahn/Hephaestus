@@ -1,0 +1,29 @@
+{
+ "kind": "correct",
+ "name": "angled_bracket",
+ "part": "angled_bracket",
+ "copy": 1,
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "callouts_fail": false,
+ "samples": [
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 16.6,
+   "output_tokens": 3891,
+   "cost_usd": 0.02022085
+  },
+  {
+   "out": {
+    "matches": true,
+    "issues": []
+   },
+   "seconds": 13.1,
+   "output_tokens": 2492,
+   "cost_usd": 0.0142751
+  }
+ ]
+}

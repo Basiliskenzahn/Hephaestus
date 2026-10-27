@@ -1,0 +1,259 @@
+{
+ "part": "02_l_bracket",
+ "set": "photo",
+ "model": "muse-spark-1.3-contributor",
+ "effort": "low",
+ "seconds": 56.5,
+ "output_tokens": 5800,
+ "cost_usd": 0.0020879,
+ "output": {
+  "callouts": [
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "60",
+    "measure": "overall",
+    "value": 60
+   },
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "40",
+    "measure": "overall",
+    "value": 40
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "40",
+    "measure": "overall",
+    "value": 40
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base",
+    "feature_b": null,
+    "label": "5",
+    "measure": "thickness",
+    "value": 5
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "wall",
+    "feature_b": null,
+    "label": "5",
+    "measure": "thickness",
+    "value": 5
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "vert_hole",
+    "feature_b": null,
+    "label": "2x \u00d85 thru",
+    "measure": "diameter",
+    "value": 5
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "vert_hole",
+    "feature_b": null,
+    "label": "15",
+    "measure": "distance_to_edge",
+    "value": 15
+   },
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": "vert_hole",
+    "feature_b": "vert_holes[1]",
+    "label": "30",
+    "measure": "distance",
+    "value": 30
+   },
+   {
+    "axis": null,
+    "edge": "z_min",
+    "feature": "vert_hole",
+    "feature_b": null,
+    "label": "28",
+    "measure": "distance_to_edge",
+    "value": 28
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base_slot",
+    "feature_b": null,
+    "label": "slot w = 6",
+    "measure": "slot_width",
+    "value": 6
+   },
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": "base_slot",
+    "feature_b": null,
+    "label": "20",
+    "measure": "slot_length",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "base_slot",
+    "feature_b": null,
+    "label": "17.5",
+    "measure": "distance_to_edge",
+    "value": 17.5
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "base_slot",
+    "feature_b": null,
+    "label": "slot centred",
+    "measure": "distance_to_edge",
+    "value": 30
+   }
+  ],
+  "spec": {
+   "description": "L-bracket made from overlapping base and back wall. Assumed: the 28 hole height is from the bottom of the part (z=0); the base slot is a through slot centred in X (drawn symmetric); the second vertical hole is symmetric so 15 from right, pitch follows as width - 2 * inset.",
+   "features": [
+    {
+     "distance": "thick",
+     "id": "base",
+     "operation": "add",
+     "plane": "XY",
+     "profile": {
+      "height": "depth",
+      "shape": "rect",
+      "width": "width"
+     },
+     "type": "extrude"
+    },
+    {
+     "distance": "thick",
+     "id": "wall",
+     "offset": "depth - thick",
+     "operation": "add",
+     "plane": "XZ",
+     "profile": {
+      "height": "height",
+      "shape": "rect",
+      "width": "width"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "hole_inset",
+      "hole_z"
+     ],
+     "diameter": "hole_dia",
+     "face": "back",
+     "id": "vert_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "count_u": 2,
+     "feature": "vert_hole",
+     "id": "vert_holes",
+     "spacing_u": "width - 2 * hole_inset",
+     "type": "linear_pattern"
+    },
+    {
+     "angle": 0,
+     "center": [
+      "width / 2",
+      "slot_y"
+     ],
+     "face": "top_of_feature:base",
+     "id": "base_slot",
+     "length": "slot_len",
+     "through": true,
+     "type": "slot",
+     "width": "slot_w"
+    }
+   ],
+   "name": "l_bracket",
+   "parameters": {
+    "depth": {
+     "description": "overall depth along Y",
+     "value": 40
+    },
+    "height": {
+     "description": "overall height along Z",
+     "value": 40
+    },
+    "hole_dia": {
+     "description": "vertical wall hole diameter",
+     "value": 5
+    },
+    "hole_inset": {
+     "description": "first hole centre from left edge; right inset same by symmetry, pitch follows as width - 2 * hole_inset",
+     "value": 15
+    },
+    "hole_z": {
+     "description": "vertical hole centre height from bottom",
+     "value": 28
+    },
+    "slot_len": {
+     "description": "base slot overall length along X",
+     "value": 20
+    },
+    "slot_w": {
+     "description": "base slot width along Y",
+     "value": 6
+    },
+    "slot_y": {
+     "description": "base slot centre distance from front edge",
+     "value": 17.5
+    },
+    "thick": {
+     "description": "wall thickness of both legs",
+     "value": 5
+    },
+    "width": {
+     "description": "overall width along X",
+     "value": 60
+    }
+   }
+  }
+ },
+ "score": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 10,
+   "expr_fields": 15,
+   "computed_exprs": 3,
+   "literal_numbers": 2,
+   "examples": [
+    "depth - thick",
+    "width - 2 * hole_inset",
+    "width / 2"
+   ]
+  },
+  "x_param": {
+   "param": "width",
+   "iou_after_change": 0.9933,
+   "ok": true
+  }
+ }
+}

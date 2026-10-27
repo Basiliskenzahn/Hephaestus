@@ -1,0 +1,41 @@
+{
+ "kind": "error",
+ "name": "rotate_slot",
+ "part": "l_bracket",
+ "copy": 2,
+ "model": "muse-spark-1.3",
+ "effort": "low",
+ "callouts_fail": true,
+ "samples": [
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "base_slot",
+      "issue": "slot runs front-to-back in depth direction, drawing shows it left-to-right along width",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 6.2,
+   "output_tokens": 1157,
+   "cost_usd": 0.009086
+  },
+  {
+   "out": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "base_slot",
+      "issue": "slot runs front-to-back, drawing shows it left-to-right",
+      "severity": "high"
+     }
+    ]
+   },
+   "seconds": 6.0,
+   "output_tokens": 1149,
+   "cost_usd": 0.009052
+  }
+ ]
+}
