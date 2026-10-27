@@ -9,7 +9,7 @@ read ─▶ compile ─▶ callouts ─▶ critic ─▶ clean? ── yes ─�
 ```
 
 ```
-python -m hephaestus.talos drawing.png --out out/run1/ [--max-iters 4] [--max-usd 0.5] [--no-critic]
+python -m hephaestus.talos drawing.png --out out/run1/ [--preset live|benchmark|dev] [--max-iters 4] [--max-usd 0.5] [--no-critic]
 ```
 Writes `out/run1/iter_<k>/` (spec.json, part.step, part.stl, top/front/side masks, sheet.png, metrics.json) and
 `events.jsonl`. In Python: `for event in hephaestus.talos.run(image, client=..., out_dir=...)`.
@@ -26,13 +26,33 @@ Writes `out/run1/iter_<k>/` (spec.json, part.step, part.stl, top/front/side mask
 3. **Visual critic** (`critic.py`): a separate call with a fresh context. It sees only the input drawing and a
    rendered sheet (`drawing.py`: FRONT/SIDE/TOP with hidden lines at one scale plus a shaded ISO, labelled with
    sizes, feature ids, hole diameters and slot sizes), and returns `{matches, issues: [{feature_id, issue, severity}]}`.
-   The critic is sampled twice in parallel; an issue triggers a correction only if both samples report it as **high**
-   severity (wrong or missing shape, wrong orientation) on the same feature. Everything else is reported as an
-   advisory. In the evaluations, real errors were reported consistently, while misreadings of photos (a slot's
-   direction, positions) flipped from one sample to the next, and exact sizes and positions are the callouts' job.
+   Only **high** severity issues (wrong or missing shape, wrong orientation) trigger a correction; the rest are
+   advisories. The critic runs **only when the compile and callout checks pass** (it is the slow step), or when a
+   disputed callout needs confirming. `consensus()` can sample it several times and keep only agreed issues; the
+   live preset uses one sample (see Presets).
+
+## Frozen callouts
+The callouts from the first read are the contract: a correction returns a new spec, never new callouts, so it
+cannot make a check pass by editing the check. If the corrector believes a callout was misread, it lists it in
+`disputed_callouts` (index, reason, replacement). The replacement is used only if
+1. the critic had independently flagged the same feature in the check the correction answered, and
+2. the next critic run, on the corrected part, no longer flags that feature.
+
+Otherwise the original callout is restored and keeps blocking. Measurements beat the critic: in the benchmark the
+critic sometimes insisted on a wrong slot direction, and this rule kept the correct read (see
+`experiments/benchmark/results/muse-spark-1.3-contributor/round4`).
+
+## Presets (`talos.PRESETS`)
+| preset | read | correction | critic | use |
+|---|---|---|---|---|
+| `live` | muse-spark-1.3, medium | muse-spark-1.3, medium | muse-spark-1.3, low, 1 sample, 10k token cap | the web app (user uploads must not go to training) |
+| `benchmark` | same as live | | | reported numbers describe the product |
+| `dev` | contributor, low | contributor, medium | contributor, medium, 1 sample | cheap iteration (~12x cheaper, 2-3x slower) |
+
+Measurements behind the choice: `experiments/benchmark/results/matrix/summary.md`.
 
 ## Stopping
-- `pass`: no compile errors, no callout mismatches, no high-severity critic issues
+- `pass`: no compile errors, no callout mismatches, no high-severity critic issue
 - `max_iters`: correction budget used up (default 4 corrections)
 - `stuck`: the same issue list twice in a row
 - `disputed`: the correction returned the spec unchanged, i.e. the model rejected the remaining issues
@@ -47,9 +67,9 @@ Every event is a JSON-serialisable dict with `event`, `iteration` and `t` (secon
 | event | fields |
 |---|---|
 | `read_started` | (none) |
-| `spec` | `spec`, `callouts`, `changelog` (null for the first read), `call` {cost_usd, seconds, input_tokens, output_tokens} |
-| `compiled` | `ok`; `metrics`, `warnings` and `files` (paths, if out_dir is set), or `errors` |
-| `checks` | `clean`, `issues` [{source: compile/callout/critic, message}], `advisories`, `callouts` (one row each, with status and measured value), `critic`, `critic_call` |
+| `spec` | `spec`, `callouts` (the effective, frozen list), `changelog` (null for the first read), `disputes` raised by this correction, `call` {cost_usd, seconds, input_tokens, output_tokens, model, effort} |
+| `compiled` | `ok`; `metrics`, `warnings` and `files` (paths, if out_dir is set), or `errors`. Emitted as soon as the spec compiles, before any check, so the UI can show the part right after the read |
+| `checks` | `clean`, `issues` [{source: compile/callout/critic, message}], `advisories`, `callouts` (one row each, with status and measured value), `critic`, `critic_call`, `critic_skipped` / `critic_error` if it did not run, `disputes` |
 | `correction_started` | `issues` |
 | `error` | `message` |
-| `done` | `status`, `note`, `spec`, `callouts`, `final_iteration`, `remaining_issues`, `iterations`, `cost_usd`, `seconds` |
+| `done` | `status`, `note`, `spec`, `callouts`, `final_iteration`, `remaining_issues`, `iterations`, `disputes`, `cost_usd`, `seconds`, `settings` |
