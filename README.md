@@ -5,6 +5,13 @@ Powered by **Talos**, an agent that generates a part, checks it against the inpu
 
 Built during the [Meta Global AI Developer Hackathon](https://dev.meta.ai/events/global-hackathon), Oct 26 – Nov 4, 2026, on Meta's Muse Spark and SAM 3.1 models.
 
+## Web app
+
+`web/` (static, Netlify) + `server/` (FastAPI on Modal). Upload a sketch or photo, take one with your phone, or
+describe the part in words; watch Talos read, build, check and correct it live; drag the parameter sliders to
+rebuild the part instantly; download STEP, STL and the spec. Six examples replay recorded runs instantly, two of
+them showing Talos catching and fixing an error. Deployment and limits: [`server/README.md`](server/README.md).
+
 ## How it works
 
 1. **Read.** Muse Spark turns the drawing into a structured part spec (features + named parameters, see

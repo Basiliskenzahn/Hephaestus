@@ -53,6 +53,9 @@ $150 total for the whole project; ~$6.60 spent by Oct 27 afternoon. Spending mus
   - `measure.py`: evaluates callouts (dimensions the model read, with a measurement recipe) on the compiled part.
   - `talos.py`: the loop read → compile → callouts → critic → correct; event generator + CLI (`python -m hephaestus.talos img --out dir`). See `docs/talos.md`.
   - `critic.py` (visual critic, fresh context), `drawing.py` (labelled drawing sheet for the critic), `prompts.py` (+ `fewshot/`), `meta_api.py` (streamed Meta API client with a spend budget).
+- `server/` — FastAPI backend on Modal (`api.py`, `runs.py`, `modal_app.py`); `MOCK_MODELS=1` for development; `build_gallery.py` makes `web/gallery/` + `mock_data/` from recorded runs. See `server/README.md`.
+- `web/` — static frontend (Netlify, base directory `web/`); `config.js` holds the backend URL.
+- `.github/workflows/deploy-backend.yml` — deploys the backend to Modal on push (needs MODAL_TOKEN_ID/SECRET repo secrets).
 - `examples/` — v1 specs for the 8 benchmark parts (plate, l_bracket, block, bushing, enclosure, angled_bracket, pocket_plate, shaft_collar); `examples/callouts/` has their ground-truth callouts.
 - `docs/spec-v1.md` — spec reference with one example per feature type. `docs/talos.md` — the loop, checks, events.
 - `experiments/loop-eval/` — injected-error evaluation of the loop + critic false alarms (`python loop_eval.py --runs 2`).
