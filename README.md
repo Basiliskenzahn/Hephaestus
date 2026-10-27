@@ -7,6 +7,8 @@ Built during the [Meta Global AI Developer Hackathon](https://dev.meta.ai/events
 
 ## Web app
 
+**Live: <https://hephaestus-talos.netlify.app>** (backend: Modal).
+
 `web/` (static, Netlify) + `server/` (FastAPI on Modal). Upload a sketch or photo, take one with your phone, or
 describe the part in words; watch Talos read, build, check and correct it live; drag the parameter sliders to
 rebuild the part instantly; download STEP, STL and the spec. Six examples replay recorded runs instantly, two of

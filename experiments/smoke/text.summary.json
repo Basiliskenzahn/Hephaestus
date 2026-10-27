@@ -1,0 +1,26 @@
+{
+ "label": "text",
+ "run_id": "9iQVaffX1-CZ",
+ "post_seconds": 0.6,
+ "marks": {
+  "read_started": 1.3,
+  "spec": 33.0,
+  "compiled_0": 33.4,
+  "checks": 38.4,
+  "done": 38.5
+ },
+ "status": "pass",
+ "corrections": 0,
+ "cost_usd": 0.044407,
+ "server_seconds": 37.8,
+ "files": {
+  "front.png": "iter_0/front.png",
+  "part.step": "iter_0/part.step",
+  "part.stl": "iter_0/part.stl",
+  "side.png": "iter_0/side.png",
+  "top.png": "iter_0/top.png",
+  "metrics.json": "iter_0/metrics.json",
+  "sheet.png": "iter_0/sheet.png",
+  "part.glb": "iter_0/part.glb"
+ }
+}
