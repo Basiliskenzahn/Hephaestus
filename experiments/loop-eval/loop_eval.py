@@ -74,7 +74,13 @@ ERRORS = {
                                                                                     "size": "corner_r",
                                                                                     "edges": "vertical_outer"})]),
     "swap_xy": ("plate", "plate 50 x 80 instead of 80 x 50", _swap_xy),
+    # errors the callouts cannot express: only the critic can catch these
+    "through_rear_wall": ("enclosure", "cable hole drilled through both walls",
+                          lambda s: [_set(s, "cable_hole", through=True), s["features"][3].pop("depth")]),
+    "upright_at_front": ("l_bracket", "upright at the front edge instead of the back",
+                         lambda s: s["features"][1]["profile"].update(v=0)),
 }
+CRITIC_ONLY = {"through_rear_wall", "upright_at_front"}
 
 
 def injected(name):

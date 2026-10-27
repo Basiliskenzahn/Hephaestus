@@ -61,7 +61,15 @@ def consensus(client, drawing, sheet_png, samples=2, model=None, effort=None, ma
     samples (raw outputs)}"""
     with ThreadPoolExecutor(samples) as pool:
         runs = list(pool.map(lambda _: critique(client, drawing, sheet_png, model, effort, max_tokens), range(samples)))
-    outs = [o for o, _ in runs]
+    infos = [inf for _, inf in runs]
+    info = {"usage": {k: sum(inf["usage"].get(k, 0) for inf in infos) for k in ("input_tokens", "output_tokens")},
+            "cost_usd": sum(inf["cost_usd"] for inf in infos), "seconds": max(inf["seconds"] for inf in infos),
+            "model": infos[0].get("model"), "effort": infos[0].get("effort")}
+    return merge([o for o, _ in runs]), info
+
+
+def merge(outs):
+    """Merge critic samples: high issues raised by every sample on the same feature block, the rest are advisories."""
     keys = [{_key(i) for i in o["issues"] if i["severity"] == "high"} for o in outs]
     agreed = set.intersection(*keys) if keys else set()
     issues, advice, seen = [], [], set()
@@ -73,12 +81,8 @@ def consensus(client, drawing, sheet_png, samples=2, model=None, effort=None, ma
         for i in o["issues"]:
             if i not in issues and i not in advice:
                 advice.append(i)
-    infos = [inf for _, inf in runs]
-    info = {"usage": {k: sum(inf["usage"].get(k, 0) for inf in infos) for k in ("input_tokens", "output_tokens")},
-            "cost_usd": sum(inf["cost_usd"] for inf in infos), "seconds": max(inf["seconds"] for inf in infos)}
-    merged = {"matches": not issues, "issues": issues, "advisories": advice, "samples": outs,
-              "agreed_features": sorted(k for k in agreed if k)}
-    return merged, info
+    return {"matches": not issues, "issues": issues, "advisories": advice, "samples": outs,
+            "agreed_features": sorted(k for k in agreed if k)}
 
 
 def blocking(critic_out):
