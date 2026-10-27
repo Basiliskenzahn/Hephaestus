@@ -1,0 +1,25 @@
+{
+ "views": [
+  {
+   "box": [
+    464,
+    330,
+    635,
+    392
+   ],
+   "view": "front"
+  },
+  {
+   "box": [
+    463,
+    489,
+    622,
+    647
+   ],
+   "view": "top"
+  }
+ ],
+ "cost_usd": 0.00043538200000000005,
+ "seconds": 7.7,
+ "model": "muse-spark-1.3-contributor"
+}
