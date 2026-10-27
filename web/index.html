@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hephaestus — sketch to parametric CAD</title>
+  <meta name="description" content="Turn a dimensioned sketch, a phone photo or a text description into a parametric CAD part. Talos builds it, checks it against your drawing and corrects itself.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f3efe4'/%3E%3Cpath d='M6 24 L16 6 L26 24 Z' fill='none' stroke='%231d2733' stroke-width='2'/%3E%3Ccircle cx='16' cy='18' r='3' fill='%23d4441c'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+  <script type="importmap">
+    {"imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    }}
+  </script>
+</head>
+<body>
+  <header class="titleblock">
+    <div class="tb-name">
+      <span class="mark" aria-hidden="true"></span>
+      <div>
+        <h1>HEPHAESTUS</h1>
+        <p>Sketch, photo or text &rarr; parametric CAD part, checked against your drawing by <b>Talos</b>.</p>
+      </div>
+    </div>
+    <dl class="tb-cells">
+      <div><dt>Part</dt><dd id="tb-part">—</dd></div>
+      <div><dt>Size</dt><dd id="tb-size" class="num">—</dd></div>
+      <div><dt>Status</dt><dd id="tb-status">ready</dd></div>
+      <div><dt>Units</dt><dd class="num">mm</dd></div>
+    </dl>
+  </header>
+
+  <main class="sheet">
+    <aside class="inputs">
+      <section class="panel" aria-labelledby="h-new">
+        <h2 id="h-new"><span class="tag">01</span> New part</h2>
+        <label class="drop" id="drop">
+          <input id="file" type="file" accept="image/jpeg,image/png,image/heic,image/heif,.heic,.heif" hidden>
+          <span class="drop-ticks" aria-hidden="true"></span>
+          <strong>Drop a sketch or photo</strong>
+          <span>JPEG, PNG or HEIC, up to 10 MB. Dimensions written on it.</span>
+          <span class="btn">Choose file</span>
+        </label>
+        <label class="btn btn-wide camera">
+          <input id="camera" type="file" accept="image/*" capture="environment" hidden>
+          Take a photo
+        </label>
+        <form id="text-form" class="text-form">
+          <label for="prompt">…or describe it</label>
+          <textarea id="prompt" rows="3" maxlength="1000" placeholder="a 60×40 L-bracket, 5 mm thick, two M5 holes in the upright…"></textarea>
+          <button class="btn btn-wide" type="submit">Build from text</button>
+        </form>
+        <p class="fine">Uploads go to Meta's Muse Spark models to read the drawing, are not used for training, and are deleted after 24 hours.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="h-ex">
+        <h2 id="h-ex"><span class="tag">02</span> Examples <small>recorded runs, replay instantly</small></h2>
+        <ul id="gallery" class="gallery"></ul>
+      </section>
+    </aside>
+
+    <section class="work">
+      <div id="banner" class="banner" hidden></div>
+
+      <div class="views">
+        <figure class="view">
+          <figcaption><span class="tag">A</span> Input</figcaption>
+          <div id="input-view" class="view-body input-view"><p class="empty">Your drawing appears here.</p></div>
+        </figure>
+        <figure class="view view-3d">
+          <figcaption><span class="tag">B</span> Part <span id="iter-label" class="num muted"></span></figcaption>
+          <div id="viewer" class="view-body"><p class="empty">The part appears as soon as the first read compiles.</p></div>
+        </figure>
+        <figure class="view">
+          <figcaption><span class="tag">C</span> Drawing from the part</figcaption>
+          <div id="sheet-view" class="view-body sheet-view"><p class="empty">What Talos compares with your drawing.</p></div>
+        </figure>
+      </div>
+
+      <div class="lower">
+        <section class="panel timeline-panel" aria-labelledby="h-talos">
+          <h2 id="h-talos"><span class="tag">03</span> Talos <small id="run-mode"></small></h2>
+          <ol id="timeline" class="timeline">
+            <li class="step idle"><span class="t num">+0.0</span><div><b>Waiting</b><p>Pick an example or upload a drawing.</p></div></li>
+          </ol>
+          <div id="run-actions" class="run-actions" hidden>
+            <button id="run-live" class="btn">Run live</button>
+            <span class="fine">Runs this drawing through the real models (about 40 s).</span>
+          </div>
+        </section>
+
+        <section class="panel params-panel" aria-labelledby="h-params">
+          <h2 id="h-params"><span class="tag">04</span> Parameters <small>drag to rebuild, no model calls</small></h2>
+          <div id="params" class="params"><p class="empty">Parameters of the part appear here.</p></div>
+          <p id="param-errors" class="param-errors" role="alert" hidden></p>
+          <div class="downloads">
+            <a id="dl-step" class="btn" aria-disabled="true">STEP</a>
+            <a id="dl-stl" class="btn" aria-disabled="true">STL</a>
+            <a id="dl-spec" class="btn" aria-disabled="true">Spec JSON</a>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Built during the Meta Global AI Developer Hackathon, Oct 26 – Nov 4, 2026.</span>
+    <span>Models: Meta Muse Spark 1.3 (reading, critic, corrections). CAD: CadQuery / OpenCascade.</span>
+    <a href="https://github.com/Basiliskenzahn/Hephaestus">Source</a>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

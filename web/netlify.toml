@@ -1,0 +1,9 @@
+# Netlify: base directory web/, no build step.
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/gallery/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
