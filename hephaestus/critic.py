@@ -41,11 +41,27 @@ Do not report differences in line style, colour, label placement, view layout, o
 Use the feature ids from image 2. If the part matches the drawing, return matches: true and an empty list."""
 
 
-def critique(client, drawing, sheet_png, model=None, effort=None, max_tokens=10000):
-    """Returns (CriticOutput as dict, call info). max_tokens caps reasoning + answer: the critic only lists issues."""
-    content = [meta_api.text("Image 1: the drawing."), meta_api.image(drawing),
-               meta_api.text("Image 2: the part built from it."), meta_api.image(sheet_png, "image/png")]
-    out, info = client.respond(CRITIC_PROMPT, content, json_schema(CriticOutput), "CriticOutput",
+CRITIC_TEXT_PROMPT = """You check a CAD part against the text description it was made from.
+The description is given first. The image is the part rendered from the CAD model: FRONT, SIDE and TOP views at one \
+scale (hidden edges dashed) and an ISO view, labelled with overall sizes, feature ids, hole diameters and slot sizes.
+
+List only real differences between the part and what the description asks for: missing or extra features, wrong
+orientation, wrong sizes or counts the description states. Choices the description leaves open are not differences.
+Use the feature ids from the image. If the part matches, return matches: true and an empty list."""
+
+
+def critique(client, drawing, sheet_png, model=None, effort=None, max_tokens=10000, text=None):
+    """Returns (CriticOutput as dict, call info). max_tokens caps reasoning + answer: the critic only lists issues.
+    With `text` (and no drawing) the critic compares the render with a text description instead."""
+    if text is not None:
+        prompt = CRITIC_TEXT_PROMPT
+        content = [meta_api.text("Description: " + text), meta_api.text("Image: the part built from it."),
+                   meta_api.image(sheet_png, "image/png")]
+    else:
+        prompt = CRITIC_PROMPT
+        content = [meta_api.text("Image 1: the drawing."), meta_api.image(drawing),
+                   meta_api.text("Image 2: the part built from it."), meta_api.image(sheet_png, "image/png")]
+    out, info = client.respond(prompt, content, json_schema(CriticOutput), "CriticOutput",
                                max_output_tokens=max_tokens, model=model, effort=effort)
     return CriticOutput.model_validate(out).model_dump(), info
 
@@ -55,13 +71,14 @@ def _key(issue):
     return m.group(0).lower() if m else None
 
 
-def consensus(client, drawing, sheet_png, samples=2, model=None, effort=None, max_tokens=10000):
+def consensus(client, drawing, sheet_png, samples=2, model=None, effort=None, max_tokens=10000, text=None):
     """Run the critic `samples` times in parallel and merge. Returns (merged output, summed call info).
 
     merged = {matches, issues (high issues raised by every sample, on the same feature), advisories (the rest),
     samples (raw outputs)}"""
     with ThreadPoolExecutor(samples) as pool:
-        runs = list(pool.map(lambda _: critique(client, drawing, sheet_png, model, effort, max_tokens), range(samples)))
+        runs = list(pool.map(lambda _: critique(client, drawing, sheet_png, model, effort, max_tokens, text),
+                             range(samples)))
     infos = [inf for _, inf in runs]
     info = {"usage": {k: sum(inf["usage"].get(k, 0) for inf in infos) for k in ("input_tokens", "output_tokens")},
             "cost_usd": sum(inf["cost_usd"] for inf in infos), "seconds": max(inf["seconds"] for inf in infos),

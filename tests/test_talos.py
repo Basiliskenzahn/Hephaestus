@@ -240,3 +240,20 @@ def test_provisional_replacement_is_reverted_if_the_critic_still_flags_the_featu
     assert done["disputes"][0]["status"] == "rejected" and "still flags" in done["disputes"][0]["outcome"]
     assert done["final_iteration"] == 0 and done["callouts"][k]["axis"] == "x"
     assert done["spec"]["features"][4]["angle"] == 0   # the correct read survives
+
+
+def test_text_prompt_path():
+    seen = []
+
+    class Recording(ScriptedClient):
+        def respond(self, instructions, content, schema, name="Output", retries=1, **kw):
+            seen.append((name, instructions[:60], [c.get("type") for c in content]))
+            return super().respond(instructions, content, schema, name, retries, **kw)
+
+    client = Recording(ReadOutput=[{"spec": example("l_bracket"), "callouts": callouts("l_bracket")}],
+                       CriticOutput=[OK] * 2)
+    ev = list(run(prompt="a 60x40 L-bracket, 5 mm thick, two M5 holes in the upright", client=client))
+    assert ev[-1]["status"] == "pass"
+    assert seen[0][0] == "ReadOutput" and "text description" in seen[0][1] and seen[0][2] == ["input_text"]
+    assert seen[1][0] == "CriticOutput" and "text description" in seen[1][1]
+    assert "input_image" in seen[1][2]                      # the render, but no input drawing

@@ -86,11 +86,22 @@ CORRECT_PROMPT = ("You fix a parametric part spec (JSON, spec v1) that was read 
                   "## Example of a spec read from a drawing\n" + _EXAMPLE.split("\n", 1)[1] + "\n\nReturn only the JSON.")
 
 
-def correction_request(spec, callouts, issues):
+READ_TEXT_PROMPT = ("You convert a text description of a mechanical part into a parametric part spec (JSON, spec v1) "
+                    "plus the list of dimensions it gives.\nA deterministic CAD compiler builds the part from your "
+                    "spec, so it must be exact.\n\n" + _SPEC_GUIDE + "\n\n## From a description\n"
+                    "- Treat every number in the description as a dimension: put it in `parameters` and list it once "
+                    "in `callouts` (label = the words it came from, e.g. '5 mm thick').\n"
+                    "- Choose sensible values for anything the description leaves open (hole positions, an M5 "
+                    "clearance hole is Ø5.5, ...) and list those choices in the spec `description`; do not add callouts "
+                    "for them.\n- Keep the part simple: only the features the description asks for.\n\n"
+                    + _EXAMPLE + "\n\nReturn only the JSON.")
+
+
+def correction_request(spec, callouts, issues, source="drawing in the image"):
     """User text for a correction call: the spec, the fixed callouts (numbered) and the numbered issue list."""
     lines = [f"{i}. [{iss['source']}] {iss['message']}" for i, iss in enumerate(issues, 1)]
     fixed = [f"[{k}] " + json.dumps(c, separators=(",", ":"), ensure_ascii=False) for k, c in enumerate(callouts)]
     return ("Spec:\n" + json.dumps(spec, separators=(",", ":"))
             + "\n\nFixed callouts (read from the drawing; the part must satisfy them):\n" + "\n".join(fixed)
             + "\n\nIssues found when building and checking the spec:\n" + "\n".join(lines)
-            + "\n\nReturn the corrected spec for the drawing in the image.")
+            + f"\n\nReturn the corrected spec for the {source}.")

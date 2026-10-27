@@ -32,7 +32,7 @@ from . import critic as critic_mod
 from . import measure, meta_api
 from .compile import SpecError, compile, write_outputs
 from .drawing import render_sheet
-from .prompts import CORRECT_PROMPT, READ_PROMPT, correction_request
+from .prompts import CORRECT_PROMPT, READ_PROMPT, READ_TEXT_PROMPT, correction_request
 from .spec import CorrectionOutput, ReadOutput, json_schema
 
 
@@ -102,12 +102,12 @@ def callout_check(result, callouts):
     return rows, [{"source": "callout", "message": m} for m in measure.issues(rows)]
 
 
-def run_critic(client, drawing, sheet, settings):
+def run_critic(client, drawing, sheet, settings, text=None):
     """Critic consensus with the failure fallback. Returns (critic output or None, call info or None, error or None)."""
     try:
         crit, info = critic_mod.consensus(client, drawing, sheet, samples=settings.critic_samples,
                                           model=settings.critic_model, effort=settings.critic_effort,
-                                          max_tokens=settings.critic_max_tokens)
+                                          max_tokens=settings.critic_max_tokens, text=text)
     except meta_api.BudgetExceeded:
         raise
     except meta_api.ModelError as e:
@@ -124,7 +124,8 @@ def critic_issues(crit):
     return out
 
 
-def verify(result, sheet, callouts, drawing, client=None, settings=Settings(), use_critic=True, force_critic=False):
+def verify(result, sheet, callouts, drawing, client=None, settings=Settings(), use_critic=True, force_critic=False,
+           text=None):
     """Callouts first; the critic only if the callouts pass (or `force_critic`). Returns (checks fields, issues)."""
     rows, issues = callout_check(result, callouts)
     checks = {"callouts": rows, "critic": None, "critic_call": None, "advisories": []}
@@ -132,7 +133,7 @@ def verify(result, sheet, callouts, drawing, client=None, settings=Settings(), u
         if issues and not force_critic:
             checks["critic_skipped"] = "callouts failed; fixing those first"
         else:
-            crit, call, err = run_critic(client, drawing, sheet, settings)
+            crit, call, err = run_critic(client, drawing, sheet, settings, text)
             checks.update(critic=crit, critic_call=call)
             if err:
                 checks["critic_error"] = err
@@ -164,8 +165,10 @@ def _feature_key(callout):
     return critic_mod._key({"feature_id": (callout or {}).get("feature")})
 
 
-def run(drawing, max_iters=None, client=None, out_dir=None, start=None, use_critic=True, settings=None):
-    """Generator of events. `start` = {"spec", "callouts"} skips the read and begins at the check (for evaluation)."""
+def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use_critic=True, settings=None,
+        prompt=None):
+    """Generator of events for a drawing (image path or bytes) or a text `prompt`.
+    `start` = {"spec", "callouts"} skips the read and begins at the check (for evaluation)."""
     settings = settings or Settings()
     max_iters = settings.max_iters if max_iters is None else max_iters
     client = client or meta_api.Client()
@@ -188,10 +191,14 @@ def run(drawing, max_iters=None, client=None, out_dir=None, start=None, use_crit
     try:
         if start is None:
             yield ev("read_started")
-            out, info = client.respond(READ_PROMPT, [meta_api.text("Convert this drawing into the part spec and "
-                                                                   "list its dimensions."), meta_api.image(drawing)],
-                                       json_schema(ReadOutput), "ReadOutput", model=settings.read_model,
-                                       effort=settings.read_effort)
+            if prompt is not None:
+                instructions, content = READ_TEXT_PROMPT, [meta_api.text("Description: " + prompt)]
+            else:
+                instructions = READ_PROMPT
+                content = [meta_api.text("Convert this drawing into the part spec and list its dimensions."),
+                           meta_api.image(drawing)]
+            out, info = client.respond(instructions, content, json_schema(ReadOutput), "ReadOutput",
+                                       model=settings.read_model, effort=settings.read_effort)
             spec, callouts = out.get("spec"), out.get("callouts") or []
             spent[0] += info["cost_usd"]
             yield ev("spec", spec=spec, callouts=callouts, changelog=None, call=_call_info(info))
@@ -214,7 +221,7 @@ def run(drawing, max_iters=None, client=None, out_dir=None, start=None, use_crit
                 checks = {"issues": issues, "callouts": [], "critic": None, "critic_call": None}
             else:
                 checks, issues = verify(result, sheet, callouts, drawing, client, settings, use_critic,
-                                        force_critic=bool(pending))
+                                        force_critic=bool(pending), text=prompt)
                 spent[0] += (checks.get("critic_call") or {}).get("cost_usd", 0)
                 crit = checks.get("critic")
                 critic_flagged = set(crit.get("agreed_features", [])) if crit else set()
@@ -253,7 +260,11 @@ def run(drawing, max_iters=None, client=None, out_dir=None, start=None, use_crit
                 yield finish("max_iters")
                 return
             yield ev("correction_started", issues=issues)
-            content = [meta_api.text(correction_request(spec, callouts, issues)), meta_api.image(drawing)]
+            if prompt is not None:
+                content = [meta_api.text("Description: " + prompt),
+                           meta_api.text(correction_request(spec, callouts, issues, source="description"))]
+            else:
+                content = [meta_api.text(correction_request(spec, callouts, issues)), meta_api.image(drawing)]
             out, info = client.respond(CORRECT_PROMPT, content, json_schema(CorrectionOutput), "CorrectionOutput",
                                        model=settings.correct_model, effort=settings.correct_effort)
             spent[0] += info["cost_usd"]

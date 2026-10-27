@@ -1,10 +1,16 @@
 """Minimal Meta Model API client (Responses API, streamed, structured output) with a spend guard.
 
 Auth: MODEL_API_KEY, or a proxy that injects the key for api.meta.ai (cloud environments).
+
+Every call is appended to a spend log (JSON lines: timestamp, script, model, tokens, cost): $SPEND_LOG if set, else
+experiments/spend.jsonl in the repo. The server points SPEND_LOG at its volume and derives its daily cap from it.
 """
 import base64
+import datetime
 import json
 import os
+import sys
+import threading
 import time
 
 import requests
@@ -16,6 +22,47 @@ PRICES = {
     "muse-spark-1.3": (1.25, 0.15, 4.25),
     "muse-spark-1.3-contributor": (0.10, 0.002, 0.20),
 }
+
+
+_REPO_LOG = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "experiments", "spend.jsonl")
+_log_lock = threading.Lock()
+
+
+def spend_log_path():
+    if os.environ.get("SPEND_LOG"):
+        return os.environ["SPEND_LOG"]
+    return _REPO_LOG if os.path.isdir(os.path.dirname(_REPO_LOG)) else None
+
+
+def log_spend(model, usage, usd, name, tag=None):
+    path = spend_log_path()
+    if not path:
+        return
+    rec = {"ts": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+           "script": os.environ.get("SPEND_SCRIPT") or os.path.basename(sys.argv[0] or "python"),
+           "call": name, "model": model, "input_tokens": usage.get("input_tokens", 0),
+           "output_tokens": usage.get("output_tokens", 0), "cost_usd": round(usd, 6)}
+    if tag:
+        rec["tag"] = tag
+    with _log_lock:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "a") as f:
+            f.write(json.dumps(rec) + "\n")
+
+
+def spent_since(path, since_iso):
+    """Total logged spend at or after an ISO timestamp (e.g. today 00:00 UTC)."""
+    total = 0.0
+    if path and os.path.exists(path):
+        with open(path) as f:
+            for line in f:
+                try:
+                    rec = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if rec.get("ts", "") >= since_iso:
+                    total += rec.get("cost_usd", 0)
+    return total
 
 
 class ModelError(RuntimeError):
@@ -124,6 +171,7 @@ class Client:
         usage = data.get("usage", {})
         usd = cost(model, usage)
         self.budget.charge(usd)
+        log_spend(model, usage, usd, name, getattr(self, "tag", None))
         info = {"usage": usage, "cost_usd": usd, "seconds": round(time.time() - t0, 1), "model": model,
                 "effort": effort}
         out = next((c["text"] for item in data.get("output", []) if item.get("type") == "message"
