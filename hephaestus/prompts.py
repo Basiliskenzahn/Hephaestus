@@ -71,15 +71,23 @@ READ_PROMPT = ("You convert dimensioned engineering drawings into a parametric p
 
 CORRECT_PROMPT = ("You fix a parametric part spec (JSON, spec v1) that was read from an engineering drawing. The part "
                   "was built and checked; the checks found problems.\n\n" + _SPEC_GUIDE + "\n\n## Correcting\n"
+                  "- The callouts are fixed: they are the dimensions read from the drawing, and the part must satisfy "
+                  "them. You change the spec, not the callouts.\n"
                   "- Look at the drawing again for every issue. Fix what the issue points at and keep everything that "
-                  "was right.\n- Checks can be wrong: if the drawing clearly contradicts an issue, keep that part of the "
-                  "spec and say so in the changelog.\n- Return the full corrected spec, the full callouts and a "
-                  "one-line changelog.\n\n" + _EXAMPLE + "\n\nReturn only the JSON.")
+                  "was right.\n- A visual-check issue can be wrong. A callout measurement is exact: if a visual issue "
+                  "contradicts a callout that passes, keep the spec and say so in the changelog.\n"
+                  "- Only if you are sure a callout itself was misread from the drawing, list it in "
+                  "`disputed_callouts` (its index, the reason, the corrected callout). It is replaced only if an "
+                  "independent check agrees; otherwise it keeps applying.\n"
+                  "- Return the full corrected spec, `disputed_callouts` (usually []) and a one-line changelog.\n\n"
+                  "## Example of a spec read from a drawing\n" + _EXAMPLE.split("\n", 1)[1] + "\n\nReturn only the JSON.")
 
 
 def correction_request(spec, callouts, issues):
-    """User text for a correction call: previous output and the numbered issue list."""
+    """User text for a correction call: the spec, the fixed callouts (numbered) and the numbered issue list."""
     lines = [f"{i}. [{iss['source']}] {iss['message']}" for i, iss in enumerate(issues, 1)]
-    return ("Previous output:\n" + json.dumps({"spec": spec, "callouts": callouts}, separators=(",", ":"))
-            + "\n\nIssues found when building and checking it:\n" + "\n".join(lines)
-            + "\n\nReturn the corrected output for the drawing in the image.")
+    fixed = [f"[{k}] " + json.dumps(c, separators=(",", ":"), ensure_ascii=False) for k, c in enumerate(callouts)]
+    return ("Spec:\n" + json.dumps(spec, separators=(",", ":"))
+            + "\n\nFixed callouts (read from the drawing; the part must satisfy them):\n" + "\n".join(fixed)
+            + "\n\nIssues found when building and checking the spec:\n" + "\n".join(lines)
+            + "\n\nReturn the corrected spec for the drawing in the image.")

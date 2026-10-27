@@ -1,22 +1,32 @@
 """Talos: read -> compile -> verify -> correct, until the part matches the drawing.
 
-    for event in run("drawing.png", out_dir="out/run1"):
+    for event in run("drawing.png", settings=PRESETS["live"], out_dir="out/run1"):
         print(event["event"])
 
-Each iteration builds the current spec, checks it (compile errors, callouts measured on the part, visual critic) and,
-if anything is wrong, asks the model for a corrected spec. Stops when all checks pass, after `max_iters` corrections,
-when the same issues come back twice in a row, when a correction returns the spec unchanged ("disputed"), or
-when it returns to an earlier version ("oscillating"). The critic is sampled twice; see critic.consensus. Events are JSON-serialisable dicts with an "event" key:
-  read_started, spec, compiled, checks, correction_started, error, done
-The final spec is the best version seen (fewest issues), not necessarily the last.
+Each iteration builds the current spec, then checks it: compile errors, then the callouts measured on the part, and
+only if those pass, the visual critic (the slow part). Anything wrong goes into one correction call.
 
-CLI: python -m hephaestus.talos drawing.png --out out/run1/ [--max-iters 4] [--max-usd 0.5]
+Callouts are the contract. They come from the first read and stay fixed: a correction changes the spec, not the
+callouts. A correction may dispute a callout it believes was misread. The disputed callout is replaced provisionally
+only if the critic consensus had independently flagged the same feature in the check the correction answered, and
+the replacement is kept only if the next critic consensus no longer flags that feature. Otherwise the original
+callout stays and keeps blocking. Measurements beat the critic.
+
+Stops: pass | max_iters | stuck (same issues twice) | disputed (spec returned unchanged) | oscillating (back to an
+earlier version) | budget | error. The returned spec is the best version seen (fewest issues).
+
+Events are JSON-serialisable dicts with an "event" key:
+  read_started, spec, compiled, checks, correction_started, error, done
+
+CLI: python -m hephaestus.talos drawing.png --out out/run1/ [--preset live|benchmark] [--max-iters 4] [--max-usd 0.5]
 """
 import argparse
+import copy
 import json
 import os
 import sys
 import time
+from dataclasses import asdict, dataclass, replace
 
 from . import critic as critic_mod
 from . import measure, meta_api
@@ -26,10 +36,33 @@ from .prompts import CORRECT_PROMPT, READ_PROMPT, correction_request
 from .spec import CorrectionOutput, ReadOutput, json_schema
 
 
+@dataclass(frozen=True)
+class Settings:
+    """Model settings per role. See PRESETS for the chosen defaults and docs/talos.md for the measurements."""
+    read_model: str = meta_api.DEFAULT_MODEL
+    read_effort: str = "medium"
+    correct_model: str = meta_api.DEFAULT_MODEL
+    correct_effort: str = "medium"
+    critic_model: str = meta_api.DEFAULT_MODEL
+    critic_effort: str = "medium"
+    critic_samples: int = 2
+    critic_max_tokens: int = 8000
+    max_iters: int = 4
+
+
+PRESETS = {
+    # benchmark / development: cheap contributor models
+    "benchmark": Settings(),
+    # live app: user uploads must not go to training, so no contributor models
+    "live": Settings(read_model="muse-spark-1.3", correct_model="muse-spark-1.3", critic_model="muse-spark-1.3"),
+}
+
+
 def _call_info(info):
     u = info["usage"]
     return {"cost_usd": round(info["cost_usd"], 6), "seconds": info["seconds"],
-            "input_tokens": u.get("input_tokens", 0), "output_tokens": u.get("output_tokens", 0)}
+            "input_tokens": u.get("input_tokens", 0), "output_tokens": u.get("output_tokens", 0),
+            "model": info.get("model"), "effort": info.get("effort")}
 
 
 def build(spec, out_dir=None):
@@ -50,74 +83,109 @@ def build(spec, out_dir=None):
     return {"ok": True, "metrics": result.metrics, "warnings": result.warnings, "files": files}, result, sheet, []
 
 
-def verify(result, sheet, callouts, drawing, client=None, use_critic=True, critic_samples=2):
-    """Callout check and visual critic on a compiled part. Returns (checks event fields, issues)."""
+def callout_check(result, callouts):
     rows = measure.check(callouts, result)
-    issues = [{"source": "callout", "message": m} for m in measure.issues(rows)]
-    crit = call = None
+    return rows, [{"source": "callout", "message": m} for m in measure.issues(rows)]
+
+
+def run_critic(client, drawing, sheet, settings):
+    """Critic consensus with the failure fallback. Returns (critic output or None, call info or None, error or None)."""
+    try:
+        crit, info = critic_mod.consensus(client, drawing, sheet, samples=settings.critic_samples,
+                                          model=settings.critic_model, effort=settings.critic_effort,
+                                          max_tokens=settings.critic_max_tokens)
+    except meta_api.BudgetExceeded:
+        raise
+    except meta_api.ModelError as e:
+        # a failed critic call should not end the run: carry on with the compile and callout checks
+        return None, None, str(e)[:300]
+    return crit, _call_info(info), None
+
+
+def critic_issues(crit):
+    out = []
+    for i in critic_mod.blocking(crit):
+        who = f"{i['feature_id']}: " if i.get("feature_id") else ""
+        out.append({"source": "critic", "message": f"{who}{i['issue']} ({i['severity']})"})
+    return out
+
+
+def verify(result, sheet, callouts, drawing, client=None, settings=Settings(), use_critic=True, force_critic=False):
+    """Callouts first; the critic only if the callouts pass (or `force_critic`). Returns (checks fields, issues)."""
+    rows, issues = callout_check(result, callouts)
+    checks = {"callouts": rows, "critic": None, "critic_call": None, "advisories": []}
     if use_critic and client is not None:
-        try:
-            crit, info = critic_mod.consensus(client, drawing, sheet, samples=critic_samples)
-        except meta_api.BudgetExceeded:
-            raise
-        except meta_api.ModelError as e:
-            # a failed critic call should not end the run: carry on with the compile and callout checks
-            return {"issues": issues, "advisories": [], "callouts": rows, "critic": None, "critic_call": None,
-                    "critic_error": str(e)[:300]}, issues
-        call = _call_info(info)
-        for i in critic_mod.blocking(crit):
-            who = f"{i['feature_id']}: " if i.get("feature_id") else ""
-            issues.append({"source": "critic", "message": f"{who}{i['issue']} ({i['severity']})"})
-    advice = critic_mod.advisories(crit) if crit else []
-    return {"issues": issues, "advisories": advice, "callouts": rows, "critic": crit, "critic_call": call}, issues
+        if issues and not force_critic:
+            checks["critic_skipped"] = "callouts failed; fixing those first"
+        else:
+            crit, call, err = run_critic(client, drawing, sheet, settings)
+            checks.update(critic=crit, critic_call=call)
+            if err:
+                checks["critic_error"] = err
+            elif crit:
+                issues = issues + critic_issues(crit)
+                checks["advisories"] = critic_mod.advisories(crit)
+    checks["issues"] = issues
+    return checks, issues
 
 
-def check(spec, callouts, drawing, client=None, out_dir=None, use_critic=True):
+def check(spec, callouts, drawing, client=None, out_dir=None, use_critic=True, settings=Settings(), force_critic=False):
     """build + verify in one go (for evaluation scripts). Returns (compiled fields, checks fields, issues)."""
     compiled, result, sheet, issues = build(spec, out_dir)
     if result is None:
         return compiled, {"issues": issues, "callouts": [], "critic": None, "critic_call": None}, issues
-    checks, issues = verify(result, sheet, callouts, drawing, client, use_critic)
+    checks, issues = verify(result, sheet, callouts, drawing, client, settings, use_critic, force_critic)
     return compiled, checks, issues
 
 
 def _fingerprint(spec):
-    """What the geometry depends on: features and parameter values (not names' descriptions or notes)."""
+    """What the geometry depends on: features and parameter values (not descriptions or notes)."""
     if not isinstance(spec, dict):
         return json.dumps(spec)
     params = {k: (v or {}).get("value") for k, v in (spec.get("parameters") or {}).items()}
     return json.dumps({"features": spec.get("features"), "parameters": params}, sort_keys=True)
 
 
-def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=True):
+def _feature_key(callout):
+    return critic_mod._key({"feature_id": (callout or {}).get("feature")})
+
+
+def run(drawing, max_iters=None, client=None, out_dir=None, start=None, use_critic=True, settings=None):
     """Generator of events. `start` = {"spec", "callouts"} skips the read and begins at the check (for evaluation)."""
+    settings = settings or Settings()
+    max_iters = settings.max_iters if max_iters is None else max_iters
     client = client or meta_api.Client()
     t0, iteration, history, best, seen = time.time(), 0, [], None, []
     spent = [0.0]           # this run's own calls (the budget may be shared by parallel runs)
+    disputes = []           # every dispute raised, with its outcome
+    critic_flagged = set()  # features the critic consensus flagged in the latest check
 
     def ev(name, **kw):
         return {"event": name, "iteration": iteration, "t": round(time.time() - t0, 1), **kw}
 
     def finish(status, note=None):
-        final = best or {"iteration": iteration, "spec": spec, "callouts": callouts, "n_issues": None}
+        final = best or {"iteration": iteration, "spec": spec, "callouts": callouts}
         return ev("done", status=status, note=note, final_iteration=final["iteration"], spec=final["spec"],
                   callouts=final["callouts"], remaining_issues=final.get("issues"), iterations=iteration,
-                  corrections=iteration, cost_usd=round(spent[0], 6),
-                  seconds=round(time.time() - t0, 1))
+                  corrections=iteration, disputes=disputes, cost_usd=round(spent[0], 6),
+                  seconds=round(time.time() - t0, 1), settings=asdict(settings))
 
-    spec = callouts = None
+    spec = callouts = original = None
     try:
         if start is None:
             yield ev("read_started")
             out, info = client.respond(READ_PROMPT, [meta_api.text("Convert this drawing into the part spec and "
                                                                    "list its dimensions."), meta_api.image(drawing)],
-                                       json_schema(ReadOutput), "ReadOutput")
-            spec, callouts = out.get("spec"), out.get("callouts", [])
+                                       json_schema(ReadOutput), "ReadOutput", model=settings.read_model,
+                                       effort=settings.read_effort)
+            spec, callouts = out.get("spec"), out.get("callouts") or []
             spent[0] += info["cost_usd"]
             yield ev("spec", spec=spec, callouts=callouts, changelog=None, call=_call_info(info))
         else:
-            spec, callouts = start["spec"], start.get("callouts", [])
+            spec, callouts = start["spec"], start.get("callouts") or []
             yield ev("spec", spec=spec, callouts=callouts, changelog="(given)", call=None)
+        original = copy.deepcopy(callouts)      # the contract
+        callouts = copy.deepcopy(callouts)      # effective list: originals + provisionally accepted replacements
 
         while True:
             idir = os.path.join(out_dir, f"iter_{iteration}") if out_dir else None
@@ -126,17 +194,38 @@ def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=
                 with open(os.path.join(idir, "spec.json"), "w") as f:
                     json.dump({"spec": spec, "callouts": callouts}, f, indent=2)
             compiled, result, sheet, issues = build(spec, idir)
-            yield ev("compiled", **compiled)
+            yield ev("compiled", **compiled)      # the UI can show the part before any check runs
+            pending = [d for d in disputes if d["status"] == "provisional"]
             if result is None:
                 checks = {"issues": issues, "callouts": [], "critic": None, "critic_call": None}
             else:
-                checks, issues = verify(result, sheet, callouts, drawing, client, use_critic)
+                checks, issues = verify(result, sheet, callouts, drawing, client, settings, use_critic,
+                                        force_critic=bool(pending))
                 spent[0] += (checks.get("critic_call") or {}).get("cost_usd", 0)
+                crit = checks.get("critic")
+                critic_flagged = set(crit.get("agreed_features", [])) if crit else set()
+                if pending:
+                    # confirm or revert provisional replacements with this (independent) critic run
+                    reverted = False
+                    for d in pending:
+                        if crit is not None and d["feature"] not in critic_flagged:
+                            d["status"] = "accepted"
+                        else:
+                            d["status"] = "rejected"
+                            d["outcome"] = ("the critic still flags this feature after the change"
+                                            if crit is not None else "no critic result to confirm it")
+                            callouts[d["index"]] = copy.deepcopy(original[d["index"]])
+                            reverted = True
+                    if reverted:
+                        rows, callout_iss = callout_check(result, callouts)
+                        issues = callout_iss + [i for i in issues if i["source"] != "callout"]
+                        checks.update(callouts=rows, issues=issues)
+            checks["disputes"] = copy.deepcopy(disputes)
             clean = not issues
             yield ev("checks", clean=clean, **checks)
             score = len(issues) + (100 if not compiled["ok"] else 0)
             if best is None or score < best["score"]:
-                best = {"iteration": iteration, "spec": spec, "callouts": callouts, "score": score,
+                best = {"iteration": iteration, "spec": spec, "callouts": copy.deepcopy(callouts), "score": score,
                         "issues": [i["message"] for i in issues]}
             if clean:
                 yield finish("pass")
@@ -151,15 +240,32 @@ def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=
                 return
             yield ev("correction_started", issues=issues)
             content = [meta_api.text(correction_request(spec, callouts, issues)), meta_api.image(drawing)]
-            out, info = client.respond(CORRECT_PROMPT, content, json_schema(CorrectionOutput), "CorrectionOutput")
+            out, info = client.respond(CORRECT_PROMPT, content, json_schema(CorrectionOutput), "CorrectionOutput",
+                                       model=settings.correct_model, effort=settings.correct_effort)
             spent[0] += info["cost_usd"]
             iteration += 1
             seen.append(_fingerprint(spec))
             new_fp = _fingerprint(out.get("spec"))
             unchanged, revisits = new_fp == seen[-1], new_fp in seen[:-1]
-            spec, callouts = out.get("spec"), out.get("callouts", callouts)
-            yield ev("spec", spec=spec, callouts=callouts, changelog=out.get("changelog"), call=_call_info(info))
-            if unchanged:
+            spec = out.get("spec")
+            raised = []
+            for d in out.get("disputed_callouts") or []:
+                k = d.get("index")
+                if not isinstance(k, int) or not 0 <= k < len(original):
+                    continue
+                rec = {"index": k, "raised_at": iteration, "reason": d.get("reason"), "original": original[k],
+                       "replacement": d.get("replacement"), "feature": _feature_key(original[k])}
+                if rec["feature"] and rec["feature"] in critic_flagged and d.get("replacement"):
+                    rec["status"] = "provisional"
+                    callouts[k] = copy.deepcopy(d["replacement"])
+                else:
+                    rec["status"] = "rejected"
+                    rec["outcome"] = "the critic had not independently flagged this feature"
+                disputes.append(rec)
+                raised.append(rec)
+            yield ev("spec", spec=spec, callouts=callouts, changelog=out.get("changelog"), disputes=raised,
+                     call=_call_info(info))
+            if unchanged and not any(r["status"] == "provisional" for r in raised):
                 # the corrector rejected every remaining issue; another round would only re-roll the critic
                 yield finish("disputed", out.get("changelog"))
                 return
@@ -179,15 +285,18 @@ def main(argv=None):
     ap = argparse.ArgumentParser(prog="python -m hephaestus.talos")
     ap.add_argument("drawing")
     ap.add_argument("--out", required=True)
-    ap.add_argument("--max-iters", type=int, default=4, help="maximum correction calls")
+    ap.add_argument("--preset", default="benchmark", choices=sorted(PRESETS))
+    ap.add_argument("--max-iters", type=int, default=None, help="maximum correction calls")
     ap.add_argument("--max-usd", type=float, default=0.5)
-    ap.add_argument("--model", default=meta_api.DEFAULT_MODEL)
     ap.add_argument("--no-critic", action="store_true")
     args = ap.parse_args(argv)
-    client = meta_api.Client(args.model, budget=meta_api.Budget(args.max_usd))
+    settings = PRESETS[args.preset]
+    if args.max_iters is not None:
+        settings = replace(settings, max_iters=args.max_iters)
+    client = meta_api.Client(settings.read_model, budget=meta_api.Budget(args.max_usd))
     os.makedirs(args.out, exist_ok=True)
     with open(os.path.join(args.out, "events.jsonl"), "w") as log:
-        for e in run(args.drawing, args.max_iters, client, args.out, use_critic=not args.no_critic):
+        for e in run(args.drawing, client=client, out_dir=args.out, use_critic=not args.no_critic, settings=settings):
             log.write(json.dumps(e) + "\n")
             log.flush()
             summary = {"spec": lambda: e.get("changelog") or "", "checks": lambda: f"{len(e['issues'])} issues",

@@ -25,7 +25,7 @@ class ScriptedClient:
         self.calls = []
         self.budget = meta_api.Budget(1.0)
 
-    def respond(self, instructions, content, schema, name="Output", retries=1):
+    def respond(self, instructions, content, schema, name="Output", retries=1, **kw):
         self.budget.check()
         self.calls.append(name)
         self.budget.charge(0.001)
@@ -60,7 +60,7 @@ def test_read_check_correct_pass(tmp_path):
                              "message": "callout 'Ø12 thru' (diameter of bore) measures 10 on the part, expected 12"}]
     done = ev[-1]
     assert done["status"] == "pass" and done["iterations"] == 1 and done["final_iteration"] == 1
-    assert done["cost_usd"] == pytest.approx(0.006)          # read, 2 critic samples, correction, 2
+    assert done["cost_usd"] == pytest.approx(0.004)     # read, correction, 2 critic samples (skipped while callouts fail)
     json.dumps(ev)                                                     # every event is JSON-serialisable
     for f in ("spec.json", "part.stl", "part.step", "top.png", "sheet.png", "metrics.json"):
         assert (tmp_path / "iter_1" / f).exists()
@@ -159,10 +159,84 @@ def test_returning_to_an_earlier_version_stops():
 
 def test_critic_failure_does_not_end_the_run():
     class Failing(ScriptedClient):
-        def respond(self, instructions, content, schema, name="Output", retries=1):
+        def respond(self, instructions, content, schema, name="Output", retries=1, **kw):
             if name == "CriticOutput":
                 raise meta_api.ModelError("stream error: model failed to generate a response")
             return super().respond(instructions, content, schema, name, retries)
     ev = events_of(Failing(), start={"spec": example("block"), "callouts": callouts("block")})
     checks = next(e for e in ev if e["event"] == "checks")
     assert "model failed" in checks["critic_error"] and ev[-1]["status"] == "pass"
+
+
+def test_critic_is_skipped_while_callouts_fail():
+    client = ScriptedClient(CorrectionOutput=[{"changelog": "bore 12", "spec": example("block"), "disputed_callouts": []}],
+                            CriticOutput=[OK] * 2)
+    ev = events_of(client, start={"spec": wrong_block(), "callouts": callouts("block")})
+    first = next(e for e in ev if e["event"] == "checks")
+    assert first["critic_skipped"] and client.calls == ["CorrectionOutput", "CriticOutput", "CriticOutput"]
+    assert ev[-1]["status"] == "pass"
+
+
+def test_corrections_cannot_change_callouts():
+    sneaky = callouts("block")
+    sneaky[3]["value"] = 10                      # try to make the wrong bore pass by editing the callout
+    client = ScriptedClient(CorrectionOutput=[{"changelog": "x", "spec": wrong_block(), "callouts": sneaky,
+                                               "disputed_callouts": []}])
+    ev = events_of(client, start={"spec": wrong_block(), "callouts": callouts("block")})
+    assert ev[-1]["status"] == "disputed"
+    assert ev[-1]["callouts"][3]["value"] == 12
+
+
+def _slot_case(read_angle, slot_axis):
+    spec = example("l_bracket")
+    spec["features"][4]["angle"] = read_angle
+    c = callouts("l_bracket")
+    k = next(i for i, x in enumerate(c) if x["measure"] == "slot_length")
+    c[k]["axis"] = slot_axis
+    return spec, c, k
+
+
+SLOT_WRONG = {"matches": False, "issues": [{"feature_id": "base_slot", "issue": "slot runs along Y, drawing: X",
+                                            "severity": "high"}]}
+
+
+def test_disputed_callout_is_replaced_when_the_critic_agrees():
+    # the read got the slot AND its callout wrong (along Y); the critic flags base_slot; the correction turns the
+    # slot and disputes the callout; the next critic run no longer flags it -> the replacement stays
+    spec, c, k = _slot_case(90, "y")
+    fixed = dict(c[k], axis="x")
+    client = ScriptedClient(CriticOutput=[SLOT_WRONG, SLOT_WRONG, OK, OK],
+                            CorrectionOutput=[{"changelog": "slot along X", "spec": example("l_bracket"),
+                                               "disputed_callouts": [{"index": k, "reason": "20 is dimensioned along X",
+                                                                      "replacement": fixed}]}])
+    ev = events_of(client, start={"spec": spec, "callouts": c})
+    done = ev[-1]
+    assert done["status"] == "pass" and done["final_iteration"] == 1
+    assert done["disputes"][0]["status"] == "accepted" and done["callouts"][k]["axis"] == "x"
+
+
+def test_disputed_callout_without_critic_support_keeps_blocking():
+    c = callouts("block")
+    c[3]["value"] = 10                           # the reading itself says Ø10; the part has Ø12
+    client = ScriptedClient(CorrectionOutput=[{"changelog": "drawing says 12", "spec": example("block"),
+                                               "disputed_callouts": [{"index": 3, "reason": "misread, it is Ø12",
+                                                                      "replacement": dict(c[3], value=12)}]}])
+    ev = events_of(client, start={"spec": example("block"), "callouts": c})
+    done = ev[-1]
+    assert done["disputes"][0]["status"] == "rejected"
+    assert "not independently flagged" in done["disputes"][0]["outcome"]
+    assert done["callouts"][3]["value"] == 10 and done["status"] == "disputed"
+
+
+def test_provisional_replacement_is_reverted_if_the_critic_still_flags_the_feature():
+    spec, c, k = _slot_case(0, "x")              # the read is right
+    client = ScriptedClient(CriticOutput=[SLOT_WRONG] * 4,          # but the critic insists, twice in a row
+                            CorrectionOutput=[{"changelog": "turned slot", "spec": _slot_case(90, "y")[0],
+                                               "disputed_callouts": [{"index": k, "reason": "slot runs along Y",
+                                                                      "replacement": dict(c[k], axis="y")}]},
+                                              {"changelog": "back", "spec": example("l_bracket"), "disputed_callouts": []}])
+    ev = events_of(client, start={"spec": spec, "callouts": c})
+    done = ev[-1]
+    assert done["disputes"][0]["status"] == "rejected" and "still flags" in done["disputes"][0]["outcome"]
+    assert done["final_iteration"] == 0 and done["callouts"][k]["axis"] == "x"
+    assert done["spec"]["features"][4]["angle"] == 0   # the correct read survives

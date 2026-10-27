@@ -40,11 +40,12 @@ Do not report differences in line style, colour, label placement, view layout, o
 Use the feature ids from image 2. If the part matches the drawing, return matches: true and an empty list."""
 
 
-def critique(client, drawing, sheet_png):
-    """Returns (CriticOutput as dict, call info)."""
+def critique(client, drawing, sheet_png, model=None, effort=None, max_tokens=8000):
+    """Returns (CriticOutput as dict, call info). max_tokens caps reasoning + answer: the critic only lists issues."""
     content = [meta_api.text("Image 1: the drawing."), meta_api.image(drawing),
                meta_api.text("Image 2: the part built from it."), meta_api.image(sheet_png, "image/png")]
-    out, info = client.respond(CRITIC_PROMPT, content, json_schema(CriticOutput), "CriticOutput")
+    out, info = client.respond(CRITIC_PROMPT, content, json_schema(CriticOutput), "CriticOutput",
+                               max_output_tokens=max_tokens, model=model, effort=effort)
     return CriticOutput.model_validate(out).model_dump(), info
 
 
@@ -53,13 +54,13 @@ def _key(issue):
     return m.group(0).lower() if m else None
 
 
-def consensus(client, drawing, sheet_png, samples=2):
+def consensus(client, drawing, sheet_png, samples=2, model=None, effort=None, max_tokens=8000):
     """Run the critic `samples` times in parallel and merge. Returns (merged output, summed call info).
 
     merged = {matches, issues (high issues raised by every sample, on the same feature), advisories (the rest),
     samples (raw outputs)}"""
     with ThreadPoolExecutor(samples) as pool:
-        runs = list(pool.map(lambda _: critique(client, drawing, sheet_png), range(samples)))
+        runs = list(pool.map(lambda _: critique(client, drawing, sheet_png, model, effort, max_tokens), range(samples)))
     outs = [o for o, _ in runs]
     keys = [{_key(i) for i in o["issues"] if i["severity"] == "high"} for o in outs]
     agreed = set.intersection(*keys) if keys else set()
@@ -75,7 +76,8 @@ def consensus(client, drawing, sheet_png, samples=2):
     infos = [inf for _, inf in runs]
     info = {"usage": {k: sum(inf["usage"].get(k, 0) for inf in infos) for k in ("input_tokens", "output_tokens")},
             "cost_usd": sum(inf["cost_usd"] for inf in infos), "seconds": max(inf["seconds"] for inf in infos)}
-    merged = {"matches": not issues, "issues": issues, "advisories": advice, "samples": outs}
+    merged = {"matches": not issues, "issues": issues, "advisories": advice, "samples": outs,
+              "agreed_features": sorted(k for k in agreed if k)}
     return merged, info
 
 

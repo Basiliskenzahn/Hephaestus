@@ -92,11 +92,14 @@ class Client:
         self.model, self.effort = model, effort
         self.budget = budget or Budget(float("inf"))
 
-    def respond(self, instructions, content, schema, name="Output", retries=2, max_output_tokens=24000):
-        """One streamed call with structured output. Returns (parsed JSON, info {usage, cost_usd, seconds})."""
+    def respond(self, instructions, content, schema, name="Output", retries=2, max_output_tokens=24000,
+                model=None, effort=None):
+        """One streamed call with structured output. Returns (parsed JSON, info {usage, cost_usd, seconds}).
+        `model` / `effort` override the client's defaults for this call (Talos uses different settings per role)."""
         self.budget.check()
+        model, effort = model or self.model, effort or self.effort
         # cap output: one critic call once ran away to 1.5 MB of broken JSON
-        body = {"model": self.model, "reasoning": {"effort": self.effort}, "instructions": instructions,
+        body = {"model": model, "reasoning": {"effort": effort}, "instructions": instructions,
                 "max_output_tokens": max_output_tokens,
                 "stream": True, "input": [{"type": "message", "role": "user", "content": content}],
                 "text": {"format": {"type": "json_schema", "name": name, "schema": schema}}}
@@ -119,9 +122,10 @@ class Client:
         else:
             raise ModelError(last)
         usage = data.get("usage", {})
-        usd = cost(self.model, usage)
+        usd = cost(model, usage)
         self.budget.charge(usd)
-        info = {"usage": usage, "cost_usd": usd, "seconds": round(time.time() - t0, 1), "model": self.model}
+        info = {"usage": usage, "cost_usd": usd, "seconds": round(time.time() - t0, 1), "model": model,
+                "effort": effort}
         out = next((c["text"] for item in data.get("output", []) if item.get("type") == "message"
                     for c in item.get("content", []) if c.get("type") == "output_text"), None)
         if out is None:

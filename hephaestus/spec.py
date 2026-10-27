@@ -276,10 +276,18 @@ class ReadOutput(_Model):
     callouts: list[Callout] = Field(description="every dimension written on the drawing, once each")
 
 
+class DisputedCallout(_Model):
+    index: int = Field(description="position of the callout in the fixed list, starting at 0")
+    reason: str = Field(description="why the callout itself was misread from the drawing")
+    replacement: Callout
+
+
 class CorrectionOutput(_Model):
     changelog: str = Field(description="one line: what was changed and why")
     spec: PartSpec
-    callouts: list[Callout]
+    disputed_callouts: list[DisputedCallout] = Field(
+        description="usually empty. Only for a callout you are sure was misread; it is replaced only if an "
+                    "independent check agrees, otherwise it keeps applying")
 
 
 # ---------------------------------------------------------------- JSON Schema export

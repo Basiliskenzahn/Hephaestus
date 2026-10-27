@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.join(ROOT, "experiments", "reading-spike-v2"))
 import score as scorer  # noqa: E402
 
 from hephaestus import meta_api  # noqa: E402
-from hephaestus.talos import run  # noqa: E402
+from hephaestus.talos import PRESETS, run  # noqa: E402
 
 with open(os.path.join(HERE, "ground_truth.json")) as f:
     NEW = {k: v for k, v in json.load(f).items() if not k.startswith("_")}
@@ -41,9 +41,9 @@ def safe_score(part, spec):
                                   "params", "x_param")}
 
 
-def one(part, set_name, run_no, client, max_iters, outdir):
+def one(part, set_name, run_no, client, max_iters, outdir, settings=None):
     image = os.path.join(IMAGE_DIRS[part], scorer.GROUND_TRUTH[part]["images"][set_name])
-    events = list(run(image, max_iters=max_iters, client=client))
+    events = list(run(image, max_iters=max_iters, client=client, settings=settings))
     specs = [e for e in events if e["event"] == "spec"]
     checks = [e for e in events if e["event"] == "checks"]
     done = events[-1]
@@ -105,7 +105,8 @@ def main():
     ap.add_argument("--runs", type=int, default=2)
     ap.add_argument("--max-iters", type=int, default=3)
     ap.add_argument("--max-usd", type=float, default=2.0)
-    ap.add_argument("--model", default=meta_api.DEFAULT_MODEL)
+    ap.add_argument("--model", default=meta_api.DEFAULT_MODEL, help="results folder name")
+    ap.add_argument("--preset", default="benchmark", help="talos.PRESETS key")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--summarize", action="store_true")
     ap.add_argument("--rescore", action="store_true", help="re-score saved runs (e.g. after a ground-truth fix), no API calls")
@@ -133,7 +134,7 @@ def main():
     def do(job):
         part, set_name, r = job
         try:
-            rec = one(part, set_name, r, client, args.max_iters, outdir)
+            rec = one(part, set_name, r, client, args.max_iters, outdir, PRESETS[args.preset])
             msg = (f"off perfect={rec['off']['perfect']} on perfect={rec['on']['perfect']} {rec['status']} "
                    f"{rec['corrections']} corr ${rec['cost_on']:.4f} {rec['seconds_on']:.0f}s")
         except Exception as e:  # noqa: BLE001 - keep the benchmark going; record nothing for this run
