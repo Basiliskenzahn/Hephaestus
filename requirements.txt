@@ -6,3 +6,4 @@ scipy
 jsonschema
 pytest
 meta-sam-parser==0.1.0  # decodes SAM 3.1 mask payloads (hephaestus/sam.py)
+opencv-python-headless  # shape check (hephaestus/shape_check.py)

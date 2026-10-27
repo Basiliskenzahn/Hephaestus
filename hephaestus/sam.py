@@ -101,8 +101,16 @@ def decode(record):
     """The record's mask raster as a bool array of shape mask_hw (rows, columns)."""
     from meta_sam_parser import SegmentationMask, decode_mask_to_raster
     h, w = record["mask_hw"]
-    raster = decode_mask_to_raster(SegmentationMask(encoding=record["encoding"], payload=record["payload"],
-                                                    width=w, height=h))
+    raster = None
+    if record["encoding"] == "one_bit":
+        try:   # the public decoder re-encodes every mask to check it is canonical, doubling the (pure Python) time
+            from meta_sam_parser._mask_codec import _decode_raster
+            raster = _decode_raster(record["payload"], w, h)
+        except (ImportError, AttributeError):
+            raster = None
+    if raster is None:
+        raster = decode_mask_to_raster(SegmentationMask(encoding=record["encoding"], payload=record["payload"],
+                                                        width=w, height=h))
     return np.frombuffer(raster, dtype=np.uint8).reshape(h, w).astype(bool)
 
 
@@ -133,7 +141,7 @@ def image_size(image_bytes):
         return im.size
 
 
-def segment(image_bytes, prompt, budget=None, cache_dir=None, metadata=None, mime=None, offline=False):
+def segment(image_bytes, prompt, budget=None, cache_dir=None, metadata=None, mime=None, offline=False, tag=None):
     """Run SAM 3.1 on one image (cached). Returns {"records", "text", "usage", "cost_usd", "seconds", "cached"}.
     `offline=True` only reads the cache (raises SamError on a miss) - for tests and replays."""
     cache_dir = cache_dir or os.environ.get("SAM_CACHE") or DEFAULT_CACHE
@@ -177,10 +185,26 @@ def segment(image_bytes, prompt, budget=None, cache_dir=None, metadata=None, mim
     cost = PRICE_PER_IMAGE
     if budget is not None:
         budget.charge(cost)
-    meta_api.log_spend(MODEL, usage, cost, "sam:" + prompt[:40])
+    meta_api.log_spend(MODEL, usage, cost, "sam:" + prompt[:40], tag=tag)
     rec = {"prompt": prompt, "metadata": metadata, "text": text, "usage": usage, "seconds": round(time.time() - t0, 2),
            "image_size": list(image_size(image_bytes))}
     os.makedirs(cache_dir, exist_ok=True)
     with open(path, "w") as f:
         json.dump(rec, f)
     return {**rec, "records": parse(text), "cached": False, "cost_usd": cost}
+
+
+class Segmenter:
+    """sam.segment bound to a budget and cache; counts this run's calls. `offline=True` serves the cache only."""
+
+    def __init__(self, budget=None, cache_dir=None, offline=False, tag=None):
+        self.budget, self.cache_dir, self.offline, self.tag = budget, cache_dir, offline, tag
+        self.calls, self.cost_usd, self.seconds = 0, 0.0, 0.0
+
+    def __call__(self, image_bytes, prompt):
+        res = segment(image_bytes, prompt, budget=self.budget, cache_dir=self.cache_dir, offline=self.offline,
+                      tag=self.tag)
+        self.calls += 1
+        self.cost_usd += res["cost_usd"]
+        self.seconds += 0.0 if res["cached"] else res["seconds"]
+        return res

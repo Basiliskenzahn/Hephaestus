@@ -271,9 +271,23 @@ class Callout(_Model):
         description="distance_to_edge only, else null")
 
 
+class ViewBox(_Model):
+    """Where one orthographic view is drawn on the image (for the SAM shape check, hephaestus/shape_check.py)."""
+    view: Literal["top", "front", "side"]
+    box: list[float] = Field(min_length=4, max_length=4, description=(
+        "[x1, y1, x2, y2] of the part's outline in this view only (no dimension lines, text or labels), "
+        "normalised 0-1000 over the image width and height, x right, y down"))
+
+
 class ReadOutput(_Model):
     spec: PartSpec
     callouts: list[Callout] = Field(description="every dimension written on the drawing, once each")
+    views: list[ViewBox] = Field(description="each orthographic view drawn on the image, once; [] for a text "
+                                             "description")
+
+
+class ViewsOutput(_Model):
+    views: list[ViewBox] = Field(description="each orthographic view drawn on the image, once")
 
 
 class DisputedCallout(_Model):

@@ -65,16 +65,29 @@ Refer to pattern copies as "<pattern_id>[k]": [0] is the original, linear copies
 _EXAMPLE = ("## Example\nDrawing:\n" + FEWSHOT["drawing"] + "\nOutput:\n"
             + json.dumps({"spec": FEWSHOT["spec"], "callouts": FEWSHOT["callouts"]}, separators=(",", ":")))
 
+VIEWS_GUIDE = """## Views
+For each orthographic view drawn on the image (top, front, side), give `views`: the view and the box around the
+part's outline in that view, as [x1, y1, x2, y2] normalised 0-1000 over the image width and height (x right, y down).
+The box encloses only the part's lines: not the dimension lines, extension lines, text or the view label. Use the
+view labels on the drawing; an unlabelled single view of a flat part is its top view."""
+
 READ_PROMPT = ("You convert dimensioned engineering drawings into a parametric part spec (JSON, spec v1) plus the "
                "list of dimensions you read.\nA deterministic CAD compiler builds the part from your spec, so it must "
-               "be exact.\n\n" + _SPEC_GUIDE + "\n\n" + _EXAMPLE + "\n\nReturn only the JSON.")
+               "be exact.\n\n" + _SPEC_GUIDE + "\n\n" + VIEWS_GUIDE + "\n\n" + _EXAMPLE + "\n\nReturn only the JSON.")
+
+# locating the views alone (evaluation of the shape check without new reads)
+VIEWS_PROMPT = ("You locate the orthographic views on an engineering drawing.\n\n" + VIEWS_GUIDE
+                + "\n\nReturn only the JSON.")
 
 CORRECT_PROMPT = ("You fix a parametric part spec (JSON, spec v1) that was read from an engineering drawing. The part "
                   "was built and checked; the checks found problems.\n\n" + _SPEC_GUIDE + "\n\n## Correcting\n"
                   "- The callouts are fixed: they are the dimensions read from the drawing, and the part must satisfy "
                   "them. You change the spec, not the callouts.\n"
                   "- Look at the drawing again for every issue. Fix what the issue points at and keep everything that "
-                  "was right.\n- A visual-check issue can be wrong. A callout measurement is exact: if a visual issue "
+                  "was right.\n- A [shape] issue compares the outline of a view in the drawing with the built part's "
+                  "silhouette, pixel by pixel: the part is mirrored, rotated or has other proportions in that view. "
+                  "Move the feature it names to the side the drawing shows.\n"
+                  "- A visual-check issue can be wrong. A callout measurement is exact: if a visual issue "
                   "contradicts a callout that passes, keep the spec and say so in the changelog.\n"
                   "- Never invent a dimension. Every feature, vertex or position you add must be located by "
                   "dimensions written on the drawing. If fixing an issue would need a size the drawing does not give, "
@@ -93,7 +106,8 @@ READ_TEXT_PROMPT = ("You convert a text description of a mechanical part into a 
                     "in `callouts` (label = the words it came from, e.g. '5 mm thick').\n"
                     "- Choose sensible values for anything the description leaves open (hole positions, an M5 "
                     "clearance hole is Ø5.5, ...) and list those choices in the spec `description`; do not add callouts "
-                    "for them.\n- Keep the part simple: only the features the description asks for.\n\n"
+                    "for them.\n- Keep the part simple: only the features the description asks for.\n- `views` is [] (there "
+                    "is no drawing).\n\n"
                     + _EXAMPLE + "\n\nReturn only the JSON.")
 
 
