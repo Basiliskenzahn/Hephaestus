@@ -735,8 +735,9 @@ def _r(x, nd=6):
     return [round(float(v), nd) for v in x]
 
 
-def compile(spec, overrides=None, mm_per_px=0.2):  # noqa: A001 - the name is the point
-    """Compile a PartSpec (model, dict or JSON path). Raises SpecError with readable messages."""
+def compile(spec, overrides=None, mm_per_px=0.2, silhouettes=True):  # noqa: A001 - the name is the point
+    """Compile a PartSpec (model, dict or JSON path). Raises SpecError with readable messages.
+    silhouettes=False skips the masks (about half the time), for interactive recompiles."""
     timings, t0 = {}, time.perf_counter()
     try:
         spec = load(spec)
@@ -760,7 +761,7 @@ def compile(spec, overrides=None, mm_per_px=0.2):  # noqa: A001 - the name is th
     timings["export"] = time.perf_counter() - t
 
     t = time.perf_counter()
-    sil = render.silhouettes(verts, tris, lo, hi, mm_per_px)
+    sil = render.silhouettes(verts, tris, lo, hi, mm_per_px) if silhouettes else {}
     timings["silhouettes"] = time.perf_counter() - t
 
     warnings = []

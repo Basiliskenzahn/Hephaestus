@@ -1,0 +1,134 @@
+{
+ "kind": "text",
+ "prompt": "a 60x40 L-bracket, 5 mm thick, 40 mm tall, two M5 holes in the upright 30 mm apart",
+ "outputs": {
+  "ReadOutput": [
+   {
+    "spec": {
+     "name": "l_bracket",
+     "description": "From the text. Assumed: holes centred side to side at mid-height of the upright.",
+     "parameters": {
+      "width": {
+       "value": 60,
+       "description": "bracket width along X"
+      },
+      "leg": {
+       "value": 40,
+       "description": "base depth (Y) and upright height (Z)"
+      },
+      "t": {
+       "value": 5,
+       "description": "sheet thickness"
+      },
+      "hole_d": {
+       "value": 5.5,
+       "description": "M5 clearance hole"
+      },
+      "hole_x": {
+       "value": 15,
+       "description": "first upright hole from the left edge"
+      },
+      "hole_pitch": {
+       "value": 30,
+       "description": "upright hole spacing"
+      },
+      "hole_z": {
+       "value": 28,
+       "description": "upright hole height above the bottom"
+      }
+     },
+     "features": [
+      {
+       "id": "base",
+       "type": "extrude",
+       "plane": "XY",
+       "profile": {
+        "shape": "rect",
+        "width": "width",
+        "height": "leg"
+       },
+       "distance": "t"
+      },
+      {
+       "id": "upright",
+       "type": "extrude",
+       "plane": "XY",
+       "profile": {
+        "shape": "rect",
+        "v": "leg - t",
+        "width": "width",
+        "height": "t"
+       },
+       "distance": "leg"
+      },
+      {
+       "id": "upright_hole",
+       "type": "hole",
+       "face": "back",
+       "center": [
+        "hole_x",
+        "hole_z"
+       ],
+       "diameter": "hole_d",
+       "through": true
+      },
+      {
+       "id": "upright_holes",
+       "type": "linear_pattern",
+       "feature": "upright_hole",
+       "count_u": 2,
+       "spacing_u": "hole_pitch"
+      }
+     ]
+    },
+    "callouts": [
+     {
+      "label": "60",
+      "value": 60,
+      "measure": "overall",
+      "axis": "x",
+      "feature": null,
+      "feature_b": null,
+      "edge": null
+     },
+     {
+      "label": "40",
+      "value": 40,
+      "measure": "overall",
+      "axis": "y",
+      "feature": null,
+      "feature_b": null,
+      "edge": null
+     },
+     {
+      "label": "5 mm thick",
+      "value": 5,
+      "measure": "thickness",
+      "axis": null,
+      "feature": "base",
+      "feature_b": null,
+      "edge": null
+     },
+     {
+      "label": "40 mm tall",
+      "value": 40,
+      "measure": "overall",
+      "axis": "z",
+      "feature": null,
+      "feature_b": null,
+      "edge": null
+     },
+     {
+      "label": "30 mm apart",
+      "value": 30,
+      "measure": "distance",
+      "axis": "x",
+      "feature": "upright_holes[0]",
+      "feature_b": "upright_holes[1]",
+      "edge": null
+     }
+    ]
+   }
+  ]
+ }
+}
