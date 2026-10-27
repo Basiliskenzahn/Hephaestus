@@ -1,0 +1,9 @@
+[
+  {"label": "Ø40", "value": 40, "measure": "diameter", "feature": "body"},
+  {"label": "Ø24", "value": 24, "measure": "diameter", "feature": "body"},
+  {"label": "Ø16 thru", "value": 16, "measure": "diameter", "feature": "body"},
+  {"label": "30", "value": 30, "measure": "overall", "axis": "z"},
+  {"label": "5", "value": 5, "measure": "unchecked"},
+  {"label": "4x Ø4 thru", "value": 4, "measure": "diameter", "feature": "bolt_hole"},
+  {"label": "PCD Ø32", "value": 32, "measure": "distance", "feature": "bolt_holes[0]", "feature_b": "bolt_holes[2]", "axis": "x"}
+]

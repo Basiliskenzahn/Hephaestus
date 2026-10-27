@@ -1,0 +1,25 @@
+{
+  "name": "angled_bracket",
+  "description": "Wedge bracket: flat top for 30 mm, then a straight slope down to 15 mm at the right end. 2x Ø6 vertical holes in the flat part, Ø8 cross hole through the low end.",
+  "parameters": {
+    "length": {"value": 80, "description": "overall length along X"},
+    "depth": {"value": 30, "description": "depth along Y"},
+    "height": {"value": 40, "description": "height of the flat top"},
+    "low_h": {"value": 15, "description": "height at the right end of the slope"},
+    "flat_len": {"value": 30, "description": "length of the flat top from the left"},
+    "hole_d": {"value": 6, "description": "vertical hole diameter"},
+    "hole_x": {"value": 15, "description": "vertical holes from the left end"},
+    "hole_inset": {"value": 8, "description": "vertical holes from the front and back faces; their spacing follows as depth - 2 * hole_inset"},
+    "cross_d": {"value": 8, "description": "cross hole diameter"},
+    "cross_from_right": {"value": 20, "description": "cross hole centre from the right end"},
+    "cross_z": {"value": 10, "description": "cross hole centre height"}
+  },
+  "features": [
+    {"id": "body", "type": "extrude", "plane": "XZ", "distance": "depth",
+     "profile": {"shape": "polygon", "points": [[0, 0], ["length", 0], ["length", "low_h"], ["flat_len", "height"], [0, "height"]]}},
+    {"id": "top_hole", "type": "hole", "face": "top", "center": ["hole_x", "hole_inset"], "diameter": "hole_d", "through": true},
+    {"id": "top_holes", "type": "linear_pattern", "feature": "top_hole", "count_v": 2, "spacing_v": "depth - 2 * hole_inset"},
+    {"id": "cross_hole", "type": "hole", "face": "front", "center": ["length - cross_from_right", "cross_z"],
+     "diameter": "cross_d", "through": true}
+  ]
+}

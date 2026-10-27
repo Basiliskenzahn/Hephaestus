@@ -1,0 +1,22 @@
+{
+  "name": "shaft_collar",
+  "description": "Split clamp collar for a Ø20 shaft: Ø40 x 15 ring, 2 mm radial slit on the right, Ø4 clamp screw hole across the slit.",
+  "parameters": {
+    "od": {"value": 40, "description": "outer diameter"},
+    "bore_d": {"value": 20, "description": "bore diameter"},
+    "width": {"value": 15, "description": "collar width (height along Z)"},
+    "slit_w": {"value": 2, "description": "slit width"},
+    "screw_d": {"value": 4, "description": "clamp screw hole diameter"},
+    "screw_x": {"value": 35, "description": "clamp screw hole centre from the left"},
+    "c": {"value": "od / 2", "description": "axis position in X and Y"}
+  },
+  "features": [
+    {"id": "ring", "type": "extrude", "plane": "XY",
+     "profile": {"shape": "circle", "u": "c", "v": "c", "diameter": "od"}, "distance": "width"},
+    {"id": "bore", "type": "hole", "face": "top", "center": ["c", "c"], "diameter": "bore_d", "through": true},
+    {"id": "slit", "type": "extrude", "plane": "XY", "operation": "cut", "distance": "width",
+     "profile": {"shape": "rect", "u": "c", "v": "c - slit_w / 2", "width": "od", "height": "slit_w"}},
+    {"id": "screw_hole", "type": "hole", "face": "front", "center": ["screw_x", "width / 2"], "diameter": "screw_d",
+     "through": true}
+  ]
+}

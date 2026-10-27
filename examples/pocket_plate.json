@@ -1,0 +1,29 @@
+{
+  "name": "pocket_plate",
+  "description": "100 x 60 x 10 plate with a centred 50 x 30 x 4 deep pocket (R3 corners) and 4 counterbored holes for M6 cap screws.",
+  "parameters": {
+    "width": {"value": 100, "description": "plate length along X"},
+    "depth": {"value": 60, "description": "plate depth along Y"},
+    "thickness": {"value": 10, "description": "plate thickness"},
+    "pocket_w": {"value": 50, "description": "pocket length along X, centred"},
+    "pocket_h": {"value": 30, "description": "pocket width along Y, centred"},
+    "pocket_r": {"value": 3, "description": "pocket corner radius"},
+    "pocket_depth": {"value": 4, "description": "pocket depth from the top"},
+    "hole_d": {"value": 6.6, "description": "through hole diameter"},
+    "cb_d": {"value": 11, "description": "counterbore diameter"},
+    "cb_depth": {"value": 6.4, "description": "counterbore depth"},
+    "hole_inset": {"value": 10, "description": "hole centres from the edges; the spacing follows as width/depth - 2 * hole_inset"}
+  },
+  "features": [
+    {"id": "plate", "type": "extrude", "plane": "XY",
+     "profile": {"shape": "rect", "width": "width", "height": "depth"}, "distance": "thickness"},
+    {"id": "pocket", "type": "extrude", "plane": "XY", "offset": "thickness", "direction": "negative",
+     "distance": "pocket_depth", "operation": "cut",
+     "profile": {"shape": "rounded_rect", "u": "width / 2", "v": "depth / 2", "width": "pocket_w", "height": "pocket_h",
+                 "radius": "pocket_r", "anchor": "center"}},
+    {"id": "cb_hole", "type": "hole", "face": "top", "center": ["hole_inset", "hole_inset"], "diameter": "hole_d",
+     "through": true, "counterbore": {"diameter": "cb_d", "depth": "cb_depth"}},
+    {"id": "cb_holes", "type": "linear_pattern", "feature": "cb_hole", "count_u": 2, "spacing_u": "width - 2 * hole_inset",
+     "count_v": 2, "spacing_v": "depth - 2 * hole_inset"}
+  ]
+}

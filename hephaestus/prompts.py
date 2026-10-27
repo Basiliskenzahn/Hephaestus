@@ -50,8 +50,8 @@ measure it on the built part, so the part can be checked against your reading:
 - diameter / radius (feature): of a hole, circle, revolve, fillet or rounded corner.
 - distance (feature, feature_b, axis): between two centres. distance_to_edge (feature, edge e.g. "x_min"): from a
   centre to a side of the part.
-- slot_length / slot_width (feature). chamfer_size (feature).
-- unchecked: anything else (depths, angles, notes, widths of a sub-feature).
+- slot_length / slot_width (feature). chamfer_size (feature). depth (feature): of a blind hole, slot or pocket.
+- unchecked: anything else (angles, notes, widths of a sub-feature, counterbore depths).
 Refer to pattern copies as "<pattern_id>[k]": [0] is the original, linear copies run along u first, then v."""
 
 _EXAMPLE = ("## Example\nDrawing:\n" + FEWSHOT["drawing"] + "\nOutput:\n"

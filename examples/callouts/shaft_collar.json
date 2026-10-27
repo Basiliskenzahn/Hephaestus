@@ -1,0 +1,8 @@
+[
+  {"label": "Ø40", "value": 40, "measure": "diameter", "feature": "ring"},
+  {"label": "Ø20 thru", "value": 20, "measure": "diameter", "feature": "bore"},
+  {"label": "15", "value": 15, "measure": "overall", "axis": "z"},
+  {"label": "slit 2", "value": 2, "measure": "unchecked"},
+  {"label": "Ø4 thru", "value": 4, "measure": "diameter", "feature": "screw_hole"},
+  {"label": "35", "value": 35, "measure": "distance_to_edge", "feature": "screw_hole", "edge": "x_min"}
+]

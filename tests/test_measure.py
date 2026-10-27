@@ -14,11 +14,12 @@ def callouts(name):
         return json.load(f)
 
 
-@pytest.mark.parametrize("name", ["plate", "l_bracket", "block"])
+@pytest.mark.parametrize("name", ["plate", "l_bracket", "block", "bushing", "enclosure", "angled_bracket",
+                                  "pocket_plate", "shaft_collar"])
 def test_true_callouts_pass_on_true_specs(compiled, name):
     rows = check(callouts(name), compiled(name))
     assert issues(rows) == []
-    assert all(r["status"] == "ok" for r in rows)
+    assert all(r["status"] in ("ok", "unchecked") for r in rows)
 
 
 def test_widened_plate_reports_overall_and_pitch():
@@ -69,3 +70,15 @@ def test_unchecked_and_incomplete_callouts():
                  compile(example("plate")))
     assert rows[0]["status"] == "unchecked"
     assert rows[1]["message"] == "callout '64' (distance corner_hole → None along None): measure 'distance' needs axis"
+
+
+def test_depth_of_pocket_and_blind_hole():
+    rows = check([{"label": "4 deep", "value": 4, "measure": "depth", "feature": "pocket"}],
+                 compile("examples/pocket_plate.json", overrides={"pocket_depth": 5}))
+    assert rows[0]["message"] == "callout '4 deep' (depth of pocket) measures 5 on the part, expected 4"
+    spec = example("plate")
+    spec["features"][3].update(through=False, depth=4)
+    rows = check([{"label": "Ø20 x 4 deep", "value": 4, "measure": "depth", "feature": "bore"},
+                  {"label": "Ø6", "value": 6, "measure": "depth", "feature": "corner_holes[1]"}], compile(spec))
+    assert rows[0]["status"] == "ok" and rows[0]["measured"] == 4
+    assert "goes all the way through" in rows[1]["message"]

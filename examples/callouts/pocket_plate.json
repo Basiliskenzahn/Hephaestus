@@ -1,0 +1,14 @@
+[
+  {"label": "100", "value": 100, "measure": "overall", "axis": "x"},
+  {"label": "60", "value": 60, "measure": "overall", "axis": "y"},
+  {"label": "10", "value": 10, "measure": "overall", "axis": "z"},
+  {"label": "50", "value": 50, "measure": "unchecked"},
+  {"label": "30", "value": 30, "measure": "unchecked"},
+  {"label": "R3", "value": 3, "measure": "radius", "feature": "pocket"},
+  {"label": "4 deep", "value": 4, "measure": "depth", "feature": "pocket"},
+  {"label": "4x Ø6.6 thru", "value": 6.6, "measure": "diameter", "feature": "cb_hole"},
+  {"label": "counterbore Ø11", "value": 11, "measure": "diameter", "feature": "cb_hole"},
+  {"label": "counterbore 6.4 deep", "value": 6.4, "measure": "unchecked"},
+  {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "cb_hole", "edge": "x_min"},
+  {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "cb_hole", "edge": "y_min"}
+]

@@ -13,9 +13,11 @@ Measurements:
   slot_length / slot_width       from the slot's two end cylinders
   thickness(feature)             smallest size of an added extrude/revolve body; a shell's wall thickness
   chamfer_size(feature)          45-degree flat faces, size along the edge's two axes
+  depth(feature)                 blind hole / slot / pocket: from its entry face to the first material along its axis
 """
 import re
 
+import cadquery as cq
 import numpy as np
 from OCP.BRepAdaptor import BRepAdaptor_Surface
 from OCP.BRepGProp import BRepGProp_Face
@@ -152,7 +154,8 @@ def measure_one(c, result, cyls):
             raise CalloutError(f"no cylindrical surface of {c['feature']} found on the part")
         return [d / (2 if m == "radius" else 1) for d in found]
     if m == "radius":
-        radii = sorted({round(r, 6) for r, _, _, convex, _ in cyls if convex})
+        # a fillet rounds outside edges (convex faces); a pocket or rounded profile may have concave corners
+        radii = sorted({round(r, 6) for r, _, _, convex, _ in cyls if convex or t != "fillet"})
         if not radii:
             raise CalloutError("the part has no rounded edges or corners")
         return radii
@@ -176,6 +179,8 @@ def measure_one(c, result, cyls):
             raise CalloutError(f"thickness needs an added extrude/revolve or a shell, '{c['feature']}' is a {t}")
         size = np.array(g["bbox"][1]) - np.array(g["bbox"][0])
         return float(size.min())
+    if m == "depth":
+        return _depth(c["feature"], g, center, result, lo, hi)
     if m == "chamfer_size":
         sizes = []
         for face in result.solid.Faces():
@@ -191,6 +196,45 @@ def measure_one(c, result, cyls):
             raise CalloutError("the part has no 45-degree chamfer faces")
         return sorted(set(sizes))
     raise CalloutError(f"cannot measure {m} of a {t}")
+
+
+def _first_material(solid, start, direction, length):
+    """Distance from `start` along `direction` to the first point inside the solid, or None."""
+    p1 = start + direction * length
+    hit = solid.intersect(cq.Edge.makeLine(cq.Vector(*start), cq.Vector(*p1)))
+    ds = [float(np.dot(np.array(v.toTuple()) - start, direction)) for v in hit.Vertices()]
+    return min(ds) if ds else None
+
+
+def _depth(ref, g, center, result, lo, hi):
+    t = g["type"]
+    axis = np.asarray(g.get("axis") or [0, 0, 1], float)
+    span = float(np.max(hi - lo)) + 2
+    if t in ("hole", "slot", "linear_pattern", "circular_pattern"):
+        # the centre lies on the entry plane; the drill goes whichever way along the axis stays inside the bbox
+        def in_box(p):
+            return bool(np.all(p >= lo - 1e-6) and np.all(p <= hi + 1e-6))
+        into = next((d for d in (-axis, axis) if in_box(center + d * 0.01)), -axis)
+        dist = _first_material(result.solid, center, into, span)
+        if dist is None:
+            raise CalloutError(f"{ref} goes all the way through; it has no depth")
+        return dist
+    if t == "extrude" and g.get("operation") == "cut":
+        blo, bhi = np.array(g["bbox"][0]), np.array(g["bbox"][1])
+        a = int(np.argmax(np.abs(axis)))
+        mid = (blo + bhi) / 2
+        # the opening is the tool face that lies on (or beyond) the part's outside
+        if bhi[a] >= hi[a] - 1e-6:
+            start, into = mid.copy(), -np.eye(3)[a]
+            start[a] = hi[a]
+        else:
+            start, into = mid.copy(), np.eye(3)[a]
+            start[a] = lo[a]
+        dist = _first_material(result.solid, start, into, span)
+        if dist is None:
+            raise CalloutError(f"{ref} cuts all the way through; it has no depth")
+        return dist
+    raise CalloutError(f"depth needs a hole, slot or cut extrude, '{ref}' is a {t}")
 
 
 def check(callouts, result, tol=TOL):

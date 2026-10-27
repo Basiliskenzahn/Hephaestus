@@ -248,7 +248,7 @@ class PartSpec(_Model):
 
 # ---------------------------------------------------------------- callouts and model outputs
 MeasureKind = Literal["overall", "diameter", "radius", "distance", "distance_to_edge", "slot_length", "slot_width",
-                      "thickness", "chamfer_size", "unchecked"]
+                      "thickness", "chamfer_size", "depth", "unchecked"]
 FEATURE_REF = "a feature id, or '<pattern_id>[k]' for copy k of a pattern (0 = the original)"
 
 
@@ -260,7 +260,8 @@ class Callout(_Model):
         "overall: bbox size along axis | diameter / radius: of feature | distance: between the centres of feature "
         "and feature_b along axis | distance_to_edge: from the centre of feature to the bbox edge | slot_length / "
         "slot_width: of a slot | thickness: smallest size of an added extrude/revolve, or a shell's wall | "
-        "chamfer_size: of a chamfer | unchecked: anything else (angles, notes)"))
+        "chamfer_size: of a chamfer | depth: of a blind hole, slot or pocket (cut extrude) | "
+        "unchecked: anything else (angles, notes)"))
     axis: Optional[Literal["x", "y", "z"]] = None
     feature: Optional[str] = Field(None, description=FEATURE_REF)
     feature_b: Optional[str] = Field(None, description=FEATURE_REF)

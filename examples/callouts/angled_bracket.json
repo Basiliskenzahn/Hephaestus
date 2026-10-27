@@ -1,0 +1,13 @@
+[
+  {"label": "80", "value": 80, "measure": "overall", "axis": "x"},
+  {"label": "30", "value": 30, "measure": "overall", "axis": "y"},
+  {"label": "40", "value": 40, "measure": "overall", "axis": "z"},
+  {"label": "15", "value": 15, "measure": "unchecked"},
+  {"label": "30", "value": 30, "measure": "unchecked"},
+  {"label": "2x Ø6 thru", "value": 6, "measure": "diameter", "feature": "top_hole"},
+  {"label": "15", "value": 15, "measure": "distance_to_edge", "feature": "top_hole", "edge": "x_min"},
+  {"label": "8", "value": 8, "measure": "distance_to_edge", "feature": "top_hole", "edge": "y_min"},
+  {"label": "Ø8 thru", "value": 8, "measure": "diameter", "feature": "cross_hole"},
+  {"label": "20", "value": 20, "measure": "distance_to_edge", "feature": "cross_hole", "edge": "x_max"},
+  {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "cross_hole", "edge": "z_min"}
+]

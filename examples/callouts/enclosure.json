@@ -1,0 +1,13 @@
+[
+  {"label": "100", "value": 100, "measure": "overall", "axis": "x"},
+  {"label": "60", "value": 60, "measure": "overall", "axis": "y"},
+  {"label": "40", "value": 40, "measure": "overall", "axis": "z"},
+  {"label": "R6 (4x)", "value": 6, "measure": "radius", "feature": "corners"},
+  {"label": "wall 2", "value": 2, "measure": "thickness", "feature": "hollow"},
+  {"label": "Ø8 thru front wall", "value": 8, "measure": "diameter", "feature": "cable_hole"},
+  {"label": "20", "value": 20, "measure": "distance_to_edge", "feature": "cable_hole", "edge": "z_min"},
+  {"label": "0.5 x 45°", "value": 0.5, "measure": "unchecked"},
+  {"label": "4x Ø3.2 thru floor", "value": 3.2, "measure": "diameter", "feature": "screw_hole"},
+  {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "screw_hole", "edge": "x_min"},
+  {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "screw_hole", "edge": "y_min"}
+]
