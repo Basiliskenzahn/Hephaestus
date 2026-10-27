@@ -28,8 +28,16 @@ Hephaestus turns a **sketch, a text prompt or a photo of a real object** into a 
 - Avoid looking like a "simple image analyzer" (banned category): lead with the generated part and the verification loop.
 - Judging: Impact 30%, Use of Meta tooling 25%, Technical depth 20%, Demo 25%.
 
-## Budget
-$150 Meta API credits for the whole project. Default to `muse-spark-1.3-contributor` (≈12× cheaper) for development; use `muse-spark-1.3` only to compare or for the final demo. Keep `--max-usd` guards on scripts. Never commit API keys (`.env` is gitignored).
+## Budget — HARD RULES (Meta API credits are limited)
+$150 total for the whole project; ~$6.60 spent by Oct 27 afternoon. Spending must be deliberate.
+- **Default cap per task: $0.50.** Only exceed it if the task prompt explicitly names a higher cap. Pass `--max-usd` (or the budget argument of `meta_api.py`) on every script that calls the API.
+- **Development uses the `dev` preset** (contributor models). The `live` preset (`muse-spark-1.3`) only runs in the deployed app and in the final benchmark, never for debugging or experiments.
+- **No benchmark, matrix or eval reruns** unless the task prompt explicitly asks for one. Test code changes offline (unit tests, mocks, saved specs and recorded event streams in `experiments/*/results/`).
+- **Smoke tests: at most 2 live calls**, then stop and report.
+- **Before any batch of more than 5 API calls**, estimate the cost from recent results, state it, and stop to ask if it exceeds the task cap.
+- **Log every call** in `experiments/spend.jsonl` (timestamp, script, model, tokens, cost); report the task's total spend in every final report.
+- Reserved: ~$40 for the live app during judging (server-side daily cap), ~$10 for the final benchmark and demo video. Everything else is development.
+- Never commit API keys (`.env` is gitignored).
 
 ## Talos defaults (from experiments/benchmark/results/matrix, Oct 27)
 - Live app and benchmark: preset `live` in `hephaestus/talos.py`: muse-spark-1.3 for everything (user uploads must not go to training); read and correction at medium effort, critic at low effort with 2 samples (consensus) and a 10k output-token cap. Median run 38 s, first part after 25 s, ~$0.05 per run.
