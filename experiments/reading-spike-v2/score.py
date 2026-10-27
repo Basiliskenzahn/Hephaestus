@@ -77,7 +77,7 @@ def nearest(cyls, axis, at, max_dist=SEARCH):
     return best
 
 
-def probe(solid, direction, at, bbox):
+def probe(solid, direction, at, bbox, segment=False):
     sign, axis = (1 if direction[0] == "+" else -1), AXES[direction[1]]
     i, j = [k for k in range(3) if k != axis]
     p0, p1 = [0.0] * 3, [0.0] * 3
@@ -89,6 +89,12 @@ def probe(solid, direction, at, bbox):
     coords = [v.toTuple()[axis] for v in hit.Vertices()]
     if not coords:
         return None
+    if segment:
+        # length of the first stretch of material the ray passes through
+        spans = sorted((sorted((e.startPoint().toTuple()[axis], e.endPoint().toTuple()[axis])) for e in hit.Edges()),
+                       key=lambda sp: sp[0] * sign)
+        first = spans[0] if sign > 0 else max(spans, key=lambda sp: sp[1])
+        return first[1] - first[0]
     return min(coords) if sign > 0 else max(coords)
 
 
@@ -100,13 +106,15 @@ def measure(dim, solid, cyls, bbox):
         a = AXES[dim["axis"]]
         return hi[a] - lo[a], ""
     if kind == "cyl":
-        hit = nearest(cyls, dim["axis"], dim["at"], max_dist=TOL)
+        # among the cylinders on this axis line (a bushing has several), take the best-matching diameter
+        on_axis = [(c, r) for a, c, r in cyls if a == dim["axis"] and np.linalg.norm(c - np.asarray(dim["at"], float)) <= TOL]
+        hit = min(on_axis, key=lambda cr: abs(2 * cr[1] - dim["dia"])) if on_axis else None
         if hit is None:
             near = nearest(cyls, dim["axis"], dim["at"], max_dist=1e9)
             note = (f"nearest {dim['axis']}-cylinder is Ø{2 * near[2]:.2f} at {np.round(near[1], 2).tolist()}"
                     if near else f"no cylinder along {dim['axis']}")
             return None, note
-        return 2 * hit[2], ""
+        return 2 * hit[1], ""
     if kind in ("spacing", "inset"):
         idx = 0 if dim["along"] == "u" else 1
         axis_idx = UV[dim["axis"]][idx]
@@ -134,9 +142,13 @@ def measure(dim, solid, cyls, bbox):
                   "inset_u": mid[0] - lo[u_idx], "inset_v": mid[1] - lo[v_idx]}
         return values[dim["measure"]], ""
     if kind == "probe":
-        hit = probe(solid, dim["dir"], dim["at"], bbox)
+        hit = probe(solid, dim["dir"], dim["at"], bbox, segment=dim["measure"] == "segment")
+        if dim["value"] is None:                      # expect a gap (e.g. a slit) here
+            return (None, "") if hit is None else (hit, "expected no material here")
         if hit is None:
             return None, "ray misses the part"
+        if dim["measure"] == "segment":
+            return hit, ""
         a = AXES[dim["dir"][1]]
         return (hit - lo[a]) if dim["measure"] == "from_min" else (hi[a] - hit), ""
     if kind == "chamfer":
@@ -220,7 +232,7 @@ def score(part, pred_spec):
     for d in GROUND_TRUTH[part]["dimensions"]:
         expected = d["value"] if d["check"] != "cyl" else d["dia"]
         got, note = measure(d, pred.solid, cyls, bbox)
-        ok = bool(got is not None and abs(got - expected) <= TOL)
+        ok = bool(got is None and not note) if expected is None else bool(got is not None and abs(got - expected) <= TOL)
         dims.append({"label": d["label"], "ok": ok, "expected": expected,
                      "measured": None if got is None else round(float(got), 3), **({"note": note} if note else {})})
     n_ok = sum(d["ok"] for d in dims)

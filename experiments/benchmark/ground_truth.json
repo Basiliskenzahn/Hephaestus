@@ -1,0 +1,98 @@
+{
+  "_doc": "Benchmark parts 04-08, same format as experiments/reading-spike-v2/ground_truth.json (images in experiments/benchmark/sketches/). probe with value null = the ray must miss (a gap); measure 'segment' = length of the first stretch of material along the ray.",
+  "04_bushing": {
+    "spec": "examples/bushing.json",
+    "images": {"clean": "04_bushing.png", "photo": "04_bushing__photo.jpg", "rough": "04_bushing__rough.jpg"},
+    "x_param": "flange_d",
+    "dimensions": [
+      {"label": "Ø40", "check": "cyl", "axis": "z", "at": [20, 20], "dia": 40},
+      {"label": "Ø24", "check": "cyl", "axis": "z", "at": [20, 20], "dia": 24},
+      {"label": "Ø16 thru", "check": "cyl", "axis": "z", "at": [20, 20], "dia": 16},
+      {"label": "30", "check": "extent", "axis": "z", "value": 30},
+      {"label": "5 (flange)", "check": "probe", "dir": "-z", "at": [7, 7], "measure": "from_min", "value": 5},
+      {"label": "4x Ø4 (36, 20)", "check": "cyl", "axis": "z", "at": [36, 20], "dia": 4},
+      {"label": "4x Ø4 (20, 36)", "check": "cyl", "axis": "z", "at": [20, 36], "dia": 4},
+      {"label": "4x Ø4 (4, 20)", "check": "cyl", "axis": "z", "at": [4, 20], "dia": 4},
+      {"label": "4x Ø4 (20, 4)", "check": "cyl", "axis": "z", "at": [20, 4], "dia": 4},
+      {"label": "PCD Ø32", "check": "spacing", "axis": "z", "a": [36, 20], "b": [4, 20], "along": "u", "value": 32}
+    ]
+  },
+  "05_enclosure": {
+    "spec": "examples/enclosure.json",
+    "images": {"clean": "05_enclosure.png", "photo": "05_enclosure__photo.jpg", "rough": "05_enclosure__rough.jpg"},
+    "x_param": "length",
+    "dimensions": [
+      {"label": "100", "check": "extent", "axis": "x", "value": 100},
+      {"label": "60", "check": "extent", "axis": "y", "value": 60},
+      {"label": "40", "check": "extent", "axis": "z", "value": 40},
+      {"label": "R6 (4x)", "check": "cyl", "axis": "z", "at": [6, 6], "dia": 12},
+      {"label": "wall 2 (floor)", "check": "probe", "dir": "-z", "at": [50, 30], "measure": "from_min", "value": 2},
+      {"label": "wall 2 (side)", "check": "probe", "dir": "+y", "at": [30, 30], "measure": "segment", "value": 2},
+      {"label": "Ø8 front wall", "check": "cyl", "axis": "y", "at": [50, 20], "dia": 8},
+      {"label": "20", "check": "inset", "axis": "y", "at": [50, 20], "along": "v", "value": 20},
+      {"label": "4x Ø3.2 (10, 10)", "check": "cyl", "axis": "z", "at": [10, 10], "dia": 3.2},
+      {"label": "4x Ø3.2 (90, 10)", "check": "cyl", "axis": "z", "at": [90, 10], "dia": 3.2},
+      {"label": "4x Ø3.2 (10, 50)", "check": "cyl", "axis": "z", "at": [10, 50], "dia": 3.2},
+      {"label": "4x Ø3.2 (90, 50)", "check": "cyl", "axis": "z", "at": [90, 50], "dia": 3.2},
+      {"label": "10 (x)", "check": "inset", "axis": "z", "at": [10, 10], "along": "u", "value": 10},
+      {"label": "10 (y)", "check": "inset", "axis": "z", "at": [10, 10], "along": "v", "value": 10}
+    ]
+  },
+  "06_angled_bracket": {
+    "spec": "examples/angled_bracket.json",
+    "images": {"clean": "06_angled_bracket.png", "photo": "06_angled_bracket__photo.jpg", "rough": "06_angled_bracket__rough.jpg"},
+    "x_param": "length",
+    "dimensions": [
+      {"label": "80", "check": "extent", "axis": "x", "value": 80},
+      {"label": "30 (depth)", "check": "extent", "axis": "y", "value": 30},
+      {"label": "40", "check": "extent", "axis": "z", "value": 40},
+      {"label": "30 (flat top)", "check": "probe", "dir": "-z", "at": [29, 15], "measure": "from_min", "value": 40},
+      {"label": "slope", "check": "probe", "dir": "-z", "at": [55, 15], "measure": "from_min", "value": 27.5},
+      {"label": "15", "check": "probe", "dir": "-z", "at": [79.5, 15], "measure": "from_min", "value": 15.25},
+      {"label": "2x Ø6 (15, 8)", "check": "cyl", "axis": "z", "at": [15, 8], "dia": 6},
+      {"label": "2x Ø6 (15, 22)", "check": "cyl", "axis": "z", "at": [15, 22], "dia": 6},
+      {"label": "15 (holes)", "check": "inset", "axis": "z", "at": [15, 8], "along": "u", "value": 15},
+      {"label": "8", "check": "inset", "axis": "z", "at": [15, 8], "along": "v", "value": 8},
+      {"label": "Ø8 thru", "check": "cyl", "axis": "y", "at": [60, 10], "dia": 8},
+      {"label": "20", "check": "inset", "axis": "y", "at": [60, 10], "along": "u", "value": 60},
+      {"label": "10", "check": "inset", "axis": "y", "at": [60, 10], "along": "v", "value": 10}
+    ]
+  },
+  "07_pocket_plate": {
+    "spec": "examples/pocket_plate.json",
+    "images": {"clean": "07_pocket_plate.png", "photo": "07_pocket_plate__photo.jpg", "rough": "07_pocket_plate__rough.jpg"},
+    "x_param": "width",
+    "dimensions": [
+      {"label": "100", "check": "extent", "axis": "x", "value": 100},
+      {"label": "60", "check": "extent", "axis": "y", "value": 60},
+      {"label": "10", "check": "extent", "axis": "z", "value": 10},
+      {"label": "pocket 4 deep", "check": "probe", "dir": "-z", "at": [50, 30], "measure": "from_min", "value": 6},
+      {"label": "50 (left edge out)", "check": "probe", "dir": "-z", "at": [24, 30], "measure": "from_min", "value": 10},
+      {"label": "50 (left edge in)", "check": "probe", "dir": "-z", "at": [26, 30], "measure": "from_min", "value": 6},
+      {"label": "30 (front edge out)", "check": "probe", "dir": "-z", "at": [50, 14], "measure": "from_min", "value": 10},
+      {"label": "30 (front edge in)", "check": "probe", "dir": "-z", "at": [50, 16], "measure": "from_min", "value": 6},
+      {"label": "Ø6.6 (10, 10)", "check": "cyl", "axis": "z", "at": [10, 10], "dia": 6.6},
+      {"label": "cbore Ø11 (10, 10)", "check": "cyl", "axis": "z", "at": [10, 10], "dia": 11},
+      {"label": "cbore 6.4 deep", "check": "probe", "dir": "-z", "at": [14.4, 10], "measure": "from_min", "value": 3.6},
+      {"label": "Ø6.6 (90, 10)", "check": "cyl", "axis": "z", "at": [90, 10], "dia": 6.6},
+      {"label": "Ø6.6 (10, 50)", "check": "cyl", "axis": "z", "at": [10, 50], "dia": 6.6},
+      {"label": "Ø6.6 (90, 50)", "check": "cyl", "axis": "z", "at": [90, 50], "dia": 6.6},
+      {"label": "10 (x)", "check": "inset", "axis": "z", "at": [10, 10], "along": "u", "value": 10},
+      {"label": "10 (y)", "check": "inset", "axis": "z", "at": [10, 10], "along": "v", "value": 10}
+    ]
+  },
+  "08_shaft_collar": {
+    "spec": "examples/shaft_collar.json",
+    "images": {"clean": "08_shaft_collar.png", "photo": "08_shaft_collar__photo.jpg", "rough": "08_shaft_collar__rough.jpg"},
+    "x_param": "od",
+    "dimensions": [
+      {"label": "Ø40", "check": "cyl", "axis": "z", "at": [20, 20], "dia": 40},
+      {"label": "Ø20 thru", "check": "cyl", "axis": "z", "at": [20, 20], "dia": 20},
+      {"label": "15", "check": "extent", "axis": "z", "value": 15},
+      {"label": "slit 2 (gap)", "check": "probe", "dir": "-z", "at": [38, 20], "measure": "from_min", "value": null},
+      {"label": "slit 2 (edge)", "check": "probe", "dir": "-z", "at": [38, 22.5], "measure": "from_min", "value": 15},
+      {"label": "Ø4 thru", "check": "cyl", "axis": "y", "at": [35, 7.5], "dia": 4},
+      {"label": "35", "check": "inset", "axis": "y", "at": [35, 7.5], "along": "u", "value": 35}
+    ]
+  }
+}
