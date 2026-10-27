@@ -37,8 +37,13 @@ $150 Meta API credits for the whole project. Default to `muse-spark-1.3-contribu
   - `expr.py`: safe AST evaluator for parameter expressions.
   - `compile.py`: spec → CadQuery solid, STEP/STL, metrics, silhouettes; `SpecError` messages are written as model feedback. CLI: `python -m hephaestus.compile examples/plate.json --out out/ [--set name=value]`.
   - `render.py`: top/front/side binary masks rasterised from the STL triangles, STL writer, `count_holes`.
-- `examples/` — v1 specs: plate, l_bracket, block (the three spike parts), bushing (revolve), enclosure (shell).
-- `docs/spec-v1.md` — spec reference with one example per feature type.
+  - `measure.py`: evaluates callouts (dimensions the model read, with a measurement recipe) on the compiled part.
+  - `talos.py`: the loop read → compile → callouts → critic → correct; event generator + CLI (`python -m hephaestus.talos img --out dir`). See `docs/talos.md`.
+  - `critic.py` (visual critic, fresh context), `drawing.py` (labelled drawing sheet for the critic), `prompts.py` (+ `fewshot/`), `meta_api.py` (streamed Meta API client with a spend budget).
+- `examples/` — v1 specs for the 8 benchmark parts (plate, l_bracket, block, bushing, enclosure, angled_bracket, pocket_plate, shaft_collar); `examples/callouts/` has their ground-truth callouts.
+- `docs/spec-v1.md` — spec reference with one example per feature type. `docs/talos.md` — the loop, checks, events.
+- `experiments/loop-eval/` — injected-error evaluation of the loop + critic false alarms (`python loop_eval.py --runs 2`).
+- `experiments/benchmark/` — 5 harder drawings (+ photo/rough), ground truth, and `bench.py`: reading only vs full loop on all 8 parts.
 - `tests/` — pytest (`python -m pytest tests`); analytic volumes, silhouettes, errors, schema export.
 - `experiments/reading-spike-v2/` — Muse Spark filling in spec v1, scored on compiled geometry (bbox, volume IoU, written dimensions, parameter intent). Run `python spike2.py --set clean --runs 3`. Result: 26/27 perfect.
 - `experiments/reading-spike/` — first test: can Muse Spark read a dimensioned sketch into a correct spec? Auto-scored against ground truth. Run `python spike.py`. Uses the older v0 box spec.

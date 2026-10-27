@@ -117,6 +117,33 @@ def false_alarm(part, run_no, client, outdir):
     return rec
 
 
+def summarize(outdir):
+    import glob
+    recs = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(outdir, "*.run*.json")))]
+    cases = [r for r in recs if "detected_by" in r]
+    fas = [r for r in recs if "clean" in r]
+    lines = ["| injected error | part | detected by (per run) | fixed | corrections | status | cost / run | time / run |",
+             "|---|---|---|---|---|---|---|---|"]
+    for name in ERRORS:
+        rs = [r for r in cases if r["error"] == name]
+        if not rs:
+            continue
+        lines.append(f"| {ERRORS[name][1]} | {rs[0]['part']} | {', '.join(r['detected_by'] for r in rs)} | "
+                     f"{sum(r['fixed'] for r in rs)}/{len(rs)} | {', '.join(str(r['corrections']) for r in rs)} | "
+                     f"{', '.join(r['status'] for r in rs)} | ${sum(r['cost_usd'] for r in rs) / len(rs):.4f} | "
+                     f"{sum(r['seconds'] for r in rs) / len(rs):.0f} s |")
+    if fas:
+        bad = [r for r in fas if not r["clean"]]
+        adv = sum(len([i for i in (r["critic"] or {}).get("issues", []) if i["severity"] != "high"]) for r in fas)
+        lines += ["", f"False alarms on unmodified true specs: {len(bad)}/{len(fas)} checks flagged "
+                      f"({adv} medium/low critic advisories, not blocking)."]
+        lines += [f"- {r['part']} run {r['run']}: " + "; ".join(i["message"] for i in r["issues"]) for r in bad]
+    text = "\n".join(lines)
+    with open(os.path.join(outdir, "summary.md"), "w") as f:
+        f.write(text + "\n")
+    return text
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--runs", type=int, default=2)
@@ -127,7 +154,11 @@ def main():
     ap.add_argument("--max-usd", type=float, default=0.5)
     ap.add_argument("--model", default=meta_api.DEFAULT_MODEL)
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--summarize", action="store_true", help="rebuild the tables from saved results, no API calls")
     args = ap.parse_args()
+    if args.summarize:
+        print(summarize(os.path.join(HERE, "results", args.model)))
+        return
 
     budget = meta_api.Budget(args.max_usd)
     client = meta_api.Client(args.model, budget=budget)
@@ -161,7 +192,8 @@ def main():
 
     with ThreadPoolExecutor(args.workers) as pool:
         list(pool.map(do, jobs))
-    print(f"\nspent ${budget.spent:.4f} | results in {outdir}")
+    print(f"\nspent ${budget.spent:.4f} | results in {outdir}\n")
+    print(summarize(outdir))
 
 
 if __name__ == "__main__":
