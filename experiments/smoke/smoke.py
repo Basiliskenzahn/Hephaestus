@@ -26,6 +26,11 @@ def log_calls(events, label):
                 f.write(json.dumps({"ts": now, "script": f"experiments/smoke/smoke.py ({label}, production)", "call": name,
                                     "model": call.get("model"), "input_tokens": call.get("input_tokens"),
                                     "output_tokens": call.get("output_tokens"), "cost_usd": call.get("cost_usd")}) + "\n")
+        sam = [e["sam"] for e in events if e["event"] == "shape_check" and e.get("sam")]
+        if sam and sam[-1]["calls"]:     # cumulative per run: log the final count once
+            f.write(json.dumps({"ts": now, "script": f"experiments/smoke/smoke.py ({label}, production)",
+                                "call": f"SAM x{sam[-1]['calls']}", "model": "sam-3.1", "input_tokens": 0,
+                                "output_tokens": 0, "cost_usd": sam[-1]["cost_usd"]}) + "\n")
 
 
 def main():

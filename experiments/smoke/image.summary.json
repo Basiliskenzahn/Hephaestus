@@ -1,18 +1,21 @@
 {
- "label": "image 02_l_bracket__photo.jpg",
- "run_id": "xoC-kAJ_qc3r",
- "post_seconds": 1.1,
+ "label": "image 06_angled_bracket__photo.jpg",
+ "run_id": "yNCRzpH0dphg",
+ "post_seconds": 12.9,
  "marks": {
-  "read_started": 1.6,
-  "spec": 57.0,
-  "compiled_0": 57.6,
-  "checks": 85.6,
-  "done": 85.6
+  "read_started": 13.8,
+  "spec": 69.3,
+  "compiled_0": 69.9,
+  "shape_check": 74.2,
+  "checks": 107.0,
+  "correction_started": 107.1,
+  "compiled_1": 177.6,
+  "done": 224.4
  },
- "status": "pass",
- "corrections": 0,
- "cost_usd": 0.091566,
- "server_seconds": 84.4,
+ "status": "disputed",
+ "corrections": 2,
+ "cost_usd": 0.247454,
+ "server_seconds": 211.3,
  "files": {
   "front.png": "iter_0/front.png",
   "part.step": "iter_0/part.step",
