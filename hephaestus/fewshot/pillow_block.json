@@ -1,0 +1,154 @@
+{
+  "drawing": "FRONT view: overall 64 wide; base plate 6 high; a centre block 24 wide, drawn centred, total height 22.\nTOP view: depth 30; \"2x \u00d85 thru\", 7 from each end, on the centreline; \"\u00d812 x 14 deep\" in the centre block, on the centreline.",
+  "spec": {
+    "name": "pillow_block",
+    "description": "Base plate with a raised centre block and a blind bore. Assumed: the centre block and the bore are centred (drawn symmetric, not dimensioned from an edge).",
+    "parameters": {
+      "length": {
+        "value": 64,
+        "description": "overall length along X"
+      },
+      "depth": {
+        "value": 30,
+        "description": "overall depth along Y"
+      },
+      "base_t": {
+        "value": 6,
+        "description": "base plate thickness"
+      },
+      "block_w": {
+        "value": 24,
+        "description": "centre block width along X"
+      },
+      "height": {
+        "value": 22,
+        "description": "overall height"
+      },
+      "bore_dia": {
+        "value": 12,
+        "description": "bore diameter"
+      },
+      "bore_depth": {
+        "value": 14,
+        "description": "bore depth from the top of the block"
+      },
+      "hole_dia": {
+        "value": 5,
+        "description": "mounting hole diameter"
+      },
+      "hole_inset": {
+        "value": 7,
+        "description": "mounting hole centre from each end; the hole spacing follows as length - 2 * hole_inset"
+      }
+    },
+    "features": [
+      {
+        "id": "base",
+        "type": "extrude",
+        "plane": "XY",
+        "profile": {
+          "shape": "rect",
+          "width": "length",
+          "height": "depth"
+        },
+        "distance": "base_t"
+      },
+      {
+        "id": "block",
+        "type": "extrude",
+        "plane": "XY",
+        "profile": {
+          "shape": "rect",
+          "u": "(length - block_w) / 2",
+          "width": "block_w",
+          "height": "depth"
+        },
+        "distance": "height"
+      },
+      {
+        "id": "bore",
+        "type": "hole",
+        "face": "top_of_feature:block",
+        "center": [
+          "length / 2",
+          "depth / 2"
+        ],
+        "diameter": "bore_dia",
+        "depth": "bore_depth"
+      },
+      {
+        "id": "mount_hole",
+        "type": "hole",
+        "face": "top_of_feature:base",
+        "center": [
+          "hole_inset",
+          "depth / 2"
+        ],
+        "diameter": "hole_dia",
+        "through": true
+      },
+      {
+        "id": "mount_holes",
+        "type": "linear_pattern",
+        "feature": "mount_hole",
+        "count_u": 2,
+        "spacing_u": "length - 2 * hole_inset"
+      }
+    ]
+  },
+  "callouts": [
+    {
+      "label": "64",
+      "value": 64,
+      "measure": "overall",
+      "axis": "x"
+    },
+    {
+      "label": "30",
+      "value": 30,
+      "measure": "overall",
+      "axis": "y"
+    },
+    {
+      "label": "22",
+      "value": 22,
+      "measure": "overall",
+      "axis": "z"
+    },
+    {
+      "label": "6",
+      "value": 6,
+      "measure": "thickness",
+      "feature": "base"
+    },
+    {
+      "label": "24",
+      "value": 24,
+      "measure": "unchecked"
+    },
+    {
+      "label": "2x \u00d85 thru",
+      "value": 5,
+      "measure": "diameter",
+      "feature": "mount_hole"
+    },
+    {
+      "label": "7",
+      "value": 7,
+      "measure": "distance_to_edge",
+      "feature": "mount_hole",
+      "edge": "x_min"
+    },
+    {
+      "label": "\u00d812",
+      "value": 12,
+      "measure": "diameter",
+      "feature": "bore"
+    },
+    {
+      "label": "14 deep",
+      "value": 14,
+      "measure": "unchecked"
+    }
+  ]
+}
