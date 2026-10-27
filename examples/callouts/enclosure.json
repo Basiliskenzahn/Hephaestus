@@ -9,5 +9,6 @@
   {"label": "0.5 x 45°", "value": 0.5, "measure": "unchecked"},
   {"label": "4x Ø3.2 thru floor", "value": 3.2, "measure": "diameter", "feature": "screw_hole"},
   {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "screw_hole", "edge": "x_min"},
-  {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "screw_hole", "edge": "y_min"}
+  {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "screw_hole", "edge": "y_min"},
+  {"label": "cable_hole centred", "value": 50, "measure": "distance_to_edge", "feature": "cable_hole", "edge": "x_min"}
 ]

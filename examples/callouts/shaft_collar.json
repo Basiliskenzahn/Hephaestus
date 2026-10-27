@@ -4,5 +4,6 @@
   {"label": "15", "value": 15, "measure": "overall", "axis": "z"},
   {"label": "slit 2", "value": 2, "measure": "unchecked"},
   {"label": "Ø4 thru", "value": 4, "measure": "diameter", "feature": "screw_hole"},
-  {"label": "35", "value": 35, "measure": "distance_to_edge", "feature": "screw_hole", "edge": "x_min"}
+  {"label": "35", "value": 35, "measure": "distance_to_edge", "feature": "screw_hole", "edge": "x_min"},
+  {"label": "screw_hole centred", "value": 7.5, "measure": "distance_to_edge", "feature": "screw_hole", "edge": "z_min"}
 ]

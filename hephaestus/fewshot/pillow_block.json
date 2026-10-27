@@ -149,6 +149,27 @@
       "label": "14 deep",
       "value": 14,
       "measure": "unchecked"
+    },
+    {
+      "label": "bore centred",
+      "value": 32,
+      "measure": "distance_to_edge",
+      "feature": "bore",
+      "edge": "x_min"
+    },
+    {
+      "label": "bore centred",
+      "value": 15,
+      "measure": "distance_to_edge",
+      "feature": "bore",
+      "edge": "y_min"
+    },
+    {
+      "label": "mount holes on centreline",
+      "value": 15,
+      "measure": "distance_to_edge",
+      "feature": "mount_hole",
+      "edge": "y_min"
     }
   ]
 }

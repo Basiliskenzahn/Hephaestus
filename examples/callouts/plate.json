@@ -7,5 +7,7 @@
   {"label": "64", "value": 64, "measure": "distance", "feature": "corner_holes[0]", "feature_b": "corner_holes[1]", "axis": "x"},
   {"label": "34", "value": 34, "measure": "distance", "feature": "corner_holes[0]", "feature_b": "corner_holes[2]", "axis": "y"},
   {"label": "8", "value": 8, "measure": "distance_to_edge", "feature": "corner_hole", "edge": "x_min"},
-  {"label": "8", "value": 8, "measure": "distance_to_edge", "feature": "corner_hole", "edge": "y_min"}
+  {"label": "8", "value": 8, "measure": "distance_to_edge", "feature": "corner_hole", "edge": "y_min"},
+  {"label": "bore centred", "value": 40, "measure": "distance_to_edge", "feature": "bore", "edge": "x_min"},
+  {"label": "bore centred", "value": 25, "measure": "distance_to_edge", "feature": "bore", "edge": "y_min"}
 ]

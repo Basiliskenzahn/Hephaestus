@@ -7,5 +7,8 @@
   {"label": "46", "value": 46, "measure": "distance", "feature": "side_holes[0]", "feature_b": "side_holes[1]", "axis": "x"},
   {"label": "20", "value": 20, "measure": "distance_to_edge", "feature": "bore", "edge": "y_min"},
   {"label": "R5 (4x)", "value": 5, "measure": "radius", "feature": "corners"},
-  {"label": "1 x 45° all top edges", "value": 1, "measure": "chamfer_size", "feature": "top_edges"}
+  {"label": "1 x 45° all top edges", "value": 1, "measure": "chamfer_size", "feature": "top_edges"},
+  {"label": "bore centred", "value": 35, "measure": "distance_to_edge", "feature": "bore", "edge": "x_min"},
+  {"label": "side_hole centred", "value": 12, "measure": "distance_to_edge", "feature": "side_hole", "edge": "x_min"},
+  {"label": "side_hole centred", "value": 20, "measure": "distance_to_edge", "feature": "side_hole", "edge": "y_min"}
 ]

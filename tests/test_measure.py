@@ -26,7 +26,8 @@ def test_widened_plate_reports_overall_and_pitch():
     msgs = issues(check(callouts("plate"), compile(example("plate"), overrides={"width": 100})))
     assert "callout '80' (overall size along x) measures 100 on the part, expected 80" in msgs
     assert "callout '64' (distance corner_holes[0] → corner_holes[1] along x) measures 84 on the part, expected 64" in msgs
-    assert len(msgs) == 2
+    assert "callout 'bore centred' (distance from bore to x_min) measures 50 on the part, expected 40" in msgs
+    assert len(msgs) == 3
 
 
 def test_moved_hole_and_wrong_diameter():

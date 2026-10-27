@@ -5,5 +5,7 @@
   {"label": "30", "value": 30, "measure": "overall", "axis": "z"},
   {"label": "5", "value": 5, "measure": "unchecked"},
   {"label": "4x Ø4 thru", "value": 4, "measure": "diameter", "feature": "bolt_hole"},
-  {"label": "PCD Ø32", "value": 32, "measure": "distance", "feature": "bolt_holes[0]", "feature_b": "bolt_holes[2]", "axis": "x"}
+  {"label": "PCD Ø32", "value": 32, "measure": "distance", "feature": "bolt_holes[0]", "feature_b": "bolt_holes[2]", "axis": "x"},
+  {"label": "bolt circle centred", "value": 36, "measure": "distance_to_edge", "feature": "bolt_hole", "edge": "x_min"},
+  {"label": "bolt circle centred", "value": 20, "measure": "distance_to_edge", "feature": "bolt_hole", "edge": "y_min"}
 ]

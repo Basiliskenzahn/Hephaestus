@@ -5,7 +5,7 @@
 
 Each iteration builds the current spec, checks it (compile errors, callouts measured on the part, visual critic) and,
 if anything is wrong, asks the model for a corrected spec. Stops when all checks pass, after `max_iters` corrections,
-or when the same issues come back twice in a row. Events are JSON-serialisable dicts with an "event" key:
+when the same issues come back twice in a row, or when a correction returns the spec unchanged ("disputed"). Events are JSON-serialisable dicts with an "event" key:
   read_started, spec, compiled, checks, correction_started, error, done
 The final spec is the best version seen (fewest issues), not necessarily the last.
 
@@ -60,7 +60,8 @@ def verify(result, sheet, callouts, drawing, client=None, use_critic=True):
         for i in critic_mod.blocking(crit):
             who = f"{i['feature_id']}: " if i.get("feature_id") else ""
             issues.append({"source": "critic", "message": f"{who}{i['issue']} ({i['severity']})"})
-    return {"issues": issues, "callouts": rows, "critic": crit, "critic_call": call}, issues
+    advice = critic_mod.advisories(crit) if crit else []
+    return {"issues": issues, "advisories": advice, "callouts": rows, "critic": crit, "critic_call": call}, issues
 
 
 def check(spec, callouts, drawing, client=None, out_dir=None, use_critic=True):
@@ -134,8 +135,13 @@ def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=
             content = [meta_api.text(correction_request(spec, callouts, issues)), meta_api.image(drawing)]
             out, info = client.respond(CORRECT_PROMPT, content, json_schema(CorrectionOutput), "CorrectionOutput")
             iteration += 1
+            unchanged = json.dumps(out.get("spec"), sort_keys=True) == json.dumps(spec, sort_keys=True)
             spec, callouts = out.get("spec"), out.get("callouts", callouts)
             yield ev("spec", spec=spec, callouts=callouts, changelog=out.get("changelog"), call=_call_info(info))
+            if unchanged:
+                # the corrector rejected every remaining issue; another round would only re-roll the critic
+                yield finish("disputed", out.get("changelog"))
+                return
     except meta_api.BudgetExceeded as e:
         yield ev("error", message=str(e))
         yield finish("budget", str(e))

@@ -42,5 +42,13 @@ def critique(client, drawing, sheet_png):
 
 
 def blocking(critic_out):
-    """Issues that should trigger a correction (high and medium severity)."""
-    return [i for i in critic_out["issues"] if i["severity"] in ("high", "medium")]
+    """Issues that trigger a correction: high severity only (wrong or missing shape, orientation).
+
+    In the loop evaluation every medium "position" claim was a misreading of the image, while numeric sizes and
+    positions are checked exactly by the callouts. Medium and low issues are still reported, as advisories.
+    """
+    return [i for i in critic_out["issues"] if i["severity"] == "high"]
+
+
+def advisories(critic_out):
+    return [i for i in critic_out["issues"] if i["severity"] != "high"]

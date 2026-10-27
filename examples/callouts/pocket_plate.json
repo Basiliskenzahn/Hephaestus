@@ -10,5 +10,7 @@
   {"label": "counterbore Ø11", "value": 11, "measure": "diameter", "feature": "cb_hole"},
   {"label": "counterbore 6.4 deep", "value": 6.4, "measure": "unchecked"},
   {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "cb_hole", "edge": "x_min"},
-  {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "cb_hole", "edge": "y_min"}
+  {"label": "10", "value": 10, "measure": "distance_to_edge", "feature": "cb_hole", "edge": "y_min"},
+  {"label": "pocket centred", "value": 50, "measure": "distance_to_edge", "feature": "pocket", "edge": "x_min"},
+  {"label": "pocket centred", "value": 30, "measure": "distance_to_edge", "feature": "pocket", "edge": "y_min"}
 ]

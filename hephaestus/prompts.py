@@ -52,6 +52,9 @@ measure it on the built part, so the part can be checked against your reading:
   centre to a side of the part.
 - slot_length / slot_width (feature). chamfer_size (feature). depth (feature): of a blind hole, slot or pocket.
 - unchecked: anything else (angles, notes, widths of a sub-feature, counterbore depths).
+- Also add a callout for each position the drawing implies but does not dimension (a hole drawn on the centreline,
+  a pocket drawn centred): label it "<feature> centred" and give the implied value, e.g. distance_to_edge from
+  x_min = width / 2.
 Refer to pattern copies as "<pattern_id>[k]": [0] is the original, linear copies run along u first, then v."""
 
 _EXAMPLE = ("## Example\nDrawing:\n" + FEWSHOT["drawing"] + "\nOutput:\n"

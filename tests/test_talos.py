@@ -66,15 +66,35 @@ def test_read_check_correct_pass(tmp_path):
         assert (tmp_path / "iter_1" / f).exists()
 
 
-def test_same_issues_twice_stops_and_keeps_best():
-    critic_says = {"matches": False, "issues": [{"feature_id": "bore", "issue": "bore looks too small", "severity": "medium"}]}
-    client = ScriptedClient(CriticOutput=[critic_says, critic_says],
-                            CorrectionOutput=[{"changelog": "kept, drawing says 12", "spec": example("block"),
+def test_unchanged_correction_is_disputed():
+    critic_says = {"matches": False, "issues": [{"feature_id": "bore", "issue": "bore missing", "severity": "high"}]}
+    client = ScriptedClient(CriticOutput=[critic_says],
+                            CorrectionOutput=[{"changelog": "kept, the drawing shows the bore", "spec": example("block"),
                                                "callouts": callouts("block")}])
     ev = events_of(client, start={"spec": example("block"), "callouts": callouts("block")})
-    done = ev[-1]
-    assert done["status"] == "stuck" and done["final_iteration"] == 0
-    assert client.calls == ["CriticOutput", "CorrectionOutput", "CriticOutput"]
+    assert ev[-1]["status"] == "disputed" and ev[-1]["note"] == "kept, the drawing shows the bore"
+    assert client.calls == ["CriticOutput", "CorrectionOutput"]
+
+
+def test_medium_critic_issues_are_advisories():
+    critic_says = {"matches": False, "issues": [{"feature_id": "bore", "issue": "bore looks off centre", "severity": "medium"}]}
+    client = ScriptedClient(CriticOutput=[critic_says])
+    ev = events_of(client, start={"spec": example("block"), "callouts": callouts("block")})
+    checks = next(e for e in ev if e["event"] == "checks")
+    assert checks["clean"] and checks["advisories"][0]["issue"] == "bore looks off centre"
+    assert ev[-1]["status"] == "pass"
+
+
+def test_same_issues_twice_stops_and_keeps_best():
+    def bad(d):
+        spec = example("block")
+        spec["features"][1]["center"] = [85, 10]
+        spec["parameters"]["bore_d"]["value"] = d
+        return spec
+    client = ScriptedClient(CorrectionOutput=[{"changelog": "smaller bore", "spec": bad(11), "callouts": callouts("block")}])
+    ev = events_of(client, start={"spec": bad(12), "callouts": callouts("block")})
+    assert ev[-1]["status"] == "stuck" and ev[-1]["final_iteration"] == 0
+    assert client.calls == ["CorrectionOutput"]
 
 
 def test_compile_error_goes_to_the_correction():
