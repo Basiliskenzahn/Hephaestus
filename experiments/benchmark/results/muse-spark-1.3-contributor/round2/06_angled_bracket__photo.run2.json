@@ -1,0 +1,792 @@
+{
+ "part": "06_angled_bracket",
+ "set": "photo",
+ "run": 2,
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "final_iteration": 0,
+ "cost_off": 0.003222,
+ "cost_on": 0.026375,
+ "seconds_off": 124.6,
+ "seconds_on": 229.4,
+ "off": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.5982,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 18,
+   "computed_exprs": 4,
+   "literal_numbers": 7,
+   "examples": [
+    "(depth - rib_t) / 2",
+    "length - side_inset_x",
+    "depth / 4",
+    "depth / 2"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.5375,
+   "ok": false
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.5982,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 18,
+   "computed_exprs": 4,
+   "literal_numbers": 7,
+   "examples": [
+    "(depth - rib_t) / 2",
+    "length - side_inset_x",
+    "depth / 4",
+    "depth / 2"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.5375,
+   "ok": false
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [],
+   "critic_seconds": 104.4
+  }
+ ],
+ "corrections_log": [],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 124.6,
+   "spec": {
+    "description": "Tall block with centred angled rib. Assumed: top edge is a single straight slope from (top_flat,height) to (length,tip_h); rib is centred in depth; mount holes are symmetric about the mid-plane clearing the rib.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "top_flat"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "rib_t",
+      "id": "rib",
+      "offset": "(depth - rib_t) / 2",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "tip_h"
+        ],
+        [
+         "top_flat",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - side_inset_x",
+       "side_h"
+      ],
+      "diameter": "side_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "mount_x",
+       "depth / 4"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:base",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": 0,
+      "spacing_v": "depth / 2",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z at left",
+      "value": 40
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "mount_dia": {
+      "description": "vertical mounting hole diameter",
+      "value": 6
+     },
+     "mount_x": {
+      "description": "mounting hole centre from left edge along X, centred in block",
+      "value": 15
+     },
+     "rib_t": {
+      "description": "rib plate thickness along Y",
+      "value": 8
+     },
+     "side_dia": {
+      "description": "transverse hole diameter",
+      "value": 8
+     },
+     "side_h": {
+      "description": "transverse hole centre height from bottom",
+      "value": 10
+     },
+     "side_inset_x": {
+      "description": "transverse hole centre from right edge along X",
+      "value": 20
+     },
+     "tip_h": {
+      "description": "height of right end",
+      "value": 15
+     },
+     "top_flat": {
+      "description": "flat top length along X",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "edge": "x_max",
+     "feature": "side_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "side_hole",
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "label": "15",
+     "measure": "unchecked",
+     "value": 15
+    },
+    {
+     "edge": "z_min",
+     "feature": "side_hole",
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "feature": "rib",
+     "label": "8",
+     "measure": "thickness",
+     "value": 8
+    },
+    {
+     "edge": "y_min",
+     "feature": "rib",
+     "label": "rib centred",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "mount holes symmetric (assumed)",
+     "measure": "distance_to_edge",
+     "value": 7.5
+    },
+    {
+     "edge": "y_max",
+     "feature": "mount_holes[1]",
+     "label": "mount holes symmetric (assumed)",
+     "measure": "distance_to_edge",
+     "value": 7.5
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.003222,
+    "seconds": 124.6,
+    "input_tokens": 9694,
+    "output_tokens": 14331
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 125.0,
+   "ok": true,
+   "metrics": {
+    "name": "angled_bracket",
+    "volume_mm3": 44335.9294,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      30.0,
+      40.0
+     ],
+     "size": [
+      80.0,
+      30.0,
+      40.0
+     ]
+    },
+    "faces": 14,
+    "edges": 34,
+    "triangles": 1552,
+    "parameters": {
+     "depth": 30.0,
+     "height": 40.0,
+     "length": 80.0,
+     "mount_dia": 6.0,
+     "mount_x": 15.0,
+     "rib_t": 8.0,
+     "side_dia": 8.0,
+     "side_h": 10.0,
+     "side_inset_x": 20.0,
+     "tip_h": 15.0,
+     "top_flat": 30.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 36000.0
+     },
+     {
+      "id": "rib",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 11000.0
+     },
+     {
+      "id": "side_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -402.1239
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       170
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       170,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 229.4,
+   "clean": true,
+   "issues": [],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to x_max",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "\u00d88 thru",
+     "value": 8,
+     "measure": "diameter",
+     "what": "diameter of side_hole",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to z_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "thickness",
+     "what": "thickness of rib",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "rib centred",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from rib to y_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "mount holes symmetric (assumed)",
+     "value": 7.5,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 7.5
+    },
+    {
+     "label": "mount holes symmetric (assumed)",
+     "value": 7.5,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_holes[1] to y_max",
+     "status": "ok",
+     "measured": 7.5
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": []
+   },
+   "critic_call": {
+    "cost_usd": 0.002539,
+    "seconds": 104.4,
+    "input_tokens": 5115,
+    "output_tokens": 10319
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 229.4,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Tall block with centred angled rib. Assumed: top edge is a single straight slope from (top_flat,height) to (length,tip_h); rib is centred in depth; mount holes are symmetric about the mid-plane clearing the rib.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "top_flat"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "rib_t",
+      "id": "rib",
+      "offset": "(depth - rib_t) / 2",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "tip_h"
+        ],
+        [
+         "top_flat",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - side_inset_x",
+       "side_h"
+      ],
+      "diameter": "side_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "mount_x",
+       "depth / 4"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:base",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": 0,
+      "spacing_v": "depth / 2",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z at left",
+      "value": 40
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "mount_dia": {
+      "description": "vertical mounting hole diameter",
+      "value": 6
+     },
+     "mount_x": {
+      "description": "mounting hole centre from left edge along X, centred in block",
+      "value": 15
+     },
+     "rib_t": {
+      "description": "rib plate thickness along Y",
+      "value": 8
+     },
+     "side_dia": {
+      "description": "transverse hole diameter",
+      "value": 8
+     },
+     "side_h": {
+      "description": "transverse hole centre height from bottom",
+      "value": 10
+     },
+     "side_inset_x": {
+      "description": "transverse hole centre from right edge along X",
+      "value": 20
+     },
+     "tip_h": {
+      "description": "height of right end",
+      "value": 15
+     },
+     "top_flat": {
+      "description": "flat top length along X",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "edge": "x_max",
+     "feature": "side_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "side_hole",
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "label": "15",
+     "measure": "unchecked",
+     "value": 15
+    },
+    {
+     "edge": "z_min",
+     "feature": "side_hole",
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "feature": "rib",
+     "label": "8",
+     "measure": "thickness",
+     "value": 8
+    },
+    {
+     "edge": "y_min",
+     "feature": "rib",
+     "label": "rib centred",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "mount holes symmetric (assumed)",
+     "measure": "distance_to_edge",
+     "value": 7.5
+    },
+    {
+     "edge": "y_max",
+     "feature": "mount_holes[1]",
+     "label": "mount holes symmetric (assumed)",
+     "measure": "distance_to_edge",
+     "value": 7.5
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 0,
+   "corrections": 0,
+   "cost_usd": 0.026375,
+   "seconds": 229.4
+  }
+ ]
+}

@@ -1,0 +1,2121 @@
+{
+ "part": "03_block",
+ "set": "photo",
+ "run": 1,
+ "status": "pass",
+ "note": null,
+ "corrections": 3,
+ "final_iteration": 3,
+ "cost_off": 0.001423,
+ "cost_on": 0.030659,
+ "seconds_off": 38.6,
+ "seconds_on": 240.8,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 9,
+   "expr_fields": 12,
+   "computed_exprs": 2,
+   "literal_numbers": 1,
+   "examples": [
+    "length / 2",
+    "(length - hole_pitch) / 2"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 0.9992,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 9,
+   "expr_fields": 15,
+   "computed_exprs": 2,
+   "literal_numbers": 1,
+   "examples": [
+    "length / 2",
+    "(length - hole_pitch) / 2"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.9994,
+   "ok": true
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "mount_holes: 1x45 deg chamfer missing on top edges of both holes, drawing requires it on all top edges (high)"
+    },
+    {
+     "source": "critic",
+     "message": "bore: 1x45 deg chamfer missing on top edge of central hole, drawing requires it on all top edges (high)"
+    }
+   ],
+   "critic_seconds": 42.6
+  },
+  {
+   "iteration": 1,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "mount_holes: right side \u00d86 hole top edge has no chamfer while drawing requires 1 x 45\u00b0 on all top edges (high)"
+    }
+   ],
+   "critic_seconds": 36.8
+  },
+  {
+   "iteration": 2,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "mount_holes: left \u00d86 hole top edge has no 1x45\u00b0 chamfer while drawing requires chamfer on all top edges (high)"
+    }
+   ],
+   "critic_seconds": 29.5
+  },
+  {
+   "iteration": 3,
+   "issues": [],
+   "critic_seconds": 18.7
+  }
+ ],
+ "corrections_log": [
+  {
+   "iteration": 1,
+   "changelog": "added 1x45 top chamfers on bore rim and mount-hole rims to satisfy all top edges note",
+   "cost_usd": 0.001776,
+   "seconds": 26.4,
+   "input_tokens": 10511,
+   "output_tokens": 3624
+  },
+  {
+   "iteration": 2,
+   "changelog": "Changed mount-hole chamfer to top_of_feature:mount_holes so both patterned \u00d86 holes get the 1x45\u00b0 top chamfer.",
+   "cost_usd": 0.00157,
+   "seconds": 17.8,
+   "input_tokens": 10538,
+   "output_tokens": 2582
+  },
+  {
+   "iteration": 3,
+   "changelog": "added top chamfer on original mount_hole so both small holes get 1x45 deg like all top edges",
+   "cost_usd": 0.001883,
+   "seconds": 27.4,
+   "input_tokens": 10538,
+   "output_tokens": 4146
+  }
+ ],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 38.6,
+   "spec": {
+    "description": "Rectangular block 70x40x20 with rounded plan corners, central thru bore and two symmetric thru holes, chamfered top. Assumed: central bore is centred left-right and all three holes share the same Y centreline; the 2-hole pattern is symmetric about the part centre so the 46 pitch is centred in 70.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "hole_offset"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - hole_pitch) / 2",
+       "hole_offset"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     }
+    ],
+    "name": "block_with_holes",
+    "parameters": {
+     "bore_dia": {
+      "description": "central thru hole diameter",
+      "value": 12
+     },
+     "chamfer_size": {
+      "description": "45 deg chamfer size on all top edges",
+      "value": 1
+     },
+     "corner_r": {
+      "description": "plan corner radius, 4x",
+      "value": 5
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z from FRONT view",
+      "value": 20
+     },
+     "hole_dia": {
+      "description": "small thru hole diameter, 2x",
+      "value": 6
+     },
+     "hole_offset": {
+      "description": "hole centreline distance from front edge; equals half depth so holes centred front-back",
+      "value": 20
+     },
+     "hole_pitch": {
+      "description": "centre distance between the two small holes along X, pattern centred in length",
+      "value": 46
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "20",
+     "measure": "overall",
+     "value": 20
+    },
+    {
+     "axis": "y",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "label": "70",
+     "measure": "overall",
+     "value": 70
+    },
+    {
+     "axis": "x",
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "value": 46
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "value": 12
+    },
+    {
+     "feature": "base",
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "value": 5
+    },
+    {
+     "feature": "chamfer",
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "value": 1
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 35
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 12
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.001423,
+    "seconds": 38.6,
+    "input_tokens": 9694,
+    "output_tokens": 5332
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 39.3,
+   "ok": true,
+   "metrics": {
+    "name": "block_with_holes",
+    "volume_mm3": 52073.2155,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      0.0
+     ],
+     "max": [
+      70.0,
+      40.0,
+      20.0
+     ],
+     "size": [
+      70.0,
+      40.0,
+      20.0
+     ]
+    },
+    "faces": 21,
+    "edges": 49,
+    "triangles": 2552,
+    "parameters": {
+     "bore_dia": 12.0,
+     "chamfer_size": 1.0,
+     "corner_r": 5.0,
+     "depth": 40.0,
+     "height": 20.0,
+     "hole_dia": 6.0,
+     "hole_offset": 20.0,
+     "hole_pitch": 46.0,
+     "length": 70.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 55570.7963
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -2261.9467
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -104.6608
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       371,
+       221
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       371,
+       120
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       221,
+       120
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 81.8,
+   "clean": false,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "mount_holes: 1x45 deg chamfer missing on top edges of both holes, drawing requires it on all top edges (high)"
+    },
+    {
+     "source": "critic",
+     "message": "bore: 1x45 deg chamfer missing on top edge of central hole, drawing requires it on all top edges (high)"
+    }
+   ],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "70",
+     "value": 70,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 70.0
+    },
+    {
+     "label": "46",
+     "value": 46,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[1] along x",
+     "status": "ok",
+     "measured": 46.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "\u00d812 thru",
+     "value": 12,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "R5 (4x)",
+     "value": 5,
+     "measure": "radius",
+     "what": "radius of base",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "1 x 45\u00b0 all top edges",
+     "value": 1,
+     "measure": "chamfer_size",
+     "what": "chamfer size of chamfer",
+     "status": "ok",
+     "measured": 1.0
+    },
+    {
+     "label": "bore centred",
+     "value": 35,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "mount holes centred",
+     "value": 12,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 12.0
+    }
+   ],
+   "critic": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "mount_holes",
+      "issue": "1x45 deg chamfer missing on top edges of both holes, drawing requires it on all top edges",
+      "severity": "high"
+     },
+     {
+      "feature_id": "bore",
+      "issue": "1x45 deg chamfer missing on top edge of central hole, drawing requires it on all top edges",
+      "severity": "high"
+     }
+    ]
+   },
+   "critic_call": {
+    "cost_usd": 0.001427,
+    "seconds": 42.6,
+    "input_tokens": 5115,
+    "output_tokens": 4758
+   }
+  },
+  {
+   "event": "correction_started",
+   "iteration": 0,
+   "t": 81.8,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "mount_holes: 1x45 deg chamfer missing on top edges of both holes, drawing requires it on all top edges (high)"
+    },
+    {
+     "source": "critic",
+     "message": "bore: 1x45 deg chamfer missing on top edge of central hole, drawing requires it on all top edges (high)"
+    }
+   ]
+  },
+  {
+   "event": "spec",
+   "iteration": 1,
+   "t": 108.3,
+   "spec": {
+    "description": "Rectangular block 70x40x20 with rounded plan corners, central thru bore and two symmetric thru holes, chamfered top. Assumed: central bore is centred left-right and all three holes share the same Y centreline; the 2-hole pattern is symmetric about the part centre so the 46 pitch is centred in 70.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "hole_offset"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - hole_pitch) / 2",
+       "hole_offset"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     },
+     {
+      "edges": "top_of_feature:bore",
+      "id": "bore_chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     },
+     {
+      "edges": "top_of_feature:mount_hole",
+      "id": "mount_chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     }
+    ],
+    "name": "block_with_holes",
+    "parameters": {
+     "bore_dia": {
+      "description": "central thru hole diameter",
+      "value": 12
+     },
+     "chamfer_size": {
+      "description": "45 deg chamfer size on all top edges",
+      "value": 1
+     },
+     "corner_r": {
+      "description": "plan corner radius, 4x",
+      "value": 5
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z from FRONT view",
+      "value": 20
+     },
+     "hole_dia": {
+      "description": "small thru hole diameter, 2x",
+      "value": 6
+     },
+     "hole_offset": {
+      "description": "hole centreline distance from front edge; equals half depth so holes centred front-back",
+      "value": 20
+     },
+     "hole_pitch": {
+      "description": "centre distance between the two small holes along X, pattern centred in length",
+      "value": 46
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "20",
+     "measure": "overall",
+     "value": 20
+    },
+    {
+     "axis": "y",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "label": "70",
+     "measure": "overall",
+     "value": 70
+    },
+    {
+     "axis": "x",
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "value": 46
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "value": 12
+    },
+    {
+     "feature": "base",
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "value": 5
+    },
+    {
+     "feature": "chamfer",
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "value": 1
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 35
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 12
+    }
+   ],
+   "changelog": "added 1x45 top chamfers on bore rim and mount-hole rims to satisfy all top edges note",
+   "call": {
+    "cost_usd": 0.001776,
+    "seconds": 26.4,
+    "input_tokens": 10511,
+    "output_tokens": 3624
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 1,
+   "t": 109.0,
+   "ok": true,
+   "metrics": {
+    "name": "block_with_holes",
+    "volume_mm3": 52042.8468,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      0.0
+     ],
+     "max": [
+      70.0,
+      40.0,
+      20.0
+     ],
+     "size": [
+      70.0,
+      40.0,
+      20.0
+     ]
+    },
+    "faces": 23,
+    "edges": 53,
+    "triangles": 3560,
+    "parameters": {
+     "bore_dia": 12.0,
+     "chamfer_size": 1.0,
+     "corner_r": 5.0,
+     "depth": 40.0,
+     "height": 20.0,
+     "hole_dia": 6.0,
+     "hole_offset": 20.0,
+     "hole_pitch": 46.0,
+     "length": 70.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 55570.7963
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -2261.9467
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -104.6608
+     },
+     {
+      "id": "bore_chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -19.8968
+     },
+     {
+      "id": "mount_chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -10.472
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       371,
+       221
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       371,
+       120
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       221,
+       120
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 1,
+   "t": 145.8,
+   "clean": false,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "mount_holes: right side \u00d86 hole top edge has no chamfer while drawing requires 1 x 45\u00b0 on all top edges (high)"
+    }
+   ],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "70",
+     "value": 70,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 70.0
+    },
+    {
+     "label": "46",
+     "value": 46,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[1] along x",
+     "status": "ok",
+     "measured": 46.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "\u00d812 thru",
+     "value": 12,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "R5 (4x)",
+     "value": 5,
+     "measure": "radius",
+     "what": "radius of base",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "1 x 45\u00b0 all top edges",
+     "value": 1,
+     "measure": "chamfer_size",
+     "what": "chamfer size of chamfer",
+     "status": "ok",
+     "measured": 1.0
+    },
+    {
+     "label": "bore centred",
+     "value": 35,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "mount holes centred",
+     "value": 12,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 12.0
+    }
+   ],
+   "critic": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "mount_holes",
+      "issue": "right side \u00d86 hole top edge has no chamfer while drawing requires 1 x 45\u00b0 on all top edges",
+      "severity": "high"
+     }
+    ]
+   },
+   "critic_call": {
+    "cost_usd": 0.001306,
+    "seconds": 36.8,
+    "input_tokens": 5115,
+    "output_tokens": 4154
+   }
+  },
+  {
+   "event": "correction_started",
+   "iteration": 1,
+   "t": 145.8,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "mount_holes: right side \u00d86 hole top edge has no chamfer while drawing requires 1 x 45\u00b0 on all top edges (high)"
+    }
+   ]
+  },
+  {
+   "event": "spec",
+   "iteration": 2,
+   "t": 163.6,
+   "spec": {
+    "description": "Rectangular block 70x40x20 with rounded plan corners, central thru bore and two symmetric thru holes, chamfered top. Assumed: central bore is centred left-right and all three holes share the same Y centreline; the 2-hole pattern is symmetric about the part centre so the 46 pitch is centred in 70.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "hole_offset"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - hole_pitch) / 2",
+       "hole_offset"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     },
+     {
+      "edges": "top_of_feature:bore",
+      "id": "bore_chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     },
+     {
+      "edges": "top_of_feature:mount_holes",
+      "id": "mount_chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     }
+    ],
+    "name": "block_with_holes",
+    "parameters": {
+     "bore_dia": {
+      "description": "central thru hole diameter",
+      "value": 12
+     },
+     "chamfer_size": {
+      "description": "45 deg chamfer size on all top edges",
+      "value": 1
+     },
+     "corner_r": {
+      "description": "plan corner radius, 4x",
+      "value": 5
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z from FRONT view",
+      "value": 20
+     },
+     "hole_dia": {
+      "description": "small thru hole diameter, 2x",
+      "value": 6
+     },
+     "hole_offset": {
+      "description": "hole centreline distance from front edge; equals half depth so holes centred front-back",
+      "value": 20
+     },
+     "hole_pitch": {
+      "description": "centre distance between the two small holes along X, pattern centred in length",
+      "value": 46
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "20",
+     "measure": "overall",
+     "value": 20
+    },
+    {
+     "axis": "y",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "label": "70",
+     "measure": "overall",
+     "value": 70
+    },
+    {
+     "axis": "x",
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "value": 46
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "value": 12
+    },
+    {
+     "feature": "base",
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "value": 5
+    },
+    {
+     "feature": "chamfer",
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "value": 1
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 35
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 12
+    }
+   ],
+   "changelog": "Changed mount-hole chamfer to top_of_feature:mount_holes so both patterned \u00d86 holes get the 1x45\u00b0 top chamfer.",
+   "call": {
+    "cost_usd": 0.00157,
+    "seconds": 17.8,
+    "input_tokens": 10538,
+    "output_tokens": 2582
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 2,
+   "t": 164.3,
+   "ok": true,
+   "metrics": {
+    "name": "block_with_holes",
+    "volume_mm3": 52042.8468,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      0.0
+     ],
+     "max": [
+      70.0,
+      40.0,
+      20.0
+     ],
+     "size": [
+      70.0,
+      40.0,
+      20.0
+     ]
+    },
+    "faces": 23,
+    "edges": 53,
+    "triangles": 3560,
+    "parameters": {
+     "bore_dia": 12.0,
+     "chamfer_size": 1.0,
+     "corner_r": 5.0,
+     "depth": 40.0,
+     "height": 20.0,
+     "hole_dia": 6.0,
+     "hole_offset": 20.0,
+     "hole_pitch": 46.0,
+     "length": 70.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 55570.7963
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -2261.9467
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -104.6608
+     },
+     {
+      "id": "bore_chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -19.8968
+     },
+     {
+      "id": "mount_chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -10.472
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       371,
+       221
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       371,
+       120
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       221,
+       120
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 2,
+   "t": 193.8,
+   "clean": false,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "mount_holes: left \u00d86 hole top edge has no 1x45\u00b0 chamfer while drawing requires chamfer on all top edges (high)"
+    }
+   ],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "70",
+     "value": 70,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 70.0
+    },
+    {
+     "label": "46",
+     "value": 46,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[1] along x",
+     "status": "ok",
+     "measured": 46.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "\u00d812 thru",
+     "value": 12,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "R5 (4x)",
+     "value": 5,
+     "measure": "radius",
+     "what": "radius of base",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "1 x 45\u00b0 all top edges",
+     "value": 1,
+     "measure": "chamfer_size",
+     "what": "chamfer size of chamfer",
+     "status": "ok",
+     "measured": 1.0
+    },
+    {
+     "label": "bore centred",
+     "value": 35,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "mount holes centred",
+     "value": 12,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 12.0
+    }
+   ],
+   "critic": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "mount_holes",
+      "issue": "left \u00d86 hole top edge has no 1x45\u00b0 chamfer while drawing requires chamfer on all top edges",
+      "severity": "high"
+     }
+    ]
+   },
+   "critic_call": {
+    "cost_usd": 0.001124,
+    "seconds": 29.5,
+    "input_tokens": 5115,
+    "output_tokens": 3242
+   }
+  },
+  {
+   "event": "correction_started",
+   "iteration": 2,
+   "t": 193.8,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "mount_holes: left \u00d86 hole top edge has no 1x45\u00b0 chamfer while drawing requires chamfer on all top edges (high)"
+    }
+   ]
+  },
+  {
+   "event": "spec",
+   "iteration": 3,
+   "t": 221.2,
+   "spec": {
+    "description": "Rectangular block 70x40x20 with rounded plan corners, central thru bore and two symmetric thru holes, chamfered top. Assumed: central bore is centred left-right and all three holes share the same Y centreline; the 2-hole pattern is symmetric about the part centre so the 46 pitch is centred in 70.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "hole_offset"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - hole_pitch) / 2",
+       "hole_offset"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     },
+     {
+      "edges": "top_of_feature:bore",
+      "id": "bore_chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     },
+     {
+      "edges": "top_of_feature:mount_hole",
+      "id": "mount_chamfer_orig",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     },
+     {
+      "edges": "top_of_feature:mount_holes",
+      "id": "mount_chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     }
+    ],
+    "name": "block_with_holes",
+    "parameters": {
+     "bore_dia": {
+      "description": "central thru hole diameter",
+      "value": 12
+     },
+     "chamfer_size": {
+      "description": "45 deg chamfer size on all top edges",
+      "value": 1
+     },
+     "corner_r": {
+      "description": "plan corner radius, 4x",
+      "value": 5
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z from FRONT view",
+      "value": 20
+     },
+     "hole_dia": {
+      "description": "small thru hole diameter, 2x",
+      "value": 6
+     },
+     "hole_offset": {
+      "description": "hole centreline distance from front edge; equals half depth so holes centred front-back",
+      "value": 20
+     },
+     "hole_pitch": {
+      "description": "centre distance between the two small holes along X, pattern centred in length",
+      "value": 46
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "20",
+     "measure": "overall",
+     "value": 20
+    },
+    {
+     "axis": "y",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "label": "70",
+     "measure": "overall",
+     "value": 70
+    },
+    {
+     "axis": "x",
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "value": 46
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "value": 12
+    },
+    {
+     "feature": "base",
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "value": 5
+    },
+    {
+     "feature": "chamfer",
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "value": 1
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 35
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 12
+    }
+   ],
+   "changelog": "added top chamfer on original mount_hole so both small holes get 1x45 deg like all top edges",
+   "call": {
+    "cost_usd": 0.001883,
+    "seconds": 27.4,
+    "input_tokens": 10538,
+    "output_tokens": 4146
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 3,
+   "t": 222.1,
+   "ok": true,
+   "metrics": {
+    "name": "block_with_holes",
+    "volume_mm3": 52032.3748,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      0.0
+     ],
+     "max": [
+      70.0,
+      40.0,
+      20.0
+     ],
+     "size": [
+      70.0,
+      40.0,
+      20.0
+     ]
+    },
+    "faces": 24,
+    "edges": 55,
+    "triangles": 4064,
+    "parameters": {
+     "bore_dia": 12.0,
+     "chamfer_size": 1.0,
+     "corner_r": 5.0,
+     "depth": 40.0,
+     "height": 20.0,
+     "hole_dia": 6.0,
+     "hole_offset": 20.0,
+     "hole_pitch": 46.0,
+     "length": 70.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 55570.7963
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -2261.9467
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -104.6608
+     },
+     {
+      "id": "bore_chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -19.8968
+     },
+     {
+      "id": "mount_chamfer_orig",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -10.472
+     },
+     {
+      "id": "mount_chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -10.472
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       371,
+       221
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       371,
+       120
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       221,
+       120
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 3,
+   "t": 240.8,
+   "clean": true,
+   "issues": [],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "70",
+     "value": 70,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 70.0
+    },
+    {
+     "label": "46",
+     "value": 46,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[1] along x",
+     "status": "ok",
+     "measured": 46.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "\u00d812 thru",
+     "value": 12,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "R5 (4x)",
+     "value": 5,
+     "measure": "radius",
+     "what": "radius of base",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "1 x 45\u00b0 all top edges",
+     "value": 1,
+     "measure": "chamfer_size",
+     "what": "chamfer size of chamfer",
+     "status": "ok",
+     "measured": 1.0
+    },
+    {
+     "label": "bore centred",
+     "value": 35,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "mount holes centred",
+     "value": 12,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 12.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": []
+   },
+   "critic_call": {
+    "cost_usd": 0.000582,
+    "seconds": 18.7,
+    "input_tokens": 5115,
+    "output_tokens": 2162
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 3,
+   "t": 240.8,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 3,
+   "spec": {
+    "description": "Rectangular block 70x40x20 with rounded plan corners, central thru bore and two symmetric thru holes, chamfered top. Assumed: central bore is centred left-right and all three holes share the same Y centreline; the 2-hole pattern is symmetric about the part centre so the 46 pitch is centred in 70.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "hole_offset"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - hole_pitch) / 2",
+       "hole_offset"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     },
+     {
+      "edges": "top_of_feature:bore",
+      "id": "bore_chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     },
+     {
+      "edges": "top_of_feature:mount_hole",
+      "id": "mount_chamfer_orig",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     },
+     {
+      "edges": "top_of_feature:mount_holes",
+      "id": "mount_chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     }
+    ],
+    "name": "block_with_holes",
+    "parameters": {
+     "bore_dia": {
+      "description": "central thru hole diameter",
+      "value": 12
+     },
+     "chamfer_size": {
+      "description": "45 deg chamfer size on all top edges",
+      "value": 1
+     },
+     "corner_r": {
+      "description": "plan corner radius, 4x",
+      "value": 5
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z from FRONT view",
+      "value": 20
+     },
+     "hole_dia": {
+      "description": "small thru hole diameter, 2x",
+      "value": 6
+     },
+     "hole_offset": {
+      "description": "hole centreline distance from front edge; equals half depth so holes centred front-back",
+      "value": 20
+     },
+     "hole_pitch": {
+      "description": "centre distance between the two small holes along X, pattern centred in length",
+      "value": 46
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "20",
+     "measure": "overall",
+     "value": 20
+    },
+    {
+     "axis": "y",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "label": "70",
+     "measure": "overall",
+     "value": 70
+    },
+    {
+     "axis": "x",
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "value": 46
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "value": 12
+    },
+    {
+     "feature": "base",
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "value": 5
+    },
+    {
+     "feature": "chamfer",
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "value": 1
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 35
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 12
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 3,
+   "corrections": 3,
+   "cost_usd": 0.030659,
+   "seconds": 240.8
+  }
+ ]
+}

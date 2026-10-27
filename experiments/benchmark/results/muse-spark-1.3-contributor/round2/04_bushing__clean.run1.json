@@ -1,0 +1,672 @@
+{
+ "part": "04_bushing",
+ "set": "clean",
+ "run": 1,
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "final_iteration": 0,
+ "cost_off": 0.001757,
+ "cost_on": 0.006151,
+ "seconds_off": 40.7,
+ "seconds_on": 49.5,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "10/10",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 7,
+   "expr_fields": 17,
+   "computed_exprs": 11,
+   "literal_numbers": 1,
+   "examples": [
+    "flange_dia / 2",
+    "flange_dia / 2",
+    "overall_h - flange_t",
+    "flange_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "flange_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "10/10",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 7,
+   "expr_fields": 17,
+   "computed_exprs": 11,
+   "literal_numbers": 1,
+   "examples": [
+    "flange_dia / 2",
+    "flange_dia / 2",
+    "overall_h - flange_t",
+    "flange_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "flange_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [],
+   "critic_seconds": 8.2
+  }
+ ],
+ "corrections_log": [],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 40.7,
+   "spec": {
+    "description": "Flanged bushing with concentric flange, boss and central through bore, and 4 flange holes on a PCD. Assumed: boss, bore and bolt circle are concentric with the flange (drawn symmetric with centre marks, not dimensioned from an edge) and the 4 holes are at 90 deg N/S/E/W as drawn.",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "overall_h - flange_t",
+      "id": "boss",
+      "offset": "flange_t",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "boss_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2 + pcd / 2"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:flange",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "mount_hole",
+      "id": "mount_pattern",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "bore_dia": {
+      "description": "central through bore diameter",
+      "value": 16.0
+     },
+     "boss_dia": {
+      "description": "boss outer diameter",
+      "value": 24.0
+     },
+     "flange_dia": {
+      "description": "flange outer diameter, also overall X and Y size",
+      "value": 40.0
+     },
+     "flange_t": {
+      "description": "flange thickness",
+      "value": 5.0
+     },
+     "mount_dia": {
+      "description": "flange mounting hole diameter",
+      "value": 4.0
+     },
+     "overall_h": {
+      "description": "overall height along Z including flange",
+      "value": 30.0
+     },
+     "pcd": {
+      "description": "mounting hole pitch circle diameter",
+      "value": 32.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "30",
+     "measure": "overall",
+     "value": 30.0
+    },
+    {
+     "feature": "flange",
+     "label": "5",
+     "measure": "thickness",
+     "value": 5.0
+    },
+    {
+     "feature": "flange",
+     "label": "\u00d840",
+     "measure": "diameter",
+     "value": 40.0
+    },
+    {
+     "feature": "boss",
+     "label": "\u00d824",
+     "measure": "diameter",
+     "value": 24.0
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d816 thru",
+     "measure": "diameter",
+     "value": 16.0
+    },
+    {
+     "feature": "mount_hole",
+     "label": "4x \u00d84 thru",
+     "measure": "diameter",
+     "value": 4.0
+    },
+    {
+     "axis": "y",
+     "feature": "mount_pattern[0]",
+     "feature_b": "mount_pattern[2]",
+     "label": "PCD \u00d832",
+     "measure": "distance",
+     "value": 32.0
+    },
+    {
+     "edge": "x_min",
+     "feature": "boss",
+     "label": "boss centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "edge": "y_min",
+     "feature": "boss",
+     "label": "boss centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "edge": "y_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.001757,
+    "seconds": 40.7,
+    "input_tokens": 7770,
+    "output_tokens": 4900
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 41.2,
+   "ok": true,
+   "metrics": {
+    "name": "flanged_bushing",
+    "volume_mm3": 11309.7336,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      40.0,
+      40.0,
+      30.0
+     ],
+     "size": [
+      40.0,
+      40.0,
+      30.0
+     ]
+    },
+    "faces": 10,
+    "edges": 21,
+    "triangles": 3544,
+    "parameters": {
+     "bore_dia": 16.0,
+     "boss_dia": 24.0,
+     "flange_dia": 40.0,
+     "flange_t": 5.0,
+     "mount_dia": 4.0,
+     "overall_h": 30.0,
+     "pcd": 32.0
+    },
+    "features": [
+     {
+      "id": "flange",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 6283.1853
+     },
+     {
+      "id": "boss",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 11309.7336
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -6031.8579
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -62.8319
+     },
+     {
+      "id": "mount_pattern",
+      "type": "circular_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -188.4956
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       220
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 49.5,
+   "clean": true,
+   "issues": [],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "30",
+     "value": 30.0,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "5",
+     "value": 5.0,
+     "measure": "thickness",
+     "what": "thickness of flange",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "\u00d840",
+     "value": 40.0,
+     "measure": "diameter",
+     "what": "diameter of flange",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "\u00d824",
+     "value": 24.0,
+     "measure": "diameter",
+     "what": "diameter of boss",
+     "status": "ok",
+     "measured": 24.0
+    },
+    {
+     "label": "\u00d816 thru",
+     "value": 16.0,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 16.0
+    },
+    {
+     "label": "4x \u00d84 thru",
+     "value": 4.0,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 4.0
+    },
+    {
+     "label": "PCD \u00d832",
+     "value": 32.0,
+     "measure": "distance",
+     "what": "distance mount_pattern[0] \u2192 mount_pattern[2] along y",
+     "status": "ok",
+     "measured": 32.0
+    },
+    {
+     "label": "boss centred",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from boss to x_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "boss centred",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from boss to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 20.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": []
+   },
+   "critic_call": {
+    "cost_usd": 0.000474,
+    "seconds": 8.2,
+    "input_tokens": 3191,
+    "output_tokens": 772
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 49.5,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Flanged bushing with concentric flange, boss and central through bore, and 4 flange holes on a PCD. Assumed: boss, bore and bolt circle are concentric with the flange (drawn symmetric with centre marks, not dimensioned from an edge) and the 4 holes are at 90 deg N/S/E/W as drawn.",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "overall_h - flange_t",
+      "id": "boss",
+      "offset": "flange_t",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "boss_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2 + pcd / 2"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:flange",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "mount_hole",
+      "id": "mount_pattern",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "bore_dia": {
+      "description": "central through bore diameter",
+      "value": 16.0
+     },
+     "boss_dia": {
+      "description": "boss outer diameter",
+      "value": 24.0
+     },
+     "flange_dia": {
+      "description": "flange outer diameter, also overall X and Y size",
+      "value": 40.0
+     },
+     "flange_t": {
+      "description": "flange thickness",
+      "value": 5.0
+     },
+     "mount_dia": {
+      "description": "flange mounting hole diameter",
+      "value": 4.0
+     },
+     "overall_h": {
+      "description": "overall height along Z including flange",
+      "value": 30.0
+     },
+     "pcd": {
+      "description": "mounting hole pitch circle diameter",
+      "value": 32.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "30",
+     "measure": "overall",
+     "value": 30.0
+    },
+    {
+     "feature": "flange",
+     "label": "5",
+     "measure": "thickness",
+     "value": 5.0
+    },
+    {
+     "feature": "flange",
+     "label": "\u00d840",
+     "measure": "diameter",
+     "value": 40.0
+    },
+    {
+     "feature": "boss",
+     "label": "\u00d824",
+     "measure": "diameter",
+     "value": 24.0
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d816 thru",
+     "measure": "diameter",
+     "value": 16.0
+    },
+    {
+     "feature": "mount_hole",
+     "label": "4x \u00d84 thru",
+     "measure": "diameter",
+     "value": 4.0
+    },
+    {
+     "axis": "y",
+     "feature": "mount_pattern[0]",
+     "feature_b": "mount_pattern[2]",
+     "label": "PCD \u00d832",
+     "measure": "distance",
+     "value": 32.0
+    },
+    {
+     "edge": "x_min",
+     "feature": "boss",
+     "label": "boss centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "edge": "y_min",
+     "feature": "boss",
+     "label": "boss centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "edge": "y_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 0,
+   "corrections": 0,
+   "cost_usd": 0.006151,
+   "seconds": 49.5
+  }
+ ]
+}

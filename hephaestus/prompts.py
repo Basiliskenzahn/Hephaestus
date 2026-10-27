@@ -50,7 +50,8 @@ measure it on the built part, so the part can be checked against your reading:
 - diameter / radius (feature): of a hole, circle, revolve, fillet or rounded corner.
 - distance (feature, feature_b, axis): between two centres. distance_to_edge (feature, edge e.g. "x_min"): from a
   centre to a side of the part.
-- slot_length / slot_width (feature). chamfer_size (feature). depth (feature): of a blind hole, slot or pocket.
+- slot_length (feature, axis = the direction its length dimension runs) / slot_width (feature). chamfer_size
+  (feature). depth (feature): of a blind hole, slot or pocket.
 - unchecked: anything else (angles, notes, widths of a sub-feature, counterbore depths).
 - distance and distance_to_edge always measure from a feature's centre: a hole's axis, a slot's or pocket's centre.
 - Also add a callout for each position the drawing implies but does not dimension (a hole drawn on the centreline,

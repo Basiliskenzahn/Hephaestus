@@ -5,7 +5,8 @@
 
 Each iteration builds the current spec, checks it (compile errors, callouts measured on the part, visual critic) and,
 if anything is wrong, asks the model for a corrected spec. Stops when all checks pass, after `max_iters` corrections,
-when the same issues come back twice in a row, or when a correction returns the spec unchanged ("disputed"). Events are JSON-serialisable dicts with an "event" key:
+when the same issues come back twice in a row, when a correction returns the spec unchanged ("disputed"), or
+when it returns to an earlier version ("oscillating"). The critic is sampled twice; see critic.consensus. Events are JSON-serialisable dicts with an "event" key:
   read_started, spec, compiled, checks, correction_started, error, done
 The final spec is the best version seen (fewest issues), not necessarily the last.
 
@@ -49,13 +50,13 @@ def build(spec, out_dir=None):
     return {"ok": True, "metrics": result.metrics, "warnings": result.warnings, "files": files}, result, sheet, []
 
 
-def verify(result, sheet, callouts, drawing, client=None, use_critic=True):
+def verify(result, sheet, callouts, drawing, client=None, use_critic=True, critic_samples=2):
     """Callout check and visual critic on a compiled part. Returns (checks event fields, issues)."""
     rows = measure.check(callouts, result)
     issues = [{"source": "callout", "message": m} for m in measure.issues(rows)]
     crit = call = None
     if use_critic and client is not None:
-        crit, info = critic_mod.critique(client, drawing, sheet)
+        crit, info = critic_mod.consensus(client, drawing, sheet, samples=critic_samples)
         call = _call_info(info)
         for i in critic_mod.blocking(crit):
             who = f"{i['feature_id']}: " if i.get("feature_id") else ""
@@ -73,10 +74,18 @@ def check(spec, callouts, drawing, client=None, out_dir=None, use_critic=True):
     return compiled, checks, issues
 
 
+def _fingerprint(spec):
+    """What the geometry depends on: features and parameter values (not names' descriptions or notes)."""
+    if not isinstance(spec, dict):
+        return json.dumps(spec)
+    params = {k: (v or {}).get("value") for k, v in (spec.get("parameters") or {}).items()}
+    return json.dumps({"features": spec.get("features"), "parameters": params}, sort_keys=True)
+
+
 def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=True):
     """Generator of events. `start` = {"spec", "callouts"} skips the read and begins at the check (for evaluation)."""
     client = client or meta_api.Client()
-    t0, iteration, history, best = time.time(), 0, [], None
+    t0, iteration, history, best, seen = time.time(), 0, [], None, []
     spent0 = client.budget.spent
 
     def ev(name, **kw):
@@ -135,12 +144,18 @@ def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=
             content = [meta_api.text(correction_request(spec, callouts, issues)), meta_api.image(drawing)]
             out, info = client.respond(CORRECT_PROMPT, content, json_schema(CorrectionOutput), "CorrectionOutput")
             iteration += 1
-            unchanged = json.dumps(out.get("spec"), sort_keys=True) == json.dumps(spec, sort_keys=True)
+            seen.append(_fingerprint(spec))
+            new_fp = _fingerprint(out.get("spec"))
+            unchanged, revisits = new_fp == seen[-1], new_fp in seen[:-1]
             spec, callouts = out.get("spec"), out.get("callouts", callouts)
             yield ev("spec", spec=spec, callouts=callouts, changelog=out.get("changelog"), call=_call_info(info))
             if unchanged:
                 # the corrector rejected every remaining issue; another round would only re-roll the critic
                 yield finish("disputed", out.get("changelog"))
+                return
+            if revisits:
+                # back to an earlier version: the checks are flip-flopping, keep the best version seen
+                yield finish("oscillating", "a correction returned to an earlier version")
                 return
     except meta_api.BudgetExceeded as e:
         yield ev("error", message=str(e))

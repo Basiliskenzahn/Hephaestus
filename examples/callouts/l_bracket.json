@@ -8,7 +8,7 @@
   {"label": "15", "value": 15, "measure": "distance_to_edge", "feature": "upright_hole", "edge": "x_min"},
   {"label": "30", "value": 30, "measure": "distance", "feature": "upright_holes[0]", "feature_b": "upright_holes[1]", "axis": "x"},
   {"label": "28", "value": 28, "measure": "distance_to_edge", "feature": "upright_hole", "edge": "z_min"},
-  {"label": "20", "value": 20, "measure": "slot_length", "feature": "base_slot"},
+  {"label": "20", "value": 20, "measure": "slot_length", "feature": "base_slot", "axis": "x"},
   {"label": "slot w = 6", "value": 6, "measure": "slot_width", "feature": "base_slot"},
   {"label": "17.5", "value": 17.5, "measure": "distance_to_edge", "feature": "base_slot", "edge": "y_min"},
   {"label": "base_slot centred", "value": 30, "measure": "distance_to_edge", "feature": "base_slot", "edge": "x_min"}

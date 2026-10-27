@@ -10,7 +10,7 @@ Measurements:
   radius(feature)                fillet / rounded corner: convex cylinder or torus faces; holes: diameter / 2
   distance(feature, b, axis)     between the two centres along axis
   distance_to_edge(feature, edge) from the centre to a bbox face, e.g. edge "x_min"
-  slot_length / slot_width       from the slot's two end cylinders
+  slot_length / slot_width       from the slot's two end cylinders; slot_length with an axis measures along it
   thickness(feature)             smallest size of an added extrude/revolve body; a shell's wall thickness
   chamfer_size(feature)          45-degree flat faces, size along the edge's two axes
   depth(feature)                 blind hole / slot / pocket: from its entry face to the first material along its axis
@@ -39,6 +39,8 @@ def describe(c):
     m = c["measure"]
     if m == "overall":
         return f"overall size along {c.get('axis')}"
+    if m == "slot_length" and c.get("axis"):
+        return f"slot length of {c.get('feature')} along {c['axis']}"
     if m == "distance":
         return f"distance {c.get('feature')} → {c.get('feature_b')} along {c.get('axis')}"
     if m == "distance_to_edge":
@@ -174,7 +176,11 @@ def measure_one(c, result, cyls):
             raise CalloutError(f"no slot ends of {c['feature']} found on the part")
         r = min(e[0] for e in ends)
         pts = [e[1] - np.dot(e[1] - center, n) * n for e in ends if abs(e[0] - r) < 1e-6]
-        sep = max(float(np.linalg.norm(p - q)) for p in pts for q in pts)
+        if m == "slot_length" and c.get("axis"):
+            a = AXES[c["axis"]]          # length along the dimensioned direction: catches a slot turned 90 degrees
+            sep = max(abs(float(p[a] - q[a])) for p in pts for q in pts)
+        else:
+            sep = max(float(np.linalg.norm(p - q)) for p in pts for q in pts)
         return (sep + 2 * r) if m == "slot_length" else 2 * r
     if m == "thickness":
         if t == "shell":

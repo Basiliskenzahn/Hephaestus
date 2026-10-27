@@ -83,3 +83,12 @@ def test_depth_of_pocket_and_blind_hole():
                   {"label": "Ø6", "value": 6, "measure": "depth", "feature": "corner_holes[1]"}], compile(spec))
     assert rows[0]["status"] == "ok" and rows[0]["measured"] == 4
     assert "goes all the way through" in rows[1]["message"]
+
+
+def test_slot_length_along_an_axis_catches_rotation():
+    spec = example("l_bracket")
+    spec["features"][4]["angle"] = 90
+    c = [{"label": "20", "value": 20, "measure": "slot_length", "feature": "base_slot", "axis": "x"}]
+    assert check(c, compile(example("l_bracket")))[0]["status"] == "ok"
+    assert issues(check(c, compile(spec))) == [
+        "callout '20' (slot length of base_slot along x) measures 6 on the part, expected 20"]

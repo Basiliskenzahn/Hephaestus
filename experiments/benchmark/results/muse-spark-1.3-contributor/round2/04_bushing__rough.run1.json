@@ -1,0 +1,692 @@
+{
+ "part": "04_bushing",
+ "set": "rough",
+ "run": 1,
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "final_iteration": 0,
+ "cost_off": 0.002288,
+ "cost_on": 0.007723,
+ "seconds_off": 54.5,
+ "seconds_on": 65.1,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "10/10",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 7,
+   "expr_fields": 16,
+   "computed_exprs": 10,
+   "literal_numbers": 1,
+   "examples": [
+    "flange_dia / 2",
+    "flange_dia / 2",
+    "flange_dia / 2",
+    "flange_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "flange_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "10/10",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 7,
+   "expr_fields": 16,
+   "computed_exprs": 10,
+   "literal_numbers": 1,
+   "examples": [
+    "flange_dia / 2",
+    "flange_dia / 2",
+    "flange_dia / 2",
+    "flange_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "flange_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [],
+   "critic_seconds": 10.0
+  }
+ ],
+ "corrections_log": [],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 54.5,
+   "spec": {
+    "description": "Flanged bushing with central through bore and 4-hole flange. Assumed: overall height 30 includes the 5 thick flange (barrel overlaps flange); flange, barrel, bore and bolt PCD are all concentric (drawn coaxial with centre marks).",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "height",
+      "id": "barrel",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "barrel_od",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2 + pcd_dia / 2"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:flange",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "barrel_od": {
+      "description": "barrel outside diameter",
+      "value": 24
+     },
+     "bore_dia": {
+      "description": "central through bore diameter",
+      "value": 16
+     },
+     "flange_dia": {
+      "description": "flange outside diameter",
+      "value": 40
+     },
+     "flange_t": {
+      "description": "flange thickness",
+      "value": 5
+     },
+     "height": {
+      "description": "overall height including flange",
+      "value": 30
+     },
+     "mount_dia": {
+      "description": "flange mounting hole diameter",
+      "value": 4
+     },
+     "pcd_dia": {
+      "description": "mounting-hole pitch circle diameter",
+      "value": 32
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "feature": "flange",
+     "label": "5",
+     "measure": "thickness",
+     "value": 5
+    },
+    {
+     "feature": "flange",
+     "label": "\u00d840",
+     "measure": "diameter",
+     "value": 40
+    },
+    {
+     "feature": "barrel",
+     "label": "\u00d824",
+     "measure": "diameter",
+     "value": 24
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d816 thru",
+     "measure": "diameter",
+     "value": 16
+    },
+    {
+     "feature": "mount_hole",
+     "label": "4x \u00d84 thru",
+     "measure": "diameter",
+     "value": 4
+    },
+    {
+     "axis": "y",
+     "feature": "mount_holes[0]",
+     "feature_b": "mount_holes[2]",
+     "label": "PCD \u00d832",
+     "measure": "distance",
+     "value": 32
+    },
+    {
+     "edge": "x_min",
+     "feature": "barrel",
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "edge": "y_min",
+     "feature": "barrel",
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "edge": "y_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_holes[0]",
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.002288,
+    "seconds": 54.5,
+    "input_tokens": 9351,
+    "output_tokens": 6764
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 55.0,
+   "ok": true,
+   "metrics": {
+    "name": "flanged_bushing",
+    "volume_mm3": 11309.7336,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      40.0,
+      40.0,
+      30.0
+     ],
+     "size": [
+      40.0,
+      40.0,
+      30.0
+     ]
+    },
+    "faces": 10,
+    "edges": 21,
+    "triangles": 3544,
+    "parameters": {
+     "barrel_od": 24.0,
+     "bore_dia": 16.0,
+     "flange_dia": 40.0,
+     "flange_t": 5.0,
+     "height": 30.0,
+     "mount_dia": 4.0,
+     "pcd_dia": 32.0
+    },
+    "features": [
+     {
+      "id": "flange",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 6283.1853
+     },
+     {
+      "id": "barrel",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 11309.7336
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -6031.8579
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -62.8319
+     },
+     {
+      "id": "mount_holes",
+      "type": "circular_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -188.4956
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       220
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 65.1,
+   "clean": true,
+   "issues": [],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "5",
+     "value": 5,
+     "measure": "thickness",
+     "what": "thickness of flange",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "\u00d840",
+     "value": 40,
+     "measure": "diameter",
+     "what": "diameter of flange",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "\u00d824",
+     "value": 24,
+     "measure": "diameter",
+     "what": "diameter of barrel",
+     "status": "ok",
+     "measured": 24.0
+    },
+    {
+     "label": "\u00d816 thru",
+     "value": 16,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 16.0
+    },
+    {
+     "label": "4x \u00d84 thru",
+     "value": 4,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 4.0
+    },
+    {
+     "label": "PCD \u00d832",
+     "value": 32,
+     "measure": "distance",
+     "what": "distance mount_holes[0] \u2192 mount_holes[2] along y",
+     "status": "ok",
+     "measured": 32.0
+    },
+    {
+     "label": "barrel centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from barrel to x_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "barrel centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from barrel to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "mount holes centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_holes[0] to x_min",
+     "status": "ok",
+     "measured": 20.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": []
+   },
+   "critic_call": {
+    "cost_usd": 0.000614,
+    "seconds": 10.0,
+    "input_tokens": 4772,
+    "output_tokens": 866
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 65.1,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Flanged bushing with central through bore and 4-hole flange. Assumed: overall height 30 includes the 5 thick flange (barrel overlaps flange); flange, barrel, bore and bolt PCD are all concentric (drawn coaxial with centre marks).",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "height",
+      "id": "barrel",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "barrel_od",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2 + pcd_dia / 2"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:flange",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "barrel_od": {
+      "description": "barrel outside diameter",
+      "value": 24
+     },
+     "bore_dia": {
+      "description": "central through bore diameter",
+      "value": 16
+     },
+     "flange_dia": {
+      "description": "flange outside diameter",
+      "value": 40
+     },
+     "flange_t": {
+      "description": "flange thickness",
+      "value": 5
+     },
+     "height": {
+      "description": "overall height including flange",
+      "value": 30
+     },
+     "mount_dia": {
+      "description": "flange mounting hole diameter",
+      "value": 4
+     },
+     "pcd_dia": {
+      "description": "mounting-hole pitch circle diameter",
+      "value": 32
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "feature": "flange",
+     "label": "5",
+     "measure": "thickness",
+     "value": 5
+    },
+    {
+     "feature": "flange",
+     "label": "\u00d840",
+     "measure": "diameter",
+     "value": 40
+    },
+    {
+     "feature": "barrel",
+     "label": "\u00d824",
+     "measure": "diameter",
+     "value": 24
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d816 thru",
+     "measure": "diameter",
+     "value": 16
+    },
+    {
+     "feature": "mount_hole",
+     "label": "4x \u00d84 thru",
+     "measure": "diameter",
+     "value": 4
+    },
+    {
+     "axis": "y",
+     "feature": "mount_holes[0]",
+     "feature_b": "mount_holes[2]",
+     "label": "PCD \u00d832",
+     "measure": "distance",
+     "value": 32
+    },
+    {
+     "edge": "x_min",
+     "feature": "barrel",
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "edge": "y_min",
+     "feature": "barrel",
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "edge": "y_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_holes[0]",
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 0,
+   "corrections": 0,
+   "cost_usd": 0.007723,
+   "seconds": 65.1
+  }
+ ]
+}

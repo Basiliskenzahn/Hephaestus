@@ -262,10 +262,13 @@ class Callout(_Model):
         "slot_width: of a slot | thickness: smallest size of an added extrude/revolve, or a shell's wall | "
         "chamfer_size: of a chamfer | depth: of a blind hole, slot or pocket (cut extrude) | "
         "unchecked: anything else (angles, notes)"))
-    axis: Optional[Literal["x", "y", "z"]] = None
-    feature: Optional[str] = Field(None, description=FEATURE_REF)
-    feature_b: Optional[str] = Field(None, description=FEATURE_REF)
-    edge: Optional[Literal["x_min", "x_max", "y_min", "y_max", "z_min", "z_max"]] = None
+    # required but nullable: the model must decide on each field instead of silently leaving it out
+    axis: Optional[Literal["x", "y", "z"]] = Field(description="overall, distance; slot_length: the axis the slot "
+                                                               "length is dimensioned along; else null")
+    feature: Optional[str] = Field(description=FEATURE_REF + "; null for overall and unchecked")
+    feature_b: Optional[str] = Field(description="distance only: " + FEATURE_REF + "; else null")
+    edge: Optional[Literal["x_min", "x_max", "y_min", "y_max", "z_min", "z_max"]] = Field(
+        description="distance_to_edge only, else null")
 
 
 class ReadOutput(_Model):

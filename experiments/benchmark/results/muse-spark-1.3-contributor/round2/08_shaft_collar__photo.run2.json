@@ -1,0 +1,614 @@
+{
+ "part": "08_shaft_collar",
+ "set": "photo",
+ "run": 2,
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "final_iteration": 0,
+ "cost_off": 0.00264,
+ "cost_on": 0.026324,
+ "seconds_off": 104.4,
+ "seconds_on": 185.7,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "7/7",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 6,
+   "expr_fields": 15,
+   "computed_exprs": 8,
+   "literal_numbers": 1,
+   "examples": [
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "outer_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "7/7",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 6,
+   "expr_fields": 15,
+   "computed_exprs": 8,
+   "literal_numbers": 1,
+   "examples": [
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "outer_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [],
+   "critic_seconds": 80.6
+  }
+ ],
+ "corrections_log": [],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 104.4,
+   "spec": {
+    "description": "Shaft collar with concentric bore, axial slit on +X side and tangential pinch hole. Assumed: bore is concentric with outer, slit is on the X centreline (centred in Y) through full height, cross-hole is centred in Z.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "collar",
+      "plane": "XY",
+      "profile": {
+       "diameter": "outer_dia",
+       "shape": "circle",
+       "u": "outer_dia / 2",
+       "v": "outer_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "outer_dia / 2",
+       "outer_dia / 2"
+      ],
+      "diameter": "inner_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "distance": "slit_w",
+      "id": "slit",
+      "offset": "outer_dia / 2 - slit_w / 2",
+      "operation": "cut",
+      "plane": "XZ",
+      "profile": {
+       "height": "height",
+       "shape": "rect",
+       "u": "outer_dia / 2",
+       "v": 0.0,
+       "width": "outer_dia / 2 + 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "pin_x",
+       "height / 2"
+      ],
+      "diameter": "cross_dia",
+      "face": "front",
+      "id": "cross_hole",
+      "through": true,
+      "type": "hole"
+     }
+    ],
+    "name": "shaft_collar",
+    "parameters": {
+     "cross_dia": {
+      "description": "cross pinch hole diameter",
+      "value": 4.0
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 15.0
+     },
+     "inner_dia": {
+      "description": "bore diameter",
+      "value": 20.0
+     },
+     "outer_dia": {
+      "description": "outer diameter",
+      "value": 40.0
+     },
+     "pin_x": {
+      "description": "distance from left edge to cross-hole centre along X, mid-wall",
+      "value": 35.0
+     },
+     "slit_w": {
+      "description": "slit width in Y",
+      "value": 2.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "15",
+     "measure": "overall",
+     "value": 15.0
+    },
+    {
+     "feature": "collar",
+     "label": "\u00d840",
+     "measure": "diameter",
+     "value": 40.0
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d820 thru",
+     "measure": "diameter",
+     "value": 20.0
+    },
+    {
+     "feature": "slit",
+     "label": "slit 2",
+     "measure": "unchecked",
+     "value": 2.0
+    },
+    {
+     "feature": "cross_hole",
+     "label": "\u00d84 thru",
+     "measure": "diameter",
+     "value": 4.0
+    },
+    {
+     "edge": "x_min",
+     "feature": "cross_hole",
+     "label": "35",
+     "measure": "distance_to_edge",
+     "value": 35.0
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "edge": "y_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "edge": "z_min",
+     "feature": "cross_hole",
+     "label": "cross hole centred",
+     "measure": "distance_to_edge",
+     "value": 7.5
+    },
+    {
+     "edge": "y_min",
+     "feature": "slit",
+     "label": "slit centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.00264,
+    "seconds": 104.4,
+    "input_tokens": 9351,
+    "output_tokens": 11588
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 105.1,
+   "ok": true,
+   "metrics": {
+    "name": "shaft_collar",
+    "volume_mm3": 13532.0396,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      -0.0
+     ],
+     "max": [
+      39.974984,
+      40.0,
+      15.0
+     ],
+     "size": [
+      39.974985,
+      40.0,
+      15.0
+     ]
+    },
+    "faces": 8,
+    "edges": 18,
+    "triangles": 2120,
+    "parameters": {
+     "cross_dia": 4.0,
+     "height": 15.0,
+     "inner_dia": 20.0,
+     "outer_dia": 40.0,
+     "pin_x": 35.0,
+     "slit_w": 2.0
+    },
+    "features": [
+     {
+      "id": "collar",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 18849.5559
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -4712.389
+     },
+     {
+      "id": "slit",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": -300.2507
+     },
+     {
+      "id": "cross_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -304.8767
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       221,
+       222
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       221,
+       97
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       222,
+       97
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 185.7,
+   "clean": true,
+   "issues": [],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "15",
+     "value": 15.0,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "\u00d840",
+     "value": 40.0,
+     "measure": "diameter",
+     "what": "diameter of collar",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "\u00d820 thru",
+     "value": 20.0,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "slit 2",
+     "value": 2.0,
+     "measure": "unchecked",
+     "what": "unchecked of slit",
+     "status": "unchecked"
+    },
+    {
+     "label": "\u00d84 thru",
+     "value": 4.0,
+     "measure": "diameter",
+     "what": "diameter of cross_hole",
+     "status": "ok",
+     "measured": 4.0
+    },
+    {
+     "label": "35",
+     "value": 35.0,
+     "measure": "distance_to_edge",
+     "what": "distance from cross_hole to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "cross hole centred",
+     "value": 7.5,
+     "measure": "distance_to_edge",
+     "what": "distance from cross_hole to z_min",
+     "status": "ok",
+     "measured": 7.5
+    },
+    {
+     "label": "slit centred",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from slit to y_min",
+     "status": "ok",
+     "measured": 20.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": []
+   },
+   "critic_call": {
+    "cost_usd": 0.001835,
+    "seconds": 80.6,
+    "input_tokens": 4772,
+    "output_tokens": 6787
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 185.7,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Shaft collar with concentric bore, axial slit on +X side and tangential pinch hole. Assumed: bore is concentric with outer, slit is on the X centreline (centred in Y) through full height, cross-hole is centred in Z.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "collar",
+      "plane": "XY",
+      "profile": {
+       "diameter": "outer_dia",
+       "shape": "circle",
+       "u": "outer_dia / 2",
+       "v": "outer_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "outer_dia / 2",
+       "outer_dia / 2"
+      ],
+      "diameter": "inner_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "distance": "slit_w",
+      "id": "slit",
+      "offset": "outer_dia / 2 - slit_w / 2",
+      "operation": "cut",
+      "plane": "XZ",
+      "profile": {
+       "height": "height",
+       "shape": "rect",
+       "u": "outer_dia / 2",
+       "v": 0.0,
+       "width": "outer_dia / 2 + 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "pin_x",
+       "height / 2"
+      ],
+      "diameter": "cross_dia",
+      "face": "front",
+      "id": "cross_hole",
+      "through": true,
+      "type": "hole"
+     }
+    ],
+    "name": "shaft_collar",
+    "parameters": {
+     "cross_dia": {
+      "description": "cross pinch hole diameter",
+      "value": 4.0
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 15.0
+     },
+     "inner_dia": {
+      "description": "bore diameter",
+      "value": 20.0
+     },
+     "outer_dia": {
+      "description": "outer diameter",
+      "value": 40.0
+     },
+     "pin_x": {
+      "description": "distance from left edge to cross-hole centre along X, mid-wall",
+      "value": 35.0
+     },
+     "slit_w": {
+      "description": "slit width in Y",
+      "value": 2.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "label": "15",
+     "measure": "overall",
+     "value": 15.0
+    },
+    {
+     "feature": "collar",
+     "label": "\u00d840",
+     "measure": "diameter",
+     "value": 40.0
+    },
+    {
+     "feature": "bore",
+     "label": "\u00d820 thru",
+     "measure": "diameter",
+     "value": 20.0
+    },
+    {
+     "feature": "slit",
+     "label": "slit 2",
+     "measure": "unchecked",
+     "value": 2.0
+    },
+    {
+     "feature": "cross_hole",
+     "label": "\u00d84 thru",
+     "measure": "diameter",
+     "value": 4.0
+    },
+    {
+     "edge": "x_min",
+     "feature": "cross_hole",
+     "label": "35",
+     "measure": "distance_to_edge",
+     "value": 35.0
+    },
+    {
+     "edge": "x_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "edge": "y_min",
+     "feature": "bore",
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "edge": "z_min",
+     "feature": "cross_hole",
+     "label": "cross hole centred",
+     "measure": "distance_to_edge",
+     "value": 7.5
+    },
+    {
+     "edge": "y_min",
+     "feature": "slit",
+     "label": "slit centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 0,
+   "corrections": 0,
+   "cost_usd": 0.026324,
+   "seconds": 185.7
+  }
+ ]
+}
