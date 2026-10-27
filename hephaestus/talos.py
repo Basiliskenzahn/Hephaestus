@@ -31,15 +31,12 @@ def _call_info(info):
             "input_tokens": u.get("input_tokens", 0), "output_tokens": u.get("output_tokens", 0)}
 
 
-def check(spec, callouts, drawing, client=None, out_dir=None, use_critic=True):
-    """Build and check one spec version. Returns (compiled_event, checks_event, issues, critic call info or None)."""
-    compiled, checks, issues, call = {"ok": False}, {}, [], None
+def build(spec, out_dir=None):
+    """Compile one spec version. Returns (compiled event fields, Result or None, sheet PNG or None, compile issues)."""
     try:
         result = compile(spec)
     except SpecError as e:
-        issues = [{"source": "compile", "message": m} for m in e.errors]
-        compiled["errors"] = e.errors
-        return compiled, {"issues": issues, "callouts": [], "critic": None}, issues, None
+        return {"ok": False, "errors": e.errors}, None, None, [{"source": "compile", "message": m} for m in e.errors]
     files = {}
     sheet = render_sheet(result)
     if out_dir:
@@ -49,18 +46,30 @@ def check(spec, callouts, drawing, client=None, out_dir=None, use_critic=True):
         with open(os.path.join(out_dir, "sheet.png"), "wb") as f:
             f.write(sheet)
         files["sheet.png"] = os.path.join(out_dir, "sheet.png")
-    compiled.update(ok=True, metrics=result.metrics, warnings=result.warnings, files=files)
+    return {"ok": True, "metrics": result.metrics, "warnings": result.warnings, "files": files}, result, sheet, []
+
+
+def verify(result, sheet, callouts, drawing, client=None, use_critic=True):
+    """Callout check and visual critic on a compiled part. Returns (checks event fields, issues)."""
     rows = measure.check(callouts, result)
-    issues += [{"source": "callout", "message": m} for m in measure.issues(rows)]
-    crit = None
+    issues = [{"source": "callout", "message": m} for m in measure.issues(rows)]
+    crit = call = None
     if use_critic and client is not None:
         crit, info = critic_mod.critique(client, drawing, sheet)
         call = _call_info(info)
         for i in critic_mod.blocking(crit):
             who = f"{i['feature_id']}: " if i.get("feature_id") else ""
             issues.append({"source": "critic", "message": f"{who}{i['issue']} ({i['severity']})"})
-    checks.update(issues=issues, callouts=rows, critic=crit, critic_call=call)
-    return compiled, checks, issues, call
+    return {"issues": issues, "callouts": rows, "critic": crit, "critic_call": call}, issues
+
+
+def check(spec, callouts, drawing, client=None, out_dir=None, use_critic=True):
+    """build + verify in one go (for evaluation scripts). Returns (compiled fields, checks fields, issues)."""
+    compiled, result, sheet, issues = build(spec, out_dir)
+    if result is None:
+        return compiled, {"issues": issues, "callouts": [], "critic": None, "critic_call": None}, issues
+    checks, issues = verify(result, sheet, callouts, drawing, client, use_critic)
+    return compiled, checks, issues
 
 
 def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=True):
@@ -98,8 +107,12 @@ def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=
                 os.makedirs(idir, exist_ok=True)
                 with open(os.path.join(idir, "spec.json"), "w") as f:
                     json.dump({"spec": spec, "callouts": callouts}, f, indent=2)
-            compiled, checks, issues, _ = check(spec, callouts, drawing, client, idir, use_critic)
+            compiled, result, sheet, issues = build(spec, idir)
             yield ev("compiled", **compiled)
+            if result is None:
+                checks = {"issues": issues, "callouts": [], "critic": None, "critic_call": None}
+            else:
+                checks, issues = verify(result, sheet, callouts, drawing, client, use_critic)
             clean = not issues
             yield ev("checks", clean=clean, **checks)
             score = len(issues) + (100 if not compiled["ok"] else 0)
