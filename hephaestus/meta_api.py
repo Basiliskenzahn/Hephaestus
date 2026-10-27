@@ -92,7 +92,7 @@ class Client:
         self.model, self.effort = model, effort
         self.budget = budget or Budget(float("inf"))
 
-    def respond(self, instructions, content, schema, name="Output", retries=1):
+    def respond(self, instructions, content, schema, name="Output", retries=2):
         """One streamed call with structured output. Returns (parsed JSON, info {usage, cost_usd, seconds})."""
         self.budget.check()
         body = {"model": self.model, "reasoning": {"effort": self.effort}, "instructions": instructions,
@@ -109,11 +109,11 @@ class Client:
                     data = read_stream(r.iter_lines())
                     break
                 last = f"HTTP {r.status_code}: {r.text[:500]}"
-                if r.status_code < 500:
+                if r.status_code < 500 and r.status_code != 429:
                     raise ModelError(last)
             except requests.RequestException as e:
                 last = f"{type(e).__name__}: {e}"
-            time.sleep(2 * (attempt + 1))
+            time.sleep(4 * (attempt + 1))
         else:
             raise ModelError(last)
         usage = data.get("usage", {})
