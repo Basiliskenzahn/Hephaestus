@@ -1,0 +1,50 @@
+{
+ "part": "angled_bracket",
+ "run": 2,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [
+   {
+    "feature_id": "body",
+    "issue": "right-end height is much shorter than the 15 mm shown in the drawing",
+    "severity": "medium"
+   },
+   {
+    "feature_id": "cross_hole",
+    "issue": "hole centre is much closer to the right end than the 20 mm shown in the drawing",
+    "severity": "medium"
+   }
+  ],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   },
+   {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "body",
+      "issue": "right-end height is much shorter than the 15 mm shown in the drawing",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "cross_hole",
+      "issue": "hole centre is much closer to the right end than the 20 mm shown in the drawing",
+      "severity": "medium"
+     }
+    ]
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.003268,
+  "seconds": 77.8,
+  "input_tokens": 6544,
+  "output_tokens": 13247
+ },
+ "seconds": 78.2
+}

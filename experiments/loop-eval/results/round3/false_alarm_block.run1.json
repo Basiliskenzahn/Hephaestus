@@ -1,0 +1,50 @@
+{
+ "part": "block",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [
+   {
+    "feature_id": "bore",
+    "issue": "central bore is offset from the block centre instead of centred between the side holes",
+    "severity": "medium"
+   },
+   {
+    "feature_id": null,
+    "issue": "top edges of the holes lack the 1 x 45 deg chamfer required on all top edges",
+    "severity": "high"
+   }
+  ],
+  "samples": [
+   {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "bore",
+      "issue": "central bore is offset from the block centre instead of centred between the side holes",
+      "severity": "medium"
+     },
+     {
+      "feature_id": null,
+      "issue": "top edges of the holes lack the 1 x 45 deg chamfer required on all top edges",
+      "severity": "high"
+     }
+    ]
+   },
+   {
+    "matches": true,
+    "issues": []
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.002062,
+  "seconds": 44.5,
+  "input_tokens": 6094,
+  "output_tokens": 7626
+ },
+ "seconds": 45.1
+}

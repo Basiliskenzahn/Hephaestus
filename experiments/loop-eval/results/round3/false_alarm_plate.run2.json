@@ -1,0 +1,28 @@
+{
+ "part": "plate",
+ "run": 2,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   },
+   {
+    "matches": true,
+    "issues": []
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.000965,
+  "seconds": 21.2,
+  "input_tokens": 5374,
+  "output_tokens": 3628
+ },
+ "seconds": 21.7
+}

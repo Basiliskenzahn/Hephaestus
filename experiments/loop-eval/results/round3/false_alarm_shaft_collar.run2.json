@@ -1,0 +1,40 @@
+{
+ "part": "shaft_collar",
+ "run": 2,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [
+   {
+    "feature_id": "screw_hole",
+    "issue": "part has screw holes on both front and back, drawing shows single radial hole on one side",
+    "severity": "high"
+   }
+  ],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   },
+   {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "screw_hole",
+      "issue": "part has screw holes on both front and back, drawing shows single radial hole on one side",
+      "severity": "high"
+     }
+    ]
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.006079,
+  "seconds": 163.4,
+  "input_tokens": 6382,
+  "output_tokens": 28944
+ },
+ "seconds": 256.1
+}

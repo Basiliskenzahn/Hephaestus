@@ -1,0 +1,61 @@
+{
+ "part": "enclosure",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [
+   {
+    "feature_id": "screw_holes",
+    "issue": "floor holes are placed almost at the walls, drawing requires 10 mm inset from outer edges",
+    "severity": "medium"
+   },
+   {
+    "feature_id": "cable_hole",
+    "issue": "front \u00d88 hole has no 0.5 x 45\u00b0 break shown",
+    "severity": "low"
+   },
+   {
+    "feature_id": "screw_holes",
+    "issue": "floor holes are placed too close to the corners, drawing requires 10 mm inset from each edge",
+    "severity": "medium"
+   }
+  ],
+  "samples": [
+   {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "screw_holes",
+      "issue": "floor holes are placed almost at the walls, drawing requires 10 mm inset from outer edges",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "cable_hole",
+      "issue": "front \u00d88 hole has no 0.5 x 45\u00b0 break shown",
+      "severity": "low"
+     }
+    ]
+   },
+   {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "screw_holes",
+      "issue": "floor holes are placed too close to the corners, drawing requires 10 mm inset from each edge",
+      "severity": "medium"
+     }
+    ]
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.002469,
+  "seconds": 56.7,
+  "input_tokens": 7022,
+  "output_tokens": 9014
+ },
+ "seconds": 57.4
+}

@@ -1,0 +1,28 @@
+{
+ "part": "bushing",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   },
+   {
+    "matches": true,
+    "issues": []
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.001266,
+  "seconds": 27.2,
+  "input_tokens": 6382,
+  "output_tokens": 3500
+ },
+ "seconds": 27.8
+}

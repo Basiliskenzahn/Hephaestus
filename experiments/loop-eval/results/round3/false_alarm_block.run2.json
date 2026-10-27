@@ -1,0 +1,50 @@
+{
+ "part": "block",
+ "run": 2,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [
+   {
+    "feature_id": "side_holes",
+    "issue": "side holes are offset from the longitudinal centreline, drawing shows all holes in line 20 from the edge",
+    "severity": "medium"
+   },
+   {
+    "feature_id": "bore",
+    "issue": "bore and side holes top edges have no 1 x 45\u00b0 chamfer, drawing requires chamfer on all top edges",
+    "severity": "high"
+   }
+  ],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   },
+   {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "side_holes",
+      "issue": "side holes are offset from the longitudinal centreline, drawing shows all holes in line 20 from the edge",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "bore",
+      "issue": "bore and side holes top edges have no 1 x 45\u00b0 chamfer, drawing requires chamfer on all top edges",
+      "severity": "high"
+     }
+    ]
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.002328,
+  "seconds": 66.6,
+  "input_tokens": 6094,
+  "output_tokens": 11463
+ },
+ "seconds": 67.3
+}

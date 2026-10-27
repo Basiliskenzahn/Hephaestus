@@ -1,0 +1,28 @@
+{
+ "part": "l_bracket",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   },
+   {
+    "matches": true,
+    "issues": []
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.001831,
+  "seconds": 39.7,
+  "input_tokens": 6670,
+  "output_tokens": 6933
+ },
+ "seconds": 40.1
+}

@@ -156,6 +156,10 @@ def measure_one(c, result, cyls):
     if m in ("diameter", "radius") and t in ("hole", "linear_pattern", "circular_pattern", "extrude", "revolve") \
             and center is not None and g.get("axis") and (t != "extrude" or "diameter" in g):
         found = sorted({round(2 * r, 6) for r, *_ in _coaxial(cyls, center, g["axis"])})
+        if t == "circular_pattern":
+            # "PCD Ø32" on a bolt circle: the diameter of the circle through the copies' centres
+            pts = np.array([geo[g["source"]]["instances"][0]["center"]] + [p["center"] for p in g["instances"]])
+            found.append(round(2 * float(np.linalg.norm(pts[0] - pts.mean(axis=0))), 6))
         if not found:
             raise CalloutError(f"no cylindrical surface of {c['feature']} found on the part")
         return [d / (2 if m == "radius" else 1) for d in found]
@@ -194,14 +198,22 @@ def measure_one(c, result, cyls):
     if m == "chamfer_size":
         sizes = []
         for face in result.solid.Faces():
-            if face.geomType() != "PLANE":
-                continue
-            nrm = np.abs(face.normalAt(face.Center()).toTuple())
-            on = [i for i in range(3) if nrm[i] > 1e-6]
-            if len(on) == 2 and all(abs(nrm[i] - 0.7071) < 0.01 for i in on):
+            if face.geomType() == "PLANE":
+                nrm = np.abs(face.normalAt(face.Center()).toTuple())
+                on = [i for i in range(3) if nrm[i] > 1e-6]
+            if face.geomType() == "PLANE" and len(on) == 2 and all(abs(nrm[i] - 0.7071) < 0.01 for i in on):
                 bb = face.BoundingBox()
                 ext = np.array([bb.xlen, bb.ylen, bb.zlen])
                 sizes.append(round(float(np.mean(ext[on])), 6))
+            elif face.geomType() == "CONE":
+                # a chamfered hole rim is a 45-degree cone: its size is its extent along the cone axis
+                cone = BRepAdaptor_Surface(face.wrapped).Cone()
+                if abs(abs(cone.SemiAngle()) - np.pi / 4) < 0.01:
+                    d = cone.Axis().Direction()
+                    ax = np.abs([d.X(), d.Y(), d.Z()])
+                    if ax.max() > 0.999:
+                        bb = face.BoundingBox()
+                        sizes.append(round(float([bb.xlen, bb.ylen, bb.zlen][int(ax.argmax())]), 6))
         if not sizes:
             raise CalloutError("the part has no 45-degree chamfer faces")
         return sorted(set(sizes))

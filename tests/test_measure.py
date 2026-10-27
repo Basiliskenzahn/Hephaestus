@@ -92,3 +92,13 @@ def test_slot_length_along_an_axis_catches_rotation():
     assert check(c, compile(example("l_bracket")))[0]["status"] == "ok"
     assert issues(check(c, compile(spec))) == [
         "callout '20' (slot length of base_slot along x) measures 6 on the part, expected 20"]
+
+
+def test_hole_rim_chamfer_and_bolt_circle_diameter():
+    rows = check([{"label": "0.5 x 45°", "value": 0.5, "measure": "chamfer_size", "feature": "cable_edge"}],
+                 compile(example("enclosure")))
+    assert rows[0]["status"] == "ok" and rows[0]["measured"] == pytest.approx(0.5, abs=0.02)
+    rows = check([{"label": "PCD Ø32", "value": 32, "measure": "diameter", "feature": "bolt_holes"},
+                  {"label": "4x Ø4", "value": 4, "measure": "diameter", "feature": "bolt_holes"}],
+                 compile(example("bushing")))
+    assert [r["status"] for r in rows] == ["ok", "ok"] and rows[0]["measured"] == 32

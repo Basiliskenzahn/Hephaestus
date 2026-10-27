@@ -1,0 +1,679 @@
+{
+ "part": "08_shaft_collar",
+ "set": "photo",
+ "run": 2,
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "final_iteration": 0,
+ "cost_off": 0.002131,
+ "cost_on": 0.022827,
+ "seconds_off": 78.8,
+ "seconds_on": 141.0,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "7/7",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 6,
+   "expr_fields": 15,
+   "computed_exprs": 8,
+   "literal_numbers": 1,
+   "examples": [
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "outer_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "7/7",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 6,
+   "expr_fields": 15,
+   "computed_exprs": 8,
+   "literal_numbers": 1,
+   "examples": [
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2",
+    "outer_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "outer_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [],
+   "critic_seconds": 61.6
+  }
+ ],
+ "corrections_log": [],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 78.8,
+   "spec": {
+    "description": "Split shaft collar with axis along Z. Assumed: central bore is centred in X and Y, slit is radial toward +X and centred in Y, clamp hole is at 35 from the left edge and centred vertically in Z.",
+    "features": [
+     {
+      "distance": "collar_h",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "outer_dia",
+       "shape": "circle",
+       "u": "outer_dia / 2",
+       "v": "outer_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "outer_dia / 2",
+       "outer_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "distance": "collar_h",
+      "id": "slit",
+      "offset": 0.0,
+      "operation": "cut",
+      "plane": "XY",
+      "profile": {
+       "height": "slit_w",
+       "shape": "rect",
+       "u": "outer_dia / 2",
+       "v": "(outer_dia - slit_w) / 2",
+       "width": "outer_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_pos",
+       "collar_h / 2"
+      ],
+      "diameter": "clamp_dia",
+      "direction": "positive",
+      "face": "front",
+      "id": "clamp_hole",
+      "through": true,
+      "type": "hole"
+     }
+    ],
+    "name": "shaft_collar",
+    "parameters": {
+     "bore_dia": {
+      "description": "central bore diameter, thru",
+      "value": 20.0
+     },
+     "clamp_dia": {
+      "description": "clamp screw hole diameter",
+      "value": 4.0
+     },
+     "collar_h": {
+      "description": "overall height along Z",
+      "value": 15.0
+     },
+     "hole_pos": {
+      "description": "clamp hole centre distance from left edge",
+      "value": 35.0
+     },
+     "outer_dia": {
+      "description": "outer diameter",
+      "value": 40.0
+     },
+     "slit_w": {
+      "description": "radial slit width",
+      "value": 2.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "15",
+     "measure": "overall",
+     "value": 15.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "\u00d840",
+     "measure": "diameter",
+     "value": 40.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d820 thru",
+     "measure": "diameter",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "slit",
+     "feature_b": null,
+     "label": "slit 2",
+     "measure": "unchecked",
+     "value": 2.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "clamp_hole",
+     "feature_b": null,
+     "label": "\u00d84 thru",
+     "measure": "diameter",
+     "value": 4.0
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "clamp_hole",
+     "feature_b": null,
+     "label": "35",
+     "measure": "distance_to_edge",
+     "value": 35.0
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "slit",
+     "feature_b": null,
+     "label": "slit centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "clamp_hole",
+     "feature_b": null,
+     "label": "clamp_hole centred",
+     "measure": "distance_to_edge",
+     "value": 7.5
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.002131,
+    "seconds": 78.8,
+    "input_tokens": 9400,
+    "output_tokens": 9019
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 79.5,
+   "ok": true,
+   "metrics": {
+    "name": "shaft_collar",
+    "volume_mm3": 13532.0396,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      -0.0
+     ],
+     "max": [
+      39.974984,
+      40.0,
+      15.0
+     ],
+     "size": [
+      39.974985,
+      40.0,
+      15.0
+     ]
+    },
+    "faces": 8,
+    "edges": 18,
+    "triangles": 2120,
+    "parameters": {
+     "bore_dia": 20.0,
+     "clamp_dia": 4.0,
+     "collar_h": 15.0,
+     "hole_pos": 35.0,
+     "outer_dia": 40.0,
+     "slit_w": 2.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 18849.5559
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -4712.389
+     },
+     {
+      "id": "slit",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": -300.2507
+     },
+     {
+      "id": "clamp_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -304.8767
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       221,
+       222
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       221,
+       97
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       222,
+       97
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 141.0,
+   "clean": true,
+   "issues": [],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "15",
+     "value": 15.0,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "\u00d840",
+     "value": 40.0,
+     "measure": "diameter",
+     "what": "diameter of base",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "\u00d820 thru",
+     "value": 20.0,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "slit 2",
+     "value": 2.0,
+     "measure": "unchecked",
+     "what": "unchecked of slit",
+     "status": "unchecked"
+    },
+    {
+     "label": "\u00d84 thru",
+     "value": 4.0,
+     "measure": "diameter",
+     "what": "diameter of clamp_hole",
+     "status": "ok",
+     "measured": 4.0
+    },
+    {
+     "label": "35",
+     "value": 35.0,
+     "measure": "distance_to_edge",
+     "what": "distance from clamp_hole to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "slit centred",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from slit to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "clamp_hole centred",
+     "value": 7.5,
+     "measure": "distance_to_edge",
+     "what": "distance from clamp_hole to z_min",
+     "status": "ok",
+     "measured": 7.5
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": true,
+      "issues": []
+     }
+    ]
+   },
+   "critic_call": {
+    "cost_usd": 0.003149,
+    "seconds": 61.6,
+    "input_tokens": 9544,
+    "output_tokens": 11337
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 141.0,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Split shaft collar with axis along Z. Assumed: central bore is centred in X and Y, slit is radial toward +X and centred in Y, clamp hole is at 35 from the left edge and centred vertically in Z.",
+    "features": [
+     {
+      "distance": "collar_h",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "outer_dia",
+       "shape": "circle",
+       "u": "outer_dia / 2",
+       "v": "outer_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "outer_dia / 2",
+       "outer_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "distance": "collar_h",
+      "id": "slit",
+      "offset": 0.0,
+      "operation": "cut",
+      "plane": "XY",
+      "profile": {
+       "height": "slit_w",
+       "shape": "rect",
+       "u": "outer_dia / 2",
+       "v": "(outer_dia - slit_w) / 2",
+       "width": "outer_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_pos",
+       "collar_h / 2"
+      ],
+      "diameter": "clamp_dia",
+      "direction": "positive",
+      "face": "front",
+      "id": "clamp_hole",
+      "through": true,
+      "type": "hole"
+     }
+    ],
+    "name": "shaft_collar",
+    "parameters": {
+     "bore_dia": {
+      "description": "central bore diameter, thru",
+      "value": 20.0
+     },
+     "clamp_dia": {
+      "description": "clamp screw hole diameter",
+      "value": 4.0
+     },
+     "collar_h": {
+      "description": "overall height along Z",
+      "value": 15.0
+     },
+     "hole_pos": {
+      "description": "clamp hole centre distance from left edge",
+      "value": 35.0
+     },
+     "outer_dia": {
+      "description": "outer diameter",
+      "value": 40.0
+     },
+     "slit_w": {
+      "description": "radial slit width",
+      "value": 2.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "15",
+     "measure": "overall",
+     "value": 15.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "\u00d840",
+     "measure": "diameter",
+     "value": 40.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d820 thru",
+     "measure": "diameter",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "slit",
+     "feature_b": null,
+     "label": "slit 2",
+     "measure": "unchecked",
+     "value": 2.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "clamp_hole",
+     "feature_b": null,
+     "label": "\u00d84 thru",
+     "measure": "diameter",
+     "value": 4.0
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "clamp_hole",
+     "feature_b": null,
+     "label": "35",
+     "measure": "distance_to_edge",
+     "value": 35.0
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "slit",
+     "feature_b": null,
+     "label": "slit centred",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "clamp_hole",
+     "feature_b": null,
+     "label": "clamp_hole centred",
+     "measure": "distance_to_edge",
+     "value": 7.5
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 0,
+   "corrections": 0,
+   "cost_usd": 0.022827,
+   "seconds": 141.0
+  }
+ ]
+}

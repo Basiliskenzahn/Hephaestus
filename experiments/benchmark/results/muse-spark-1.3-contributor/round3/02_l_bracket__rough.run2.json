@@ -1,0 +1,1393 @@
+{
+ "part": "02_l_bracket",
+ "set": "rough",
+ "run": 2,
+ "status": "pass",
+ "note": null,
+ "corrections": 1,
+ "final_iteration": 1,
+ "cost_off": 0.003433,
+ "cost_on": 0.046368,
+ "seconds_off": 134.4,
+ "seconds_on": 302.3,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 10,
+   "expr_fields": 15,
+   "computed_exprs": 3,
+   "literal_numbers": 2,
+   "examples": [
+    "depth - thick",
+    "width - 2 * hole_inset",
+    "width / 2"
+   ]
+  },
+  "x_param": {
+   "param": "width",
+   "iou_after_change": 0.9933,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.9655,
+  "bbox_ok": true,
+  "dims_ok": "11/13",
+  "failed_dims": [
+   {
+    "label": "5 (base)",
+    "ok": false,
+    "expected": 5,
+    "measured": null,
+    "note": "ray misses the part"
+   },
+   {
+    "label": "slot 20",
+    "ok": false,
+    "expected": 20,
+    "measured": 6.0
+   }
+  ],
+  "errors": null,
+  "params": {
+   "parameters": 10,
+   "expr_fields": 15,
+   "computed_exprs": 3,
+   "literal_numbers": 2,
+   "examples": [
+    "depth - thick",
+    "width - 2 * hole_inset",
+    "width / 2"
+   ]
+  },
+  "x_param": {
+   "param": "width",
+   "iou_after_change": 0.9677,
+   "ok": false
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "base_slot: slot runs side-to-side along X, drawing shows it running front-back along Y (high)"
+    }
+   ],
+   "critic_seconds": 71.8
+  },
+  {
+   "iteration": 1,
+   "issues": [],
+   "critic_seconds": 71.3
+  }
+ ],
+ "corrections_log": [
+  {
+   "iteration": 1,
+   "changelog": "Rotated base slot to run front-back along Y (angle 90) and set slot_length axis to y per TOP view.",
+   "cost_usd": 0.001674,
+   "seconds": 24.1,
+   "input_tokens": 10294,
+   "output_tokens": 3222
+  }
+ ],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 134.4,
+   "spec": {
+    "description": "L-bracket with base and upright at back modelled as two overlapping extrudes. Assumed: upright is at the back (Ymax), thickness 5 for both legs, holes go through upright along Y, hole height 28 measured from bottom (z_min), slot in base runs along X (length 20 dimensioned horizontally) and is drawn centred in X so centre at width/2, slot Y 17.5 is centre from front and equals centre of exposed base flat (depth-thick)/2.",
+    "features": [
+     {
+      "distance": "thick",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "width"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "thick",
+      "id": "upright",
+      "offset": "depth - thick",
+      "plane": "XZ",
+      "profile": {
+       "height": "height",
+       "shape": "rect",
+       "width": "width"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_z"
+      ],
+      "diameter": "hole_dia",
+      "face": "back",
+      "id": "up_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "up_hole",
+      "id": "up_holes",
+      "spacing_u": "width - 2 * hole_inset",
+      "type": "linear_pattern"
+     },
+     {
+      "angle": 0,
+      "center": [
+       "width / 2",
+       "slot_y"
+      ],
+      "face": "top_of_feature:base",
+      "id": "base_slot",
+      "length": "slot_len",
+      "through": true,
+      "type": "slot",
+      "width": "slot_w"
+     }
+    ],
+    "name": "l_bracket",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "hole_dia": {
+      "description": "upright hole diameter",
+      "value": 5
+     },
+     "hole_inset": {
+      "description": "hole centre from each side edge; spacing follows as width - 2 * hole_inset",
+      "value": 15
+     },
+     "hole_z": {
+      "description": "hole centre height from bottom",
+      "value": 28
+     },
+     "slot_len": {
+      "description": "base slot length along X",
+      "value": 20
+     },
+     "slot_w": {
+      "description": "base slot width along Y",
+      "value": 6
+     },
+     "slot_y": {
+      "description": "base slot centre from front edge; centred in exposed base (depth - thick)/2",
+      "value": 17.5
+     },
+     "thick": {
+      "description": "wall thickness of both legs",
+      "value": 5
+     },
+     "width": {
+      "description": "overall width along X",
+      "value": 60
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "value": 60
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "upright",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "up_hole",
+     "feature_b": null,
+     "label": "2x \u00d85 thru",
+     "measure": "diameter",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "up_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": "up_holes[0]",
+     "feature_b": "up_holes[1]",
+     "label": "30",
+     "measure": "distance",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "up_hole",
+     "feature_b": null,
+     "label": "28",
+     "measure": "distance_to_edge",
+     "value": 28
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "slot w = 6",
+     "measure": "slot_width",
+     "value": 6
+    },
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "20",
+     "measure": "slot_length",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "17.5",
+     "measure": "distance_to_edge",
+     "value": 17.5
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "base_slot centred",
+     "measure": "distance_to_edge",
+     "value": 30
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.003433,
+    "seconds": 134.4,
+    "input_tokens": 9279,
+    "output_tokens": 15590
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 134.7,
+   "ok": true,
+   "metrics": {
+    "name": "l_bracket",
+    "volume_mm3": 21742.2788,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      60.0,
+      40.0,
+      40.0
+     ],
+     "size": [
+      60.0,
+      40.0,
+      40.0
+     ]
+    },
+    "faces": 14,
+    "edges": 36,
+    "triangles": 1552,
+    "parameters": {
+     "depth": 40.0,
+     "height": 40.0,
+     "hole_dia": 5.0,
+     "hole_inset": 15.0,
+     "hole_z": 28.0,
+     "slot_len": 20.0,
+     "slot_w": 6.0,
+     "slot_y": 17.5,
+     "thick": 5.0,
+     "width": 60.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 12000.0
+     },
+     {
+      "id": "upright",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 10500.0
+     },
+     {
+      "id": "up_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -98.1748
+     },
+     {
+      "id": "up_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -98.1748
+     },
+     {
+      "id": "base_slot",
+      "type": "slot",
+      "status": "ok",
+      "volume_delta_mm3": -561.3717
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       320,
+       220
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       320,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 206.6,
+   "clean": false,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "base_slot: slot runs side-to-side along X, drawing shows it running front-back along Y (high)"
+    }
+   ],
+   "advisories": [
+    {
+     "feature_id": "base_slot",
+     "issue": "base slot is modelled as a closed slot running left-right, drawing shows an open slot running front-back open to the front edge",
+     "severity": "high"
+    }
+   ],
+   "callouts": [
+    {
+     "label": "60",
+     "value": 60,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 60.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "5",
+     "value": 5,
+     "measure": "thickness",
+     "what": "thickness of base",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "5",
+     "value": 5,
+     "measure": "thickness",
+     "what": "thickness of upright",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "2x \u00d85 thru",
+     "value": 5,
+     "measure": "diameter",
+     "what": "diameter of up_hole",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from up_hole to x_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "distance",
+     "what": "distance up_holes[0] \u2192 up_holes[1] along x",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "28",
+     "value": 28,
+     "measure": "distance_to_edge",
+     "what": "distance from up_hole to z_min",
+     "status": "ok",
+     "measured": 28.0
+    },
+    {
+     "label": "slot w = 6",
+     "value": 6,
+     "measure": "slot_width",
+     "what": "slot width of base_slot",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "slot_length",
+     "what": "slot length of base_slot along x",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "17.5",
+     "value": 17.5,
+     "measure": "distance_to_edge",
+     "what": "distance from base_slot to y_min",
+     "status": "ok",
+     "measured": 17.5
+    },
+    {
+     "label": "base_slot centred",
+     "value": 30,
+     "measure": "distance_to_edge",
+     "what": "distance from base_slot to x_min",
+     "status": "ok",
+     "measured": 30.0
+    }
+   ],
+   "critic": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "base_slot",
+      "issue": "slot runs side-to-side along X, drawing shows it running front-back along Y",
+      "severity": "high"
+     }
+    ],
+    "advisories": [
+     {
+      "feature_id": "base_slot",
+      "issue": "base slot is modelled as a closed slot running left-right, drawing shows an open slot running front-back open to the front edge",
+      "severity": "high"
+     }
+    ],
+    "samples": [
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "base_slot",
+        "issue": "slot runs side-to-side along X, drawing shows it running front-back along Y",
+        "severity": "high"
+       }
+      ]
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "base_slot",
+        "issue": "base slot is modelled as a closed slot running left-right, drawing shows an open slot running front-back open to the front edge",
+        "severity": "high"
+       }
+      ]
+     }
+    ]
+   },
+   "critic_call": {
+    "cost_usd": 0.003806,
+    "seconds": 71.8,
+    "input_tokens": 9302,
+    "output_tokens": 14562
+   }
+  },
+  {
+   "event": "correction_started",
+   "iteration": 0,
+   "t": 206.6,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "base_slot: slot runs side-to-side along X, drawing shows it running front-back along Y (high)"
+    }
+   ]
+  },
+  {
+   "event": "spec",
+   "iteration": 1,
+   "t": 230.7,
+   "spec": {
+    "description": "L-bracket with base and upright at back modelled as two overlapping extrudes. Assumed: upright is at the back (Ymax), thickness 5 for both legs, holes go through upright along Y, hole height 28 measured from bottom (z_min), slot in base runs along Y (length 20 dimensioned front-back) and is drawn centred in X so centre at width/2, slot Y 17.5 is centre from front and equals centre of exposed base flat (depth-thick)/2.",
+    "features": [
+     {
+      "distance": "thick",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "width"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "thick",
+      "id": "upright",
+      "offset": "depth - thick",
+      "plane": "XZ",
+      "profile": {
+       "height": "height",
+       "shape": "rect",
+       "width": "width"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_z"
+      ],
+      "diameter": "hole_dia",
+      "face": "back",
+      "id": "up_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "up_hole",
+      "id": "up_holes",
+      "spacing_u": "width - 2 * hole_inset",
+      "type": "linear_pattern"
+     },
+     {
+      "angle": 90,
+      "center": [
+       "width / 2",
+       "slot_y"
+      ],
+      "face": "top_of_feature:base",
+      "id": "base_slot",
+      "length": "slot_len",
+      "through": true,
+      "type": "slot",
+      "width": "slot_w"
+     }
+    ],
+    "name": "l_bracket",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "hole_dia": {
+      "description": "upright hole diameter",
+      "value": 5
+     },
+     "hole_inset": {
+      "description": "hole centre from each side edge; spacing follows as width - 2 * hole_inset",
+      "value": 15
+     },
+     "hole_z": {
+      "description": "hole centre height from bottom",
+      "value": 28
+     },
+     "slot_len": {
+      "description": "base slot length along Y",
+      "value": 20
+     },
+     "slot_w": {
+      "description": "base slot width along X",
+      "value": 6
+     },
+     "slot_y": {
+      "description": "base slot centre from front edge; centred in exposed base (depth - thick)/2",
+      "value": 17.5
+     },
+     "thick": {
+      "description": "wall thickness of both legs",
+      "value": 5
+     },
+     "width": {
+      "description": "overall width along X",
+      "value": 60
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "value": 60
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "upright",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "up_hole",
+     "feature_b": null,
+     "label": "2x \u00d85 thru",
+     "measure": "diameter",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "up_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": "up_holes[0]",
+     "feature_b": "up_holes[1]",
+     "label": "30",
+     "measure": "distance",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "up_hole",
+     "feature_b": null,
+     "label": "28",
+     "measure": "distance_to_edge",
+     "value": 28
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "slot w = 6",
+     "measure": "slot_width",
+     "value": 6
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "20",
+     "measure": "slot_length",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "17.5",
+     "measure": "distance_to_edge",
+     "value": 17.5
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "base_slot centred",
+     "measure": "distance_to_edge",
+     "value": 30
+    }
+   ],
+   "changelog": "Rotated base slot to run front-back along Y (angle 90) and set slot_length axis to y per TOP view.",
+   "call": {
+    "cost_usd": 0.001674,
+    "seconds": 24.1,
+    "input_tokens": 10294,
+    "output_tokens": 3222
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 1,
+   "t": 231.1,
+   "ok": true,
+   "metrics": {
+    "name": "l_bracket",
+    "volume_mm3": 21742.2788,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      60.0,
+      40.0,
+      40.0
+     ],
+     "size": [
+      60.0,
+      40.0,
+      40.0
+     ]
+    },
+    "faces": 14,
+    "edges": 36,
+    "triangles": 1552,
+    "parameters": {
+     "depth": 40.0,
+     "height": 40.0,
+     "hole_dia": 5.0,
+     "hole_inset": 15.0,
+     "hole_z": 28.0,
+     "slot_len": 20.0,
+     "slot_w": 6.0,
+     "slot_y": 17.5,
+     "thick": 5.0,
+     "width": 60.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 12000.0
+     },
+     {
+      "id": "upright",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 10500.0
+     },
+     {
+      "id": "up_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -98.1748
+     },
+     {
+      "id": "up_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -98.1748
+     },
+     {
+      "id": "base_slot",
+      "type": "slot",
+      "status": "ok",
+      "volume_delta_mm3": -561.3717
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       320,
+       220
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       320,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 1,
+   "t": 302.3,
+   "clean": true,
+   "issues": [],
+   "advisories": [
+    {
+     "feature_id": "base_slot",
+     "issue": "base slot is modelled closed, drawing shows it open to the front edge",
+     "severity": "high"
+    }
+   ],
+   "callouts": [
+    {
+     "label": "60",
+     "value": 60,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 60.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "5",
+     "value": 5,
+     "measure": "thickness",
+     "what": "thickness of base",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "5",
+     "value": 5,
+     "measure": "thickness",
+     "what": "thickness of upright",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "2x \u00d85 thru",
+     "value": 5,
+     "measure": "diameter",
+     "what": "diameter of up_hole",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from up_hole to x_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "distance",
+     "what": "distance up_holes[0] \u2192 up_holes[1] along x",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "28",
+     "value": 28,
+     "measure": "distance_to_edge",
+     "what": "distance from up_hole to z_min",
+     "status": "ok",
+     "measured": 28.0
+    },
+    {
+     "label": "slot w = 6",
+     "value": 6,
+     "measure": "slot_width",
+     "what": "slot width of base_slot",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "slot_length",
+     "what": "slot length of base_slot along y",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "17.5",
+     "value": 17.5,
+     "measure": "distance_to_edge",
+     "what": "distance from base_slot to y_min",
+     "status": "ok",
+     "measured": 17.5
+    },
+    {
+     "label": "base_slot centred",
+     "value": 30,
+     "measure": "distance_to_edge",
+     "what": "distance from base_slot to x_min",
+     "status": "ok",
+     "measured": 30.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [
+     {
+      "feature_id": "base_slot",
+      "issue": "base slot is modelled closed, drawing shows it open to the front edge",
+      "severity": "high"
+     }
+    ],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "base_slot",
+        "issue": "base slot is modelled closed, drawing shows it open to the front edge",
+        "severity": "high"
+       }
+      ]
+     }
+    ]
+   },
+   "critic_call": {
+    "cost_usd": 0.003652,
+    "seconds": 71.3,
+    "input_tokens": 9302,
+    "output_tokens": 13969
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 1,
+   "t": 302.3,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 1,
+   "spec": {
+    "description": "L-bracket with base and upright at back modelled as two overlapping extrudes. Assumed: upright is at the back (Ymax), thickness 5 for both legs, holes go through upright along Y, hole height 28 measured from bottom (z_min), slot in base runs along Y (length 20 dimensioned front-back) and is drawn centred in X so centre at width/2, slot Y 17.5 is centre from front and equals centre of exposed base flat (depth-thick)/2.",
+    "features": [
+     {
+      "distance": "thick",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "width"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "thick",
+      "id": "upright",
+      "offset": "depth - thick",
+      "plane": "XZ",
+      "profile": {
+       "height": "height",
+       "shape": "rect",
+       "width": "width"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_z"
+      ],
+      "diameter": "hole_dia",
+      "face": "back",
+      "id": "up_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "up_hole",
+      "id": "up_holes",
+      "spacing_u": "width - 2 * hole_inset",
+      "type": "linear_pattern"
+     },
+     {
+      "angle": 90,
+      "center": [
+       "width / 2",
+       "slot_y"
+      ],
+      "face": "top_of_feature:base",
+      "id": "base_slot",
+      "length": "slot_len",
+      "through": true,
+      "type": "slot",
+      "width": "slot_w"
+     }
+    ],
+    "name": "l_bracket",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "hole_dia": {
+      "description": "upright hole diameter",
+      "value": 5
+     },
+     "hole_inset": {
+      "description": "hole centre from each side edge; spacing follows as width - 2 * hole_inset",
+      "value": 15
+     },
+     "hole_z": {
+      "description": "hole centre height from bottom",
+      "value": 28
+     },
+     "slot_len": {
+      "description": "base slot length along Y",
+      "value": 20
+     },
+     "slot_w": {
+      "description": "base slot width along X",
+      "value": 6
+     },
+     "slot_y": {
+      "description": "base slot centre from front edge; centred in exposed base (depth - thick)/2",
+      "value": 17.5
+     },
+     "thick": {
+      "description": "wall thickness of both legs",
+      "value": 5
+     },
+     "width": {
+      "description": "overall width along X",
+      "value": 60
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "value": 60
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "upright",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "up_hole",
+     "feature_b": null,
+     "label": "2x \u00d85 thru",
+     "measure": "diameter",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "up_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": "up_holes[0]",
+     "feature_b": "up_holes[1]",
+     "label": "30",
+     "measure": "distance",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "up_hole",
+     "feature_b": null,
+     "label": "28",
+     "measure": "distance_to_edge",
+     "value": 28
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "slot w = 6",
+     "measure": "slot_width",
+     "value": 6
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "20",
+     "measure": "slot_length",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "17.5",
+     "measure": "distance_to_edge",
+     "value": 17.5
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "base_slot centred",
+     "measure": "distance_to_edge",
+     "value": 30
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 1,
+   "corrections": 1,
+   "cost_usd": 0.046368,
+   "seconds": 302.3
+  }
+ ]
+}

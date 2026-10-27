@@ -1,0 +1,83 @@
+01_plate clean run 1: off perfect=True on perfect=True pass 0 corr $0.0040 44s
+01_plate clean run 2: off perfect=True on perfect=True pass 0 corr $0.0051 46s
+02_l_bracket clean run 1: off perfect=True on perfect=True pass 0 corr $0.0159 111s
+03_block clean run 2: off perfect=True on perfect=True pass 0 corr $0.0150 85s
+02_l_bracket clean run 2: off perfect=True on perfect=True pass 0 corr $0.0215 133s
+03_block clean run 1: off perfect=True on perfect=True pass 0 corr $0.0186 99s
+04_bushing clean run 1: off perfect=True on perfect=True pass 0 corr $0.0092 59s
+04_bushing clean run 2: off perfect=True on perfect=True disputed 1 corr $0.0127 93s
+05_enclosure clean run 1: off perfect=True on perfect=True stuck 1 corr $0.0281 171s
+05_enclosure clean run 2: off perfect=True on perfect=True stuck 1 corr $0.0282 174s
+06_angled_bracket clean run 1: off perfect=True on perfect=True pass 0 corr $0.0305 178s
+06_angled_bracket clean run 2: off perfect=True on perfect=True pass 0 corr $0.0257 143s
+07_pocket_plate clean run 1: off perfect=True on perfect=True pass 0 corr $0.0177 149s
+07_pocket_plate clean run 2: off perfect=True on perfect=True pass 0 corr $0.0221 149s
+01_plate photo run 1: off perfect=True on perfect=True pass 0 corr $0.0122 43s
+08_shaft_collar clean run 1: off perfect=True on perfect=True pass 0 corr $0.0249 154s
+01_plate photo run 2: off perfect=True on perfect=True pass 0 corr $0.0073 48s
+08_shaft_collar clean run 2: off perfect=True on perfect=True pass 0 corr $0.0250 178s
+03_block photo run 1: off perfect=True on perfect=True pass 0 corr $0.0148 96s
+02_l_bracket photo run 1: off perfect=True on perfect=True pass 0 corr $0.0246 176s
+02_l_bracket photo run 2: off perfect=True on perfect=True pass 0 corr $0.0292 180s
+04_bushing photo run 1: off perfect=True on perfect=True pass 0 corr $0.0145 85s
+03_block photo run 2: off perfect=True on perfect=True pass 1 corr $0.0282 171s
+04_bushing photo run 2: off perfect=False on perfect=True pass 1 corr $0.0166 93s
+05_enclosure photo run 2: off perfect=True on perfect=True pass 0 corr $0.0138 91s
+05_enclosure photo run 1: off perfect=False on perfect=True pass 1 corr $0.0223 186s
+07_pocket_plate photo run 1: off perfect=True on perfect=True pass 0 corr $0.0138 120s
+07_pocket_plate photo run 2: off perfect=True on perfect=True pass 0 corr $0.0167 120s
+06_angled_bracket photo run 1: off perfect=True on perfect=True pass 0 corr $0.0380 280s
+06_angled_bracket photo run 2: off perfect=False on perfect=False pass 0 corr $0.0351 248s
+01_plate rough run 1: off perfect=True on perfect=True pass 0 corr $0.0101 58s
+08_shaft_collar photo run 1: off perfect=True on perfect=True pass 0 corr $0.0296 163s
+01_plate rough run 2: off perfect=True on perfect=True pass 0 corr $0.0099 54s
+08_shaft_collar photo run 2: off perfect=True on perfect=True pass 0 corr $0.0228 141s
+03_block rough run 1: off perfect=True on perfect=True pass 0 corr $0.0204 149s
+03_block rough run 2: off perfect=True on perfect=True pass 0 corr $0.0168 106s
+04_bushing rough run 1: off perfect=True on perfect=True pass 0 corr $0.0093 54s
+02_l_bracket rough run 1: off perfect=True on perfect=True oscillating 2 corr $0.0429 245s
+04_bushing rough run 2: off perfect=True on perfect=True error 0 corr $0.0155 88s
+05_enclosure rough run 1: off perfect=True on perfect=True pass 0 corr $0.0109 90s
+02_l_bracket rough run 2: off perfect=True on perfect=False pass 1 corr $0.0464 302s
+07_pocket_plate rough run 1: off perfect=True on perfect=True pass 0 corr $0.0139 119s
+06_angled_bracket rough run 2: off perfect=False on perfect=False pass 0 corr $0.0309 231s
+07_pocket_plate rough run 2: off perfect=True on perfect=True pass 0 corr $0.0162 111s
+06_angled_bracket rough run 1: off perfect=False on perfect=False pass 0 corr $0.0437 302s
+08_shaft_collar rough run 2: off perfect=True on perfect=True pass 0 corr $0.0121 154s
+08_shaft_collar rough run 1: off perfect=True on perfect=True pass 0 corr $0.0177 192s
+05_enclosure rough run 2: off perfect=False on perfect=False error 2 corr $0.1102 1948s
+
+spent $0.3143
+
+| set | runs | perfect, loop off | perfect, loop on | compiles off / on | avg corrections | cost off / on (avg) | latency off / on (median) |
+|---|---|---|---|---|---|---|---|
+| clean | 16 | 16/16 | 16/16 | 16 / 16 | 0.2 | $0.0021 / $0.0190 | 53 s / 138 s |
+| photo | 16 | 13/16 | 15/16 | 15 / 16 | 0.2 | $0.0022 / $0.0212 | 57 s / 130 s |
+| rough | 16 | 13/16 | 12/16 | 16 / 16 | 0.3 | $0.0021 / $0.0267 | 59 s / 134 s |
+
+| part | set | off: perfect runs | on: perfect runs | corrections | still failing (loop on) |
+|---|---|---|---|---|---|
+| 01_plate | clean | 2/2 | 2/2 | 0, 0 | - |
+| 01_plate | photo | 2/2 | 2/2 | 0, 0 | - |
+| 01_plate | rough | 2/2 | 2/2 | 0, 0 | - |
+| 02_l_bracket | clean | 2/2 | 2/2 | 0, 0 | - |
+| 02_l_bracket | photo | 2/2 | 2/2 | 0, 0 | - |
+| 02_l_bracket | rough | 2/2 | 1/2 | 2, 1 | 5 (base), slot 20 |
+| 03_block | clean | 2/2 | 2/2 | 0, 0 | - |
+| 03_block | photo | 2/2 | 2/2 | 0, 1 | - |
+| 03_block | rough | 2/2 | 2/2 | 0, 0 | - |
+| 04_bushing | clean | 2/2 | 2/2 | 0, 1 | - |
+| 04_bushing | photo | 1/2 | 2/2 | 0, 1 | - |
+| 04_bushing | rough | 2/2 | 2/2 | 0, 0 | - |
+| 05_enclosure | clean | 2/2 | 2/2 | 1, 1 | - |
+| 05_enclosure | photo | 1/2 | 2/2 | 1, 0 | - |
+| 05_enclosure | rough | 1/2 | 1/2 | 0, 2 | Ø8 front wall only (rear wall closed) |
+| 06_angled_bracket | clean | 2/2 | 2/2 | 0, 0 | - |
+| 06_angled_bracket | photo | 1/2 | 1/2 | 0, 0 | 15, slope |
+| 06_angled_bracket | rough | 0/2 | 0/2 | 0, 0 | 10, 15, slope, Ø8 thru |
+| 07_pocket_plate | clean | 2/2 | 2/2 | 0, 0 | - |
+| 07_pocket_plate | photo | 2/2 | 2/2 | 0, 0 | - |
+| 07_pocket_plate | rough | 2/2 | 2/2 | 0, 0 | - |
+| 08_shaft_collar | clean | 2/2 | 2/2 | 0, 0 | - |
+| 08_shaft_collar | photo | 2/2 | 2/2 | 0, 0 | - |
+| 08_shaft_collar | rough | 2/2 | 2/2 | 0, 0 | - |

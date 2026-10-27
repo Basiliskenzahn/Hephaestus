@@ -1,0 +1,776 @@
+{
+ "part": "03_block",
+ "set": "rough",
+ "run": 2,
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "final_iteration": 0,
+ "cost_off": 0.0019,
+ "cost_on": 0.016789,
+ "seconds_off": 56.3,
+ "seconds_on": 105.8,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 9,
+   "expr_fields": 12,
+   "computed_exprs": 2,
+   "literal_numbers": 1,
+   "examples": [
+    "length / 2",
+    "(length - hole_pitch) / 2"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 9,
+   "expr_fields": 12,
+   "computed_exprs": 2,
+   "literal_numbers": 1,
+   "examples": [
+    "length / 2",
+    "(length - hole_pitch) / 2"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [],
+   "critic_seconds": 49.0
+  }
+ ],
+ "corrections_log": [],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 56.3,
+   "spec": {
+    "description": "Rounded rectangular plate with a central thru hole and two symmetric thru holes on the same cross-line. Assumed: the centre hole is centred left-right and all three holes share the dimensioned 20 line; the two side holes are symmetric as a pair about the centre, so their inset follows as (length - hole_pitch) / 2.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "hole_y"
+      ],
+      "diameter": "big_dia",
+      "face": "top_of_feature:base",
+      "id": "center_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - hole_pitch) / 2",
+       "hole_y"
+      ],
+      "diameter": "small_dia",
+      "face": "top_of_feature:base",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "side_hole",
+      "id": "side_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "top_chamfer",
+      "size": "chamfer_s",
+      "type": "chamfer"
+     }
+    ],
+    "name": "drilled_plate",
+    "parameters": {
+     "big_dia": {
+      "description": "centre thru hole diameter",
+      "value": 12
+     },
+     "chamfer_s": {
+      "description": "chamfer size on all top edges",
+      "value": 1
+     },
+     "corner_r": {
+      "description": "plate corner radius, 4 places",
+      "value": 5
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 20
+     },
+     "hole_pitch": {
+      "description": "distance between the two small hole centres along X",
+      "value": 46
+     },
+     "hole_y": {
+      "description": "hole row centre from the front edge along Y",
+      "value": 20
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70
+     },
+     "small_dia": {
+      "description": "side thru hole diameter, 2 places",
+      "value": 6
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "70",
+     "measure": "overall",
+     "value": 70
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "20",
+     "measure": "overall",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "center_hole",
+     "feature_b": null,
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "value": 12
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "value": 5
+    },
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": "side_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "value": 46
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "top_chamfer",
+     "feature_b": null,
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "value": 1
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "center_hole",
+     "feature_b": null,
+     "label": "center_hole centred",
+     "measure": "distance_to_edge",
+     "value": 35
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "side holes centred",
+     "measure": "distance_to_edge",
+     "value": 12
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.0019,
+    "seconds": 56.3,
+    "input_tokens": 9743,
+    "output_tokens": 7693
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 56.8,
+   "ok": true,
+   "metrics": {
+    "name": "drilled_plate",
+    "volume_mm3": 52073.2155,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      0.0
+     ],
+     "max": [
+      70.0,
+      40.0,
+      20.0
+     ],
+     "size": [
+      70.0,
+      40.0,
+      20.0
+     ]
+    },
+    "faces": 21,
+    "edges": 49,
+    "triangles": 2552,
+    "parameters": {
+     "big_dia": 12.0,
+     "chamfer_s": 1.0,
+     "corner_r": 5.0,
+     "depth": 40.0,
+     "height": 20.0,
+     "hole_pitch": 46.0,
+     "hole_y": 20.0,
+     "length": 70.0,
+     "small_dia": 6.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 55570.7963
+     },
+     {
+      "id": "center_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -2261.9467
+     },
+     {
+      "id": "side_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "side_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "top_chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -104.6608
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       371,
+       221
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       371,
+       120
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       221,
+       120
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 105.8,
+   "clean": true,
+   "issues": [],
+   "advisories": [
+    {
+     "feature_id": "side_holes",
+     "issue": "1x45 deg top chamfer missing on both dia 6 holes, only outer top perimeter is chamfered",
+     "severity": "high"
+    },
+    {
+     "feature_id": "center_hole",
+     "issue": "1x45 deg top chamfer missing on dia 12 hole, only outer top perimeter is chamfered",
+     "severity": "high"
+    },
+    {
+     "feature_id": "side_holes",
+     "issue": "side holes are shifted right and not centered about the plate center with 46 spacing",
+     "severity": "medium"
+    }
+   ],
+   "callouts": [
+    {
+     "label": "70",
+     "value": 70,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 70.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of side_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "\u00d812 thru",
+     "value": 12,
+     "measure": "diameter",
+     "what": "diameter of center_hole",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "R5 (4x)",
+     "value": 5,
+     "measure": "radius",
+     "what": "radius of base",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "46",
+     "value": 46,
+     "measure": "distance",
+     "what": "distance side_hole \u2192 side_holes[1] along x",
+     "status": "ok",
+     "measured": 46.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "1 x 45\u00b0 all top edges",
+     "value": 1,
+     "measure": "chamfer_size",
+     "what": "chamfer size of top_chamfer",
+     "status": "ok",
+     "measured": 1.0
+    },
+    {
+     "label": "center_hole centred",
+     "value": 35,
+     "measure": "distance_to_edge",
+     "what": "distance from center_hole to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "side holes centred",
+     "value": 12,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to x_min",
+     "status": "ok",
+     "measured": 12.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [
+     {
+      "feature_id": "side_holes",
+      "issue": "1x45 deg top chamfer missing on both dia 6 holes, only outer top perimeter is chamfered",
+      "severity": "high"
+     },
+     {
+      "feature_id": "center_hole",
+      "issue": "1x45 deg top chamfer missing on dia 12 hole, only outer top perimeter is chamfered",
+      "severity": "high"
+     },
+     {
+      "feature_id": "side_holes",
+      "issue": "side holes are shifted right and not centered about the plate center with 46 spacing",
+      "severity": "medium"
+     }
+    ],
+    "samples": [
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "side_holes",
+        "issue": "1x45 deg top chamfer missing on both dia 6 holes, only outer top perimeter is chamfered",
+        "severity": "high"
+       },
+       {
+        "feature_id": "center_hole",
+        "issue": "1x45 deg top chamfer missing on dia 12 hole, only outer top perimeter is chamfered",
+        "severity": "high"
+       }
+      ]
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "side_holes",
+        "issue": "side holes are shifted right and not centered about the plate center with 46 spacing",
+        "severity": "medium"
+       }
+      ]
+     }
+    ]
+   },
+   "critic_call": {
+    "cost_usd": 0.002563,
+    "seconds": 49.0,
+    "input_tokens": 10230,
+    "output_tokens": 8062
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 105.8,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Rounded rectangular plate with a central thru hole and two symmetric thru holes on the same cross-line. Assumed: the centre hole is centred left-right and all three holes share the dimensioned 20 line; the two side holes are symmetric as a pair about the centre, so their inset follows as (length - hole_pitch) / 2.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "hole_y"
+      ],
+      "diameter": "big_dia",
+      "face": "top_of_feature:base",
+      "id": "center_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - hole_pitch) / 2",
+       "hole_y"
+      ],
+      "diameter": "small_dia",
+      "face": "top_of_feature:base",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "side_hole",
+      "id": "side_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "top_chamfer",
+      "size": "chamfer_s",
+      "type": "chamfer"
+     }
+    ],
+    "name": "drilled_plate",
+    "parameters": {
+     "big_dia": {
+      "description": "centre thru hole diameter",
+      "value": 12
+     },
+     "chamfer_s": {
+      "description": "chamfer size on all top edges",
+      "value": 1
+     },
+     "corner_r": {
+      "description": "plate corner radius, 4 places",
+      "value": 5
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 20
+     },
+     "hole_pitch": {
+      "description": "distance between the two small hole centres along X",
+      "value": 46
+     },
+     "hole_y": {
+      "description": "hole row centre from the front edge along Y",
+      "value": 20
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70
+     },
+     "small_dia": {
+      "description": "side thru hole diameter, 2 places",
+      "value": 6
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "70",
+     "measure": "overall",
+     "value": 70
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "20",
+     "measure": "overall",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "center_hole",
+     "feature_b": null,
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "value": 12
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "value": 5
+    },
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": "side_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "value": 46
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "top_chamfer",
+     "feature_b": null,
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "value": 1
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "center_hole",
+     "feature_b": null,
+     "label": "center_hole centred",
+     "measure": "distance_to_edge",
+     "value": 35
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "side holes centred",
+     "measure": "distance_to_edge",
+     "value": 12
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 0,
+   "corrections": 0,
+   "cost_usd": 0.016789,
+   "seconds": 105.8
+  }
+ ]
+}

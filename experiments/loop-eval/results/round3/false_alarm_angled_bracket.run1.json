@@ -1,0 +1,50 @@
+{
+ "part": "angled_bracket",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [
+   {
+    "feature_id": "cross_hole",
+    "issue": "cross_hole center is below the 10 mm end top, drawing shows it 15 mm above the base",
+    "severity": "medium"
+   },
+   {
+    "feature_id": "cross_hole",
+    "issue": "cross_hole center is much closer to the right end than the 20 mm shown in the drawing",
+    "severity": "medium"
+   }
+  ],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   },
+   {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "cross_hole",
+      "issue": "cross_hole center is below the 10 mm end top, drawing shows it 15 mm above the base",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "cross_hole",
+      "issue": "cross_hole center is much closer to the right end than the 20 mm shown in the drawing",
+      "severity": "medium"
+     }
+    ]
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.003876,
+  "seconds": 105.0,
+  "input_tokens": 6544,
+  "output_tokens": 16471
+ },
+ "seconds": 105.6
+}

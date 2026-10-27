@@ -1,0 +1,1224 @@
+{
+ "error": "chamfer_for_fillet",
+ "part": "block",
+ "description": "vertical corners chamfered instead of R5",
+ "run": 1,
+ "detected_by": "both",
+ "first_issues": [
+  {
+   "source": "callout",
+   "message": "callout 'R5 (4x)' (radius of corners) measures 6 on the part, expected 5"
+  },
+  {
+   "source": "critic",
+   "message": "corners are straight chamfers, drawing shows R5 rounded corners (high)"
+  }
+ ],
+ "fixed": true,
+ "status": "pass",
+ "corrections": 1,
+ "cost_usd": 0.013392,
+ "seconds": 122.5,
+ "changelogs": [
+  "Replaced straight chamfer corners with R5 rounded_rect body and corrected radius/chamfer callouts; kept symmetric centred holes."
+ ],
+ "final_score": {
+  "iou": 1.0,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null
+ },
+ "events": [
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 0.0,
+   "spec": {
+    "name": "block",
+    "description": "Reading-spike sketch 03: 70 x 40 x 20 block, R5 vertical corners, 1 mm top chamfer, \u00d812 and 2x \u00d86 through.",
+    "parameters": {
+     "length": {
+      "value": 70,
+      "description": "along X"
+     },
+     "width": {
+      "value": 40,
+      "description": "along Y"
+     },
+     "height": {
+      "value": 20,
+      "description": "along Z"
+     },
+     "corner_r": {
+      "value": 5,
+      "description": "vertical corner radius"
+     },
+     "top_chamfer": {
+      "value": 1,
+      "description": "chamfer on the top outer edges"
+     },
+     "bore_d": {
+      "value": 12,
+      "description": "centre hole diameter"
+     },
+     "side_d": {
+      "value": 6,
+      "description": "side hole diameter"
+     },
+     "side_pitch": {
+      "value": 46,
+      "description": "distance between the two side holes"
+     }
+    },
+    "features": [
+     {
+      "id": "body",
+      "type": "extrude",
+      "plane": "XY",
+      "profile": {
+       "shape": "rect",
+       "width": "length",
+       "height": "width"
+      },
+      "distance": "height"
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "face": "top",
+      "center": [
+       "length / 2",
+       "width / 2"
+      ],
+      "diameter": "bore_d",
+      "through": true
+     },
+     {
+      "id": "side_hole",
+      "type": "hole",
+      "face": "top",
+      "center": [
+       "(length - side_pitch) / 2",
+       "width / 2"
+      ],
+      "diameter": "side_d",
+      "through": true
+     },
+     {
+      "id": "side_holes",
+      "type": "linear_pattern",
+      "feature": "side_hole",
+      "count_u": 2,
+      "spacing_u": "side_pitch"
+     },
+     {
+      "id": "corners",
+      "type": "chamfer",
+      "size": "corner_r",
+      "edges": "vertical_outer"
+     },
+     {
+      "id": "top_edges",
+      "type": "chamfer",
+      "size": "top_chamfer",
+      "edges": "top_outer"
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "label": "70",
+     "value": 70,
+     "measure": "overall",
+     "axis": "x"
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "axis": "y"
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "overall",
+     "axis": "z"
+    },
+    {
+     "label": "\u00d812 thru",
+     "value": 12,
+     "measure": "diameter",
+     "feature": "bore"
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "feature": "side_hole"
+    },
+    {
+     "label": "46",
+     "value": 46,
+     "measure": "distance",
+     "feature": "side_holes[0]",
+     "feature_b": "side_holes[1]",
+     "axis": "x"
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "feature": "bore",
+     "edge": "y_min"
+    },
+    {
+     "label": "R5 (4x)",
+     "value": 5,
+     "measure": "radius",
+     "feature": "corners"
+    },
+    {
+     "label": "1 x 45\u00b0 all top edges",
+     "value": 1,
+     "measure": "chamfer_size",
+     "feature": "top_edges"
+    },
+    {
+     "label": "bore centred",
+     "value": 35,
+     "measure": "distance_to_edge",
+     "feature": "bore",
+     "edge": "x_min"
+    },
+    {
+     "label": "side_hole centred",
+     "value": 12,
+     "measure": "distance_to_edge",
+     "feature": "side_hole",
+     "edge": "x_min"
+    },
+    {
+     "label": "side_hole centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "feature": "side_hole",
+     "edge": "y_min"
+    }
+   ],
+   "changelog": "(given)",
+   "call": null
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 0.5,
+   "ok": true,
+   "metrics": {
+    "name": "block",
+    "volume_mm3": 51504.0424,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      0.0
+     ],
+     "max": [
+      70.0,
+      40.0,
+      20.0
+     ],
+     "size": [
+      70.0,
+      40.0,
+      20.0
+     ]
+    },
+    "faces": 21,
+    "edges": 49,
+    "triangles": 1568,
+    "parameters": {
+     "bore_d": 12.0,
+     "corner_r": 5.0,
+     "height": 20.0,
+     "length": 70.0,
+     "side_d": 6.0,
+     "side_pitch": 46.0,
+     "top_chamfer": 1.0,
+     "width": 40.0
+    },
+    "features": [
+     {
+      "id": "body",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 56000.0
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -2261.9467
+     },
+     {
+      "id": "side_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "side_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "corners",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -1000.0
+     },
+     {
+      "id": "top_edges",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -103.0376
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       371,
+       221
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       371,
+       120
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       221,
+       120
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 29.8,
+   "clean": false,
+   "issues": [
+    {
+     "source": "callout",
+     "message": "callout 'R5 (4x)' (radius of corners) measures 6 on the part, expected 5"
+    },
+    {
+     "source": "critic",
+     "message": "corners are straight chamfers, drawing shows R5 rounded corners (high)"
+    }
+   ],
+   "advisories": [
+    {
+     "feature_id": null,
+     "issue": "plan corners are flat chamfers instead of R5 rounded corners",
+     "severity": "high"
+    }
+   ],
+   "callouts": [
+    {
+     "label": "70",
+     "value": 70,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 70.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "\u00d812 thru",
+     "value": 12,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of side_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "46",
+     "value": 46,
+     "measure": "distance",
+     "what": "distance side_holes[0] \u2192 side_holes[1] along x",
+     "status": "ok",
+     "measured": 46.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "R5 (4x)",
+     "value": 5,
+     "measure": "radius",
+     "what": "radius of corners",
+     "status": "mismatch",
+     "measured": 6.0,
+     "message": "callout 'R5 (4x)' (radius of corners) measures 6 on the part, expected 5"
+    },
+    {
+     "label": "1 x 45\u00b0 all top edges",
+     "value": 1,
+     "measure": "chamfer_size",
+     "what": "chamfer size of top_edges",
+     "status": "ok",
+     "measured": 1.0
+    },
+    {
+     "label": "bore centred",
+     "value": 35,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "side_hole centred",
+     "value": 12,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to x_min",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "side_hole centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to y_min",
+     "status": "ok",
+     "measured": 20.0
+    }
+   ],
+   "critic": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "corners are straight chamfers, drawing shows R5 rounded corners",
+      "severity": "high"
+     }
+    ],
+    "advisories": [
+     {
+      "feature_id": null,
+      "issue": "plan corners are flat chamfers instead of R5 rounded corners",
+      "severity": "high"
+     }
+    ],
+    "samples": [
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": null,
+        "issue": "corners are straight chamfers, drawing shows R5 rounded corners",
+        "severity": "high"
+       }
+      ]
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": null,
+        "issue": "plan corners are flat chamfers instead of R5 rounded corners",
+        "severity": "high"
+       }
+      ]
+     }
+    ]
+   },
+   "critic_call": {
+    "cost_usd": 0.001475,
+    "seconds": 29.3,
+    "input_tokens": 6094,
+    "output_tokens": 5315
+   }
+  },
+  {
+   "event": "correction_started",
+   "iteration": 0,
+   "t": 29.8,
+   "issues": [
+    {
+     "source": "callout",
+     "message": "callout 'R5 (4x)' (radius of corners) measures 6 on the part, expected 5"
+    },
+    {
+     "source": "critic",
+     "message": "corners are straight chamfers, drawing shows R5 rounded corners (high)"
+    }
+   ]
+  },
+  {
+   "event": "spec",
+   "iteration": 1,
+   "t": 71.7,
+   "spec": {
+    "description": "70 x 40 x 20 block with R5 vertical corners, 1 mm top chamfer, central \u00d812 and 2x \u00d86 through holes. Assumed: bore centred in X and on the side-hole centreline, side-hole pair symmetric about the centre in X (drawn symmetric, not dimensioned from an edge).",
+    "features": [
+     {
+      "distance": "height",
+      "id": "body",
+      "plane": "XY",
+      "profile": {
+       "height": "width",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "width / 2"
+      ],
+      "diameter": "bore_d",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - side_pitch) / 2",
+       "width / 2"
+      ],
+      "diameter": "side_d",
+      "face": "top",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "side_hole",
+      "id": "side_holes",
+      "spacing_u": "side_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "top_edges",
+      "size": "top_chamfer",
+      "type": "chamfer"
+     }
+    ],
+    "name": "block",
+    "parameters": {
+     "bore_d": {
+      "description": "centre hole diameter",
+      "value": 12.0
+     },
+     "corner_r": {
+      "description": "vertical corner radius R5 4x",
+      "value": 5.0
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 20.0
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70.0
+     },
+     "side_d": {
+      "description": "side hole diameter",
+      "value": 6.0
+     },
+     "side_pitch": {
+      "description": "distance between the two side holes; pair centred symmetrically in X",
+      "value": 46.0
+     },
+     "top_chamfer": {
+      "description": "chamfer size on all top edges",
+      "value": 1.0
+     },
+     "width": {
+      "description": "overall depth along Y",
+      "value": 40.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "70",
+     "measure": "overall",
+     "value": 70.0
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40.0
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "20",
+     "measure": "overall",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "value": 12.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6.0
+    },
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": "side_holes[0]",
+     "feature_b": "side_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "value": 46.0
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "body",
+     "feature_b": null,
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "value": 5.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "top_edges",
+     "feature_b": null,
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "value": 1.0
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 35.0
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore on centreline",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "side holes centred",
+     "measure": "distance_to_edge",
+     "value": 12.0
+    }
+   ],
+   "changelog": "Replaced straight chamfer corners with R5 rounded_rect body and corrected radius/chamfer callouts; kept symmetric centred holes.",
+   "call": {
+    "cost_usd": 0.001905,
+    "seconds": 41.9,
+    "input_tokens": 8441,
+    "output_tokens": 5305
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 1,
+   "t": 72.5,
+   "ok": true,
+   "metrics": {
+    "name": "block",
+    "volume_mm3": 52073.2155,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      0.0
+     ],
+     "max": [
+      70.0,
+      40.0,
+      20.0
+     ],
+     "size": [
+      70.0,
+      40.0,
+      20.0
+     ]
+    },
+    "faces": 21,
+    "edges": 49,
+    "triangles": 2552,
+    "parameters": {
+     "bore_d": 12.0,
+     "corner_r": 5.0,
+     "height": 20.0,
+     "length": 70.0,
+     "side_d": 6.0,
+     "side_pitch": 46.0,
+     "top_chamfer": 1.0,
+     "width": 40.0
+    },
+    "features": [
+     {
+      "id": "body",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 55570.7963
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -2261.9467
+     },
+     {
+      "id": "side_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "side_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "top_edges",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -104.6608
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       371,
+       221
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       371,
+       120
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       221,
+       120
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 1,
+   "t": 122.5,
+   "clean": true,
+   "issues": [],
+   "advisories": [
+    {
+     "feature_id": "bore \u00d812",
+     "issue": "central bore is offset toward one side hole instead of centered between the side holes",
+     "severity": "medium"
+    },
+    {
+     "feature_id": "side_holes",
+     "issue": "side holes are offset from the centreline, drawing shows them centred 20 from the edge and aligned with the bore",
+     "severity": "medium"
+    }
+   ],
+   "callouts": [
+    {
+     "label": "70",
+     "value": 70.0,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 70.0
+    },
+    {
+     "label": "40",
+     "value": 40.0,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "20",
+     "value": 20.0,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "\u00d812 thru",
+     "value": 12.0,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6.0,
+     "measure": "diameter",
+     "what": "diameter of side_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "46",
+     "value": 46.0,
+     "measure": "distance",
+     "what": "distance side_holes[0] \u2192 side_holes[1] along x",
+     "status": "ok",
+     "measured": 46.0
+    },
+    {
+     "label": "20",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "R5 (4x)",
+     "value": 5.0,
+     "measure": "radius",
+     "what": "radius of body",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "1 x 45\u00b0 all top edges",
+     "value": 1.0,
+     "measure": "chamfer_size",
+     "what": "chamfer size of top_edges",
+     "status": "ok",
+     "measured": 1.0
+    },
+    {
+     "label": "bore centred",
+     "value": 35.0,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "bore on centreline",
+     "value": 20.0,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "side holes centred",
+     "value": 12.0,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to x_min",
+     "status": "ok",
+     "measured": 12.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [
+     {
+      "feature_id": "bore \u00d812",
+      "issue": "central bore is offset toward one side hole instead of centered between the side holes",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "side_holes",
+      "issue": "side holes are offset from the centreline, drawing shows them centred 20 from the edge and aligned with the bore",
+      "severity": "medium"
+     }
+    ],
+    "samples": [
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "bore \u00d812",
+        "issue": "central bore is offset toward one side hole instead of centered between the side holes",
+        "severity": "medium"
+       }
+      ]
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "side_holes",
+        "issue": "side holes are offset from the centreline, drawing shows them centred 20 from the edge and aligned with the bore",
+        "severity": "medium"
+       }
+      ]
+     }
+    ]
+   },
+   "critic_call": {
+    "cost_usd": 0.001955,
+    "seconds": 50.0,
+    "input_tokens": 6094,
+    "output_tokens": 8343
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 1,
+   "t": 122.5,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 1,
+   "spec": {
+    "description": "70 x 40 x 20 block with R5 vertical corners, 1 mm top chamfer, central \u00d812 and 2x \u00d86 through holes. Assumed: bore centred in X and on the side-hole centreline, side-hole pair symmetric about the centre in X (drawn symmetric, not dimensioned from an edge).",
+    "features": [
+     {
+      "distance": "height",
+      "id": "body",
+      "plane": "XY",
+      "profile": {
+       "height": "width",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "width / 2"
+      ],
+      "diameter": "bore_d",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - side_pitch) / 2",
+       "width / 2"
+      ],
+      "diameter": "side_d",
+      "face": "top",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "side_hole",
+      "id": "side_holes",
+      "spacing_u": "side_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "top_edges",
+      "size": "top_chamfer",
+      "type": "chamfer"
+     }
+    ],
+    "name": "block",
+    "parameters": {
+     "bore_d": {
+      "description": "centre hole diameter",
+      "value": 12.0
+     },
+     "corner_r": {
+      "description": "vertical corner radius R5 4x",
+      "value": 5.0
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 20.0
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70.0
+     },
+     "side_d": {
+      "description": "side hole diameter",
+      "value": 6.0
+     },
+     "side_pitch": {
+      "description": "distance between the two side holes; pair centred symmetrically in X",
+      "value": 46.0
+     },
+     "top_chamfer": {
+      "description": "chamfer size on all top edges",
+      "value": 1.0
+     },
+     "width": {
+      "description": "overall depth along Y",
+      "value": 40.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "70",
+     "measure": "overall",
+     "value": 70.0
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40.0
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "20",
+     "measure": "overall",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "value": 12.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6.0
+    },
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": "side_holes[0]",
+     "feature_b": "side_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "value": 46.0
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "body",
+     "feature_b": null,
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "value": 5.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "top_edges",
+     "feature_b": null,
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "value": 1.0
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 35.0
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore on centreline",
+     "measure": "distance_to_edge",
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "side holes centred",
+     "measure": "distance_to_edge",
+     "value": 12.0
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 1,
+   "corrections": 1,
+   "cost_usd": 0.013392,
+   "seconds": 122.5
+  }
+ ]
+}

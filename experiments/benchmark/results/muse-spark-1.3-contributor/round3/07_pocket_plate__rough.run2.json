@@ -1,0 +1,881 @@
+{
+ "part": "07_pocket_plate",
+ "set": "rough",
+ "run": 2,
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "final_iteration": 0,
+ "cost_off": 0.001417,
+ "cost_on": 0.016248,
+ "seconds_off": 54.1,
+ "seconds_on": 111.3,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "16/16",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 17,
+   "computed_exprs": 5,
+   "literal_numbers": 2,
+   "examples": [
+    "plate_t - pocket_depth",
+    "length / 2",
+    "depth / 2",
+    "length - 2 * hole_inset"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "16/16",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 17,
+   "computed_exprs": 5,
+   "literal_numbers": 2,
+   "examples": [
+    "plate_t - pocket_depth",
+    "length / 2",
+    "depth / 2",
+    "length - 2 * hole_inset"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [],
+   "critic_seconds": 56.5
+  }
+ ],
+ "corrections_log": [],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 54.2,
+   "spec": {
+    "description": "Flat pocket plate with central rounded pocket and 4 counterbored thru holes. Assumed: pocket is centred in X and Y (drawn symmetric, not dimensioned from an edge). Counterbore is from the top.",
+    "features": [
+     {
+      "distance": "plate_t",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "pocket_depth",
+      "id": "pocket",
+      "offset": "plate_t - pocket_depth",
+      "operation": "cut",
+      "plane": "XY",
+      "profile": {
+       "anchor": "center",
+       "height": "pocket_w",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "u": "length / 2",
+       "v": "depth / 2",
+       "width": "pocket_len"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "counterbore": {
+       "depth": "cb_depth",
+       "diameter": "cb_dia"
+      },
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "pocket_plate",
+    "parameters": {
+     "cb_depth": {
+      "description": "counterbore depth from top",
+      "value": 6.4
+     },
+     "cb_dia": {
+      "description": "counterbore diameter",
+      "value": 11
+     },
+     "corner_r": {
+      "description": "pocket corner radius",
+      "value": 3
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 60
+     },
+     "hole_dia": {
+      "description": "mounting thru hole diameter",
+      "value": 6.6
+     },
+     "hole_inset": {
+      "description": "hole centre inset from each edge; hole spacing follows as length - 2 * inset and depth - 2 * inset",
+      "value": 10
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 100
+     },
+     "plate_t": {
+      "description": "plate thickness, overall height along Z",
+      "value": 10
+     },
+     "pocket_depth": {
+      "description": "pocket depth from top",
+      "value": 4
+     },
+     "pocket_len": {
+      "description": "pocket length along X",
+      "value": 50
+     },
+     "pocket_w": {
+      "description": "pocket width along Y",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "100",
+     "measure": "overall",
+     "value": 100
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "value": 60
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "10",
+     "measure": "overall",
+     "value": 10
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "80",
+     "measure": "distance",
+     "value": 80
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[2]",
+     "label": "40",
+     "measure": "distance",
+     "value": 40
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "50",
+     "measure": "unchecked",
+     "value": 50
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "R3",
+     "measure": "radius",
+     "value": 3
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d86.6 thru.",
+     "measure": "diameter",
+     "value": 6.6
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "counterbore \u00d811",
+     "measure": "unchecked",
+     "value": 11
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "6.4 deep",
+     "measure": "unchecked",
+     "value": 6.4
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket 4 deep",
+     "measure": "depth",
+     "value": 4
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket centred",
+     "measure": "distance_to_edge",
+     "value": 50
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket centred",
+     "measure": "distance_to_edge",
+     "value": 30
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.001417,
+    "seconds": 54.1,
+    "input_tokens": 9395,
+    "output_tokens": 6960
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 54.9,
+   "ok": true,
+   "metrics": {
+    "name": "pocket_plate",
+    "volume_mm3": 51105.4013,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      100.0,
+      60.0,
+      10.0
+     ],
+     "size": [
+      100.0,
+      60.0,
+      10.0
+     ]
+    },
+    "faces": 27,
+    "edges": 60,
+    "triangles": 4588,
+    "parameters": {
+     "cb_depth": 6.4,
+     "cb_dia": 11.0,
+     "corner_r": 3.0,
+     "depth": 60.0,
+     "hole_dia": 6.6,
+     "hole_inset": 10.0,
+     "length": 100.0,
+     "plate_t": 10.0,
+     "pocket_depth": 4.0,
+     "pocket_len": 50.0,
+     "pocket_w": 30.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 60000.0
+     },
+     {
+      "id": "pocket",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": -5969.0973
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -731.3753
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -2194.126
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       520,
+       320
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       520,
+       70
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       320,
+       70
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 111.3,
+   "clean": true,
+   "issues": [],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "100",
+     "value": 100,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 100.0
+    },
+    {
+     "label": "60",
+     "value": 60,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 60.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[1] along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[2] along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "50",
+     "value": 50,
+     "measure": "unchecked",
+     "what": "unchecked of pocket",
+     "status": "unchecked"
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "unchecked",
+     "what": "unchecked of pocket",
+     "status": "unchecked"
+    },
+    {
+     "label": "R3",
+     "value": 3,
+     "measure": "radius",
+     "what": "radius of pocket",
+     "status": "ok",
+     "measured": 3.0
+    },
+    {
+     "label": "4x \u00d86.6 thru.",
+     "value": 6.6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.6
+    },
+    {
+     "label": "counterbore \u00d811",
+     "value": 11,
+     "measure": "unchecked",
+     "what": "unchecked of mount_hole",
+     "status": "unchecked"
+    },
+    {
+     "label": "6.4 deep",
+     "value": 6.4,
+     "measure": "unchecked",
+     "what": "unchecked of mount_hole",
+     "status": "unchecked"
+    },
+    {
+     "label": "pocket 4 deep",
+     "value": 4,
+     "measure": "depth",
+     "what": "depth of pocket",
+     "status": "ok",
+     "measured": 4.0
+    },
+    {
+     "label": "pocket centred",
+     "value": 50,
+     "measure": "distance_to_edge",
+     "what": "distance from pocket to x_min",
+     "status": "ok",
+     "measured": 50.0
+    },
+    {
+     "label": "pocket centred",
+     "value": 30,
+     "measure": "distance_to_edge",
+     "what": "distance from pocket to y_min",
+     "status": "ok",
+     "measured": 30.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": true,
+      "issues": []
+     }
+    ]
+   },
+   "critic_call": {
+    "cost_usd": 0.002191,
+    "seconds": 56.5,
+    "input_tokens": 9534,
+    "output_tokens": 8680
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 111.3,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Flat pocket plate with central rounded pocket and 4 counterbored thru holes. Assumed: pocket is centred in X and Y (drawn symmetric, not dimensioned from an edge). Counterbore is from the top.",
+    "features": [
+     {
+      "distance": "plate_t",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "pocket_depth",
+      "id": "pocket",
+      "offset": "plate_t - pocket_depth",
+      "operation": "cut",
+      "plane": "XY",
+      "profile": {
+       "anchor": "center",
+       "height": "pocket_w",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "u": "length / 2",
+       "v": "depth / 2",
+       "width": "pocket_len"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "counterbore": {
+       "depth": "cb_depth",
+       "diameter": "cb_dia"
+      },
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "pocket_plate",
+    "parameters": {
+     "cb_depth": {
+      "description": "counterbore depth from top",
+      "value": 6.4
+     },
+     "cb_dia": {
+      "description": "counterbore diameter",
+      "value": 11
+     },
+     "corner_r": {
+      "description": "pocket corner radius",
+      "value": 3
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 60
+     },
+     "hole_dia": {
+      "description": "mounting thru hole diameter",
+      "value": 6.6
+     },
+     "hole_inset": {
+      "description": "hole centre inset from each edge; hole spacing follows as length - 2 * inset and depth - 2 * inset",
+      "value": 10
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 100
+     },
+     "plate_t": {
+      "description": "plate thickness, overall height along Z",
+      "value": 10
+     },
+     "pocket_depth": {
+      "description": "pocket depth from top",
+      "value": 4
+     },
+     "pocket_len": {
+      "description": "pocket length along X",
+      "value": 50
+     },
+     "pocket_w": {
+      "description": "pocket width along Y",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "100",
+     "measure": "overall",
+     "value": 100
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "value": 60
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "10",
+     "measure": "overall",
+     "value": 10
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "80",
+     "measure": "distance",
+     "value": 80
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[2]",
+     "label": "40",
+     "measure": "distance",
+     "value": 40
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "50",
+     "measure": "unchecked",
+     "value": 50
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "R3",
+     "measure": "radius",
+     "value": 3
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d86.6 thru.",
+     "measure": "diameter",
+     "value": 6.6
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "counterbore \u00d811",
+     "measure": "unchecked",
+     "value": 11
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "6.4 deep",
+     "measure": "unchecked",
+     "value": 6.4
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket 4 deep",
+     "measure": "depth",
+     "value": 4
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket centred",
+     "measure": "distance_to_edge",
+     "value": 50
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket centred",
+     "measure": "distance_to_edge",
+     "value": 30
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 0,
+   "corrections": 0,
+   "cost_usd": 0.016248,
+   "seconds": 111.3
+  }
+ ]
+}

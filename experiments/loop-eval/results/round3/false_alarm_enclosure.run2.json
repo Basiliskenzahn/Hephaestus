@@ -1,0 +1,28 @@
+{
+ "part": "enclosure",
+ "run": 2,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   },
+   {
+    "matches": true,
+    "issues": []
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.001608,
+  "seconds": 30.4,
+  "input_tokens": 7022,
+  "output_tokens": 4891
+ },
+ "seconds": 31.2
+}

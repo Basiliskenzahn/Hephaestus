@@ -1,0 +1,28 @@
+{
+ "part": "pocket_plate",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   },
+   {
+    "matches": true,
+    "issues": []
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.001973,
+  "seconds": 51.4,
+  "input_tokens": 6846,
+  "output_tokens": 6805
+ },
+ "seconds": 52.1
+}

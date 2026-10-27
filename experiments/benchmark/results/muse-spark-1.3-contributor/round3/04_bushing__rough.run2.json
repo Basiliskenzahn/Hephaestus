@@ -1,0 +1,648 @@
+{
+ "part": "04_bushing",
+ "set": "rough",
+ "run": 2,
+ "status": "error",
+ "note": "stream error: {\"response\": {\"background\": false, \"created_at\": 1793094995.0, \"error\": {\"code\": \"server_error\", \"message\": \"The model failed to generate a response.\"}, \"id\": \"resp_6ae075543fd9b4f50b1a4edf\", \"incomplete_details\": null, \"instructions\": \"You check a CAD part against the engineering drawing it was made from.\\nImage 1 is the drawing. Image 2 is the part rendered from the CAD model: FRONT, SIDE and TOP views at one scale (hidden edges dashed) and an ISO view. Labels in image 2 show overall sizes, fe",
+ "corrections": 0,
+ "final_iteration": 0,
+ "cost_off": 0.001529,
+ "cost_on": 0.015499,
+ "seconds_off": 43.7,
+ "seconds_on": 87.5,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "10/10",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 7,
+   "expr_fields": 16,
+   "computed_exprs": 10,
+   "literal_numbers": 1,
+   "examples": [
+    "flange_dia / 2",
+    "flange_dia / 2",
+    "flange_dia / 2",
+    "flange_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "flange_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "10/10",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 7,
+   "expr_fields": 16,
+   "computed_exprs": 10,
+   "literal_numbers": 1,
+   "examples": [
+    "flange_dia / 2",
+    "flange_dia / 2",
+    "flange_dia / 2",
+    "flange_dia / 2"
+   ]
+  },
+  "x_param": {
+   "param": "flange_dia",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "iterations": [],
+ "corrections_log": [],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 43.8,
+   "spec": {
+    "description": "Flanged bushing with central through bore and 4 mounting holes on a bolt circle. Assumed: barrel, bore and bolt circle are all concentric with the circular flange (drawn concentric, not dimensioned from an edge). Total height 30 includes the flange.",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "height",
+      "id": "barrel",
+      "plane": "XY",
+      "profile": {
+       "diameter": "barrel_od",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top_of_feature:barrel",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2 + pcd / 2"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:flange",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "barrel_od": {
+      "description": "barrel outside diameter",
+      "value": 24
+     },
+     "bore_dia": {
+      "description": "central through bore diameter",
+      "value": 16
+     },
+     "flange_dia": {
+      "description": "flange outside diameter, also overall X/Y size",
+      "value": 40
+     },
+     "flange_t": {
+      "description": "flange thickness",
+      "value": 5
+     },
+     "height": {
+      "description": "overall height from bottom of flange to top of barrel",
+      "value": 30
+     },
+     "mount_dia": {
+      "description": "flange mounting hole diameter",
+      "value": 4
+     },
+     "pcd": {
+      "description": "mounting hole pitch circle diameter, concentric with flange",
+      "value": 32
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "\u00d840",
+     "measure": "diameter",
+     "value": 40
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "\u00d824",
+     "measure": "diameter",
+     "value": 24
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d816 thru",
+     "measure": "diameter",
+     "value": 16
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d84 thru",
+     "measure": "diameter",
+     "value": 4
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": "mount_holes[0]",
+     "feature_b": "mount_holes[2]",
+     "label": "PCD \u00d832",
+     "measure": "distance",
+     "value": 32
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "mount_holes[0]",
+     "feature_b": null,
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "mount_holes[1]",
+     "feature_b": null,
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.001529,
+    "seconds": 43.7,
+    "input_tokens": 9400,
+    "output_tokens": 6010
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 44.3,
+   "ok": true,
+   "metrics": {
+    "name": "flanged_bushing",
+    "volume_mm3": 11309.7336,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      40.0,
+      40.0,
+      30.0
+     ],
+     "size": [
+      40.0,
+      40.0,
+      30.0
+     ]
+    },
+    "faces": 10,
+    "edges": 21,
+    "triangles": 3544,
+    "parameters": {
+     "barrel_od": 24.0,
+     "bore_dia": 16.0,
+     "flange_dia": 40.0,
+     "flange_t": 5.0,
+     "height": 30.0,
+     "mount_dia": 4.0,
+     "pcd": 32.0
+    },
+    "features": [
+     {
+      "id": "flange",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 6283.1853
+     },
+     {
+      "id": "barrel",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 11309.7336
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -6031.8579
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -62.8319
+     },
+     {
+      "id": "mount_holes",
+      "type": "circular_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -188.4956
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       220
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "error",
+   "iteration": 0,
+   "t": 87.5,
+   "message": "stream error: {\"response\": {\"background\": false, \"created_at\": 1793094995.0, \"error\": {\"code\": \"server_error\", \"message\": \"The model failed to generate a response.\"}, \"id\": \"resp_6ae075543fd9b4f50b1a4edf\", \"incomplete_details\": null, \"instructions\": \"You check a CAD part against the engineering drawing it was made from.\\nImage 1 is the drawing. Image 2 is the part rendered from the CAD model: FRONT, SIDE and TOP views at one scale (hidden edges dashed) and an ISO view. Labels in image 2 show overall sizes, fe"
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 87.5,
+   "status": "error",
+   "note": "stream error: {\"response\": {\"background\": false, \"created_at\": 1793094995.0, \"error\": {\"code\": \"server_error\", \"message\": \"The model failed to generate a response.\"}, \"id\": \"resp_6ae075543fd9b4f50b1a4edf\", \"incomplete_details\": null, \"instructions\": \"You check a CAD part against the engineering drawing it was made from.\\nImage 1 is the drawing. Image 2 is the part rendered from the CAD model: FRONT, SIDE and TOP views at one scale (hidden edges dashed) and an ISO view. Labels in image 2 show overall sizes, fe",
+   "final_iteration": 0,
+   "spec": {
+    "description": "Flanged bushing with central through bore and 4 mounting holes on a bolt circle. Assumed: barrel, bore and bolt circle are all concentric with the circular flange (drawn concentric, not dimensioned from an edge). Total height 30 includes the flange.",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "height",
+      "id": "barrel",
+      "plane": "XY",
+      "profile": {
+       "diameter": "barrel_od",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top_of_feature:barrel",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2 + pcd / 2"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:flange",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "barrel_od": {
+      "description": "barrel outside diameter",
+      "value": 24
+     },
+     "bore_dia": {
+      "description": "central through bore diameter",
+      "value": 16
+     },
+     "flange_dia": {
+      "description": "flange outside diameter, also overall X/Y size",
+      "value": 40
+     },
+     "flange_t": {
+      "description": "flange thickness",
+      "value": 5
+     },
+     "height": {
+      "description": "overall height from bottom of flange to top of barrel",
+      "value": 30
+     },
+     "mount_dia": {
+      "description": "flange mounting hole diameter",
+      "value": 4
+     },
+     "pcd": {
+      "description": "mounting hole pitch circle diameter, concentric with flange",
+      "value": 32
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "value": 5
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "\u00d840",
+     "measure": "diameter",
+     "value": 40
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "\u00d824",
+     "measure": "diameter",
+     "value": 24
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d816 thru",
+     "measure": "diameter",
+     "value": 16
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d84 thru",
+     "measure": "diameter",
+     "value": 4
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": "mount_holes[0]",
+     "feature_b": "mount_holes[2]",
+     "label": "PCD \u00d832",
+     "measure": "distance",
+     "value": 32
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "mount_holes[0]",
+     "feature_b": null,
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "mount_holes[1]",
+     "feature_b": null,
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "value": 20
+    }
+   ],
+   "remaining_issues": null,
+   "iterations": 0,
+   "corrections": 0,
+   "cost_usd": 0.015499,
+   "seconds": 87.5
+  }
+ ]
+}
