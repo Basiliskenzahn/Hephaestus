@@ -12,11 +12,19 @@
  "seconds_on": 150.2,
  "off": {
   "compiles": true,
-  "perfect": true,
+  "perfect": false,
   "iou": 0.9959,
   "bbox_ok": true,
-  "dims_ok": "14/14",
-  "failed_dims": [],
+  "dims_ok": "14/15",
+  "failed_dims": [
+   {
+    "label": "\u00d88 front wall only (rear wall closed)",
+    "ok": false,
+    "expected": 0,
+    "measured": null,
+    "note": "ray misses the part"
+   }
+  ],
   "errors": null,
   "params": {
    "parameters": 10,
@@ -40,7 +48,7 @@
   "perfect": true,
   "iou": 0.9988,
   "bbox_ok": true,
-  "dims_ok": "14/14",
+  "dims_ok": "15/15",
   "failed_dims": [],
   "errors": null,
   "params": {

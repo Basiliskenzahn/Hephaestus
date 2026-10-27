@@ -1,31 +1,31 @@
 {
  "part": "05_enclosure",
- "set": "clean",
+ "set": "photo",
  "run": 2,
  "status": "pass",
  "note": null,
  "corrections": 0,
  "final_iteration": 0,
- "cost_off": 0.001892,
- "cost_on": 0.008964,
- "seconds_off": 52.2,
- "seconds_on": 73.3,
+ "cost_off": 0.001409,
+ "cost_on": 0.007331,
+ "seconds_off": 51.1,
+ "seconds_on": 90.5,
  "off": {
   "compiles": true,
   "perfect": true,
   "iou": 0.9999,
   "bbox_ok": true,
-  "dims_ok": "14/14",
+  "dims_ok": "15/15",
   "failed_dims": [],
   "errors": null,
   "params": {
-   "parameters": 10,
+   "parameters": 9,
    "expr_fields": 14,
    "computed_exprs": 3,
    "literal_numbers": 2,
    "examples": [
-    "length - 2 * floor_inset_x",
-    "depth - 2 * floor_inset_y",
+    "length - 2 * hole_inset",
+    "depth - 2 * hole_inset",
     "length / 2"
    ]
   },
@@ -40,17 +40,17 @@
   "perfect": true,
   "iou": 0.9999,
   "bbox_ok": true,
-  "dims_ok": "14/14",
+  "dims_ok": "15/15",
   "failed_dims": [],
   "errors": null,
   "params": {
-   "parameters": 10,
+   "parameters": 9,
    "expr_fields": 14,
    "computed_exprs": 3,
    "literal_numbers": 2,
    "examples": [
-    "length - 2 * floor_inset_x",
-    "depth - 2 * floor_inset_y",
+    "length - 2 * hole_inset",
+    "depth - 2 * hole_inset",
     "length / 2"
    ]
   },
@@ -64,7 +64,7 @@
   {
    "iteration": 0,
    "issues": [],
-   "critic_seconds": 20.2
+   "critic_seconds": 38.8
   }
  ],
  "corrections_log": [],
@@ -77,9 +77,9 @@
   {
    "event": "spec",
    "iteration": 0,
-   "t": 52.3,
+   "t": 51.1,
    "spec": {
-    "description": "Rectangular enclosure modeled as solid rounded block shelled open-top. Assumed: outer R6 corners are the rounded_rect radius; wall/floor thickness uniform 2; front hole centred in X (drawn symmetric) at 20 up from bottom; floor holes 10 from each side in X and Y.",
+    "description": "Rectangular open-top enclosure with 2mm walls. Assumed: floor thickness equals wall thickness (2); front hole is centred in X (drawn symmetric); 20 is the front-hole centre height above the bottom; floor holes are 10 from each edge in X and Y.",
     "features": [
      {
       "distance": "height",
@@ -104,8 +104,8 @@
      },
      {
       "center": [
-       "floor_inset_x",
-       "floor_inset_y"
+       "hole_inset",
+       "hole_inset"
       ],
       "diameter": "floor_hole_dia",
       "face": "bottom",
@@ -118,8 +118,8 @@
       "count_v": 2,
       "feature": "floor_hole",
       "id": "floor_holes",
-      "spacing_u": "length - 2 * floor_inset_x",
-      "spacing_v": "depth - 2 * floor_inset_y",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
       "type": "linear_pattern"
      },
      {
@@ -134,10 +134,10 @@
       "type": "hole"
      }
     ],
-    "name": "enclosure",
+    "name": "open_enclosure",
     "parameters": {
      "corner_r": {
-      "description": "outer vertical corner radius",
+      "description": "outer corner radius, 4x",
       "value": 6
      },
      "depth": {
@@ -148,49 +148,38 @@
       "description": "floor mounting hole diameter",
       "value": 3.2
      },
-     "floor_inset_x": {
-      "description": "floor hole centre from left/right edges; X spacing follows as length - 2 * floor_inset_x",
-      "value": 10
-     },
-     "floor_inset_y": {
-      "description": "floor hole centre from front/back edges; Y spacing follows as depth - 2 * floor_inset_y",
-      "value": 10
-     },
      "front_hole_dia": {
       "description": "front wall hole diameter",
       "value": 8
      },
      "front_hole_z": {
-      "description": "front hole centre height from bottom",
+      "description": "front hole centre height above bottom",
       "value": 20
      },
      "height": {
       "description": "overall height along Z",
       "value": 40
      },
+     "hole_inset": {
+      "description": "floor hole centre inset from each edge in X and Y",
+      "value": 10
+     },
      "length": {
       "description": "overall length along X",
       "value": 100
      },
      "wall_t": {
-      "description": "enclosure wall and floor thickness, open top shell",
+      "description": "wall thickness, also floor thickness after shell",
       "value": 2
      }
     }
    },
    "callouts": [
     {
-     "axis": "z",
-     "label": "40",
+     "axis": "x",
+     "label": "100",
      "measure": "overall",
-     "value": 40
-    },
-    {
-     "edge": "z_min",
-     "feature": "front_hole",
-     "label": "20",
-     "measure": "distance_to_edge",
-     "value": 20
+     "value": 100
     },
     {
      "axis": "y",
@@ -199,10 +188,28 @@
      "value": 60
     },
     {
-     "axis": "x",
-     "label": "100",
+     "axis": "z",
+     "label": "40",
      "measure": "overall",
-     "value": 100
+     "value": 40
+    },
+    {
+     "feature": "shell",
+     "label": "wall 2",
+     "measure": "thickness",
+     "value": 2
+    },
+    {
+     "feature": "base",
+     "label": "R6 (4x)",
+     "measure": "radius",
+     "value": 6
+    },
+    {
+     "feature": "floor_hole",
+     "label": "4x \u00d83.2 thru floor",
+     "measure": "diameter",
+     "value": 3.2
     },
     {
      "edge": "x_min",
@@ -225,27 +232,16 @@
      "value": 8
     },
     {
+     "edge": "z_min",
+     "feature": "front_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
      "label": "0.5 x 45\u00b0",
      "measure": "unchecked",
      "value": 0.5
-    },
-    {
-     "feature": "floor_hole",
-     "label": "4x \u00d83.2 thru floor",
-     "measure": "diameter",
-     "value": 3.2
-    },
-    {
-     "feature": "base",
-     "label": "R6 (4x)",
-     "measure": "radius",
-     "value": 6
-    },
-    {
-     "feature": "shell",
-     "label": "wall 2",
-     "measure": "thickness",
-     "value": 2
     },
     {
      "edge": "x_min",
@@ -257,19 +253,19 @@
    ],
    "changelog": null,
    "call": {
-    "cost_usd": 0.001892,
-    "seconds": 52.2,
-    "input_tokens": 8002,
-    "output_tokens": 5457
+    "cost_usd": 0.001409,
+    "seconds": 51.1,
+    "input_tokens": 9374,
+    "output_tokens": 5363
    }
   },
   {
    "event": "compiled",
    "iteration": 0,
-   "t": 53.1,
+   "t": 51.7,
    "ok": true,
    "metrics": {
-    "name": "enclosure",
+    "name": "open_enclosure",
     "volume_mm3": 34832.9343,
     "bbox": {
      "min": [
@@ -295,11 +291,10 @@
      "corner_r": 6.0,
      "depth": 60.0,
      "floor_hole_dia": 3.2,
-     "floor_inset_x": 10.0,
-     "floor_inset_y": 10.0,
      "front_hole_dia": 8.0,
      "front_hole_z": 20.0,
      "height": 40.0,
+     "hole_inset": 10.0,
      "length": 100.0,
      "wall_t": 2.0
     },
@@ -390,32 +385,24 @@
   {
    "event": "checks",
    "iteration": 0,
-   "t": 73.3,
+   "t": 90.5,
    "clean": true,
    "issues": [],
    "advisories": [
     {
      "feature_id": "front_hole",
-     "issue": "\u00d88 thru front wall missing 0.5 x 45\u00b0 chamfer specified in drawing",
-     "severity": "low"
+     "issue": "front hole chamfer is 0.45 mm, drawing requires 0.5 x 45 degrees",
+     "severity": "medium"
     }
    ],
    "callouts": [
     {
-     "label": "40",
-     "value": 40,
+     "label": "100",
+     "value": 100,
      "measure": "overall",
-     "what": "overall size along z",
+     "what": "overall size along x",
      "status": "ok",
-     "measured": 40.0
-    },
-    {
-     "label": "20",
-     "value": 20,
-     "measure": "distance_to_edge",
-     "what": "distance from front_hole to z_min",
-     "status": "ok",
-     "measured": 20.0
+     "measured": 100.0
     },
     {
      "label": "60",
@@ -426,12 +413,36 @@
      "measured": 60.0
     },
     {
-     "label": "100",
-     "value": 100,
+     "label": "40",
+     "value": 40,
      "measure": "overall",
-     "what": "overall size along x",
+     "what": "overall size along z",
      "status": "ok",
-     "measured": 100.0
+     "measured": 40.0
+    },
+    {
+     "label": "wall 2",
+     "value": 2,
+     "measure": "thickness",
+     "what": "thickness of shell",
+     "status": "ok",
+     "measured": 2.0
+    },
+    {
+     "label": "R6 (4x)",
+     "value": 6,
+     "measure": "radius",
+     "what": "radius of base",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "4x \u00d83.2 thru floor",
+     "value": 3.2,
+     "measure": "diameter",
+     "what": "diameter of floor_hole",
+     "status": "ok",
+     "measured": 3.2
     },
     {
      "label": "10",
@@ -458,35 +469,19 @@
      "measured": 8.0
     },
     {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from front_hole to z_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
      "label": "0.5 x 45\u00b0",
      "value": 0.5,
      "measure": "unchecked",
      "what": "unchecked of None",
      "status": "unchecked"
-    },
-    {
-     "label": "4x \u00d83.2 thru floor",
-     "value": 3.2,
-     "measure": "diameter",
-     "what": "diameter of floor_hole",
-     "status": "ok",
-     "measured": 3.2
-    },
-    {
-     "label": "R6 (4x)",
-     "value": 6,
-     "measure": "radius",
-     "what": "radius of base",
-     "status": "ok",
-     "measured": 6.0
-    },
-    {
-     "label": "wall 2",
-     "value": 2,
-     "measure": "thickness",
-     "what": "thickness of shell",
-     "status": "ok",
-     "measured": 2.0
     },
     {
      "label": "front hole centred",
@@ -502,27 +497,27 @@
     "issues": [
      {
       "feature_id": "front_hole",
-      "issue": "\u00d88 thru front wall missing 0.5 x 45\u00b0 chamfer specified in drawing",
-      "severity": "low"
+      "issue": "front hole chamfer is 0.45 mm, drawing requires 0.5 x 45 degrees",
+      "severity": "medium"
      }
     ]
    },
    "critic_call": {
-    "cost_usd": 0.000705,
-    "seconds": 20.2,
-    "input_tokens": 3511,
-    "output_tokens": 1952
+    "cost_usd": 0.001204,
+    "seconds": 38.8,
+    "input_tokens": 4883,
+    "output_tokens": 3760
    }
   },
   {
    "event": "done",
    "iteration": 0,
-   "t": 73.3,
+   "t": 90.5,
    "status": "pass",
    "note": null,
    "final_iteration": 0,
    "spec": {
-    "description": "Rectangular enclosure modeled as solid rounded block shelled open-top. Assumed: outer R6 corners are the rounded_rect radius; wall/floor thickness uniform 2; front hole centred in X (drawn symmetric) at 20 up from bottom; floor holes 10 from each side in X and Y.",
+    "description": "Rectangular open-top enclosure with 2mm walls. Assumed: floor thickness equals wall thickness (2); front hole is centred in X (drawn symmetric); 20 is the front-hole centre height above the bottom; floor holes are 10 from each edge in X and Y.",
     "features": [
      {
       "distance": "height",
@@ -547,8 +542,8 @@
      },
      {
       "center": [
-       "floor_inset_x",
-       "floor_inset_y"
+       "hole_inset",
+       "hole_inset"
       ],
       "diameter": "floor_hole_dia",
       "face": "bottom",
@@ -561,8 +556,8 @@
       "count_v": 2,
       "feature": "floor_hole",
       "id": "floor_holes",
-      "spacing_u": "length - 2 * floor_inset_x",
-      "spacing_v": "depth - 2 * floor_inset_y",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
       "type": "linear_pattern"
      },
      {
@@ -577,10 +572,10 @@
       "type": "hole"
      }
     ],
-    "name": "enclosure",
+    "name": "open_enclosure",
     "parameters": {
      "corner_r": {
-      "description": "outer vertical corner radius",
+      "description": "outer corner radius, 4x",
       "value": 6
      },
      "depth": {
@@ -591,49 +586,38 @@
       "description": "floor mounting hole diameter",
       "value": 3.2
      },
-     "floor_inset_x": {
-      "description": "floor hole centre from left/right edges; X spacing follows as length - 2 * floor_inset_x",
-      "value": 10
-     },
-     "floor_inset_y": {
-      "description": "floor hole centre from front/back edges; Y spacing follows as depth - 2 * floor_inset_y",
-      "value": 10
-     },
      "front_hole_dia": {
       "description": "front wall hole diameter",
       "value": 8
      },
      "front_hole_z": {
-      "description": "front hole centre height from bottom",
+      "description": "front hole centre height above bottom",
       "value": 20
      },
      "height": {
       "description": "overall height along Z",
       "value": 40
      },
+     "hole_inset": {
+      "description": "floor hole centre inset from each edge in X and Y",
+      "value": 10
+     },
      "length": {
       "description": "overall length along X",
       "value": 100
      },
      "wall_t": {
-      "description": "enclosure wall and floor thickness, open top shell",
+      "description": "wall thickness, also floor thickness after shell",
       "value": 2
      }
     }
    },
    "callouts": [
     {
-     "axis": "z",
-     "label": "40",
+     "axis": "x",
+     "label": "100",
      "measure": "overall",
-     "value": 40
-    },
-    {
-     "edge": "z_min",
-     "feature": "front_hole",
-     "label": "20",
-     "measure": "distance_to_edge",
-     "value": 20
+     "value": 100
     },
     {
      "axis": "y",
@@ -642,10 +626,28 @@
      "value": 60
     },
     {
-     "axis": "x",
-     "label": "100",
+     "axis": "z",
+     "label": "40",
      "measure": "overall",
-     "value": 100
+     "value": 40
+    },
+    {
+     "feature": "shell",
+     "label": "wall 2",
+     "measure": "thickness",
+     "value": 2
+    },
+    {
+     "feature": "base",
+     "label": "R6 (4x)",
+     "measure": "radius",
+     "value": 6
+    },
+    {
+     "feature": "floor_hole",
+     "label": "4x \u00d83.2 thru floor",
+     "measure": "diameter",
+     "value": 3.2
     },
     {
      "edge": "x_min",
@@ -668,27 +670,16 @@
      "value": 8
     },
     {
+     "edge": "z_min",
+     "feature": "front_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
      "label": "0.5 x 45\u00b0",
      "measure": "unchecked",
      "value": 0.5
-    },
-    {
-     "feature": "floor_hole",
-     "label": "4x \u00d83.2 thru floor",
-     "measure": "diameter",
-     "value": 3.2
-    },
-    {
-     "feature": "base",
-     "label": "R6 (4x)",
-     "measure": "radius",
-     "value": 6
-    },
-    {
-     "feature": "shell",
-     "label": "wall 2",
-     "measure": "thickness",
-     "value": 2
     },
     {
      "edge": "x_min",
@@ -701,8 +692,8 @@
    "remaining_issues": [],
    "iterations": 0,
    "corrections": 0,
-   "cost_usd": 0.008964,
-   "seconds": 73.3
+   "cost_usd": 0.007331,
+   "seconds": 90.5
   }
  ]
 }

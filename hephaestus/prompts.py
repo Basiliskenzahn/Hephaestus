@@ -52,9 +52,13 @@ measure it on the built part, so the part can be checked against your reading:
   centre to a side of the part.
 - slot_length / slot_width (feature). chamfer_size (feature). depth (feature): of a blind hole, slot or pocket.
 - unchecked: anything else (angles, notes, widths of a sub-feature, counterbore depths).
+- distance and distance_to_edge always measure from a feature's centre: a hole's axis, a slot's or pocket's centre.
 - Also add a callout for each position the drawing implies but does not dimension (a hole drawn on the centreline,
-  a pocket drawn centred): label it "<feature> centred" and give the implied value, e.g. distance_to_edge from
-  x_min = width / 2.
+  a pocket drawn centred): label it "<feature> centred" and give the implied value of its centre, e.g.
+  distance_to_edge from x_min = width / 2. A through hole has no position along its own axis: never add a callout
+  for that direction.
+- Every callout except unchecked needs its fields: overall needs axis; distance needs feature, feature_b and axis;
+  distance_to_edge needs feature and edge; the others need feature.
 Refer to pattern copies as "<pattern_id>[k]": [0] is the original, linear copies run along u first, then v."""
 
 _EXAMPLE = ("## Example\nDrawing:\n" + FEWSHOT["drawing"] + "\nOutput:\n"

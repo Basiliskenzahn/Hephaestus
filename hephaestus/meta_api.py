@@ -104,7 +104,7 @@ class Client:
         for attempt in range(retries + 1):
             t0 = time.time()
             try:
-                r = requests.post(API, headers=headers, json=body, timeout=(15, 120), stream=True)
+                r = requests.post(API, headers=headers, json=body, timeout=(15, 300), stream=True)  # reasoning can go quiet for a while
                 if r.status_code == 200:
                     data = read_stream(r.iter_lines())
                     break

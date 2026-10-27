@@ -29,6 +29,7 @@
       {"label": "wall 2 (floor)", "check": "probe", "dir": "-z", "at": [50, 30], "measure": "from_min", "value": 2},
       {"label": "wall 2 (side)", "check": "probe", "dir": "+y", "at": [30, 30], "measure": "segment", "value": 2},
       {"label": "Ø8 front wall", "check": "cyl", "axis": "y", "at": [50, 20], "dia": 8},
+      {"label": "Ø8 front wall only (rear wall closed)", "check": "probe", "dir": "-y", "at": [50, 20], "measure": "from_max", "value": 0},
       {"label": "20", "check": "inset", "axis": "y", "at": [50, 20], "along": "v", "value": 20},
       {"label": "4x Ø3.2 (10, 10)", "check": "cyl", "axis": "z", "at": [10, 10], "dia": 3.2},
       {"label": "4x Ø3.2 (90, 10)", "check": "cyl", "axis": "z", "at": [90, 10], "dia": 3.2},

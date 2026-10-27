@@ -108,9 +108,19 @@ def main():
     ap.add_argument("--model", default=meta_api.DEFAULT_MODEL)
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--summarize", action="store_true")
+    ap.add_argument("--rescore", action="store_true", help="re-score saved runs (e.g. after a ground-truth fix), no API calls")
+    ap.add_argument("--tag", default="", help="results subfolder, e.g. round2")
     args = ap.parse_args()
-    outdir = os.path.join(HERE, "results", args.model)
+    outdir = os.path.join(HERE, "results", args.model, args.tag) if args.tag else os.path.join(HERE, "results", args.model)
     os.makedirs(outdir, exist_ok=True)
+    if args.rescore:
+        for path in sorted(glob.glob(os.path.join(outdir, "*.run*.json"))):
+            rec = json.load(open(path))
+            specs = [e for e in rec["events"] if e["event"] == "spec"]
+            rec["off"] = safe_score(rec["part"], specs[0]["spec"] if specs else None)
+            rec["on"] = safe_score(rec["part"], rec["events"][-1].get("spec"))
+            json.dump(rec, open(path, "w"), indent=1)
+        args.summarize = True
     if args.summarize:
         print(summarize(outdir))
         return

@@ -31,6 +31,10 @@ class CalloutError(ValueError):
     pass
 
 
+class CalloutIncomplete(CalloutError):
+    """The callout itself is malformed (missing fields); it says nothing about the part."""
+
+
 def describe(c):
     m = c["measure"]
     if m == "overall":
@@ -88,10 +92,10 @@ def _coaxial(cyls, center, axis):
 def resolve(ref, geometry):
     """'hole_1' or 'corner_holes[2]' -> (geometry entry, centre or None)."""
     if not ref:
-        raise CalloutError("needs a feature id")
+        raise CalloutIncomplete("needs a feature id")
     m = re.fullmatch(r"([A-Za-z][A-Za-z0-9_\-]*)(?:\[(\d+)\])?", ref.strip())
     if not m:
-        raise CalloutError(f"'{ref}' is not a feature reference (use an id or '<pattern_id>[k]')")
+        raise CalloutIncomplete(f"'{ref}' is not a feature reference (use an id or '<pattern_id>[k]')")
     fid, k = m.group(1), m.group(2)
     if fid not in geometry:
         raise CalloutError(f"feature '{fid}' does not exist (features: {', '.join(geometry)})")
@@ -123,7 +127,7 @@ def measure_one(c, result, cyls):
     def need(*names):
         missing = [n for n in names if not c.get(n)]
         if missing:
-            raise CalloutError(f"measure '{m}' needs {', '.join(missing)}")
+            raise CalloutIncomplete(f"measure '{m}' needs {', '.join(missing)}")
 
     if m == "overall":
         need("axis")
@@ -239,7 +243,8 @@ def _depth(ref, g, center, result, lo, hi):
 
 def check(callouts, result, tol=TOL):
     """Evaluate callouts (dicts or Callout models). Returns a list of
-    {label, value, measure, status: ok|mismatch|error|unchecked, measured, message}."""
+    {label, value, measure, status: ok|mismatch|error|invalid|unchecked, measured, message}.
+    mismatch and error (e.g. the feature does not exist) are issues; invalid (malformed callout) is not."""
     cyls = _cylinders(result.solid)
     out = []
     for c in callouts:
@@ -252,6 +257,11 @@ def check(callouts, result, tol=TOL):
             continue
         try:
             got = measure_one(c, result, cyls)
+        except CalloutIncomplete as e:
+            # a malformed callout is not evidence against the part: report it, don't ask for a correction
+            out.append({**row, "status": "invalid",
+                        "message": f"callout '{c['label']}' ({describe(c)}): {e}"})
+            continue
         except CalloutError as e:
             out.append({**row, "status": "error",
                         "message": f"callout '{c['label']}' ({describe(c)}): {e}"})

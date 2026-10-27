@@ -15,7 +15,7 @@
   "perfect": true,
   "iou": 0.9988,
   "bbox_ok": true,
-  "dims_ok": "14/14",
+  "dims_ok": "15/15",
   "failed_dims": [],
   "errors": null,
   "params": {
@@ -40,7 +40,7 @@
   "perfect": true,
   "iou": 0.9988,
   "bbox_ok": true,
-  "dims_ok": "14/14",
+  "dims_ok": "15/15",
   "failed_dims": [],
   "errors": null,
   "params": {
