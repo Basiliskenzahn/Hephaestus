@@ -49,7 +49,7 @@ correction refused because the drawing gives no such size, so the read stayed in
 **Injected errors** ([`experiments/loop-eval`](experiments/loop-eval/), live settings): the loop starts from a
 correct spec with one deliberate mistake and the real drawing, 2 runs each.
 
-| error | caught by | fixed | median time |
+| error | caught by | fixed | mean time per run |
 |---|---|---|---|
 | slot turned 90° | callouts | 2/2 | 23 s |
 | hole moved 5 mm | callouts | 2/2 | 10 s |
