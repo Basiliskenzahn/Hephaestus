@@ -1,0 +1,17 @@
+{
+ "part": "angled_bracket",
+ "run": 2,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": []
+ },
+ "critic_call": {
+  "cost_usd": 0.001687,
+  "seconds": 75.0,
+  "input_tokens": 3272,
+  "output_tokens": 6982
+ },
+ "seconds": 75.4
+}

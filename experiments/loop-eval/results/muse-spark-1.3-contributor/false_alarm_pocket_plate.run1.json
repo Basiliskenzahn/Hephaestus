@@ -1,0 +1,23 @@
+{
+ "part": "pocket_plate",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": false,
+  "issues": [
+   {
+    "feature_id": "cb_holes",
+    "issue": "counterbore is too shallow, drawing specifies \u00d811 x 6.4 deep",
+    "severity": "medium"
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.001605,
+  "seconds": 76.4,
+  "input_tokens": 3423,
+  "output_tokens": 6496
+ },
+ "seconds": 77.2
+}

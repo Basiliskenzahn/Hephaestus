@@ -1,0 +1,30 @@
+move_hole run 1: detected by callout, fixed=True (pass, 1 corrections, $0.0048, 54s)
+rotate_slot run 2: detected by critic, fixed=True (pass, 1 corrections, $0.0071, 64s)
+rotate_slot run 1: detected by critic, fixed=True (pass, 1 corrections, $0.0082, 85s)
+move_hole run 2: detected by callout, fixed=True (pass, 1 corrections, $0.0037, 41s)
+drop_hole run 1: detected by both, fixed=True (pass, 1 corrections, $0.0089, 104s)
+drop_hole run 2: detected by both, fixed=True (pass, 1 corrections, $0.0086, 86s)
+wrong_diameter run 1: detected by callout, fixed=True (pass, 1 corrections, $0.0083, 85s)
+chamfer_for_fillet run 1: detected by both, fixed=True (pass, 1 corrections, $0.0071, 82s)
+wrong_diameter run 2: detected by callout, fixed=True (pass, 1 corrections, $0.0088, 86s)
+chamfer_for_fillet run 2: detected by both, fixed=True (pass, 1 corrections, $0.0115, 113s)
+swap_xy run 1: detected by callout, fixed=True (pass, 1 corrections, $0.0056, 47s)
+false-alarm plate run 2: clean=True 
+swap_xy run 2: detected by callout, fixed=True (pass, 1 corrections, $0.0056, 61s)
+false-alarm plate run 1: clean=True 
+false-alarm l_bracket run 2: clean=True 
+false-alarm l_bracket run 1: clean=True 
+false-alarm block run 1: clean=True 
+false-alarm bushing run 1: clean=True 
+false-alarm bushing run 2: clean=True 
+false-alarm block run 2: clean=False bore: top edge lacks the 1 x 45° chamfer required for all top edges (high); side_holes: top edges lack the 1 x 45° chamfer required for all top edges (high)
+false-alarm enclosure run 2: clean=True 
+false-alarm enclosure run 1: clean=True 
+false-alarm angled_bracket run 2: clean=True 
+false-alarm pocket_plate run 1: clean=True 
+false-alarm pocket_plate run 2: clean=True 
+false-alarm shaft_collar run 1: clean=True 
+false-alarm angled_bracket run 1: clean=True 
+false-alarm shaft_collar run 2: clean=True 
+
+spent $0.0504 | results in /home/user/Hephaestus/experiments/loop-eval/results/muse-spark-1.3-contributor

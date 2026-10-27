@@ -1,0 +1,17 @@
+{
+ "part": "shaft_collar",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": []
+ },
+ "critic_call": {
+  "cost_usd": 0.001921,
+  "seconds": 87.7,
+  "input_tokens": 3191,
+  "output_tokens": 8190
+ },
+ "seconds": 88.4
+}

@@ -1,0 +1,1203 @@
+{
+ "part": "06_angled_bracket",
+ "set": "clean",
+ "run": 1,
+ "status": "pass",
+ "note": null,
+ "corrections": 1,
+ "final_iteration": 1,
+ "cost_off": 0.001573,
+ "cost_on": 0.020237,
+ "seconds_off": 62.4,
+ "seconds_on": 248.2,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 14,
+   "computed_exprs": 2,
+   "literal_numbers": 7,
+   "examples": [
+    "depth - 2 * mount_inset_y",
+    "length - cross_inset_x"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 14,
+   "computed_exprs": 2,
+   "literal_numbers": 7,
+   "examples": [
+    "depth - 2 * mount_inset_y",
+    "length - cross_inset_x"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [
+    {
+     "source": "callout",
+     "message": "callout 'cross hole centred' (distance from cross_hole to y_min) measures 0 on the part, expected 15"
+    }
+   ],
+   "critic_seconds": 91.5
+  },
+  {
+   "iteration": 1,
+   "issues": [],
+   "critic_seconds": 59.4
+  }
+ ],
+ "corrections_log": [
+  {
+   "iteration": 1,
+   "changelog": "Removed incorrect cross-hole centred callout and assumption: the \u00d88 hole is thru along Y so it has no Y position to centre.",
+   "cost_usd": 0.001624,
+   "seconds": 34.2,
+   "input_tokens": 8580,
+   "output_tokens": 3830
+  }
+ ],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 62.4,
+   "spec": {
+    "description": "Angled bracket made by extruding the FRONT profile along Y. Assumed: the 2x mounting holes are symmetric front-back, both 8 from the edges; the transverse hole is centred in depth.",
+    "features": [
+     {
+      "distance": "depth",
+      "id": "base",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "height_right"
+        ],
+        [
+         "top_len",
+         "height_left"
+        ],
+        [
+         0,
+         "height_left"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "mount_inset_x",
+       "mount_inset_y"
+      ],
+      "diameter": "mount_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": 0,
+      "spacing_v": "depth - 2 * mount_inset_y",
+      "type": "linear_pattern"
+     },
+     {
+      "center": [
+       "length - cross_inset_x",
+       "cross_height"
+      ],
+      "diameter": "cross_dia",
+      "face": "front",
+      "id": "cross_hole",
+      "through": true,
+      "type": "hole"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "cross_dia": {
+      "description": "transverse hole diameter",
+      "value": 8
+     },
+     "cross_height": {
+      "description": "transverse hole centre height above bottom",
+      "value": 10
+     },
+     "cross_inset_x": {
+      "description": "transverse hole centre from right edge",
+      "value": 20
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height_left": {
+      "description": "overall height at left end along Z",
+      "value": 40
+     },
+     "height_right": {
+      "description": "height of angled end at right edge",
+      "value": 15
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "mount_dia": {
+      "description": "mounting hole diameter",
+      "value": 6
+     },
+     "mount_inset_x": {
+      "description": "mounting hole centre from left edge",
+      "value": 15
+     },
+     "mount_inset_y": {
+      "description": "mounting hole centre from front/back edges; spacing follows as depth - 2 * mount_inset_y",
+      "value": 8
+     },
+     "top_len": {
+      "description": "length of flat top before slope",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "label": "15",
+     "measure": "unchecked",
+     "value": 15
+    },
+    {
+     "edge": "x_max",
+     "feature": "cross_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "cross_hole",
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "edge": "z_min",
+     "feature": "cross_hole",
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "edge": "y_max",
+     "feature": "mount_holes[1]",
+     "label": "mount holes symmetric",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "edge": "y_min",
+     "feature": "cross_hole",
+     "label": "cross hole centred",
+     "measure": "distance_to_edge",
+     "value": 15
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.001573,
+    "seconds": 62.4,
+    "input_tokens": 7763,
+    "output_tokens": 6986
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 62.7,
+   "ok": true,
+   "metrics": {
+    "name": "angled_bracket",
+    "volume_mm3": 73480.0888,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      30.0,
+      40.0
+     ],
+     "size": [
+      80.0,
+      30.0,
+      40.0
+     ]
+    },
+    "faces": 10,
+    "edges": 24,
+    "triangles": 1540,
+    "parameters": {
+     "cross_dia": 8.0,
+     "cross_height": 10.0,
+     "cross_inset_x": 20.0,
+     "depth": 30.0,
+     "height_left": 40.0,
+     "height_right": 15.0,
+     "length": 80.0,
+     "mount_dia": 6.0,
+     "mount_inset_x": 15.0,
+     "mount_inset_y": 8.0,
+     "top_len": 30.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 77250.0
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     },
+     {
+      "id": "cross_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1507.9645
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       170
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       170,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 154.2,
+   "clean": false,
+   "issues": [
+    {
+     "source": "callout",
+     "message": "callout 'cross hole centred' (distance from cross_hole to y_min) measures 0 on the part, expected 15"
+    }
+   ],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from cross_hole to x_max",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "\u00d88 thru",
+     "value": 8,
+     "measure": "diameter",
+     "what": "diameter of cross_hole",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "distance_to_edge",
+     "what": "distance from cross_hole to z_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "mount holes symmetric",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_holes[1] to y_max",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "cross hole centred",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from cross_hole to y_min",
+     "status": "mismatch",
+     "measured": 0.0,
+     "message": "callout 'cross hole centred' (distance from cross_hole to y_min) measures 0 on the part, expected 15"
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": []
+   },
+   "critic_call": {
+    "cost_usd": 0.002083,
+    "seconds": 91.5,
+    "input_tokens": 3272,
+    "output_tokens": 8961
+   }
+  },
+  {
+   "event": "correction_started",
+   "iteration": 0,
+   "t": 154.2,
+   "issues": [
+    {
+     "source": "callout",
+     "message": "callout 'cross hole centred' (distance from cross_hole to y_min) measures 0 on the part, expected 15"
+    }
+   ]
+  },
+  {
+   "event": "spec",
+   "iteration": 1,
+   "t": 188.4,
+   "spec": {
+    "description": "Angled bracket made by extruding the FRONT profile along Y. Assumed: the 2x mounting holes are symmetric front-back, both 8 from the edges.",
+    "features": [
+     {
+      "distance": "depth",
+      "id": "base",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "height_right"
+        ],
+        [
+         "top_len",
+         "height_left"
+        ],
+        [
+         0,
+         "height_left"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "mount_inset_x",
+       "mount_inset_y"
+      ],
+      "diameter": "mount_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": 0,
+      "spacing_v": "depth - 2 * mount_inset_y",
+      "type": "linear_pattern"
+     },
+     {
+      "center": [
+       "length - cross_inset_x",
+       "cross_height"
+      ],
+      "diameter": "cross_dia",
+      "face": "front",
+      "id": "cross_hole",
+      "through": true,
+      "type": "hole"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "cross_dia": {
+      "description": "transverse hole diameter",
+      "value": 8
+     },
+     "cross_height": {
+      "description": "transverse hole centre height above bottom",
+      "value": 10
+     },
+     "cross_inset_x": {
+      "description": "transverse hole centre from right edge",
+      "value": 20
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height_left": {
+      "description": "overall height at left end along Z",
+      "value": 40
+     },
+     "height_right": {
+      "description": "height of angled end at right edge",
+      "value": 15
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "mount_dia": {
+      "description": "mounting hole diameter",
+      "value": 6
+     },
+     "mount_inset_x": {
+      "description": "mounting hole centre from left edge",
+      "value": 15
+     },
+     "mount_inset_y": {
+      "description": "mounting hole centre from front/back edges; spacing follows as depth - 2 * mount_inset_y",
+      "value": 8
+     },
+     "top_len": {
+      "description": "length of flat top before slope",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "label": "15",
+     "measure": "unchecked",
+     "value": 15
+    },
+    {
+     "edge": "x_max",
+     "feature": "cross_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "cross_hole",
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "edge": "z_min",
+     "feature": "cross_hole",
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "edge": "y_max",
+     "feature": "mount_holes[1]",
+     "label": "mount holes symmetric",
+     "measure": "distance_to_edge",
+     "value": 8
+    }
+   ],
+   "changelog": "Removed incorrect cross-hole centred callout and assumption: the \u00d88 hole is thru along Y so it has no Y position to centre.",
+   "call": {
+    "cost_usd": 0.001624,
+    "seconds": 34.2,
+    "input_tokens": 8580,
+    "output_tokens": 3830
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 1,
+   "t": 188.8,
+   "ok": true,
+   "metrics": {
+    "name": "angled_bracket",
+    "volume_mm3": 73480.0888,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      30.0,
+      40.0
+     ],
+     "size": [
+      80.0,
+      30.0,
+      40.0
+     ]
+    },
+    "faces": 10,
+    "edges": 24,
+    "triangles": 1540,
+    "parameters": {
+     "cross_dia": 8.0,
+     "cross_height": 10.0,
+     "cross_inset_x": 20.0,
+     "depth": 30.0,
+     "height_left": 40.0,
+     "height_right": 15.0,
+     "length": 80.0,
+     "mount_dia": 6.0,
+     "mount_inset_x": 15.0,
+     "mount_inset_y": 8.0,
+     "top_len": 30.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 77250.0
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     },
+     {
+      "id": "cross_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1507.9645
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       170
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       170,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 1,
+   "t": 248.2,
+   "clean": true,
+   "issues": [],
+   "advisories": [],
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from cross_hole to x_max",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "\u00d88 thru",
+     "value": 8,
+     "measure": "diameter",
+     "what": "diameter of cross_hole",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "distance_to_edge",
+     "what": "distance from cross_hole to z_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "mount holes symmetric",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_holes[1] to y_max",
+     "status": "ok",
+     "measured": 8.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": []
+   },
+   "critic_call": {
+    "cost_usd": 0.001379,
+    "seconds": 59.4,
+    "input_tokens": 3272,
+    "output_tokens": 5440
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 1,
+   "t": 248.2,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 1,
+   "spec": {
+    "description": "Angled bracket made by extruding the FRONT profile along Y. Assumed: the 2x mounting holes are symmetric front-back, both 8 from the edges.",
+    "features": [
+     {
+      "distance": "depth",
+      "id": "base",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "height_right"
+        ],
+        [
+         "top_len",
+         "height_left"
+        ],
+        [
+         0,
+         "height_left"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "mount_inset_x",
+       "mount_inset_y"
+      ],
+      "diameter": "mount_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": 0,
+      "spacing_v": "depth - 2 * mount_inset_y",
+      "type": "linear_pattern"
+     },
+     {
+      "center": [
+       "length - cross_inset_x",
+       "cross_height"
+      ],
+      "diameter": "cross_dia",
+      "face": "front",
+      "id": "cross_hole",
+      "through": true,
+      "type": "hole"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "cross_dia": {
+      "description": "transverse hole diameter",
+      "value": 8
+     },
+     "cross_height": {
+      "description": "transverse hole centre height above bottom",
+      "value": 10
+     },
+     "cross_inset_x": {
+      "description": "transverse hole centre from right edge",
+      "value": 20
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height_left": {
+      "description": "overall height at left end along Z",
+      "value": 40
+     },
+     "height_right": {
+      "description": "height of angled end at right edge",
+      "value": 15
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "mount_dia": {
+      "description": "mounting hole diameter",
+      "value": 6
+     },
+     "mount_inset_x": {
+      "description": "mounting hole centre from left edge",
+      "value": 15
+     },
+     "mount_inset_y": {
+      "description": "mounting hole centre from front/back edges; spacing follows as depth - 2 * mount_inset_y",
+      "value": 8
+     },
+     "top_len": {
+      "description": "length of flat top before slope",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "label": "15",
+     "measure": "unchecked",
+     "value": 15
+    },
+    {
+     "edge": "x_max",
+     "feature": "cross_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "cross_hole",
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "edge": "z_min",
+     "feature": "cross_hole",
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "edge": "y_max",
+     "feature": "mount_holes[1]",
+     "label": "mount holes symmetric",
+     "measure": "distance_to_edge",
+     "value": 8
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 1,
+   "corrections": 1,
+   "cost_usd": 0.020237,
+   "seconds": 248.2
+  }
+ ]
+}

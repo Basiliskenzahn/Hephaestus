@@ -1,0 +1,37 @@
+{
+ "part": "block",
+ "run": 2,
+ "clean": false,
+ "issues": [
+  {
+   "source": "critic",
+   "message": "bore: top edge lacks the 1 x 45\u00b0 chamfer required for all top edges (high)"
+  },
+  {
+   "source": "critic",
+   "message": "side_holes: top edges lack the 1 x 45\u00b0 chamfer required for all top edges (high)"
+  }
+ ],
+ "critic": {
+  "matches": false,
+  "issues": [
+   {
+    "feature_id": "bore",
+    "issue": "top edge lacks the 1 x 45\u00b0 chamfer required for all top edges",
+    "severity": "high"
+   },
+   {
+    "feature_id": "side_holes",
+    "issue": "top edges lack the 1 x 45\u00b0 chamfer required for all top edges",
+    "severity": "high"
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.001332,
+  "seconds": 62.3,
+  "input_tokens": 3047,
+  "output_tokens": 5316
+ },
+ "seconds": 62.9
+}

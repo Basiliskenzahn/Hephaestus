@@ -1,0 +1,608 @@
+{
+ "part": "06_angled_bracket",
+ "set": "photo",
+ "run": 2,
+ "status": "error",
+ "note": "ConnectionError: HTTPSConnectionPool(host='api.meta.ai', port=443): Read timed out.",
+ "corrections": 0,
+ "final_iteration": 0,
+ "cost_off": 0.002202,
+ "cost_on": 0.025211,
+ "seconds_off": 85.6,
+ "seconds_on": 473.9,
+ "off": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 14,
+   "computed_exprs": 2,
+   "literal_numbers": 7,
+   "examples": [
+    "width - side_inset",
+    "depth - 2 * mount_inset_y"
+   ]
+  },
+  "x_param": {
+   "param": "width",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": true,
+  "iou": 1.0,
+  "bbox_ok": true,
+  "dims_ok": "13/13",
+  "failed_dims": [],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 14,
+   "computed_exprs": 2,
+   "literal_numbers": 7,
+   "examples": [
+    "width - side_inset",
+    "depth - 2 * mount_inset_y"
+   ]
+  },
+  "x_param": {
+   "param": "width",
+   "iou_after_change": 1.0,
+   "ok": true
+  }
+ },
+ "iterations": [],
+ "corrections_log": [],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 85.6,
+   "spec": {
+    "description": "Solid wedge bracket extruded in Y. Assumed: the sloping top is a single straight edge from (top_len,height) to (width,toe_h); the 20 dim is the side-hole centre from the right edge; 10 is the side-hole centre from the bottom; 15 is the height of the small right face; the rear mounting hole is symmetric to the front hole 8 from the back edge.",
+    "features": [
+     {
+      "distance": "depth",
+      "id": "wedge",
+      "offset": 0,
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "width",
+         0
+        ],
+        [
+         "width",
+         "toe_h"
+        ],
+        [
+         "top_len",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "width - side_inset",
+       "side_height"
+      ],
+      "diameter": "side_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "mount_inset_x",
+       "mount_inset_y"
+      ],
+      "diameter": "mount_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_v": "depth - 2 * mount_inset_y",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z on left",
+      "value": 40
+     },
+     "mount_dia": {
+      "description": "mounting hole diameter",
+      "value": 6
+     },
+     "mount_inset_x": {
+      "description": "mounting hole centre from left edge",
+      "value": 15
+     },
+     "mount_inset_y": {
+      "description": "mounting hole centre from front edge; rear hole symmetric so spacing follows as depth - 2 * mount_inset_y",
+      "value": 8
+     },
+     "side_dia": {
+      "description": "side hole diameter",
+      "value": 8
+     },
+     "side_height": {
+      "description": "side hole centre from bottom",
+      "value": 10
+     },
+     "side_inset": {
+      "description": "side hole centre from right edge",
+      "value": 20
+     },
+     "toe_h": {
+      "description": "height of small right face",
+      "value": 15
+     },
+     "top_len": {
+      "description": "length of flat top from left edge",
+      "value": 30
+     },
+     "width": {
+      "description": "overall length along X",
+      "value": 80
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "feature": "wedge",
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "edge": "x_max",
+     "feature": "side_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "side_hole",
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "feature": "wedge",
+     "label": "15",
+     "measure": "unchecked",
+     "value": 15
+    },
+    {
+     "edge": "z_min",
+     "feature": "side_hole",
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "edge": "y_max",
+     "feature": "mount_holes[1]",
+     "label": "rear mount hole symmetric",
+     "measure": "distance_to_edge",
+     "value": 8
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.002202,
+    "seconds": 85.6,
+    "input_tokens": 9606,
+    "output_tokens": 9208
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 85.9,
+   "ok": true,
+   "metrics": {
+    "name": "angled_bracket",
+    "volume_mm3": 73480.0888,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      30.0,
+      40.0
+     ],
+     "size": [
+      80.0,
+      30.0,
+      40.0
+     ]
+    },
+    "faces": 10,
+    "edges": 24,
+    "triangles": 1540,
+    "parameters": {
+     "depth": 30.0,
+     "height": 40.0,
+     "mount_dia": 6.0,
+     "mount_inset_x": 15.0,
+     "mount_inset_y": 8.0,
+     "side_dia": 8.0,
+     "side_height": 10.0,
+     "side_inset": 20.0,
+     "toe_h": 15.0,
+     "top_len": 30.0,
+     "width": 80.0
+    },
+    "features": [
+     {
+      "id": "wedge",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 77250.0
+     },
+     {
+      "id": "side_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1507.9645
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       170
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       170,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "error",
+   "iteration": 0,
+   "t": 473.9,
+   "message": "ConnectionError: HTTPSConnectionPool(host='api.meta.ai', port=443): Read timed out."
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 473.9,
+   "status": "error",
+   "note": "ConnectionError: HTTPSConnectionPool(host='api.meta.ai', port=443): Read timed out.",
+   "final_iteration": 0,
+   "spec": {
+    "description": "Solid wedge bracket extruded in Y. Assumed: the sloping top is a single straight edge from (top_len,height) to (width,toe_h); the 20 dim is the side-hole centre from the right edge; 10 is the side-hole centre from the bottom; 15 is the height of the small right face; the rear mounting hole is symmetric to the front hole 8 from the back edge.",
+    "features": [
+     {
+      "distance": "depth",
+      "id": "wedge",
+      "offset": 0,
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "width",
+         0
+        ],
+        [
+         "width",
+         "toe_h"
+        ],
+        [
+         "top_len",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "width - side_inset",
+       "side_height"
+      ],
+      "diameter": "side_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "mount_inset_x",
+       "mount_inset_y"
+      ],
+      "diameter": "mount_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_v": "depth - 2 * mount_inset_y",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z on left",
+      "value": 40
+     },
+     "mount_dia": {
+      "description": "mounting hole diameter",
+      "value": 6
+     },
+     "mount_inset_x": {
+      "description": "mounting hole centre from left edge",
+      "value": 15
+     },
+     "mount_inset_y": {
+      "description": "mounting hole centre from front edge; rear hole symmetric so spacing follows as depth - 2 * mount_inset_y",
+      "value": 8
+     },
+     "side_dia": {
+      "description": "side hole diameter",
+      "value": 8
+     },
+     "side_height": {
+      "description": "side hole centre from bottom",
+      "value": 10
+     },
+     "side_inset": {
+      "description": "side hole centre from right edge",
+      "value": 20
+     },
+     "toe_h": {
+      "description": "height of small right face",
+      "value": 15
+     },
+     "top_len": {
+      "description": "length of flat top from left edge",
+      "value": 30
+     },
+     "width": {
+      "description": "overall length along X",
+      "value": 80
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "feature": "wedge",
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "edge": "x_max",
+     "feature": "side_hole",
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "feature": "side_hole",
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "feature": "wedge",
+     "label": "15",
+     "measure": "unchecked",
+     "value": 15
+    },
+    {
+     "edge": "z_min",
+     "feature": "side_hole",
+     "label": "10",
+     "measure": "distance_to_edge",
+     "value": 10
+    },
+    {
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "feature": "mount_hole",
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "edge": "y_max",
+     "feature": "mount_holes[1]",
+     "label": "rear mount hole symmetric",
+     "measure": "distance_to_edge",
+     "value": 8
+    }
+   ],
+   "remaining_issues": null,
+   "iterations": 0,
+   "corrections": 0,
+   "cost_usd": 0.025211,
+   "seconds": 473.9
+  }
+ ]
+}

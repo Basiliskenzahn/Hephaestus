@@ -1,0 +1,33 @@
+{
+ "part": "angled_bracket",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": false,
+  "issues": [
+   {
+    "feature_id": "body",
+    "issue": "right-end height is too low, drawing shows 15 mm",
+    "severity": "medium"
+   },
+   {
+    "feature_id": "cross_hole",
+    "issue": "hole centre is too close to right end, drawing shows 20 mm from end",
+    "severity": "medium"
+   },
+   {
+    "feature_id": "top_holes",
+    "issue": "holes are mispositioned across width, drawing shows 8 mm from side edge",
+    "severity": "medium"
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.002376,
+  "seconds": 113.7,
+  "input_tokens": 3272,
+  "output_tokens": 10426
+ },
+ "seconds": 239.4
+}

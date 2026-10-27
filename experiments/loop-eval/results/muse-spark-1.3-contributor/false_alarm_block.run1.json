@@ -1,0 +1,23 @@
+{
+ "part": "block",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": false,
+  "issues": [
+   {
+    "feature_id": "bore",
+    "issue": "bore is offset to one side and not centered between the side holes",
+    "severity": "medium"
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.001253,
+  "seconds": 62.6,
+  "input_tokens": 3047,
+  "output_tokens": 6175
+ },
+ "seconds": 79.3
+}
