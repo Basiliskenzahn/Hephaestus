@@ -61,7 +61,7 @@ def test_slot_and_thickness_measure_geometry():
     spec["parameters"]["slot_len"]["value"] = 24
     spec["parameters"]["t"]["value"] = 6
     msgs = issues(check(callouts("l_bracket"), compile(spec)))
-    assert "callout '20' (slot length of base_slot) measures 24 on the part, expected 20" in msgs
+    assert "callout '20' (slot length of base_slot along x) measures 24 on the part, expected 20" in msgs
     assert "callout '5' (thickness of base) measures 6 on the part, expected 5" in msgs
 
 
