@@ -1,0 +1,27 @@
+{
+ "part": "shaft_collar",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   }
+  ],
+  "agreed_features": []
+ },
+ "critic_call": {
+  "cost_usd": 0.030008,
+  "seconds": 30.8,
+  "input_tokens": 3191,
+  "output_tokens": 6582,
+  "model": "muse-spark-1.3",
+  "effort": "low"
+ },
+ "seconds": 31.4
+}

@@ -1,9 +1,9 @@
 """Visual critic: compare the input drawing with a render of the compiled part. Fresh context, no generator reasoning.
 
 consensus() can sample the critic several times and block only on high-severity issues every sample raises on the
-same feature. With the contributor model at medium effort that removed flip-flopping misreadings of photos; with
-muse-spark-1.3 at low effort (the live default) a single sample had no false alarms and caught more real errors,
-so the presets use one sample. Frozen callouts (talos.py) now guard against a wrong critic instead.
+same feature. With the contributor model at medium effort that removed flip-flopping misreadings of photos; the
+live preset (muse-spark-1.3, low effort) keeps 2 samples: a single sample once hallucinated a feature and the
+correction made a correct read worse, and the second sample runs in parallel (~2 s more).
 """
 import re
 from concurrent.futures import ThreadPoolExecutor

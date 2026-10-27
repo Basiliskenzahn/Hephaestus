@@ -1,0 +1,27 @@
+{
+ "part": "bushing",
+ "run": 2,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   }
+  ],
+  "agreed_features": []
+ },
+ "critic_call": {
+  "cost_usd": 0.004085,
+  "seconds": 3.9,
+  "input_tokens": 3191,
+  "output_tokens": 847,
+  "model": "muse-spark-1.3",
+  "effort": "low"
+ },
+ "seconds": 6.4
+}

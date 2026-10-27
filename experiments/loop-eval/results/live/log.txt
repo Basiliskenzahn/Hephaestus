@@ -1,0 +1,48 @@
+move_hole run 1: detected by callout, fixed=True (pass, 1 corrections, $0.0152, 10s)
+move_hole run 2: detected by callout, fixed=True (pass, 1 corrections, $0.0186, 10s)
+rotate_slot run 1: detected by callout, fixed=True (pass, 1 corrections, $0.0291, 20s)
+rotate_slot run 2: detected by callout, fixed=True (pass, 1 corrections, $0.0337, 25s)
+drop_hole run 1: detected by callout, fixed=True (pass, 1 corrections, $0.0333, 20s)
+drop_hole run 2: detected by callout, fixed=True (pass, 1 corrections, $0.0292, 21s)
+wrong_diameter run 1: detected by callout, fixed=True (pass, 1 corrections, $0.0293, 15s)
+wrong_diameter run 2: detected by callout, fixed=True (pass, 1 corrections, $0.0189, 20s)
+chamfer_for_fillet run 1: detected by callout, fixed=True (pass, 1 corrections, $0.0200, 12s)
+swap_xy run 2: detected by callout, fixed=True (pass, 1 corrections, $0.0195, 9s)
+swap_xy run 1: detected by callout, fixed=True (pass, 1 corrections, $0.0237, 16s)
+chamfer_for_fillet run 2: detected by callout, fixed=True (pass, 1 corrections, $0.0253, 18s)
+upright_at_front run 2: detected by none, fixed=False (pass, 0 corrections, $0.0078, 6s)
+false-alarm plate run 1: clean=True 
+upright_at_front run 1: detected by none, fixed=False (pass, 0 corrections, $0.0123, 11s)
+false-alarm plate run 2: clean=True 
+false-alarm l_bracket run 1: clean=True 
+false-alarm l_bracket run 2: clean=True 
+through_rear_wall run 1: detected by critic, fixed=True (pass, 1 corrections, $0.0517, 35s)
+through_rear_wall run 2: detected by critic, fixed=True (pass, 1 corrections, $0.0459, 30s)
+false-alarm block run 1: clean=True 
+false-alarm bushing run 1: clean=True 
+false-alarm bushing run 2: clean=True 
+false-alarm enclosure run 2: clean=True 
+false-alarm enclosure run 1: clean=True 
+false-alarm block run 2: clean=True 
+false-alarm angled_bracket run 1: clean=True 
+false-alarm pocket_plate run 2: clean=True 
+false-alarm pocket_plate run 1: clean=False pocket 50 mm side runs along 60 mm plate direction, drawing shows it along 100 mm direction (high)
+false-alarm angled_bracket run 2: clean=True 
+false-alarm shaft_collar run 2: clean=True 
+false-alarm shaft_collar run 1: clean=True 
+
+spent $0.5970 | results in /home/user/Hephaestus/experiments/loop-eval/results/live
+
+| injected error | part | detected by (per run) | fixed | corrections | status | cost / run | time / run |
+|---|---|---|---|---|---|---|---|
+| base slot turned 90 degrees | l_bracket | callout, callout | 2/2 | 1, 1 | pass, pass | $0.0314 | 23 s |
+| centre bore moved 5 mm along X | plate | callout, callout | 2/2 | 1, 1 | pass, pass | $0.0169 | 10 s |
+| the second side hole is missing | block | callout, callout | 2/2 | 1, 1 | pass, pass | $0.0313 | 21 s |
+| bore Ø10 instead of Ø12 | block | callout, callout | 2/2 | 1, 1 | pass, pass | $0.0241 | 18 s |
+| vertical corners chamfered instead of R5 | block | callout, callout | 2/2 | 1, 1 | pass, pass | $0.0226 | 15 s |
+| plate 50 x 80 instead of 80 x 50 | plate | callout, callout | 2/2 | 1, 1 | pass, pass | $0.0216 | 12 s |
+| cable hole drilled through both walls | enclosure | critic, critic | 2/2 | 1, 1 | pass, pass | $0.0488 | 33 s |
+| upright at the front edge instead of the back | l_bracket | none, none | 0/2 | 0, 0 | pass, pass | $0.0101 | 8 s |
+
+False alarms on unmodified true specs: 1/16 checks flagged (0 medium/low critic advisories, not blocking).
+- pocket_plate run 1: pocket 50 mm side runs along 60 mm plate direction, drawing shows it along 100 mm direction (high)

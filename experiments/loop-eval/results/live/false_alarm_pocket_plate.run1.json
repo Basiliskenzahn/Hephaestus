@@ -1,0 +1,44 @@
+{
+ "part": "pocket_plate",
+ "run": 1,
+ "clean": false,
+ "issues": [
+  {
+   "source": "critic",
+   "message": "pocket 50 mm side runs along 60 mm plate direction, drawing shows it along 100 mm direction (high)"
+  }
+ ],
+ "critic": {
+  "matches": false,
+  "issues": [
+   {
+    "feature_id": null,
+    "issue": "pocket 50 mm side runs along 60 mm plate direction, drawing shows it along 100 mm direction",
+    "severity": "high"
+   }
+  ],
+  "advisories": [],
+  "samples": [
+   {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "pocket 50 mm side runs along 60 mm plate direction, drawing shows it along 100 mm direction",
+      "severity": "high"
+     }
+    ]
+   }
+  ],
+  "agreed_features": []
+ },
+ "critic_call": {
+  "cost_usd": 0.009445,
+  "seconds": 10.1,
+  "input_tokens": 3423,
+  "output_tokens": 2073,
+  "model": "muse-spark-1.3",
+  "effort": "low"
+ },
+ "seconds": 12.5
+}

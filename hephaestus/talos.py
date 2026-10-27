@@ -53,12 +53,15 @@ class Settings:
 # Chosen from experiments/benchmark/results/matrix (photo + rough reads, injected-error critic eval), Oct 2026:
 # - muse-spark-1.3 is 2-3x faster than the contributor model in every role.
 # - read: medium effort; low halves the time (14 s vs 27 s median) but lost one rough L-bracket.
-# - critic: low effort, one sample. It flagged more real errors than medium or than 2-sample consensus (10/16 vs
-#   6-8/16) with no false alarms on the correct parts, at 9 s median. Low effort peaked at 7.2k output tokens
-#   (reasoning included), so the cap is 10k; medium effort hit 8k without answering in 3 of 112 calls.
+# - critic: low effort, 2 samples (consensus). Every critic config gave the same loop-level detection (14/16
+#   injected errors, callouts catch the rest), and low effort was the fastest (9 s median for one sample, 11 s for
+#   two in parallel). One sample flagged more errors on its own, but in the live benchmark a single sample
+#   hallucinated a slope kink and the correction made a correct read worse; consensus costs ~2 s and guards that.
+#   Low effort peaked at 7.2k output tokens (reasoning included), so the cap is 10k; medium effort hit 8k without
+#   answering in 3 of 112 calls.
 LIVE = Settings(read_model="muse-spark-1.3", read_effort="medium",
                 correct_model="muse-spark-1.3", correct_effort="medium",
-                critic_model="muse-spark-1.3", critic_effort="low", critic_samples=1, critic_max_tokens=10000)
+                critic_model="muse-spark-1.3", critic_effort="low", critic_samples=2, critic_max_tokens=10000)
 PRESETS = {
     # live app: user uploads must not go to training, so no contributor models
     "live": LIVE,

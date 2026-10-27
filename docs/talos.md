@@ -28,8 +28,8 @@ Writes `out/run1/iter_<k>/` (spec.json, part.step, part.stl, top/front/side mask
    sizes, feature ids, hole diameters and slot sizes), and returns `{matches, issues: [{feature_id, issue, severity}]}`.
    Only **high** severity issues (wrong or missing shape, wrong orientation) trigger a correction; the rest are
    advisories. The critic runs **only when the compile and callout checks pass** (it is the slow step), or when a
-   disputed callout needs confirming. `consensus()` can sample it several times and keep only agreed issues; the
-   live preset uses one sample (see Presets).
+   disputed callout needs confirming. It is sampled twice in parallel and only issues both samples raise on the
+   same feature block (see Presets).
 
 ## Frozen callouts
 The callouts from the first read are the contract: a correction returns a new spec, never new callouts, so it
@@ -45,7 +45,7 @@ critic sometimes insisted on a wrong slot direction, and this rule kept the corr
 ## Presets (`talos.PRESETS`)
 | preset | read | correction | critic | use |
 |---|---|---|---|---|
-| `live` | muse-spark-1.3, medium | muse-spark-1.3, medium | muse-spark-1.3, low, 1 sample, 10k token cap | the web app (user uploads must not go to training) |
+| `live` | muse-spark-1.3, medium | muse-spark-1.3, medium | muse-spark-1.3, low, 2 samples (consensus), 10k token cap | the web app (user uploads must not go to training) |
 | `benchmark` | same as live | | | reported numbers describe the product |
 | `dev` | contributor, low | contributor, medium | contributor, medium, 1 sample | cheap iteration (~12x cheaper, 2-3x slower) |
 

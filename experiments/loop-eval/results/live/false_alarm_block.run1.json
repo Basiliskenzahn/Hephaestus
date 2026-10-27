@@ -1,0 +1,39 @@
+{
+ "part": "block",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [
+   {
+    "feature_id": "side_holes",
+    "issue": "side holes are not positioned 46 apart centered on the 70 length, spacing along length is asymmetric about the center bore",
+    "severity": "medium"
+   }
+  ],
+  "samples": [
+   {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": "side_holes",
+      "issue": "side holes are not positioned 46 apart centered on the 70 length, spacing along length is asymmetric about the center bore",
+      "severity": "medium"
+     }
+    ]
+   }
+  ],
+  "agreed_features": []
+ },
+ "critic_call": {
+  "cost_usd": 0.010472,
+  "seconds": 9.8,
+  "input_tokens": 3047,
+  "output_tokens": 2326,
+  "model": "muse-spark-1.3",
+  "effort": "low"
+ },
+ "seconds": 10.3
+}

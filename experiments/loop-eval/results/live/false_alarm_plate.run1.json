@@ -1,0 +1,27 @@
+{
+ "part": "plate",
+ "run": 1,
+ "clean": true,
+ "issues": [],
+ "critic": {
+  "matches": true,
+  "issues": [],
+  "advisories": [],
+  "samples": [
+   {
+    "matches": true,
+    "issues": []
+   }
+  ],
+  "agreed_features": []
+ },
+ "critic_call": {
+  "cost_usd": 0.002441,
+  "seconds": 2.6,
+  "input_tokens": 2687,
+  "output_tokens": 476,
+  "model": "muse-spark-1.3",
+  "effort": "low"
+ },
+ "seconds": 3.1
+}
