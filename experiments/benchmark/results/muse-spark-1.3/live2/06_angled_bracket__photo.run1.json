@@ -1,0 +1,1440 @@
+{
+ "part": "06_angled_bracket",
+ "set": "photo",
+ "run": 1,
+ "status": "pass",
+ "note": null,
+ "corrections": 1,
+ "final_iteration": 1,
+ "cost_off": 0.072081,
+ "cost_on": 0.160315,
+ "seconds_off": 59.1,
+ "seconds_on": 106.0,
+ "off": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.9364,
+  "bbox_ok": true,
+  "dims_ok": "9/13",
+  "failed_dims": [
+   {
+    "label": "slope",
+    "ok": false,
+    "expected": 27.5,
+    "measured": 25.0
+   },
+   {
+    "label": "15",
+    "ok": false,
+    "expected": 15.25,
+    "measured": 10.3
+   },
+   {
+    "label": "\u00d88 thru",
+    "ok": false,
+    "expected": 8,
+    "measured": null,
+    "note": "nearest y-cylinder is \u00d88.00 at [60.0, 12.0]"
+   },
+   {
+    "label": "10",
+    "ok": false,
+    "expected": 10,
+    "measured": 12.0
+   }
+  ],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 14,
+   "computed_exprs": 2,
+   "literal_numbers": 8,
+   "examples": [
+    "length - side_inset_x",
+    "depth - 2 * base_hole_inset_y"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.9315,
+   "ok": false
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.9364,
+  "bbox_ok": true,
+  "dims_ok": "9/13",
+  "failed_dims": [
+   {
+    "label": "slope",
+    "ok": false,
+    "expected": 27.5,
+    "measured": 25.0
+   },
+   {
+    "label": "15",
+    "ok": false,
+    "expected": 15.25,
+    "measured": 10.3
+   },
+   {
+    "label": "\u00d88 thru",
+    "ok": false,
+    "expected": 8,
+    "measured": null,
+    "note": "nearest y-cylinder is \u00d88.00 at [60.0, 12.0]"
+   },
+   {
+    "label": "10",
+    "ok": false,
+    "expected": 10,
+    "measured": 12.0
+   }
+  ],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 15,
+   "computed_exprs": 3,
+   "literal_numbers": 8,
+   "examples": [
+    "length - side_inset_x",
+    "depth / 2",
+    "depth - 2 * base_hole_inset_y"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.9315,
+   "ok": false
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [
+    {
+     "source": "callout",
+     "message": "callout 'side hole centred' (distance from side_hole to y_min) measures 0 on the part, expected 15"
+    }
+   ],
+   "critic_seconds": null
+  },
+  {
+   "iteration": 1,
+   "issues": [],
+   "critic_seconds": 24.8
+  }
+ ],
+ "corrections_log": [
+  {
+   "iteration": 1,
+   "changelog": "Moved transverse side hole from front face to XZ plane at depth/2 so its Y centre is mid-depth while staying a through hole along Y.",
+   "cost_usd": 0.039708,
+   "seconds": 21.3,
+   "input_tokens": 11033,
+   "output_tokens": 6098,
+   "model": "muse-spark-1.3",
+   "effort": "medium"
+  }
+ ],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 59.1,
+   "spec": {
+    "description": "Solid block with flat top on left and single sloping top to a low tip on the right, with a transverse hole and two vertical base holes. Assumed: side hole is centred in Y (drawn on centreline); base holes are symmetric front-back with 8 inset from both edges so spacing follows as depth - 2 * inset; tip height and flat-top length are sub-feature sizes.",
+    "features": [
+     {
+      "distance": "depth",
+      "id": "base",
+      "offset": 0.0,
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "tip_h"
+        ],
+        [
+         "top_flat",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - side_inset_x",
+       "side_h"
+      ],
+      "diameter": "side_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "base_hole_inset_x",
+       "base_hole_inset_y"
+      ],
+      "diameter": "base_hole_dia",
+      "face": "top_of_feature:base",
+      "id": "base_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "base_hole",
+      "id": "base_holes",
+      "spacing_u": 0.0,
+      "spacing_v": "depth - 2 * base_hole_inset_y",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "base_hole_dia": {
+      "description": "vertical mounting hole diameter",
+      "value": 6
+     },
+     "base_hole_inset_x": {
+      "description": "mounting hole centre from left edge",
+      "value": 15
+     },
+     "base_hole_inset_y": {
+      "description": "mounting holes stay 8 from front/back edges",
+      "value": 8
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z at left",
+      "value": 40
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "side_dia": {
+      "description": "transverse hole diameter",
+      "value": 8
+     },
+     "side_h": {
+      "description": "side hole centre height above bottom",
+      "value": 12
+     },
+     "side_inset_x": {
+      "description": "side hole centre from right edge",
+      "value": 20
+     },
+     "tip_h": {
+      "description": "height of right tip edge",
+      "value": 10
+     },
+     "top_flat": {
+      "description": "length of flat top from left",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": "x_max",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "12",
+     "measure": "distance_to_edge",
+     "value": 12
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "10",
+     "measure": "unchecked",
+     "value": 10
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "side hole centred",
+     "measure": "distance_to_edge",
+     "value": 15
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.072081,
+    "seconds": 59.1,
+    "input_tokens": 9743,
+    "output_tokens": 15714,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 59.5,
+   "ok": true,
+   "metrics": {
+    "name": "angled_bracket",
+    "volume_mm3": 69730.0888,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      30.0,
+      40.0
+     ],
+     "size": [
+      80.0,
+      30.0,
+      40.0
+     ]
+    },
+    "faces": 10,
+    "edges": 24,
+    "triangles": 1540,
+    "parameters": {
+     "base_hole_dia": 6.0,
+     "base_hole_inset_x": 15.0,
+     "base_hole_inset_y": 8.0,
+     "depth": 30.0,
+     "height": 40.0,
+     "length": 80.0,
+     "side_dia": 8.0,
+     "side_h": 12.0,
+     "side_inset_x": 20.0,
+     "tip_h": 10.0,
+     "top_flat": 30.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 73500.0
+     },
+     {
+      "id": "side_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1507.9645
+     },
+     {
+      "id": "base_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     },
+     {
+      "id": "base_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       170
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       170,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 59.5,
+   "clean": false,
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to x_max",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "\u00d88 thru",
+     "value": 8,
+     "measure": "diameter",
+     "what": "diameter of side_hole",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "12",
+     "value": 12,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to z_min",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from base_hole to x_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of base_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from base_hole to y_min",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "side hole centred",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to y_min",
+     "status": "mismatch",
+     "measured": 0.0,
+     "message": "callout 'side hole centred' (distance from side_hole to y_min) measures 0 on the part, expected 15"
+    }
+   ],
+   "critic": null,
+   "critic_call": null,
+   "advisories": [],
+   "critic_skipped": "callouts failed; fixing those first",
+   "issues": [
+    {
+     "source": "callout",
+     "message": "callout 'side hole centred' (distance from side_hole to y_min) measures 0 on the part, expected 15"
+    }
+   ],
+   "disputes": []
+  },
+  {
+   "event": "correction_started",
+   "iteration": 0,
+   "t": 59.5,
+   "issues": [
+    {
+     "source": "callout",
+     "message": "callout 'side hole centred' (distance from side_hole to y_min) measures 0 on the part, expected 15"
+    }
+   ]
+  },
+  {
+   "event": "spec",
+   "iteration": 1,
+   "t": 80.8,
+   "spec": {
+    "description": "Solid block with flat top on left and single sloping top to a low tip on the right, with a transverse hole and two vertical base holes. Assumed: side hole is centred in Y (drawn on centreline); base holes are symmetric front-back with 8 inset from both edges so spacing follows as depth - 2 * inset; tip height and flat-top length are sub-feature sizes.",
+    "features": [
+     {
+      "distance": "depth",
+      "id": "base",
+      "offset": 0.0,
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "tip_h"
+        ],
+        [
+         "top_flat",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - side_inset_x",
+       "side_h"
+      ],
+      "diameter": "side_dia",
+      "id": "side_hole",
+      "offset": "depth / 2",
+      "plane": "XZ",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "base_hole_inset_x",
+       "base_hole_inset_y"
+      ],
+      "diameter": "base_hole_dia",
+      "face": "top_of_feature:base",
+      "id": "base_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "base_hole",
+      "id": "base_holes",
+      "spacing_u": 0.0,
+      "spacing_v": "depth - 2 * base_hole_inset_y",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "base_hole_dia": {
+      "description": "vertical mounting hole diameter",
+      "value": 6
+     },
+     "base_hole_inset_x": {
+      "description": "mounting hole centre from left edge",
+      "value": 15
+     },
+     "base_hole_inset_y": {
+      "description": "mounting holes stay 8 from front/back edges",
+      "value": 8
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z at left",
+      "value": 40
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "side_dia": {
+      "description": "transverse hole diameter",
+      "value": 8
+     },
+     "side_h": {
+      "description": "side hole centre height above bottom",
+      "value": 12
+     },
+     "side_inset_x": {
+      "description": "side hole centre from right edge",
+      "value": 20
+     },
+     "tip_h": {
+      "description": "height of right tip edge",
+      "value": 10
+     },
+     "top_flat": {
+      "description": "length of flat top from left",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": "x_max",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "12",
+     "measure": "distance_to_edge",
+     "value": 12
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "10",
+     "measure": "unchecked",
+     "value": 10
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "side hole centred",
+     "measure": "distance_to_edge",
+     "value": 15
+    }
+   ],
+   "changelog": "Moved transverse side hole from front face to XZ plane at depth/2 so its Y centre is mid-depth while staying a through hole along Y.",
+   "disputes": [],
+   "call": {
+    "cost_usd": 0.039708,
+    "seconds": 21.3,
+    "input_tokens": 11033,
+    "output_tokens": 6098,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 1,
+   "t": 81.1,
+   "ok": true,
+   "metrics": {
+    "name": "angled_bracket",
+    "volume_mm3": 69730.0888,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      30.0,
+      40.0
+     ],
+     "size": [
+      80.0,
+      30.0,
+      40.0
+     ]
+    },
+    "faces": 10,
+    "edges": 24,
+    "triangles": 1540,
+    "parameters": {
+     "base_hole_dia": 6.0,
+     "base_hole_inset_x": 15.0,
+     "base_hole_inset_y": 8.0,
+     "depth": 30.0,
+     "height": 40.0,
+     "length": 80.0,
+     "side_dia": 8.0,
+     "side_h": 12.0,
+     "side_inset_x": 20.0,
+     "tip_h": 10.0,
+     "top_flat": 30.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 73500.0
+     },
+     {
+      "id": "side_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1507.9645
+     },
+     {
+      "id": "base_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     },
+     {
+      "id": "base_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       170
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       170,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 1,
+   "t": 106.0,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to x_max",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "\u00d88 thru",
+     "value": 8,
+     "measure": "diameter",
+     "what": "diameter of side_hole",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "12",
+     "value": 12,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to z_min",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from base_hole to x_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of base_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from base_hole to y_min",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "side hole centred",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to y_min",
+     "status": "ok",
+     "measured": 15.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [
+     {
+      "feature_id": "base",
+      "issue": "top profile is a single straight taper, drawing shows two slopes with a kink above the hole",
+      "severity": "high"
+     },
+     {
+      "feature_id": "side_hole \u00d88",
+      "issue": "hole is too close to the right end and too low, drawing requires 20 from right under the kink",
+      "severity": "medium"
+     },
+     {
+      "feature_id": null,
+      "issue": "upright tapered rib should be 8 thick, part models it solid full 30 width",
+      "severity": "high"
+     },
+     {
+      "feature_id": "side_hole \u00d88",
+      "issue": "hole centre is to the right of the top kink instead of directly below it 20 mm from the right end",
+      "severity": "medium"
+     }
+    ],
+    "samples": [
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "base",
+        "issue": "top profile is a single straight taper, drawing shows two slopes with a kink above the hole",
+        "severity": "high"
+       },
+       {
+        "feature_id": "side_hole \u00d88",
+        "issue": "hole is too close to the right end and too low, drawing requires 20 from right under the kink",
+        "severity": "medium"
+       },
+       {
+        "feature_id": null,
+        "issue": "upright tapered rib should be 8 thick, part models it solid full 30 width",
+        "severity": "high"
+       }
+      ]
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "side_hole \u00d88",
+        "issue": "hole centre is to the right of the top kink instead of directly below it 20 mm from the right end",
+        "severity": "medium"
+       }
+      ]
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.048527,
+    "seconds": 24.8,
+    "input_tokens": 10230,
+    "output_tokens": 9826,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [
+    {
+     "feature_id": "base",
+     "issue": "top profile is a single straight taper, drawing shows two slopes with a kink above the hole",
+     "severity": "high"
+    },
+    {
+     "feature_id": "side_hole \u00d88",
+     "issue": "hole is too close to the right end and too low, drawing requires 20 from right under the kink",
+     "severity": "medium"
+    },
+    {
+     "feature_id": null,
+     "issue": "upright tapered rib should be 8 thick, part models it solid full 30 width",
+     "severity": "high"
+    },
+    {
+     "feature_id": "side_hole \u00d88",
+     "issue": "hole centre is to the right of the top kink instead of directly below it 20 mm from the right end",
+     "severity": "medium"
+    }
+   ],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "done",
+   "iteration": 1,
+   "t": 106.0,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 1,
+   "spec": {
+    "description": "Solid block with flat top on left and single sloping top to a low tip on the right, with a transverse hole and two vertical base holes. Assumed: side hole is centred in Y (drawn on centreline); base holes are symmetric front-back with 8 inset from both edges so spacing follows as depth - 2 * inset; tip height and flat-top length are sub-feature sizes.",
+    "features": [
+     {
+      "distance": "depth",
+      "id": "base",
+      "offset": 0.0,
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "tip_h"
+        ],
+        [
+         "top_flat",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - side_inset_x",
+       "side_h"
+      ],
+      "diameter": "side_dia",
+      "id": "side_hole",
+      "offset": "depth / 2",
+      "plane": "XZ",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "base_hole_inset_x",
+       "base_hole_inset_y"
+      ],
+      "diameter": "base_hole_dia",
+      "face": "top_of_feature:base",
+      "id": "base_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "base_hole",
+      "id": "base_holes",
+      "spacing_u": 0.0,
+      "spacing_v": "depth - 2 * base_hole_inset_y",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "base_hole_dia": {
+      "description": "vertical mounting hole diameter",
+      "value": 6
+     },
+     "base_hole_inset_x": {
+      "description": "mounting hole centre from left edge",
+      "value": 15
+     },
+     "base_hole_inset_y": {
+      "description": "mounting holes stay 8 from front/back edges",
+      "value": 8
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z at left",
+      "value": 40
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "side_dia": {
+      "description": "transverse hole diameter",
+      "value": 8
+     },
+     "side_h": {
+      "description": "side hole centre height above bottom",
+      "value": 12
+     },
+     "side_inset_x": {
+      "description": "side hole centre from right edge",
+      "value": 20
+     },
+     "tip_h": {
+      "description": "height of right tip edge",
+      "value": 10
+     },
+     "top_flat": {
+      "description": "length of flat top from left",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": "x_max",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "12",
+     "measure": "distance_to_edge",
+     "value": 12
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "10",
+     "measure": "unchecked",
+     "value": 10
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "side hole centred",
+     "measure": "distance_to_edge",
+     "value": 15
+    }
+   ],
+   "remaining_issues": [],
+   "iterations": 1,
+   "corrections": 1,
+   "disputes": [],
+   "cost_usd": 0.160315,
+   "seconds": 106.0,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

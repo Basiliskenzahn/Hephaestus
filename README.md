@@ -16,31 +16,52 @@ Built during the [Meta Global AI Developer Hackathon](https://dev.meta.ai/events
 
 Details: [`docs/talos.md`](docs/talos.md). Run it with `python -m hephaestus.talos drawing.png --out out/run1/`.
 
-## Results (muse-spark-1.3-contributor, Oct 2026)
+## Results (Oct 2026)
+
+Everything below is measured on compiled geometry: a part is *perfect* when it matches the true part (bbox,
+volume IoU ≥ 0.98, every dimension written on the drawing within 0.5 mm).
+
+**Speed** with the live settings (`muse-spark-1.3`, see [`docs/talos.md`](docs/talos.md#presets-talospresets)):
+the first part appears after **25 s** (median; p90 36 s) and a full verified run takes **38 s** (median; p90 76 s),
+about $0.05. With the cheaper contributor models the same run took 111–137 s.
 
 **Benchmark**: 8 parts (plates, brackets, a revolved bushing, a shelled enclosure, an angled bracket, a pocket
-plate, a shaft collar), each as a clean drawing, a fake phone photo and a rougher pencil photo, 2 runs each. A run
-is *perfect* when the compiled part matches the true part (bbox, volume IoU ≥ 0.98, every written dimension within
-0.5 mm). [`experiments/benchmark`](experiments/benchmark/), round 3:
+plate, a shaft collar) as clean drawings, fake phone photos and rougher pencil photos
+([`experiments/benchmark`](experiments/benchmark/)).
 
-| input | perfect, read only | perfect, Talos loop | cost per part, read / loop | median time, read / loop |
-|---|---|---|---|---|
-| clean drawing | 16/16 | 16/16 | $0.002 / $0.005 | 53 s / 138 s |
-| phone photo | 13/16 | 15/16 | $0.002 / $0.005 | 57 s / 130 s |
-| rough pencil photo | 13/16 | 12/16 | $0.002 / $0.006 | 59 s / 134 s |
-
-**Injected errors** ([`experiments/loop-eval`](experiments/loop-eval/)): start the loop from a correct spec with
-one deliberate mistake. All 6 error types were caught and fixed with one correction, in 12/12 runs. The checks
-raised no false alarms on the 8 correct parts (0/16).
-
-| error | caught by | fixed |
+| input | live settings, 1 run per part: read only → with loop | contributor models, 2 runs per part: read only → with loop |
 |---|---|---|
-| slot turned 90° | callouts + critic | 2/2 |
-| hole moved 5 mm | callouts | 2/2 |
-| hole missing | callouts + critic | 2/2 |
-| wrong diameter | callouts | 2/2 |
-| chamfer instead of fillet | callouts + critic | 2/2 |
-| plate X/Y swapped | callouts | 2/2 |
+| clean drawing | 8/8 → 8/8 | 16/16 → 16/16 (earlier round) |
+| phone photo | 8/8 → 7/8 ¹ | 15/16 → 15/16 |
+| rough pencil photo | 7/8 → 7/8 | 14/16 → 14/16 |
+
+The honest summary: **on these drawings the loop does not raise accuracy**. Reading alone is already right 88–100%
+of the time, and the remaining misses are misreadings that every check shares: the angled bracket's two close
+dimensions (15 and 10) get swapped, and the checks built from the same reading agree with it. The loop's value is
+catching the errors reads *do* make sometimes (it fixed duplicate feature ids, and a cable hole that wrongly went
+through the back wall, in earlier rounds) and not making correct reads worse.
+
+¹ The loop made one correct read worse here: a single critic sample hallucinated a kink in the bracket's slope and
+the correction invented an unwritten 28 mm height to add it. Since then the critic needs two samples to agree and
+corrections may not invent dimensions; on a rerun the critic hallucinated the same kink in both samples, and the
+correction refused because the drawing gives no such size, so the read stayed intact.
+
+**Injected errors** ([`experiments/loop-eval`](experiments/loop-eval/), live settings): the loop starts from a
+correct spec with one deliberate mistake and the real drawing, 2 runs each.
+
+| error | caught by | fixed | median time |
+|---|---|---|---|
+| slot turned 90° | callouts | 2/2 | 23 s |
+| hole moved 5 mm | callouts | 2/2 | 10 s |
+| hole missing | callouts | 2/2 | 21 s |
+| wrong diameter | callouts | 2/2 | 18 s |
+| chamfer instead of fillet | callouts | 2/2 | 15 s |
+| plate X/Y swapped | callouts | 2/2 | 12 s |
+| cable hole drilled through both walls | critic | 2/2 | 33 s |
+| upright at the front instead of the back | **not caught** | 0/2 | |
+
+False alarms on the 8 correct parts: 1/16 checks with a single critic sample, 0/4 on a recheck of the affected
+parts with the 2-sample critic.
 
 ## Experiments
 

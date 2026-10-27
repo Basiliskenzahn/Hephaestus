@@ -31,6 +31,11 @@ Hephaestus turns a **sketch, a text prompt or a photo of a real object** into a 
 ## Budget
 $150 Meta API credits for the whole project. Default to `muse-spark-1.3-contributor` (≈12× cheaper) for development; use `muse-spark-1.3` only to compare or for the final demo. Keep `--max-usd` guards on scripts. Never commit API keys (`.env` is gitignored).
 
+## Talos defaults (from experiments/benchmark/results/matrix, Oct 27)
+- Live app and benchmark: preset `live` in `hephaestus/talos.py`: muse-spark-1.3 for everything (user uploads must not go to training); read and correction at medium effort, critic at low effort with 2 samples (consensus) and a 10k output-token cap. Median run 38 s, first part after 25 s, ~$0.05 per run.
+- Development: preset `dev` (contributor models, ~12x cheaper, 2-3x slower).
+- Callouts from the read are frozen; corrections may only dispute them (see docs/talos.md). Measurements beat the critic.
+
 ## Repo layout
 - `hephaestus/` — spec v1 and the deterministic compiler (no model calls).
   - `spec.py`: pydantic models; `json_schema()` exports a ref-free schema for structured output (`python -m hephaestus.spec`).
@@ -43,7 +48,7 @@ $150 Meta API credits for the whole project. Default to `muse-spark-1.3-contribu
 - `examples/` — v1 specs for the 8 benchmark parts (plate, l_bracket, block, bushing, enclosure, angled_bracket, pocket_plate, shaft_collar); `examples/callouts/` has their ground-truth callouts.
 - `docs/spec-v1.md` — spec reference with one example per feature type. `docs/talos.md` — the loop, checks, events.
 - `experiments/loop-eval/` — injected-error evaluation of the loop + critic false alarms (`python loop_eval.py --runs 2`).
-- `experiments/benchmark/` — 5 harder drawings (+ photo/rough), ground truth, and `bench.py`: reading only vs full loop on all 8 parts.
+- `experiments/benchmark/` — 5 harder drawings (+ photo/rough), ground truth, `bench.py` (reading only vs full loop on all 8 parts, `--preset`) and `matrix.py` (model/effort/critic-sample speed-accuracy matrix).
 - `tests/` — pytest (`python -m pytest tests`); analytic volumes, silhouettes, errors, schema export.
 - `experiments/reading-spike-v2/` — Muse Spark filling in spec v1, scored on compiled geometry (bbox, volume IoU, written dimensions, parameter intent). Run `python spike2.py --set clean --runs 3`. Result: 26/27 perfect.
 - `experiments/reading-spike/` — first test: can Muse Spark read a dimensioned sketch into a correct spec? Auto-scored against ground truth. Run `python spike.py`. Uses the older v0 box spec.
