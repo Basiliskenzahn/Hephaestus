@@ -4,7 +4,7 @@
         print(event["event"])
 
 Each iteration builds the current spec, then checks it: compile errors, then the callouts measured on the part and
-the SAM 3.1 shape check (in parallel), and only if those pass, the visual critic (the slow part). Anything wrong goes
+the SAM 3.1 shape check, and only if those pass, the visual critic (the slow part). Anything wrong goes
 into one correction call. The shape check (shape_check.py) compares each view's outline in the drawing with the part's
 silhouette; it is optional: without view boxes, or if SAM fails, the run continues without it.
 
@@ -28,7 +28,6 @@ import json
 import os
 import sys
 import time
-from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, replace
 
 from . import critic as critic_mod
@@ -130,10 +129,8 @@ def critic_issues(crit):
 def verify(result, sheet, callouts, drawing, client=None, settings=Settings(), use_critic=True, force_critic=False,
            text=None, shape=None):
     """Callouts and the shape check first; the critic only if both pass (or `force_critic`).
-    `shape`: a shape_check.compare result, or a function returning one (it runs in parallel with the callouts).
-    Returns (checks fields, issues)."""
+    `shape`: a shape_check.compare result, or None. Returns (checks fields, issues)."""
     rows, issues = callout_check(result, callouts)
-    shape = shape() if callable(shape) else shape
     if shape:
         issues = issues + shape["issues"]
     checks = {"callouts": rows, "critic": None, "critic_call": None, "advisories": [],
@@ -200,7 +197,7 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
                   seconds=round(time.time() - t0, 1), settings=asdict(settings))
 
     spec = callouts = original = None
-    shape_input, pool = None, ThreadPoolExecutor(max_workers=1)
+    shape_input = None
     if use_shape and prompt is None and drawing is not None:
         try:
             seg = segmenter or sam.Segmenter(budget=client.budget, tag=getattr(client, "tag", None))
@@ -246,15 +243,13 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
             else:
                 shape = None
                 if shape_input is not None:
-                    fut = pool.submit(shape_check.compare, shape_input, result, idir)
-                    shape = fut.result
+                    # waits for the SAM views (started after the read); the event goes out before the critic starts
+                    shape = shape_check.compare(shape_input, result, idir)
+                    spent[0] += shape["sam"]["cost_usd"] - shape_cost[0]
+                    shape_cost[0] = shape["sam"]["cost_usd"]
+                    yield ev("shape_check", **shape)
                 checks, issues = verify(result, sheet, callouts, drawing, client, settings, use_critic,
                                         force_critic=bool(pending), text=prompt, shape=shape)
-                if shape_input is not None:
-                    sc = fut.result()
-                    spent[0] += sc["sam"]["cost_usd"] - shape_cost[0]
-                    shape_cost[0] = sc["sam"]["cost_usd"]
-                    yield ev("shape_check", **sc)
                 spent[0] += (checks.get("critic_call") or {}).get("cost_usd", 0)
                 crit = checks.get("critic")
                 critic_flagged = set(crit.get("agreed_features", [])) if crit else set()

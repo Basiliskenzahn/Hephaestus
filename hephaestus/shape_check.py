@@ -12,7 +12,7 @@ Per run, once (`InputShape`):
    holes filled, is the view's outline. SAM does not cut through-holes, so holes come from the ink: closed regions
    inside the outline (see `closed_regions`).
 Per iteration (`compare`), each view against the part's silhouette, both cropped to their own bounding box:
-- aspect ratio: flagged when width:height differs by more than ASPECT_TOL (60 %; blocking);
+- aspect ratio: flagged when width:height differs by more than ASPECT_TOL (45 %; blocking);
 - orientation: IoU of the drawing's outline with the part's, as is and mirrored left-right, mirrored up-down and
   rotated 180 degrees. Flagged only when a transformed version beats the as-is IoU by ORIENT_MARGIN: the decision is
   relative, never an absolute IoU threshold, because SAM outlines of correct parts score only 0.8-0.95 (blocking);
@@ -41,7 +41,7 @@ WORDS = {"top": (("left", "right"), ("front", "back")), "front": (("left", "righ
 GRID = 96               # orientation compare resolution
 WORK = 400              # longest side of the outline crop for hole detection, px
 ORIENT_MARGIN = 0.10    # a mirrored/rotated outline must beat as-is IoU by this much (tuned in experiments/shape-check)
-ASPECT_TOL = 1.60       # width:height may differ by up to 60 % (photos and loose view boxes reach 1.5 on correct parts)
+ASPECT_TOL = 1.45       # width:height may differ by up to 45 % (correct parts reach 1.29 on photos and sketches)
 HOLE_MIN_FRAC = 0.002   # closed region area / outline area: smaller is text or arrowheads
 HOLE_MAX_FRAC = 0.30    # larger is a face of the part (a step, a slope) rather than a hole
 HOLE_MATCH = 0.15       # hole centres match within this fraction of the outline's size
@@ -212,6 +212,25 @@ def where(view, u, v):
     if not h and not vv:
         return "centre"
     return "-".join(w for w in (vv, h) if w)
+
+
+def ink_bounded(mask, gray, box):
+    """The SAM outline cut back to what the drawing's lines enclose. SAM leaks into labels and dimension areas next
+    to the part; those are open on paper, so the ink fill (closed regions + their lines) excludes them. If the ink
+    fill keeps less than 60 % of the outline (a sketch with gaps in its outline), the SAM outline is kept as is."""
+    if os.environ.get("SHAPE_NO_INK_BOUND") or not mask.any():
+        return mask
+    x1, y1, x2, y2 = box
+    ink = ink_mask(gray[y1:y2 + 1, x1:x2 + 1], close=5)
+    fill = ndimage.binary_fill_holes(ink)
+    fill = cv2.dilate(fill.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0
+    out = mask.copy()
+    out[y1:y2 + 1, x1:x2 + 1] &= fill
+    out[:y1] = False
+    out[y2 + 1:] = False
+    out[:, :x1] = False
+    out[:, x2 + 1:] = False
+    return out if out.sum() >= 0.6 * mask.sum() else mask
 
 
 def trim(mask):
@@ -460,8 +479,8 @@ class InputShape:
             box = boxes[v]
             m = self._largest(masks.get(k), box)
             bw, bh = box[2] - box[0] + 1, box[3] - box[1] + 1
-            filled = None if m is None else trim(ndimage.binary_fill_holes(
-                cv2.morphologyEx(m.astype(np.uint8), cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8)) > 0))
+            filled = None if m is None else trim(ink_bounded(ndimage.binary_fill_holes(
+                cv2.morphologyEx(m.astype(np.uint8), cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8)) > 0), gray, box))
             if filled is None or filled.sum() < MIN_FILL * bw * bh:
                 out[v] = {"view": v, "box": box, "usable": False, "reason": "SAM found no part outline in the box"}
                 continue

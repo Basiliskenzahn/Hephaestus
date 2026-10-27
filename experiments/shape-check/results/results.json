@@ -11,64 +11,64 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.813,
-     "mirror_lr": 0.813,
-     "mirror_ud": 0.813,
-     "rot180": 0.813
+     "as_is": 0.823,
+     "mirror_lr": 0.823,
+     "mirror_ud": 0.823,
+     "rot180": 0.823
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.523,
+     "drawing": 1.607,
      "part": 1.6
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.806,
-       "v": 0.731,
-       "area": 0.0026
+       "u": 0.232,
+       "v": 0.748,
+       "area": 0.0031
       },
       {
-       "u": 0.247,
-       "v": 0.73,
-       "area": 0.0025
+       "u": 0.824,
+       "v": 0.748,
+       "area": 0.003
       },
       {
-       "u": 0.525,
-       "v": 0.503,
-       "area": 0.0416
+       "u": 0.527,
+       "v": 0.495,
+       "area": 0.0485
       },
       {
-       "u": 0.806,
-       "v": 0.279,
-       "area": 0.0026
+       "u": 0.824,
+       "v": 0.244,
+       "area": 0.0032
       }
      ],
      "part": [
       {
        "u": 0.099,
-       "v": 0.84,
-       "area": 0.0056
+       "v": 0.841,
+       "area": 0.0057
       },
       {
        "u": 0.898,
-       "v": 0.84,
-       "area": 0.0056
+       "v": 0.841,
+       "area": 0.0057
       },
       {
        "u": 0.499,
        "v": 0.502,
-       "area": 0.0732
+       "area": 0.0733
       },
       {
        "u": 0.099,
        "v": 0.163,
-       "area": 0.0056
+       "area": 0.0057
       },
       {
        "u": 0.898,
        "v": 0.163,
-       "area": 0.0056
+       "area": 0.0057
       }
      ]
     },
@@ -93,7 +93,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 9.59,
+  "prep_seconds": 8.9,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -112,64 +112,64 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.813,
-     "mirror_lr": 0.813,
-     "mirror_ud": 0.813,
-     "rot180": 0.813
+     "as_is": 0.823,
+     "mirror_lr": 0.823,
+     "mirror_ud": 0.823,
+     "rot180": 0.823
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.523,
+     "drawing": 1.607,
      "part": 1.6
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.806,
-       "v": 0.731,
-       "area": 0.0026
+       "u": 0.232,
+       "v": 0.748,
+       "area": 0.0031
       },
       {
-       "u": 0.247,
-       "v": 0.73,
-       "area": 0.0025
+       "u": 0.824,
+       "v": 0.748,
+       "area": 0.003
       },
       {
-       "u": 0.525,
-       "v": 0.503,
-       "area": 0.0416
+       "u": 0.527,
+       "v": 0.495,
+       "area": 0.0485
       },
       {
-       "u": 0.806,
-       "v": 0.279,
-       "area": 0.0026
+       "u": 0.824,
+       "v": 0.244,
+       "area": 0.0032
       }
      ],
      "part": [
       {
        "u": 0.099,
-       "v": 0.84,
-       "area": 0.0056
+       "v": 0.841,
+       "area": 0.0057
       },
       {
        "u": 0.898,
-       "v": 0.84,
-       "area": 0.0056
+       "v": 0.841,
+       "area": 0.0057
       },
       {
        "u": 0.561,
        "v": 0.502,
-       "area": 0.0732
+       "area": 0.0733
       },
       {
        "u": 0.099,
        "v": 0.163,
-       "area": 0.0056
+       "area": 0.0057
       },
       {
        "u": 0.898,
        "v": 0.163,
-       "area": 0.0056
+       "area": 0.0057
       }
      ]
     },
@@ -194,7 +194,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 9.59,
+  "prep_seconds": 8.9,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -205,74 +205,74 @@
   "available": true,
   "note": null,
   "issues": [
-   "top view: the drawing's outline is 1.52 : 1 (width along X : height along Y), the part's is 1 : 1.60. Check which sizes run along X and Y."
+   "top view: the drawing's outline is 1.61 : 1 (width along X : height along Y), the part's is 1 : 1.60. Check which sizes run along X and Y."
   ],
   "advisories": [
-   "top view: the drawing shows 4 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: back-right, back-left, front-right. On the part but not in the drawing: back-left, back-right, front-left, front-right."
+   "top view: the drawing shows 4 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: back-left, back-right. On the part but not in the drawing: back-left, back-right, front-left."
   ],
   "views": [
    {
     "view": "top",
     "status": "issue",
     "orientation": {
-     "as_is": 0.813,
-     "mirror_lr": 0.813,
-     "mirror_ud": 0.813,
-     "rot180": 0.813
+     "as_is": 0.823,
+     "mirror_lr": 0.823,
+     "mirror_ud": 0.823,
+     "rot180": 0.823
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.523,
+     "drawing": 1.607,
      "part": 0.625
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.806,
-       "v": 0.731,
-       "area": 0.0026
+       "u": 0.232,
+       "v": 0.748,
+       "area": 0.0031
       },
       {
-       "u": 0.247,
-       "v": 0.73,
-       "area": 0.0025
+       "u": 0.824,
+       "v": 0.748,
+       "area": 0.003
       },
       {
-       "u": 0.525,
-       "v": 0.503,
-       "area": 0.0416
+       "u": 0.527,
+       "v": 0.495,
+       "area": 0.0485
       },
       {
-       "u": 0.806,
-       "v": 0.279,
-       "area": 0.0026
+       "u": 0.824,
+       "v": 0.244,
+       "area": 0.0032
       }
      ],
      "part": [
       {
        "u": 0.159,
        "v": 0.9,
-       "area": 0.0055
+       "area": 0.0054
       },
       {
        "u": 0.838,
        "v": 0.9,
-       "area": 0.0055
+       "area": 0.0054
       },
       {
        "u": 0.499,
        "v": 0.502,
-       "area": 0.0728
+       "area": 0.072
       },
       {
        "u": 0.159,
        "v": 0.104,
-       "area": 0.0055
+       "area": 0.0054
       },
       {
        "u": 0.838,
        "v": 0.104,
-       "area": 0.0055
+       "area": 0.0054
       }
      ]
     },
@@ -297,7 +297,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 9.59,
+  "prep_seconds": 8.9,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -308,77 +308,75 @@
   "available": true,
   "note": null,
   "issues": [],
-  "advisories": [
-   "top view: the drawing shows 5 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: back-left, front-left, front-right. On the part but not in the drawing: back-left, front-left, front-right."
-  ],
+  "advisories": [],
   "views": [
    {
     "view": "top",
-    "status": "advisory",
+    "status": "ok",
     "orientation": {
-     "as_is": 0.81,
-     "mirror_lr": 0.81,
-     "mirror_ud": 0.81,
-     "rot180": 0.81
+     "as_is": 0.819,
+     "mirror_lr": 0.819,
+     "mirror_ud": 0.819,
+     "rot180": 0.819
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.546,
+     "drawing": 1.549,
      "part": 1.6
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.807,
-       "v": 0.739,
-       "area": 0.0028
-      },
-      {
-       "u": 0.246,
-       "v": 0.736,
-       "area": 0.0026
-      },
-      {
-       "u": 0.526,
-       "v": 0.513,
-       "area": 0.0402
-      },
-      {
-       "u": 0.248,
-       "v": 0.293,
-       "area": 0.0024
+       "u": 0.169,
+       "v": 0.75,
+       "area": 0.0033
       },
       {
        "u": 0.809,
-       "v": 0.293,
-       "area": 0.0026
+       "v": 0.751,
+       "area": 0.0036
+      },
+      {
+       "u": 0.488,
+       "v": 0.495,
+       "area": 0.0519
+      },
+      {
+       "u": 0.171,
+       "v": 0.242,
+       "area": 0.0033
+      },
+      {
+       "u": 0.81,
+       "v": 0.243,
+       "area": 0.0035
       }
      ],
      "part": [
       {
        "u": 0.099,
-       "v": 0.841,
-       "area": 0.0056
+       "v": 0.84,
+       "area": 0.0057
       },
       {
        "u": 0.898,
-       "v": 0.841,
-       "area": 0.0056
+       "v": 0.84,
+       "area": 0.0057
       },
       {
        "u": 0.499,
        "v": 0.502,
-       "area": 0.0733
+       "area": 0.0734
       },
       {
        "u": 0.099,
        "v": 0.163,
-       "area": 0.0056
+       "area": 0.0057
       },
       {
        "u": 0.898,
        "v": 0.163,
-       "area": 0.0056
+       "area": 0.0057
       }
      ]
     },
@@ -421,7 +419,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 15.49,
+  "prep_seconds": 15.08,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -432,77 +430,75 @@
   "available": true,
   "note": null,
   "issues": [],
-  "advisories": [
-   "top view: the drawing shows 5 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: back-left, front-left, front-right. On the part but not in the drawing: back-left, front-left, front-right."
-  ],
+  "advisories": [],
   "views": [
    {
     "view": "top",
-    "status": "advisory",
+    "status": "ok",
     "orientation": {
-     "as_is": 0.81,
-     "mirror_lr": 0.81,
-     "mirror_ud": 0.81,
-     "rot180": 0.81
+     "as_is": 0.819,
+     "mirror_lr": 0.819,
+     "mirror_ud": 0.819,
+     "rot180": 0.819
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.546,
+     "drawing": 1.549,
      "part": 1.6
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.807,
-       "v": 0.739,
-       "area": 0.0028
-      },
-      {
-       "u": 0.246,
-       "v": 0.736,
-       "area": 0.0026
-      },
-      {
-       "u": 0.526,
-       "v": 0.513,
-       "area": 0.0402
-      },
-      {
-       "u": 0.248,
-       "v": 0.293,
-       "area": 0.0024
+       "u": 0.169,
+       "v": 0.75,
+       "area": 0.0033
       },
       {
        "u": 0.809,
-       "v": 0.293,
-       "area": 0.0026
+       "v": 0.751,
+       "area": 0.0036
+      },
+      {
+       "u": 0.488,
+       "v": 0.495,
+       "area": 0.0519
+      },
+      {
+       "u": 0.171,
+       "v": 0.242,
+       "area": 0.0033
+      },
+      {
+       "u": 0.81,
+       "v": 0.243,
+       "area": 0.0035
       }
      ],
      "part": [
       {
        "u": 0.099,
-       "v": 0.841,
-       "area": 0.0056
+       "v": 0.84,
+       "area": 0.0057
       },
       {
        "u": 0.898,
-       "v": 0.841,
-       "area": 0.0056
+       "v": 0.84,
+       "area": 0.0057
       },
       {
        "u": 0.561,
        "v": 0.502,
-       "area": 0.0733
+       "area": 0.0734
       },
       {
        "u": 0.099,
        "v": 0.163,
-       "area": 0.0056
+       "area": 0.0057
       },
       {
        "u": 0.898,
        "v": 0.163,
-       "area": 0.0056
+       "area": 0.0057
       }
      ]
     },
@@ -545,7 +541,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 15.49,
+  "prep_seconds": 15.08,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -559,76 +555,76 @@
    "top view: the drawing's outline is 1.55 : 1 (width along X : height along Y), the part's is 1 : 1.60. Check which sizes run along X and Y."
   ],
   "advisories": [
-   "top view: the drawing shows 5 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: back-right, back-left, front-left, front-right. On the part but not in the drawing: back-left, back-right, front-left, front-right."
+   "top view: the drawing shows 5 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: back-left, back-right. On the part but not in the drawing: back-left, back-right."
   ],
   "views": [
    {
     "view": "top",
     "status": "issue",
     "orientation": {
-     "as_is": 0.81,
-     "mirror_lr": 0.81,
-     "mirror_ud": 0.81,
-     "rot180": 0.81
+     "as_is": 0.819,
+     "mirror_lr": 0.819,
+     "mirror_ud": 0.819,
+     "rot180": 0.819
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.546,
+     "drawing": 1.549,
      "part": 0.625
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.807,
-       "v": 0.739,
-       "area": 0.0028
-      },
-      {
-       "u": 0.246,
-       "v": 0.736,
-       "area": 0.0026
-      },
-      {
-       "u": 0.526,
-       "v": 0.513,
-       "area": 0.0402
-      },
-      {
-       "u": 0.248,
-       "v": 0.293,
-       "area": 0.0024
+       "u": 0.169,
+       "v": 0.75,
+       "area": 0.0033
       },
       {
        "u": 0.809,
-       "v": 0.293,
-       "area": 0.0026
+       "v": 0.751,
+       "area": 0.0036
+      },
+      {
+       "u": 0.488,
+       "v": 0.495,
+       "area": 0.0519
+      },
+      {
+       "u": 0.171,
+       "v": 0.242,
+       "area": 0.0033
+      },
+      {
+       "u": 0.81,
+       "v": 0.243,
+       "area": 0.0035
       }
      ],
      "part": [
       {
        "u": 0.159,
        "v": 0.901,
-       "area": 0.0055
+       "area": 0.0054
       },
       {
        "u": 0.838,
        "v": 0.901,
-       "area": 0.0055
+       "area": 0.0054
       },
       {
        "u": 0.499,
        "v": 0.502,
-       "area": 0.0729
+       "area": 0.0727
       },
       {
        "u": 0.159,
        "v": 0.103,
-       "area": 0.0055
+       "area": 0.0054
       },
       {
        "u": 0.838,
        "v": 0.103,
-       "area": 0.0055
+       "area": 0.0054
       }
      ]
     },
@@ -671,7 +667,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 15.49,
+  "prep_seconds": 15.08,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -790,7 +786,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 15.46,
+  "prep_seconds": 18.35,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -909,7 +905,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 15.46,
+  "prep_seconds": 18.35,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -1030,7 +1026,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 15.46,
+  "prep_seconds": 18.35,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -1043,21 +1039,21 @@
   "issues": [],
   "advisories": [
    "top view: the drawing shows 0 hole(s) or closed outline(s), the part 1. On the part but not in the drawing: centre.",
-   "front view: the drawing shows 1 hole(s) or closed outline(s), the part 2. In the drawing but not on the part: left. On the part but not in the drawing: top-left, top-right."
+   "front view: the drawing shows 1 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-right."
   ],
   "views": [
    {
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.784,
-     "mirror_lr": 0.784,
-     "mirror_ud": 0.784,
-     "rot180": 0.784
+     "as_is": 0.816,
+     "mirror_lr": 0.816,
+     "mirror_ud": 0.816,
+     "rot180": 0.816
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.375,
+     "drawing": 1.333,
      "part": 1.5
     },
     "holes": {
@@ -1065,8 +1061,8 @@
      "part": [
       {
        "u": 0.499,
-       "v": 0.44,
-       "area": 0.0427
+       "v": 0.439,
+       "area": 0.0425
       }
      ]
     },
@@ -1076,22 +1072,22 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.861,
-     "mirror_lr": 0.861,
-     "mirror_ud": 0.861,
-     "rot180": 0.861
+     "as_is": 0.92,
+     "mirror_lr": 0.92,
+     "mirror_ud": 0.92,
+     "rot180": 0.92
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.573,
+     "drawing": 1.576,
      "part": 1.5
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.333,
-       "v": 0.573,
-       "area": 0.0036
+       "u": 0.311,
+       "v": 0.592,
+       "area": 0.0038
       }
      ],
      "part": [
@@ -1113,14 +1109,14 @@
     "view": "side",
     "status": "ok",
     "orientation": {
-     "as_is": 0.942,
-     "mirror_lr": 0.342,
+     "as_is": 0.941,
+     "mirror_lr": 0.343,
      "mirror_ud": 0.353,
-     "rot180": 0.06
+     "rot180": 0.061
     },
-    "orientation_gap": -0.589,
+    "orientation_gap": -0.588,
     "aspect": {
-     "drawing": 0.957,
+     "drawing": 0.961,
      "part": 1.0
     },
     "holes": {
@@ -1166,7 +1162,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 20.88,
+  "prep_seconds": 21.04,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -1179,159 +1175,21 @@
   "issues": [],
   "advisories": [
    "top view: the drawing shows 0 hole(s) or closed outline(s), the part 1. On the part but not in the drawing: centre.",
-   "front view: the drawing shows 1 hole(s) or closed outline(s), the part 2. In the drawing but not on the part: left. On the part but not in the drawing: top-left, top-right."
+   "front view: the drawing shows 1 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-right."
   ],
   "views": [
    {
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.784,
-     "mirror_lr": 0.784,
-     "mirror_ud": 0.784,
-     "rot180": 0.784
+     "as_is": 0.816,
+     "mirror_lr": 0.816,
+     "mirror_ud": 0.816,
+     "rot180": 0.816
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.375,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [],
-     "part": [
-      {
-       "u": 0.499,
-       "v": 0.439,
-       "area": 0.0413
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.861,
-     "mirror_lr": 0.861,
-     "mirror_ud": 0.861,
-     "rot180": 0.861
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.573,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.333,
-       "v": 0.573,
-       "area": 0.0036
-      }
-     ],
-     "part": [
-      {
-       "u": 0.249,
-       "v": 0.701,
-       "area": 0.0068
-      },
-      {
-       "u": 0.748,
-       "v": 0.701,
-       "area": 0.0068
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "side",
-    "status": "ok",
-    "orientation": {
-     "as_is": 0.942,
-     "mirror_lr": 0.342,
-     "mirror_ud": 0.353,
-     "rot180": 0.06
-    },
-    "orientation_gap": -0.589,
-    "aspect": {
-     "drawing": 0.957,
-     "part": 1.0
-    },
-    "holes": {
-     "drawing": [],
-     "part": []
-    },
-    "note": null
-   }
-  ],
-  "part": "02_l_bracket",
-  "variant": "clean",
-  "error": "rotate_slot",
-  "sheet": {
-   "method": "scan",
-   "rectified": false
-  },
-  "views_read": [
-   {
-    "box": [
-     253,
-     251,
-     490,
-     445
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     604,
-     251,
-     779,
-     445
-    ],
-    "view": "side"
-   },
-   {
-    "box": [
-     251,
-     573,
-     490,
-     793
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 20.88,
-  "sam": {
-   "calls": 1,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [
-   "side view: the drawing has its tallest section at the back (right), the part has it at the front (left); the part's outline is the drawing's mirrored along Y. Fix the positions along Y."
-  ],
-  "advisories": [
-   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 1. On the part but not in the drawing: centre.",
-   "front view: the drawing shows 1 hole(s) or closed outline(s), the part 2. In the drawing but not on the part: left. On the part but not in the drawing: top-left, top-right."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.784,
-     "mirror_lr": 0.784,
-     "mirror_ud": 0.784,
-     "rot180": 0.784
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.375,
+     "drawing": 1.333,
      "part": 1.5
     },
     "holes": {
@@ -1340,784 +1198,6 @@
       {
        "u": 0.499,
        "v": 0.44,
-       "area": 0.0427
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.861,
-     "mirror_lr": 0.861,
-     "mirror_ud": 0.861,
-     "rot180": 0.861
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.573,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.333,
-       "v": 0.573,
-       "area": 0.0036
-      }
-     ],
-     "part": [
-      {
-       "u": 0.249,
-       "v": 0.701,
-       "area": 0.0068
-      },
-      {
-       "u": 0.748,
-       "v": 0.701,
-       "area": 0.0068
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "side",
-    "status": "issue",
-    "orientation": {
-     "as_is": 0.342,
-     "mirror_lr": 0.942,
-     "mirror_ud": 0.06,
-     "rot180": 0.353
-    },
-    "orientation_gap": 0.6,
-    "aspect": {
-     "drawing": 0.957,
-     "part": 1.0
-    },
-    "holes": {
-     "drawing": [],
-     "part": []
-    },
-    "note": null
-   }
-  ],
-  "part": "02_l_bracket",
-  "variant": "clean",
-  "error": "upright_at_front",
-  "sheet": {
-   "method": "scan",
-   "rectified": false
-  },
-  "views_read": [
-   {
-    "box": [
-     253,
-     251,
-     490,
-     445
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     604,
-     251,
-     779,
-     445
-    ],
-    "view": "side"
-   },
-   {
-    "box": [
-     251,
-     573,
-     490,
-     793
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 20.88,
-  "sam": {
-   "calls": 1,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [],
-  "advisories": [
-   "front view: the drawing shows 2 hole(s) or closed outline(s), the part 2. In the drawing but not on the part: left, right. On the part but not in the drawing: top-left, top-right."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "ok",
-    "orientation": {
-     "as_is": 0.861,
-     "mirror_lr": 0.861,
-     "mirror_ud": 0.861,
-     "rot180": 0.861
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.56,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.507,
-       "v": 0.553,
-       "area": 0.025
-      }
-     ],
-     "part": [
-      {
-       "u": 0.499,
-       "v": 0.44,
-       "area": 0.0426
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.835,
-     "mirror_lr": 0.835,
-     "mirror_ud": 0.835,
-     "rot180": 0.835
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.49,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.328,
-       "v": 0.556,
-       "area": 0.0033
-      },
-      {
-       "u": 0.695,
-       "v": 0.557,
-       "area": 0.0036
-      }
-     ],
-     "part": [
-      {
-       "u": 0.249,
-       "v": 0.701,
-       "area": 0.0068
-      },
-      {
-       "u": 0.748,
-       "v": 0.701,
-       "area": 0.0068
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "side",
-    "status": "ok",
-    "orientation": {
-     "as_is": 0.458,
-     "mirror_lr": 0.173,
-     "mirror_ud": 0.256,
-     "rot180": 0.046
-    },
-    "orientation_gap": -0.202,
-    "aspect": {
-     "drawing": 0.793,
-     "part": 1.0
-    },
-    "holes": {
-     "drawing": [],
-     "part": []
-    },
-    "note": null
-   }
-  ],
-  "part": "02_l_bracket",
-  "variant": "photo",
-  "error": null,
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     160.0,
-     335.0
-    ],
-    [
-     1318.0,
-     146.0
-    ],
-    [
-     1330.0,
-     1145.0
-    ],
-    [
-     264.0,
-     1195.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     282,
-     350,
-     446,
-     525
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     543,
-     320,
-     665,
-     482
-    ],
-    "view": "side"
-   },
-   {
-    "box": [
-     299,
-     570,
-     460,
-     710
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 22.1,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [],
-  "advisories": [
-   "front view: the drawing shows 2 hole(s) or closed outline(s), the part 2. In the drawing but not on the part: left, right. On the part but not in the drawing: top-left, top-right."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "ok",
-    "orientation": {
-     "as_is": 0.861,
-     "mirror_lr": 0.861,
-     "mirror_ud": 0.861,
-     "rot180": 0.861
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.56,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.507,
-       "v": 0.553,
-       "area": 0.025
-      }
-     ],
-     "part": [
-      {
-       "u": 0.499,
-       "v": 0.439,
-       "area": 0.0412
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.835,
-     "mirror_lr": 0.835,
-     "mirror_ud": 0.835,
-     "rot180": 0.835
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.49,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.328,
-       "v": 0.556,
-       "area": 0.0033
-      },
-      {
-       "u": 0.695,
-       "v": 0.557,
-       "area": 0.0036
-      }
-     ],
-     "part": [
-      {
-       "u": 0.249,
-       "v": 0.701,
-       "area": 0.0068
-      },
-      {
-       "u": 0.748,
-       "v": 0.701,
-       "area": 0.0068
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "side",
-    "status": "ok",
-    "orientation": {
-     "as_is": 0.458,
-     "mirror_lr": 0.173,
-     "mirror_ud": 0.256,
-     "rot180": 0.046
-    },
-    "orientation_gap": -0.202,
-    "aspect": {
-     "drawing": 0.793,
-     "part": 1.0
-    },
-    "holes": {
-     "drawing": [],
-     "part": []
-    },
-    "note": null
-   }
-  ],
-  "part": "02_l_bracket",
-  "variant": "photo",
-  "error": "rotate_slot",
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     160.0,
-     335.0
-    ],
-    [
-     1318.0,
-     146.0
-    ],
-    [
-     1330.0,
-     1145.0
-    ],
-    [
-     264.0,
-     1195.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     282,
-     350,
-     446,
-     525
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     543,
-     320,
-     665,
-     482
-    ],
-    "view": "side"
-   },
-   {
-    "box": [
-     299,
-     570,
-     460,
-     710
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 22.1,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [
-   "side view: the drawing has its tallest section at the back (right), the part has it at the front (left); the part's outline is the drawing's mirrored along Y. Fix the positions along Y."
-  ],
-  "advisories": [
-   "front view: the drawing shows 2 hole(s) or closed outline(s), the part 2. In the drawing but not on the part: left, right. On the part but not in the drawing: top-left, top-right."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "ok",
-    "orientation": {
-     "as_is": 0.861,
-     "mirror_lr": 0.861,
-     "mirror_ud": 0.861,
-     "rot180": 0.861
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.56,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.507,
-       "v": 0.553,
-       "area": 0.025
-      }
-     ],
-     "part": [
-      {
-       "u": 0.499,
-       "v": 0.44,
-       "area": 0.0426
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.835,
-     "mirror_lr": 0.835,
-     "mirror_ud": 0.835,
-     "rot180": 0.835
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.49,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.328,
-       "v": 0.556,
-       "area": 0.0033
-      },
-      {
-       "u": 0.695,
-       "v": 0.557,
-       "area": 0.0036
-      }
-     ],
-     "part": [
-      {
-       "u": 0.249,
-       "v": 0.701,
-       "area": 0.0068
-      },
-      {
-       "u": 0.748,
-       "v": 0.701,
-       "area": 0.0068
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "side",
-    "status": "issue",
-    "orientation": {
-     "as_is": 0.173,
-     "mirror_lr": 0.458,
-     "mirror_ud": 0.046,
-     "rot180": 0.256
-    },
-    "orientation_gap": 0.285,
-    "aspect": {
-     "drawing": 0.793,
-     "part": 1.0
-    },
-    "holes": {
-     "drawing": [],
-     "part": []
-    },
-    "note": null
-   }
-  ],
-  "part": "02_l_bracket",
-  "variant": "photo",
-  "error": "upright_at_front",
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     160.0,
-     335.0
-    ],
-    [
-     1318.0,
-     146.0
-    ],
-    [
-     1330.0,
-     1145.0
-    ],
-    [
-     264.0,
-     1195.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     282,
-     350,
-     446,
-     525
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     543,
-     320,
-     665,
-     482
-    ],
-    "view": "side"
-   },
-   {
-    "box": [
-     299,
-     570,
-     460,
-     710
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 22.1,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [],
-  "advisories": [
-   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 1. On the part but not in the drawing: centre.",
-   "front view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-left, top-right."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.742,
-     "mirror_lr": 0.742,
-     "mirror_ud": 0.742,
-     "rot180": 0.742
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.171,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [],
-     "part": [
-      {
-       "u": 0.499,
-       "v": 0.44,
-       "area": 0.0427
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.84,
-     "mirror_lr": 0.84,
-     "mirror_ud": 0.84,
-     "rot180": 0.84
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.355,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [],
-     "part": [
-      {
-       "u": 0.249,
-       "v": 0.701,
-       "area": 0.0068
-      },
-      {
-       "u": 0.748,
-       "v": 0.701,
-       "area": 0.0068
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "side",
-    "status": "ok",
-    "orientation": {
-     "as_is": 0.598,
-     "mirror_lr": 0.258,
-     "mirror_ud": 0.27,
-     "rot180": 0.044
-    },
-    "orientation_gap": -0.328,
-    "aspect": {
-     "drawing": 0.791,
-     "part": 1.0
-    },
-    "holes": {
-     "drawing": [],
-     "part": []
-    },
-    "note": null
-   }
-  ],
-  "part": "02_l_bracket",
-  "variant": "rough",
-  "error": null,
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     308.0,
-     155.0
-    ],
-    [
-     1404.0,
-     254.0
-    ],
-    [
-     1180.0,
-     1251.0
-    ],
-    [
-     197.0,
-     1025.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     312,
-     273,
-     493,
-     432
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     285,
-     500,
-     449,
-     677
-    ],
-    "view": "top"
-   },
-   {
-    "box": [
-     550,
-     278,
-     704,
-     488
-    ],
-    "view": "side"
-   }
-  ],
-  "prep_seconds": 17.53,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [],
-  "advisories": [
-   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 1. On the part but not in the drawing: centre.",
-   "front view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-left, top-right."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.742,
-     "mirror_lr": 0.742,
-     "mirror_ud": 0.742,
-     "rot180": 0.742
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.171,
-     "part": 1.5
-    },
-    "holes": {
-     "drawing": [],
-     "part": [
-      {
-       "u": 0.499,
-       "v": 0.439,
        "area": 0.0414
       }
      ]
@@ -2128,18 +1208,24 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.84,
-     "mirror_lr": 0.84,
-     "mirror_ud": 0.84,
-     "rot180": 0.84
+     "as_is": 0.92,
+     "mirror_lr": 0.92,
+     "mirror_ud": 0.92,
+     "rot180": 0.92
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.355,
+     "drawing": 1.576,
      "part": 1.5
     },
     "holes": {
-     "drawing": [],
+     "drawing": [
+      {
+       "u": 0.311,
+       "v": 0.592,
+       "area": 0.0038
+      }
+     ],
      "part": [
       {
        "u": 0.249,
@@ -2159,14 +1245,930 @@
     "view": "side",
     "status": "ok",
     "orientation": {
-     "as_is": 0.598,
-     "mirror_lr": 0.258,
-     "mirror_ud": 0.27,
-     "rot180": 0.044
+     "as_is": 0.941,
+     "mirror_lr": 0.343,
+     "mirror_ud": 0.353,
+     "rot180": 0.061
     },
-    "orientation_gap": -0.328,
+    "orientation_gap": -0.588,
     "aspect": {
-     "drawing": 0.791,
+     "drawing": 0.961,
+     "part": 1.0
+    },
+    "holes": {
+     "drawing": [],
+     "part": []
+    },
+    "note": null
+   }
+  ],
+  "part": "02_l_bracket",
+  "variant": "clean",
+  "error": "rotate_slot",
+  "sheet": {
+   "method": "scan",
+   "rectified": false
+  },
+  "views_read": [
+   {
+    "box": [
+     253,
+     251,
+     490,
+     445
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     604,
+     251,
+     779,
+     445
+    ],
+    "view": "side"
+   },
+   {
+    "box": [
+     251,
+     573,
+     490,
+     793
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 21.04,
+  "sam": {
+   "calls": 1,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [
+   "side view: the drawing has its tallest section at the back (right), the part has it at the front (left); the part's outline is the drawing's mirrored along Y. Fix the positions along Y."
+  ],
+  "advisories": [
+   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 1. On the part but not in the drawing: centre.",
+   "front view: the drawing shows 1 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-right."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.816,
+     "mirror_lr": 0.816,
+     "mirror_ud": 0.816,
+     "rot180": 0.816
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.333,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [],
+     "part": [
+      {
+       "u": 0.499,
+       "v": 0.439,
+       "area": 0.0425
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.92,
+     "mirror_lr": 0.92,
+     "mirror_ud": 0.92,
+     "rot180": 0.92
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.576,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.311,
+       "v": 0.592,
+       "area": 0.0038
+      }
+     ],
+     "part": [
+      {
+       "u": 0.249,
+       "v": 0.701,
+       "area": 0.0068
+      },
+      {
+       "u": 0.748,
+       "v": 0.701,
+       "area": 0.0068
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "side",
+    "status": "issue",
+    "orientation": {
+     "as_is": 0.343,
+     "mirror_lr": 0.941,
+     "mirror_ud": 0.061,
+     "rot180": 0.353
+    },
+    "orientation_gap": 0.598,
+    "aspect": {
+     "drawing": 0.961,
+     "part": 1.0
+    },
+    "holes": {
+     "drawing": [],
+     "part": []
+    },
+    "note": null
+   }
+  ],
+  "part": "02_l_bracket",
+  "variant": "clean",
+  "error": "upright_at_front",
+  "sheet": {
+   "method": "scan",
+   "rectified": false
+  },
+  "views_read": [
+   {
+    "box": [
+     253,
+     251,
+     490,
+     445
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     604,
+     251,
+     779,
+     445
+    ],
+    "view": "side"
+   },
+   {
+    "box": [
+     251,
+     573,
+     490,
+     793
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 21.04,
+  "sam": {
+   "calls": 1,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [],
+  "advisories": [
+   "front view: the drawing shows 1 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-left.",
+   "side view: the drawing shows 1 hole(s) or closed outline(s), the part 0. In the drawing but not on the part: top-back."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.858,
+     "mirror_lr": 0.858,
+     "mirror_ud": 0.858,
+     "rot180": 0.858
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.509,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.493,
+       "v": 0.554,
+       "area": 0.026
+      }
+     ],
+     "part": [
+      {
+       "u": 0.499,
+       "v": 0.44,
+       "area": 0.0415
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.907,
+     "mirror_lr": 0.907,
+     "mirror_ud": 0.907,
+     "rot180": 0.907
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.568,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.685,
+       "v": 0.596,
+       "area": 0.0036
+      }
+     ],
+     "part": [
+      {
+       "u": 0.249,
+       "v": 0.701,
+       "area": 0.0067
+      },
+      {
+       "u": 0.748,
+       "v": 0.701,
+       "area": 0.0067
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "side",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.474,
+     "mirror_lr": 0.177,
+     "mirror_ud": 0.266,
+     "rot180": 0.049
+    },
+    "orientation_gap": -0.208,
+    "aspect": {
+     "drawing": 0.806,
+     "part": 1.0
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.929,
+       "v": 0.917,
+       "area": 0.0268
+      }
+     ],
+     "part": []
+    },
+    "note": null
+   }
+  ],
+  "part": "02_l_bracket",
+  "variant": "photo",
+  "error": null,
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     160.0,
+     335.0
+    ],
+    [
+     1318.0,
+     146.0
+    ],
+    [
+     1330.0,
+     1145.0
+    ],
+    [
+     264.0,
+     1195.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     282,
+     350,
+     446,
+     525
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     543,
+     320,
+     665,
+     482
+    ],
+    "view": "side"
+   },
+   {
+    "box": [
+     299,
+     570,
+     460,
+     710
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 23.4,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [],
+  "advisories": [
+   "front view: the drawing shows 1 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-left.",
+   "side view: the drawing shows 1 hole(s) or closed outline(s), the part 0. In the drawing but not on the part: top-back."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.858,
+     "mirror_lr": 0.858,
+     "mirror_ud": 0.858,
+     "rot180": 0.858
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.509,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.493,
+       "v": 0.554,
+       "area": 0.026
+      }
+     ],
+     "part": [
+      {
+       "u": 0.499,
+       "v": 0.44,
+       "area": 0.0413
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.907,
+     "mirror_lr": 0.907,
+     "mirror_ud": 0.907,
+     "rot180": 0.907
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.568,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.685,
+       "v": 0.596,
+       "area": 0.0036
+      }
+     ],
+     "part": [
+      {
+       "u": 0.249,
+       "v": 0.701,
+       "area": 0.0067
+      },
+      {
+       "u": 0.748,
+       "v": 0.701,
+       "area": 0.0067
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "side",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.474,
+     "mirror_lr": 0.177,
+     "mirror_ud": 0.266,
+     "rot180": 0.049
+    },
+    "orientation_gap": -0.208,
+    "aspect": {
+     "drawing": 0.806,
+     "part": 1.0
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.929,
+       "v": 0.917,
+       "area": 0.0268
+      }
+     ],
+     "part": []
+    },
+    "note": null
+   }
+  ],
+  "part": "02_l_bracket",
+  "variant": "photo",
+  "error": "rotate_slot",
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     160.0,
+     335.0
+    ],
+    [
+     1318.0,
+     146.0
+    ],
+    [
+     1330.0,
+     1145.0
+    ],
+    [
+     264.0,
+     1195.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     282,
+     350,
+     446,
+     525
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     543,
+     320,
+     665,
+     482
+    ],
+    "view": "side"
+   },
+   {
+    "box": [
+     299,
+     570,
+     460,
+     710
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 23.4,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [
+   "side view: the drawing has its tallest section at the back (right), the part has it at the front (left); the part's outline is the drawing's mirrored along Y. Fix the positions along Y."
+  ],
+  "advisories": [
+   "front view: the drawing shows 1 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-left.",
+   "side view: the drawing shows 1 hole(s) or closed outline(s), the part 0. In the drawing but not on the part: top-back."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.858,
+     "mirror_lr": 0.858,
+     "mirror_ud": 0.858,
+     "rot180": 0.858
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.509,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.493,
+       "v": 0.554,
+       "area": 0.026
+      }
+     ],
+     "part": [
+      {
+       "u": 0.499,
+       "v": 0.44,
+       "area": 0.0415
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.907,
+     "mirror_lr": 0.907,
+     "mirror_ud": 0.907,
+     "rot180": 0.907
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.568,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.685,
+       "v": 0.596,
+       "area": 0.0036
+      }
+     ],
+     "part": [
+      {
+       "u": 0.249,
+       "v": 0.701,
+       "area": 0.0067
+      },
+      {
+       "u": 0.748,
+       "v": 0.701,
+       "area": 0.0067
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "side",
+    "status": "issue",
+    "orientation": {
+     "as_is": 0.177,
+     "mirror_lr": 0.474,
+     "mirror_ud": 0.049,
+     "rot180": 0.266
+    },
+    "orientation_gap": 0.297,
+    "aspect": {
+     "drawing": 0.806,
+     "part": 1.0
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.929,
+       "v": 0.917,
+       "area": 0.0268
+      }
+     ],
+     "part": []
+    },
+    "note": null
+   }
+  ],
+  "part": "02_l_bracket",
+  "variant": "photo",
+  "error": "upright_at_front",
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     160.0,
+     335.0
+    ],
+    [
+     1318.0,
+     146.0
+    ],
+    [
+     1330.0,
+     1145.0
+    ],
+    [
+     264.0,
+     1195.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     282,
+     350,
+     446,
+     525
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     543,
+     320,
+     665,
+     482
+    ],
+    "view": "side"
+   },
+   {
+    "box": [
+     299,
+     570,
+     460,
+     710
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 23.4,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [],
+  "advisories": [
+   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 1. On the part but not in the drawing: centre.",
+   "front view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-left, top-right."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.925,
+     "mirror_lr": 0.925,
+     "mirror_ud": 0.925,
+     "rot180": 0.925
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.656,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [],
+     "part": [
+      {
+       "u": 0.499,
+       "v": 0.44,
+       "area": 0.0417
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.947,
+     "mirror_lr": 0.947,
+     "mirror_ud": 0.947,
+     "rot180": 0.947
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.655,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [],
+     "part": [
+      {
+       "u": 0.249,
+       "v": 0.702,
+       "area": 0.0067
+      },
+      {
+       "u": 0.748,
+       "v": 0.702,
+       "area": 0.0067
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "side",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.851,
+     "mirror_lr": 0.325,
+     "mirror_ud": 0.325,
+     "rot180": 0.042
+    },
+    "orientation_gap": -0.526,
+    "aspect": {
+     "drawing": 0.873,
+     "part": 1.0
+    },
+    "holes": {
+     "drawing": [],
+     "part": []
+    },
+    "note": null
+   }
+  ],
+  "part": "02_l_bracket",
+  "variant": "rough",
+  "error": null,
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     308.0,
+     155.0
+    ],
+    [
+     1404.0,
+     254.0
+    ],
+    [
+     1180.0,
+     1251.0
+    ],
+    [
+     197.0,
+     1025.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     312,
+     273,
+     493,
+     432
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     285,
+     500,
+     449,
+     677
+    ],
+    "view": "top"
+   },
+   {
+    "box": [
+     550,
+     278,
+     704,
+     488
+    ],
+    "view": "side"
+   }
+  ],
+  "prep_seconds": 18.6,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [],
+  "advisories": [
+   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 1. On the part but not in the drawing: centre.",
+   "front view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-left, top-right."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.925,
+     "mirror_lr": 0.925,
+     "mirror_ud": 0.925,
+     "rot180": 0.925
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.656,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [],
+     "part": [
+      {
+       "u": 0.499,
+       "v": 0.44,
+       "area": 0.0412
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.947,
+     "mirror_lr": 0.947,
+     "mirror_ud": 0.947,
+     "rot180": 0.947
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.655,
+     "part": 1.5
+    },
+    "holes": {
+     "drawing": [],
+     "part": [
+      {
+       "u": 0.249,
+       "v": 0.702,
+       "area": 0.0067
+      },
+      {
+       "u": 0.748,
+       "v": 0.702,
+       "area": 0.0067
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "side",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.851,
+     "mirror_lr": 0.325,
+     "mirror_ud": 0.325,
+     "rot180": 0.042
+    },
+    "orientation_gap": -0.526,
+    "aspect": {
+     "drawing": 0.873,
      "part": 1.0
     },
     "holes": {
@@ -2230,7 +2232,7 @@
     "view": "side"
    }
   ],
-  "prep_seconds": 17.53,
+  "prep_seconds": 18.6,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -2252,14 +2254,14 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.742,
-     "mirror_lr": 0.742,
-     "mirror_ud": 0.742,
-     "rot180": 0.742
+     "as_is": 0.925,
+     "mirror_lr": 0.925,
+     "mirror_ud": 0.925,
+     "rot180": 0.925
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.171,
+     "drawing": 1.656,
      "part": 1.5
     },
     "holes": {
@@ -2268,7 +2270,7 @@
       {
        "u": 0.499,
        "v": 0.44,
-       "area": 0.0427
+       "area": 0.0417
       }
      ]
     },
@@ -2278,14 +2280,14 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.84,
-     "mirror_lr": 0.84,
-     "mirror_ud": 0.84,
-     "rot180": 0.84
+     "as_is": 0.947,
+     "mirror_lr": 0.947,
+     "mirror_ud": 0.947,
+     "rot180": 0.947
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.355,
+     "drawing": 1.655,
      "part": 1.5
     },
     "holes": {
@@ -2293,13 +2295,13 @@
      "part": [
       {
        "u": 0.249,
-       "v": 0.701,
-       "area": 0.0068
+       "v": 0.702,
+       "area": 0.0067
       },
       {
        "u": 0.748,
-       "v": 0.701,
-       "area": 0.0068
+       "v": 0.702,
+       "area": 0.0067
       }
      ]
     },
@@ -2309,14 +2311,14 @@
     "view": "side",
     "status": "issue",
     "orientation": {
-     "as_is": 0.258,
-     "mirror_lr": 0.598,
-     "mirror_ud": 0.044,
-     "rot180": 0.27
+     "as_is": 0.325,
+     "mirror_lr": 0.851,
+     "mirror_ud": 0.042,
+     "rot180": 0.325
     },
-    "orientation_gap": 0.34,
+    "orientation_gap": 0.526,
     "aspect": {
-     "drawing": 0.791,
+     "drawing": 0.873,
      "part": 1.0
     },
     "holes": {
@@ -2380,7 +2382,7 @@
     "view": "side"
    }
   ],
-  "prep_seconds": 17.53,
+  "prep_seconds": 18.6,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -2399,34 +2401,34 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.917,
-     "mirror_lr": 0.917,
-     "mirror_ud": 0.917,
-     "rot180": 0.917
+     "as_is": 0.93,
+     "mirror_lr": 0.93,
+     "mirror_ud": 0.93,
+     "rot180": 0.93
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.406,
+     "drawing": 1.459,
      "part": 1.75
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.494,
-       "v": 0.581,
-       "area": 0.0298
+       "u": 0.493,
+       "v": 0.579,
+       "area": 0.0306
       },
       {
        "u": 0.813,
-       "v": 0.583,
-       "area": 0.0065
+       "v": 0.581,
+       "area": 0.0067
       }
      ],
      "part": [
       {
        "u": 0.499,
        "v": 0.502,
-       "area": 0.0372
+       "area": 0.037
       },
       {
        "u": 0.171,
@@ -2490,7 +2492,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 10.72,
+  "prep_seconds": 8.31,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -2509,34 +2511,34 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.917,
-     "mirror_lr": 0.917,
-     "mirror_ud": 0.917,
-     "rot180": 0.917
+     "as_is": 0.93,
+     "mirror_lr": 0.93,
+     "mirror_ud": 0.93,
+     "rot180": 0.93
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.406,
+     "drawing": 1.459,
      "part": 1.75
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.494,
-       "v": 0.581,
-       "area": 0.0298
+       "u": 0.493,
+       "v": 0.579,
+       "area": 0.0306
       },
       {
        "u": 0.813,
-       "v": 0.583,
-       "area": 0.0065
+       "v": 0.581,
+       "area": 0.0067
       }
      ],
      "part": [
       {
        "u": 0.499,
        "v": 0.502,
-       "area": 0.0372
+       "area": 0.037
       },
       {
        "u": 0.171,
@@ -2595,7 +2597,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 10.72,
+  "prep_seconds": 8.31,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -2614,27 +2616,27 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.917,
-     "mirror_lr": 0.917,
-     "mirror_ud": 0.917,
-     "rot180": 0.917
+     "as_is": 0.93,
+     "mirror_lr": 0.93,
+     "mirror_ud": 0.93,
+     "rot180": 0.93
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.406,
+     "drawing": 1.459,
      "part": 1.75
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.494,
-       "v": 0.581,
-       "area": 0.0298
+       "u": 0.493,
+       "v": 0.579,
+       "area": 0.0306
       },
       {
        "u": 0.813,
-       "v": 0.583,
-       "area": 0.0065
+       "v": 0.581,
+       "area": 0.0067
       }
      ],
      "part": [
@@ -2705,7 +2707,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 10.72,
+  "prep_seconds": 8.31,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -2724,34 +2726,34 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.919,
-     "mirror_lr": 0.919,
-     "mirror_ud": 0.919,
-     "rot180": 0.919
+     "as_is": 0.933,
+     "mirror_lr": 0.933,
+     "mirror_ud": 0.933,
+     "rot180": 0.933
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.406,
+     "drawing": 1.459,
      "part": 1.75
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.494,
-       "v": 0.581,
-       "area": 0.0298
+       "u": 0.493,
+       "v": 0.579,
+       "area": 0.0306
       },
       {
        "u": 0.813,
-       "v": 0.583,
-       "area": 0.0065
+       "v": 0.581,
+       "area": 0.0067
       }
      ],
      "part": [
       {
        "u": 0.499,
        "v": 0.502,
-       "area": 0.0376
+       "area": 0.0374
       },
       {
        "u": 0.171,
@@ -2761,7 +2763,7 @@
       {
        "u": 0.826,
        "v": 0.502,
-       "area": 0.0086
+       "area": 0.0085
       }
      ]
     },
@@ -2815,7 +2817,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 10.72,
+  "prep_seconds": 8.31,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -2826,542 +2828,38 @@
   "available": true,
   "note": null,
   "issues": [],
-  "advisories": [
-   "top view: the drawing shows 2 hole(s) or closed outline(s), the part 3. On the part but not in the drawing: left."
-  ],
+  "advisories": [],
   "views": [
    {
     "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.851,
-     "mirror_lr": 0.851,
-     "mirror_ud": 0.851,
-     "rot180": 0.851
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.341,
-     "part": 1.75
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.499,
-       "v": 0.53,
-       "area": 0.0216
-      },
-      {
-       "u": 0.764,
-       "v": 0.53,
-       "area": 0.0047
-      }
-     ],
-     "part": [
-      {
-       "u": 0.499,
-       "v": 0.502,
-       "area": 0.0373
-      },
-      {
-       "u": 0.171,
-       "v": 0.502,
-       "area": 0.0085
-      },
-      {
-       "u": 0.826,
-       "v": 0.502,
-       "area": 0.0085
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.938,
-     "mirror_lr": 0.938,
-     "mirror_ud": 0.938,
-     "rot180": 0.938
+     "as_is": 0.987,
+     "mirror_lr": 0.987,
+     "mirror_ud": 0.987,
+     "rot180": 0.987
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 3.377,
-     "part": 3.5
-    },
-    "holes": {
-     "drawing": [],
-     "part": []
-    },
-    "note": null
-   }
-  ],
-  "part": "03_block",
-  "variant": "photo",
-  "error": null,
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     145.0,
-     268.0
-    ],
-    [
-     1322.0,
-     175.0
-    ],
-    [
-     1357.0,
-     1322.0
-    ],
-    [
-     370.0,
-     1459.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     326,
-     324,
-     621,
-     422
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     360,
-     544,
-     631,
-     709
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 12.68,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [],
-  "advisories": [
-   "top view: the drawing shows 2 hole(s) or closed outline(s), the part 2. In the drawing but not on the part: centre, right. On the part but not in the drawing: centre, left."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.851,
-     "mirror_lr": 0.851,
-     "mirror_ud": 0.851,
-     "rot180": 0.851
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.341,
+     "drawing": 1.578,
      "part": 1.75
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.499,
-       "v": 0.53,
-       "area": 0.0216
-      },
-      {
-       "u": 0.764,
-       "v": 0.53,
-       "area": 0.0047
-      }
-     ],
-     "part": [
-      {
-       "u": 0.499,
+       "u": 0.498,
        "v": 0.502,
-       "area": 0.0373
+       "area": 0.0326
       },
       {
-       "u": 0.171,
-       "v": 0.502,
-       "area": 0.0085
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "ok",
-    "orientation": {
-     "as_is": 0.938,
-     "mirror_lr": 0.938,
-     "mirror_ud": 0.938,
-     "rot180": 0.938
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 3.377,
-     "part": 3.5
-    },
-    "holes": {
-     "drawing": [],
-     "part": []
-    },
-    "note": null
-   }
-  ],
-  "part": "03_block",
-  "variant": "photo",
-  "error": "drop_hole",
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     145.0,
-     268.0
-    ],
-    [
-     1322.0,
-     175.0
-    ],
-    [
-     1357.0,
-     1322.0
-    ],
-    [
-     370.0,
-     1459.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     326,
-     324,
-     621,
-     422
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     360,
-     544,
-     631,
-     709
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 12.68,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [],
-  "advisories": [
-   "top view: the drawing shows 2 hole(s) or closed outline(s), the part 3. On the part but not in the drawing: left."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.851,
-     "mirror_lr": 0.851,
-     "mirror_ud": 0.851,
-     "rot180": 0.851
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.341,
-     "part": 1.75
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.499,
-       "v": 0.53,
-       "area": 0.0216
+       "u": 0.18,
+       "v": 0.503,
+       "area": 0.0071
       },
       {
-       "u": 0.764,
-       "v": 0.53,
-       "area": 0.0047
-      }
-     ],
-     "part": [
-      {
-       "u": 0.499,
-       "v": 0.502,
-       "area": 0.0253
-      },
-      {
-       "u": 0.171,
-       "v": 0.502,
-       "area": 0.0085
-      },
-      {
-       "u": 0.826,
-       "v": 0.502,
-       "area": 0.0085
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "ok",
-    "orientation": {
-     "as_is": 0.938,
-     "mirror_lr": 0.938,
-     "mirror_ud": 0.938,
-     "rot180": 0.938
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 3.377,
-     "part": 3.5
-    },
-    "holes": {
-     "drawing": [],
-     "part": []
-    },
-    "note": null
-   }
-  ],
-  "part": "03_block",
-  "variant": "photo",
-  "error": "wrong_diameter",
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     145.0,
-     268.0
-    ],
-    [
-     1322.0,
-     175.0
-    ],
-    [
-     1357.0,
-     1322.0
-    ],
-    [
-     370.0,
-     1459.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     326,
-     324,
-     621,
-     422
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     360,
-     544,
-     631,
-     709
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 12.68,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [],
-  "advisories": [
-   "top view: the drawing shows 2 hole(s) or closed outline(s), the part 3. On the part but not in the drawing: left."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.859,
-     "mirror_lr": 0.859,
-     "mirror_ud": 0.859,
-     "rot180": 0.859
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.341,
-     "part": 1.75
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.499,
-       "v": 0.53,
-       "area": 0.0216
-      },
-      {
-       "u": 0.764,
-       "v": 0.53,
-       "area": 0.0047
-      }
-     ],
-     "part": [
-      {
-       "u": 0.499,
-       "v": 0.502,
-       "area": 0.0377
-      },
-      {
-       "u": 0.171,
-       "v": 0.502,
-       "area": 0.0086
-      },
-      {
-       "u": 0.826,
-       "v": 0.502,
-       "area": 0.0086
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "ok",
-    "orientation": {
-     "as_is": 0.938,
-     "mirror_lr": 0.938,
-     "mirror_ud": 0.938,
-     "rot180": 0.938
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 3.377,
-     "part": 3.5
-    },
-    "holes": {
-     "drawing": [],
-     "part": []
-    },
-    "note": null
-   }
-  ],
-  "part": "03_block",
-  "variant": "photo",
-  "error": "chamfer_for_fillet",
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     145.0,
-     268.0
-    ],
-    [
-     1322.0,
-     175.0
-    ],
-    [
-     1357.0,
-     1322.0
-    ],
-    [
-     370.0,
-     1459.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     326,
-     324,
-     621,
-     422
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     360,
-     544,
-     631,
-     709
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 12.68,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [],
-  "advisories": [
-   "top view: the drawing shows 2 hole(s) or closed outline(s), the part 3. On the part but not in the drawing: right."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.848,
-     "mirror_lr": 0.848,
-     "mirror_ud": 0.848,
-     "rot180": 0.848
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 1.58,
-     "part": 1.75
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.185,
-       "v": 0.55,
-       "area": 0.1029
-      },
-      {
-       "u": 0.49,
-       "v": 0.545,
-       "area": 0.0213
+       "u": 0.819,
+       "v": 0.503,
+       "area": 0.0072
       }
      ],
      "part": [
@@ -3388,14 +2886,14 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.944,
-     "mirror_lr": 0.944,
-     "mirror_ud": 0.944,
-     "rot180": 0.944
+     "as_is": 0.916,
+     "mirror_lr": 0.916,
+     "mirror_ud": 0.915,
+     "rot180": 0.915
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 3.611,
+     "drawing": 3.373,
      "part": 3.5
     },
     "holes": {
@@ -3406,51 +2904,51 @@
    }
   ],
   "part": "03_block",
-  "variant": "rough",
+  "variant": "photo",
   "error": null,
   "sheet": {
    "method": "sam",
    "rectified": true,
    "quad": [
     [
-     305.0,
-     307.0
+     145.0,
+     268.0
     ],
     [
-     1535.0,
-     230.0
+     1322.0,
+     175.0
     ],
     [
-     1168.0,
-     1449.0
+     1357.0,
+     1322.0
     ],
     [
-     111.0,
-     1366.0
+     370.0,
+     1459.0
     ]
    ]
   },
   "views_read": [
    {
     "box": [
-     342,
-     356,
-     647,
-     446
+     326,
+     324,
+     621,
+     422
     ],
     "view": "front"
    },
    {
     "box": [
-     272,
-     554,
-     575,
-     722
+     360,
+     544,
+     631,
+     709
     ],
     "view": "top"
    }
   ],
-  "prep_seconds": 18.0,
+  "prep_seconds": 12.98,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -3461,33 +2959,40 @@
   "available": true,
   "note": null,
   "issues": [],
-  "advisories": [],
+  "advisories": [
+   "top view: the drawing shows 3 hole(s) or closed outline(s), the part 2. In the drawing but not on the part: right."
+  ],
   "views": [
    {
     "view": "top",
-    "status": "ok",
+    "status": "advisory",
     "orientation": {
-     "as_is": 0.848,
-     "mirror_lr": 0.848,
-     "mirror_ud": 0.848,
-     "rot180": 0.848
+     "as_is": 0.987,
+     "mirror_lr": 0.987,
+     "mirror_ud": 0.987,
+     "rot180": 0.987
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.58,
+     "drawing": 1.578,
      "part": 1.75
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.185,
-       "v": 0.55,
-       "area": 0.1029
+       "u": 0.498,
+       "v": 0.502,
+       "area": 0.0326
       },
       {
-       "u": 0.49,
-       "v": 0.545,
-       "area": 0.0213
+       "u": 0.18,
+       "v": 0.503,
+       "area": 0.0071
+      },
+      {
+       "u": 0.819,
+       "v": 0.503,
+       "area": 0.0072
       }
      ],
      "part": [
@@ -3509,14 +3014,14 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.944,
-     "mirror_lr": 0.944,
-     "mirror_ud": 0.944,
-     "rot180": 0.944
+     "as_is": 0.916,
+     "mirror_lr": 0.916,
+     "mirror_ud": 0.915,
+     "rot180": 0.915
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 3.611,
+     "drawing": 3.373,
      "part": 3.5
     },
     "holes": {
@@ -3527,51 +3032,51 @@
    }
   ],
   "part": "03_block",
-  "variant": "rough",
+  "variant": "photo",
   "error": "drop_hole",
   "sheet": {
    "method": "sam",
    "rectified": true,
    "quad": [
     [
-     305.0,
-     307.0
+     145.0,
+     268.0
     ],
     [
-     1535.0,
-     230.0
+     1322.0,
+     175.0
     ],
     [
-     1168.0,
-     1449.0
+     1357.0,
+     1322.0
     ],
     [
-     111.0,
-     1366.0
+     370.0,
+     1459.0
     ]
    ]
   },
   "views_read": [
    {
     "box": [
-     342,
-     356,
-     647,
-     446
+     326,
+     324,
+     621,
+     422
     ],
     "view": "front"
    },
    {
     "box": [
-     272,
-     554,
-     575,
-     722
+     360,
+     544,
+     631,
+     709
     ],
     "view": "top"
    }
   ],
-  "prep_seconds": 18.0,
+  "prep_seconds": 12.98,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -3582,35 +3087,38 @@
   "available": true,
   "note": null,
   "issues": [],
-  "advisories": [
-   "top view: the drawing shows 2 hole(s) or closed outline(s), the part 3. On the part but not in the drawing: right."
-  ],
+  "advisories": [],
   "views": [
    {
     "view": "top",
-    "status": "advisory",
+    "status": "ok",
     "orientation": {
-     "as_is": 0.848,
-     "mirror_lr": 0.848,
-     "mirror_ud": 0.848,
-     "rot180": 0.848
+     "as_is": 0.987,
+     "mirror_lr": 0.987,
+     "mirror_ud": 0.987,
+     "rot180": 0.987
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.58,
+     "drawing": 1.578,
      "part": 1.75
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.185,
-       "v": 0.55,
-       "area": 0.1029
+       "u": 0.498,
+       "v": 0.502,
+       "area": 0.0326
       },
       {
-       "u": 0.49,
-       "v": 0.545,
-       "area": 0.0213
+       "u": 0.18,
+       "v": 0.503,
+       "area": 0.0071
+      },
+      {
+       "u": 0.819,
+       "v": 0.503,
+       "area": 0.0072
       }
      ],
      "part": [
@@ -3637,14 +3145,522 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.944,
-     "mirror_lr": 0.944,
-     "mirror_ud": 0.944,
-     "rot180": 0.944
+     "as_is": 0.916,
+     "mirror_lr": 0.916,
+     "mirror_ud": 0.915,
+     "rot180": 0.915
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 3.611,
+     "drawing": 3.373,
+     "part": 3.5
+    },
+    "holes": {
+     "drawing": [],
+     "part": []
+    },
+    "note": null
+   }
+  ],
+  "part": "03_block",
+  "variant": "photo",
+  "error": "wrong_diameter",
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     145.0,
+     268.0
+    ],
+    [
+     1322.0,
+     175.0
+    ],
+    [
+     1357.0,
+     1322.0
+    ],
+    [
+     370.0,
+     1459.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     326,
+     324,
+     621,
+     422
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     360,
+     544,
+     631,
+     709
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 12.98,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [],
+  "advisories": [],
+  "views": [
+   {
+    "view": "top",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.981,
+     "mirror_lr": 0.981,
+     "mirror_ud": 0.981,
+     "rot180": 0.981
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.578,
+     "part": 1.75
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.498,
+       "v": 0.502,
+       "area": 0.0326
+      },
+      {
+       "u": 0.18,
+       "v": 0.503,
+       "area": 0.0071
+      },
+      {
+       "u": 0.819,
+       "v": 0.503,
+       "area": 0.0072
+      }
+     ],
+     "part": [
+      {
+       "u": 0.499,
+       "v": 0.502,
+       "area": 0.0373
+      },
+      {
+       "u": 0.171,
+       "v": 0.502,
+       "area": 0.0086
+      },
+      {
+       "u": 0.826,
+       "v": 0.502,
+       "area": 0.0085
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.916,
+     "mirror_lr": 0.916,
+     "mirror_ud": 0.915,
+     "rot180": 0.915
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 3.373,
+     "part": 3.5
+    },
+    "holes": {
+     "drawing": [],
+     "part": []
+    },
+    "note": null
+   }
+  ],
+  "part": "03_block",
+  "variant": "photo",
+  "error": "chamfer_for_fillet",
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     145.0,
+     268.0
+    ],
+    [
+     1322.0,
+     175.0
+    ],
+    [
+     1357.0,
+     1322.0
+    ],
+    [
+     370.0,
+     1459.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     326,
+     324,
+     621,
+     422
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     360,
+     544,
+     631,
+     709
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 12.98,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [],
+  "advisories": [
+   "top view: the drawing shows 2 hole(s) or closed outline(s), the part 3. On the part but not in the drawing: right."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.978,
+     "mirror_lr": 0.978,
+     "mirror_ud": 0.978,
+     "rot180": 0.978
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.665,
+     "part": 1.75
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.107,
+       "v": 0.508,
+       "area": 0.1581
+      },
+      {
+       "u": 0.499,
+       "v": 0.501,
+       "area": 0.0329
+      }
+     ],
+     "part": [
+      {
+       "u": 0.499,
+       "v": 0.502,
+       "area": 0.0368
+      },
+      {
+       "u": 0.171,
+       "v": 0.502,
+       "area": 0.0085
+      },
+      {
+       "u": 0.826,
+       "v": 0.502,
+       "area": 0.0085
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.886,
+     "mirror_lr": 0.886,
+     "mirror_ud": 0.886,
+     "rot180": 0.886
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 3.556,
+     "part": 3.5
+    },
+    "holes": {
+     "drawing": [],
+     "part": []
+    },
+    "note": null
+   }
+  ],
+  "part": "03_block",
+  "variant": "rough",
+  "error": null,
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     305.0,
+     307.0
+    ],
+    [
+     1535.0,
+     230.0
+    ],
+    [
+     1168.0,
+     1449.0
+    ],
+    [
+     111.0,
+     1366.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     342,
+     356,
+     647,
+     446
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     272,
+     554,
+     575,
+     722
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 17.0,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [],
+  "advisories": [],
+  "views": [
+   {
+    "view": "top",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.978,
+     "mirror_lr": 0.978,
+     "mirror_ud": 0.978,
+     "rot180": 0.978
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.665,
+     "part": 1.75
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.107,
+       "v": 0.508,
+       "area": 0.1581
+      },
+      {
+       "u": 0.499,
+       "v": 0.501,
+       "area": 0.0329
+      }
+     ],
+     "part": [
+      {
+       "u": 0.499,
+       "v": 0.502,
+       "area": 0.0368
+      },
+      {
+       "u": 0.171,
+       "v": 0.502,
+       "area": 0.0085
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.886,
+     "mirror_lr": 0.886,
+     "mirror_ud": 0.886,
+     "rot180": 0.886
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 3.556,
+     "part": 3.5
+    },
+    "holes": {
+     "drawing": [],
+     "part": []
+    },
+    "note": null
+   }
+  ],
+  "part": "03_block",
+  "variant": "rough",
+  "error": "drop_hole",
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     305.0,
+     307.0
+    ],
+    [
+     1535.0,
+     230.0
+    ],
+    [
+     1168.0,
+     1449.0
+    ],
+    [
+     111.0,
+     1366.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     342,
+     356,
+     647,
+     446
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     272,
+     554,
+     575,
+     722
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 17.0,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [],
+  "advisories": [
+   "top view: the drawing shows 2 hole(s) or closed outline(s), the part 3. On the part but not in the drawing: right."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.978,
+     "mirror_lr": 0.978,
+     "mirror_ud": 0.978,
+     "rot180": 0.978
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 1.665,
+     "part": 1.75
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.107,
+       "v": 0.508,
+       "area": 0.1581
+      },
+      {
+       "u": 0.499,
+       "v": 0.501,
+       "area": 0.0329
+      }
+     ],
+     "part": [
+      {
+       "u": 0.499,
+       "v": 0.502,
+       "area": 0.025
+      },
+      {
+       "u": 0.171,
+       "v": 0.502,
+       "area": 0.0085
+      },
+      {
+       "u": 0.826,
+       "v": 0.502,
+       "area": 0.0085
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "ok",
+    "orientation": {
+     "as_is": 0.886,
+     "mirror_lr": 0.886,
+     "mirror_ud": 0.886,
+     "rot180": 0.886
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 3.556,
      "part": 3.5
     },
     "holes": {
@@ -3699,7 +3715,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 18.0,
+  "prep_seconds": 17.0,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -3718,34 +3734,34 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.856,
-     "mirror_lr": 0.856,
-     "mirror_ud": 0.856,
-     "rot180": 0.856
+     "as_is": 0.975,
+     "mirror_lr": 0.975,
+     "mirror_ud": 0.975,
+     "rot180": 0.975
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.58,
+     "drawing": 1.665,
      "part": 1.75
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.185,
-       "v": 0.55,
-       "area": 0.1029
+       "u": 0.107,
+       "v": 0.508,
+       "area": 0.1581
       },
       {
-       "u": 0.49,
-       "v": 0.545,
-       "area": 0.0213
+       "u": 0.499,
+       "v": 0.501,
+       "area": 0.0329
       }
      ],
      "part": [
       {
        "u": 0.499,
        "v": 0.502,
-       "area": 0.0373
+       "area": 0.0372
       },
       {
        "u": 0.171,
@@ -3755,7 +3771,7 @@
       {
        "u": 0.826,
        "v": 0.502,
-       "area": 0.0085
+       "area": 0.0086
       }
      ]
     },
@@ -3765,14 +3781,14 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.944,
-     "mirror_lr": 0.944,
-     "mirror_ud": 0.944,
-     "rot180": 0.944
+     "as_is": 0.886,
+     "mirror_lr": 0.886,
+     "mirror_ud": 0.886,
+     "rot180": 0.886
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 3.611,
+     "drawing": 3.556,
      "part": 3.5
     },
     "holes": {
@@ -3827,7 +3843,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 18.0,
+  "prep_seconds": 17.0,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -3846,10 +3862,10 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.978,
-     "mirror_lr": 0.978,
-     "mirror_ud": 0.978,
-     "rot180": 0.978
+     "as_is": 0.952,
+     "mirror_lr": 0.952,
+     "mirror_ud": 0.952,
+     "rot180": 0.952
     },
     "orientation_gap": 0.0,
     "aspect": {
@@ -3887,14 +3903,14 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.939,
-     "mirror_lr": 0.939,
-     "mirror_ud": 0.787,
-     "rot180": 0.787
+     "as_is": 0.961,
+     "mirror_lr": 0.961,
+     "mirror_ud": 0.795,
+     "rot180": 0.795
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.331,
+     "drawing": 1.327,
      "part": 1.333
     },
     "holes": {
@@ -3931,7 +3947,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 10.1,
+  "prep_seconds": 10.97,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -3950,26 +3966,26 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.962,
-     "mirror_lr": 0.962,
-     "mirror_ud": 0.962,
-     "rot180": 0.962
+     "as_is": 0.976,
+     "mirror_lr": 0.976,
+     "mirror_ud": 0.976,
+     "rot180": 0.976
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.061,
+     "drawing": 1.047,
      "part": 1.0
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.488,
+       "u": 0.494,
        "v": 0.893,
-       "area": 0.0063
+       "area": 0.0064
       },
       {
-       "u": 0.868,
-       "v": 0.507,
+       "u": 0.88,
+       "v": 0.508,
        "area": 0.0064
       }
      ],
@@ -3977,7 +3993,7 @@
       {
        "u": 0.499,
        "v": 0.9,
-       "area": 0.0081
+       "area": 0.0082
       },
       {
        "u": 0.1,
@@ -3985,14 +4001,14 @@
        "area": 0.0082
       },
       {
-       "u": 0.898,
+       "u": 0.897,
        "v": 0.501,
        "area": 0.0082
       },
       {
        "u": 0.499,
        "v": 0.102,
-       "area": 0.0081
+       "area": 0.0082
       }
      ]
     },
@@ -4002,14 +4018,14 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.702,
-     "mirror_lr": 0.702,
-     "mirror_ud": 0.597,
-     "rot180": 0.597
+     "as_is": 0.745,
+     "mirror_lr": 0.745,
+     "mirror_ud": 0.626,
+     "rot180": 0.626
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.994,
+     "drawing": 1.724,
      "part": 1.333
     },
     "holes": {
@@ -4064,7 +4080,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 17.0,
+  "prep_seconds": 17.91,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -4081,35 +4097,35 @@
     "view": "top",
     "status": "ok",
     "orientation": {
-     "as_is": 0.974,
-     "mirror_lr": 0.974,
-     "mirror_ud": 0.974,
-     "rot180": 0.974
+     "as_is": 0.979,
+     "mirror_lr": 0.979,
+     "mirror_ud": 0.979,
+     "rot180": 0.979
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 0.928,
+     "drawing": 0.924,
      "part": 1.0
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.501,
+       "u": 0.503,
        "v": 0.889,
-       "area": 0.0065
+       "area": 0.0066
       },
       {
-       "u": 0.114,
+       "u": 0.115,
        "v": 0.504,
        "area": 0.0067
       },
       {
-       "u": 0.888,
+       "u": 0.892,
        "v": 0.504,
        "area": 0.0068
       },
       {
-       "u": 0.5,
+       "u": 0.502,
        "v": 0.119,
        "area": 0.0069
       }
@@ -4118,7 +4134,7 @@
       {
        "u": 0.499,
        "v": 0.9,
-       "area": 0.0082
+       "area": 0.0081
       },
       {
        "u": 0.099,
@@ -4133,7 +4149,7 @@
       {
        "u": 0.499,
        "v": 0.102,
-       "area": 0.0082
+       "area": 0.0081
       }
      ]
     },
@@ -4143,14 +4159,14 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.719,
-     "mirror_lr": 0.719,
-     "mirror_ud": 0.605,
-     "rot180": 0.605
+     "as_is": 0.77,
+     "mirror_lr": 0.77,
+     "mirror_ud": 0.644,
+     "rot180": 0.644
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.705,
+     "drawing": 1.492,
      "part": 1.333
     },
     "holes": {
@@ -4205,7 +4221,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 16.42,
+  "prep_seconds": 22.39,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -4222,14 +4238,14 @@
     "view": "top",
     "status": "ok",
     "orientation": {
-     "as_is": 0.753,
-     "mirror_lr": 0.753,
-     "mirror_ud": 0.753,
-     "rot180": 0.753
+     "as_is": 0.832,
+     "mirror_lr": 0.832,
+     "mirror_ud": 0.832,
+     "rot180": 0.832
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.49,
+     "drawing": 1.368,
      "part": 1.667
     },
     "holes": {
@@ -4242,29 +4258,29 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.884,
-     "mirror_lr": 0.884,
-     "mirror_ud": 0.884,
-     "rot180": 0.884
+     "as_is": 0.983,
+     "mirror_lr": 0.983,
+     "mirror_ud": 0.983,
+     "rot180": 0.983
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.536,
+     "drawing": 2.634,
      "part": 2.5
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.551,
-       "v": 0.469,
-       "area": 0.0083
+       "u": 0.542,
+       "v": 0.502,
+       "area": 0.0085
       }
      ],
      "part": [
       {
        "u": 0.499,
        "v": 0.503,
-       "area": 0.0103
+       "area": 0.0099
       }
      ]
     },
@@ -4298,7 +4314,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 11.63,
+  "prep_seconds": 13.16,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -4315,14 +4331,14 @@
     "view": "top",
     "status": "ok",
     "orientation": {
-     "as_is": 0.753,
-     "mirror_lr": 0.753,
-     "mirror_ud": 0.753,
-     "rot180": 0.753
+     "as_is": 0.832,
+     "mirror_lr": 0.832,
+     "mirror_ud": 0.832,
+     "rot180": 0.832
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.49,
+     "drawing": 1.368,
      "part": 1.667
     },
     "holes": {
@@ -4335,29 +4351,29 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.884,
-     "mirror_lr": 0.884,
-     "mirror_ud": 0.884,
-     "rot180": 0.884
+     "as_is": 0.983,
+     "mirror_lr": 0.983,
+     "mirror_ud": 0.983,
+     "rot180": 0.983
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.536,
+     "drawing": 2.634,
      "part": 2.5
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.551,
-       "v": 0.469,
-       "area": 0.0083
+       "u": 0.542,
+       "v": 0.502,
+       "area": 0.0085
       }
      ],
      "part": [
       {
        "u": 0.499,
        "v": 0.503,
-       "area": 0.0103
+       "area": 0.0099
       }
      ]
     },
@@ -4391,7 +4407,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 11.63,
+  "prep_seconds": 13.16,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -4408,14 +4424,14 @@
     "view": "top",
     "status": "ok",
     "orientation": {
-     "as_is": 0.725,
-     "mirror_lr": 0.725,
-     "mirror_ud": 0.725,
-     "rot180": 0.725
+     "as_is": 0.792,
+     "mirror_lr": 0.792,
+     "mirror_ud": 0.792,
+     "rot180": 0.792
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.228,
+     "drawing": 1.322,
      "part": 1.667
     },
     "holes": {
@@ -4428,29 +4444,29 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.803,
-     "mirror_lr": 0.803,
-     "mirror_ud": 0.803,
-     "rot180": 0.803
+     "as_is": 0.91,
+     "mirror_lr": 0.91,
+     "mirror_ud": 0.91,
+     "rot180": 0.91
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.5,
+     "drawing": 2.757,
      "part": 2.5
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.507,
-       "v": 0.454,
-       "area": 0.0072
+       "u": 0.493,
+       "v": 0.493,
+       "area": 0.0074
       }
      ],
      "part": [
       {
        "u": 0.499,
        "v": 0.503,
-       "area": 0.0101
+       "area": 0.0099
       }
      ]
     },
@@ -4502,7 +4518,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 17.79,
+  "prep_seconds": 19.86,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -4519,14 +4535,14 @@
     "view": "top",
     "status": "ok",
     "orientation": {
-     "as_is": 0.725,
-     "mirror_lr": 0.725,
-     "mirror_ud": 0.725,
-     "rot180": 0.725
+     "as_is": 0.792,
+     "mirror_lr": 0.792,
+     "mirror_ud": 0.792,
+     "rot180": 0.792
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.228,
+     "drawing": 1.322,
      "part": 1.667
     },
     "holes": {
@@ -4539,29 +4555,29 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.803,
-     "mirror_lr": 0.803,
-     "mirror_ud": 0.803,
-     "rot180": 0.803
+     "as_is": 0.91,
+     "mirror_lr": 0.91,
+     "mirror_ud": 0.91,
+     "rot180": 0.91
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.5,
+     "drawing": 2.757,
      "part": 2.5
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.507,
-       "v": 0.454,
-       "area": 0.0072
+       "u": 0.493,
+       "v": 0.493,
+       "area": 0.0074
       }
      ],
      "part": [
       {
        "u": 0.499,
        "v": 0.503,
-       "area": 0.0101
+       "area": 0.0099
       }
      ]
     },
@@ -4613,7 +4629,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 17.79,
+  "prep_seconds": 19.86,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -4630,14 +4646,14 @@
     "view": "top",
     "status": "ok",
     "orientation": {
-     "as_is": 0.708,
-     "mirror_lr": 0.708,
-     "mirror_ud": 0.708,
-     "rot180": 0.708
+     "as_is": 0.973,
+     "mirror_lr": 0.973,
+     "mirror_ud": 0.973,
+     "rot180": 0.973
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.246,
+     "drawing": 1.622,
      "part": 1.667
     },
     "holes": {
@@ -4650,29 +4666,29 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.826,
-     "mirror_lr": 0.826,
-     "mirror_ud": 0.826,
-     "rot180": 0.826
+     "as_is": 0.915,
+     "mirror_lr": 0.915,
+     "mirror_ud": 0.915,
+     "rot180": 0.915
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.658,
+     "drawing": 2.598,
      "part": 2.5
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.512,
-       "v": 0.471,
-       "area": 0.0071
+       "u": 0.456,
+       "v": 0.501,
+       "area": 0.008
       }
      ],
      "part": [
       {
        "u": 0.499,
        "v": 0.503,
-       "area": 0.0099
+       "area": 0.0101
       }
      ]
     },
@@ -4724,7 +4740,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 18.92,
+  "prep_seconds": 18.05,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -4741,14 +4757,14 @@
     "view": "top",
     "status": "ok",
     "orientation": {
-     "as_is": 0.708,
-     "mirror_lr": 0.708,
-     "mirror_ud": 0.708,
-     "rot180": 0.708
+     "as_is": 0.973,
+     "mirror_lr": 0.973,
+     "mirror_ud": 0.973,
+     "rot180": 0.973
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.246,
+     "drawing": 1.622,
      "part": 1.667
     },
     "holes": {
@@ -4761,29 +4777,29 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.826,
-     "mirror_lr": 0.826,
-     "mirror_ud": 0.826,
-     "rot180": 0.826
+     "as_is": 0.915,
+     "mirror_lr": 0.915,
+     "mirror_ud": 0.915,
+     "rot180": 0.915
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.658,
+     "drawing": 2.598,
      "part": 2.5
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.512,
-       "v": 0.471,
-       "area": 0.0071
+       "u": 0.456,
+       "v": 0.501,
+       "area": 0.008
       }
      ],
      "part": [
       {
        "u": 0.499,
        "v": 0.503,
-       "area": 0.0099
+       "area": 0.0101
       }
      ]
     },
@@ -4835,7 +4851,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 18.92,
+  "prep_seconds": 18.05,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -4855,14 +4871,14 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.946,
-     "mirror_lr": 0.946,
-     "mirror_ud": 0.946,
-     "rot180": 0.946
+     "as_is": 0.973,
+     "mirror_lr": 0.973,
+     "mirror_ud": 0.973,
+     "rot180": 0.973
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.921,
+     "drawing": 2.866,
      "part": 2.667
     },
     "holes": {
@@ -4875,7 +4891,7 @@
       },
       {
        "u": 0.187,
-       "v": 0.274,
+       "v": 0.273,
        "area": 0.0094
       }
      ]
@@ -4886,27 +4902,27 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.829,
-     "mirror_lr": 0.566,
-     "mirror_ud": 0.578,
-     "rot180": 0.538
+     "as_is": 0.862,
+     "mirror_lr": 0.573,
+     "mirror_ud": 0.591,
+     "rot180": 0.534
     },
-    "orientation_gap": -0.251,
+    "orientation_gap": -0.271,
     "aspect": {
-     "drawing": 1.916,
+     "drawing": 1.856,
      "part": 2.0
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.766,
-       "v": 0.557,
-       "area": 0.0231
+       "u": 0.775,
+       "v": 0.549,
+       "area": 0.0242
       },
       {
-       "u": 0.648,
-       "v": 0.345,
-       "area": 0.0091
+       "u": 0.651,
+       "v": 0.333,
+       "area": 0.0094
       }
      ],
      "part": [
@@ -4947,7 +4963,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 13.82,
+  "prep_seconds": 13.04,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -4969,14 +4985,14 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.946,
-     "mirror_lr": 0.946,
-     "mirror_ud": 0.946,
-     "rot180": 0.946
+     "as_is": 0.973,
+     "mirror_lr": 0.973,
+     "mirror_ud": 0.973,
+     "rot180": 0.973
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.921,
+     "drawing": 2.866,
      "part": 2.667
     },
     "holes": {
@@ -4984,12 +5000,12 @@
      "part": [
       {
        "u": 0.187,
-       "v": 0.734,
+       "v": 0.733,
        "area": 0.0092
       },
       {
        "u": 0.187,
-       "v": 0.273,
+       "v": 0.274,
        "area": 0.0092
       }
      ]
@@ -5000,27 +5016,27 @@
     "view": "front",
     "status": "issue",
     "orientation": {
-     "as_is": 0.566,
-     "mirror_lr": 0.829,
-     "mirror_ud": 0.538,
-     "rot180": 0.578
+     "as_is": 0.573,
+     "mirror_lr": 0.862,
+     "mirror_ud": 0.534,
+     "rot180": 0.591
     },
-    "orientation_gap": 0.263,
+    "orientation_gap": 0.289,
     "aspect": {
-     "drawing": 1.916,
+     "drawing": 1.856,
      "part": 2.0
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.766,
-       "v": 0.557,
-       "area": 0.0231
+       "u": 0.775,
+       "v": 0.549,
+       "area": 0.0242
       },
       {
-       "u": 0.648,
-       "v": 0.345,
-       "area": 0.0091
+       "u": 0.651,
+       "v": 0.333,
+       "area": 0.0094
       }
      ],
      "part": [
@@ -5061,7 +5077,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 13.82,
+  "prep_seconds": 13.04,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -5081,14 +5097,14 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.946,
-     "mirror_lr": 0.946,
-     "mirror_ud": 0.946,
-     "rot180": 0.946
+     "as_is": 0.973,
+     "mirror_lr": 0.973,
+     "mirror_ud": 0.973,
+     "rot180": 0.973
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.921,
+     "drawing": 2.866,
      "part": 2.667
     },
     "holes": {
@@ -5097,12 +5113,12 @@
       {
        "u": 0.811,
        "v": 0.734,
-       "area": 0.0092
+       "area": 0.0091
       },
       {
        "u": 0.811,
-       "v": 0.273,
-       "area": 0.0092
+       "v": 0.274,
+       "area": 0.0091
       }
      ]
     },
@@ -5112,27 +5128,27 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.829,
-     "mirror_lr": 0.566,
-     "mirror_ud": 0.578,
-     "rot180": 0.538
+     "as_is": 0.862,
+     "mirror_lr": 0.573,
+     "mirror_ud": 0.591,
+     "rot180": 0.534
     },
-    "orientation_gap": -0.251,
+    "orientation_gap": -0.271,
     "aspect": {
-     "drawing": 1.916,
+     "drawing": 1.856,
      "part": 2.0
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.766,
-       "v": 0.557,
-       "area": 0.0231
+       "u": 0.775,
+       "v": 0.549,
+       "area": 0.0242
       },
       {
-       "u": 0.648,
-       "v": 0.345,
-       "area": 0.0091
+       "u": 0.651,
+       "v": 0.333,
+       "area": 0.0094
       }
      ],
      "part": [
@@ -5173,7 +5189,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 13.82,
+  "prep_seconds": 13.04,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -5193,14 +5209,406 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.73,
-     "mirror_lr": 0.73,
-     "mirror_ud": 0.73,
-     "rot180": 0.73
+     "as_is": 0.774,
+     "mirror_lr": 0.774,
+     "mirror_ud": 0.774,
+     "rot180": 0.774
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.405,
+     "drawing": 2.398,
+     "part": 2.667
+    },
+    "holes": {
+     "drawing": [],
+     "part": [
+      {
+       "u": 0.187,
+       "v": 0.736,
+       "area": 0.0096
+      },
+      {
+       "u": 0.187,
+       "v": 0.27,
+       "area": 0.0096
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.863,
+     "mirror_lr": 0.574,
+     "mirror_ud": 0.591,
+     "rot180": 0.535
+    },
+    "orientation_gap": -0.272,
+    "aspect": {
+     "drawing": 1.813,
+     "part": 2.0
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.774,
+       "v": 0.55,
+       "area": 0.0229
+      },
+      {
+       "u": 0.651,
+       "v": 0.335,
+       "area": 0.0089
+      }
+     ],
+     "part": [
+      {
+       "u": 0.748,
+       "v": 0.253,
+       "area": 0.0166
+      }
+     ]
+    },
+    "note": null
+   }
+  ],
+  "part": "06_angled_bracket",
+  "variant": "photo",
+  "error": null,
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     151.0,
+     291.0
+    ],
+    [
+     1297.0,
+     194.0
+    ],
+    [
+     1356.0,
+     1328.0
+    ],
+    [
+     268.0,
+     1449.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     310,
+     340,
+     636,
+     508
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     339,
+     571,
+     644,
+     721
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 19.95,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [
+   "front view: the drawing has its tallest section at the left, the part has it at the right; the part's outline is the drawing's mirrored along X. Fix the positions along X."
+  ],
+  "advisories": [
+   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: back-left, front-left.",
+   "front view: the drawing shows 2 hole(s) or closed outline(s), the part 1. In the drawing but not on the part: right."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.774,
+     "mirror_lr": 0.774,
+     "mirror_ud": 0.774,
+     "rot180": 0.774
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 2.398,
+     "part": 2.667
+    },
+    "holes": {
+     "drawing": [],
+     "part": [
+      {
+       "u": 0.187,
+       "v": 0.737,
+       "area": 0.0093
+      },
+      {
+       "u": 0.187,
+       "v": 0.269,
+       "area": 0.0093
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "issue",
+    "orientation": {
+     "as_is": 0.574,
+     "mirror_lr": 0.863,
+     "mirror_ud": 0.535,
+     "rot180": 0.591
+    },
+    "orientation_gap": 0.289,
+    "aspect": {
+     "drawing": 1.813,
+     "part": 2.0
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.774,
+       "v": 0.55,
+       "area": 0.0229
+      },
+      {
+       "u": 0.651,
+       "v": 0.335,
+       "area": 0.0089
+      }
+     ],
+     "part": [
+      {
+       "u": 0.748,
+       "v": 0.253,
+       "area": 0.0166
+      }
+     ]
+    },
+    "note": null
+   }
+  ],
+  "part": "06_angled_bracket",
+  "variant": "photo",
+  "error": "mirror_profile",
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     151.0,
+     291.0
+    ],
+    [
+     1297.0,
+     194.0
+    ],
+    [
+     1356.0,
+     1328.0
+    ],
+    [
+     268.0,
+     1449.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     310,
+     340,
+     636,
+     508
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     339,
+     571,
+     644,
+     721
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 19.95,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [],
+  "advisories": [
+   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: back-right, front-right.",
+   "front view: the drawing shows 2 hole(s) or closed outline(s), the part 1. In the drawing but not on the part: right."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.774,
+     "mirror_lr": 0.774,
+     "mirror_ud": 0.774,
+     "rot180": 0.774
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 2.398,
+     "part": 2.667
+    },
+    "holes": {
+     "drawing": [],
+     "part": [
+      {
+       "u": 0.811,
+       "v": 0.736,
+       "area": 0.0092
+      },
+      {
+       "u": 0.811,
+       "v": 0.27,
+       "area": 0.0093
+      }
+     ]
+    },
+    "note": null
+   },
+   {
+    "view": "front",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.863,
+     "mirror_lr": 0.574,
+     "mirror_ud": 0.591,
+     "rot180": 0.535
+    },
+    "orientation_gap": -0.272,
+    "aspect": {
+     "drawing": 1.813,
+     "part": 2.0
+    },
+    "holes": {
+     "drawing": [
+      {
+       "u": 0.774,
+       "v": 0.55,
+       "area": 0.0229
+      },
+      {
+       "u": 0.651,
+       "v": 0.335,
+       "area": 0.0089
+      }
+     ],
+     "part": [
+      {
+       "u": 0.748,
+       "v": 0.253,
+       "area": 0.0166
+      }
+     ]
+    },
+    "note": null
+   }
+  ],
+  "part": "06_angled_bracket",
+  "variant": "photo",
+  "error": "holes_opposite",
+  "sheet": {
+   "method": "sam",
+   "rectified": true,
+   "quad": [
+    [
+     151.0,
+     291.0
+    ],
+    [
+     1297.0,
+     194.0
+    ],
+    [
+     1356.0,
+     1328.0
+    ],
+    [
+     268.0,
+     1449.0
+    ]
+   ]
+  },
+  "views_read": [
+   {
+    "box": [
+     310,
+     340,
+     636,
+     508
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     339,
+     571,
+     644,
+     721
+    ],
+    "view": "top"
+   }
+  ],
+  "prep_seconds": 19.95,
+  "sam": {
+   "calls": 2,
+   "cost_usd": 0.0,
+   "seconds": 0.0
+  }
+ },
+ {
+  "available": true,
+  "note": null,
+  "issues": [],
+  "advisories": [
+   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: back-left, front-left.",
+   "front view: the drawing shows 2 hole(s) or closed outline(s), the part 1. In the drawing but not on the part: right."
+  ],
+  "views": [
+   {
+    "view": "top",
+    "status": "advisory",
+    "orientation": {
+     "as_is": 0.977,
+     "mirror_lr": 0.977,
+     "mirror_ud": 0.977,
+     "rot180": 0.977
+    },
+    "orientation_gap": 0.0,
+    "aspect": {
+     "drawing": 2.435,
      "part": 2.667
     },
     "holes": {
@@ -5214,7 +5622,7 @@
       {
        "u": 0.187,
        "v": 0.271,
-       "area": 0.0096
+       "area": 0.0095
       }
      ]
     },
@@ -5224,431 +5632,34 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.807,
-     "mirror_lr": 0.549,
-     "mirror_ud": 0.574,
-     "rot180": 0.537
-    },
-    "orientation_gap": -0.233,
-    "aspect": {
-     "drawing": 1.845,
-     "part": 2.0
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.76,
-       "v": 0.566,
-       "area": 0.022
-      },
-      {
-       "u": 0.642,
-       "v": 0.358,
-       "area": 0.0086
-      }
-     ],
-     "part": [
-      {
-       "u": 0.748,
-       "v": 0.253,
-       "area": 0.0165
-      }
-     ]
-    },
-    "note": null
-   }
-  ],
-  "part": "06_angled_bracket",
-  "variant": "photo",
-  "error": null,
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     151.0,
-     291.0
-    ],
-    [
-     1297.0,
-     194.0
-    ],
-    [
-     1356.0,
-     1328.0
-    ],
-    [
-     268.0,
-     1449.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     310,
-     340,
-     636,
-     508
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     339,
-     571,
-     644,
-     721
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 20.87,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [
-   "front view: the drawing has its tallest section at the left, the part has it at the right; the part's outline is the drawing's mirrored along X. Fix the positions along X."
-  ],
-  "advisories": [
-   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: back-left, front-left.",
-   "front view: the drawing shows 2 hole(s) or closed outline(s), the part 1. In the drawing but not on the part: right."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.73,
-     "mirror_lr": 0.73,
-     "mirror_ud": 0.73,
-     "rot180": 0.73
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 2.405,
-     "part": 2.667
-    },
-    "holes": {
-     "drawing": [],
-     "part": [
-      {
-       "u": 0.187,
-       "v": 0.735,
-       "area": 0.0094
-      },
-      {
-       "u": 0.187,
-       "v": 0.271,
-       "area": 0.0094
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "issue",
-    "orientation": {
-     "as_is": 0.549,
-     "mirror_lr": 0.807,
-     "mirror_ud": 0.537,
-     "rot180": 0.574
-    },
-    "orientation_gap": 0.258,
-    "aspect": {
-     "drawing": 1.845,
-     "part": 2.0
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.76,
-       "v": 0.566,
-       "area": 0.022
-      },
-      {
-       "u": 0.642,
-       "v": 0.358,
-       "area": 0.0086
-      }
-     ],
-     "part": [
-      {
-       "u": 0.748,
-       "v": 0.253,
-       "area": 0.0165
-      }
-     ]
-    },
-    "note": null
-   }
-  ],
-  "part": "06_angled_bracket",
-  "variant": "photo",
-  "error": "mirror_profile",
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     151.0,
-     291.0
-    ],
-    [
-     1297.0,
-     194.0
-    ],
-    [
-     1356.0,
-     1328.0
-    ],
-    [
-     268.0,
-     1449.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     310,
-     340,
-     636,
-     508
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     339,
-     571,
-     644,
-     721
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 20.87,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [],
-  "advisories": [
-   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: back-right, front-right.",
-   "front view: the drawing shows 2 hole(s) or closed outline(s), the part 1. In the drawing but not on the part: right."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.73,
-     "mirror_lr": 0.73,
-     "mirror_ud": 0.73,
-     "rot180": 0.73
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 2.405,
-     "part": 2.667
-    },
-    "holes": {
-     "drawing": [],
-     "part": [
-      {
-       "u": 0.811,
-       "v": 0.735,
-       "area": 0.0093
-      },
-      {
-       "u": 0.811,
-       "v": 0.271,
-       "area": 0.0093
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.807,
-     "mirror_lr": 0.549,
-     "mirror_ud": 0.574,
-     "rot180": 0.537
-    },
-    "orientation_gap": -0.233,
-    "aspect": {
-     "drawing": 1.845,
-     "part": 2.0
-    },
-    "holes": {
-     "drawing": [
-      {
-       "u": 0.76,
-       "v": 0.566,
-       "area": 0.022
-      },
-      {
-       "u": 0.642,
-       "v": 0.358,
-       "area": 0.0086
-      }
-     ],
-     "part": [
-      {
-       "u": 0.748,
-       "v": 0.253,
-       "area": 0.0165
-      }
-     ]
-    },
-    "note": null
-   }
-  ],
-  "part": "06_angled_bracket",
-  "variant": "photo",
-  "error": "holes_opposite",
-  "sheet": {
-   "method": "sam",
-   "rectified": true,
-   "quad": [
-    [
-     151.0,
-     291.0
-    ],
-    [
-     1297.0,
-     194.0
-    ],
-    [
-     1356.0,
-     1328.0
-    ],
-    [
-     268.0,
-     1449.0
-    ]
-   ]
-  },
-  "views_read": [
-   {
-    "box": [
-     310,
-     340,
-     636,
-     508
-    ],
-    "view": "front"
-   },
-   {
-    "box": [
-     339,
-     571,
-     644,
-     721
-    ],
-    "view": "top"
-   }
-  ],
-  "prep_seconds": 20.87,
-  "sam": {
-   "calls": 2,
-   "cost_usd": 0.0,
-   "seconds": 0.0
-  }
- },
- {
-  "available": true,
-  "note": null,
-  "issues": [],
-  "advisories": [
-   "top view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: back-left, front-left.",
-   "front view: the drawing shows 3 hole(s) or closed outline(s), the part 1. In the drawing but not on the part: right, right, bottom-right. On the part but not in the drawing: bottom-right."
-  ],
-  "views": [
-   {
-    "view": "top",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.899,
-     "mirror_lr": 0.899,
-     "mirror_ud": 0.899,
-     "rot180": 0.899
-    },
-    "orientation_gap": 0.0,
-    "aspect": {
-     "drawing": 2.744,
-     "part": 2.667
-    },
-    "holes": {
-     "drawing": [],
-     "part": [
-      {
-       "u": 0.187,
-       "v": 0.734,
-       "area": 0.0094
-      },
-      {
-       "u": 0.187,
-       "v": 0.273,
-       "area": 0.0094
-      }
-     ]
-    },
-    "note": null
-   },
-   {
-    "view": "front",
-    "status": "advisory",
-    "orientation": {
-     "as_is": 0.869,
-     "mirror_lr": 0.598,
-     "mirror_ud": 0.639,
+     "as_is": 0.942,
+     "mirror_lr": 0.636,
+     "mirror_ud": 0.634,
      "rot180": 0.603
     },
-    "orientation_gap": -0.23,
+    "orientation_gap": -0.306,
     "aspect": {
-     "drawing": 1.713,
+     "drawing": 2.012,
      "part": 2.0
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.803,
-       "v": 0.621,
-       "area": 0.0246
+       "u": 0.823,
+       "v": 0.554,
+       "area": 0.0324
       },
       {
-       "u": 0.67,
-       "v": 0.39,
-       "area": 0.0102
-      },
-      {
-       "u": 0.915,
-       "v": 0.298,
-       "area": 0.0179
+       "u": 0.678,
+       "v": 0.261,
+       "area": 0.0133
       }
      ],
      "part": [
       {
        "u": 0.748,
        "v": 0.254,
-       "area": 0.0167
+       "area": 0.0166
       }
      ]
     },
@@ -5700,7 +5711,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 17.72,
+  "prep_seconds": 18.33,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -5715,21 +5726,21 @@
   ],
   "advisories": [
    "top view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: back-left, front-left.",
-   "front view: the drawing shows 3 hole(s) or closed outline(s), the part 1. In the drawing but not on the part: right, right, bottom-right. On the part but not in the drawing: bottom-right."
+   "front view: the drawing shows 2 hole(s) or closed outline(s), the part 1. In the drawing but not on the part: right."
   ],
   "views": [
    {
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.899,
-     "mirror_lr": 0.899,
-     "mirror_ud": 0.899,
-     "rot180": 0.899
+     "as_is": 0.977,
+     "mirror_lr": 0.977,
+     "mirror_ud": 0.977,
+     "rot180": 0.977
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.744,
+     "drawing": 2.435,
      "part": 2.667
     },
     "holes": {
@@ -5737,12 +5748,12 @@
      "part": [
       {
        "u": 0.187,
-       "v": 0.734,
+       "v": 0.735,
        "area": 0.0092
       },
       {
        "u": 0.187,
-       "v": 0.273,
+       "v": 0.271,
        "area": 0.0092
       }
      ]
@@ -5753,39 +5764,34 @@
     "view": "front",
     "status": "issue",
     "orientation": {
-     "as_is": 0.598,
-     "mirror_lr": 0.869,
+     "as_is": 0.636,
+     "mirror_lr": 0.942,
      "mirror_ud": 0.603,
-     "rot180": 0.639
+     "rot180": 0.634
     },
-    "orientation_gap": 0.271,
+    "orientation_gap": 0.306,
     "aspect": {
-     "drawing": 1.713,
+     "drawing": 2.012,
      "part": 2.0
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.803,
-       "v": 0.621,
-       "area": 0.0246
+       "u": 0.823,
+       "v": 0.554,
+       "area": 0.0324
       },
       {
-       "u": 0.67,
-       "v": 0.39,
-       "area": 0.0102
-      },
-      {
-       "u": 0.915,
-       "v": 0.298,
-       "area": 0.0179
+       "u": 0.678,
+       "v": 0.261,
+       "area": 0.0133
       }
      ],
      "part": [
       {
        "u": 0.748,
        "v": 0.254,
-       "area": 0.0167
+       "area": 0.0166
       }
      ]
     },
@@ -5837,7 +5843,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 17.72,
+  "prep_seconds": 18.33,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -5850,21 +5856,21 @@
   "issues": [],
   "advisories": [
    "top view: the drawing shows 0 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: back-right, front-right.",
-   "front view: the drawing shows 3 hole(s) or closed outline(s), the part 1. In the drawing but not on the part: right, right, bottom-right. On the part but not in the drawing: bottom-right."
+   "front view: the drawing shows 2 hole(s) or closed outline(s), the part 1. In the drawing but not on the part: right."
   ],
   "views": [
    {
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.899,
-     "mirror_lr": 0.899,
-     "mirror_ud": 0.899,
-     "rot180": 0.899
+     "as_is": 0.977,
+     "mirror_lr": 0.977,
+     "mirror_ud": 0.977,
+     "rot180": 0.977
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.744,
+     "drawing": 2.435,
      "part": 2.667
     },
     "holes": {
@@ -5872,13 +5878,13 @@
      "part": [
       {
        "u": 0.811,
-       "v": 0.734,
-       "area": 0.0091
+       "v": 0.735,
+       "area": 0.0092
       },
       {
        "u": 0.811,
-       "v": 0.273,
-       "area": 0.0091
+       "v": 0.271,
+       "area": 0.0092
       }
      ]
     },
@@ -5888,39 +5894,34 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.869,
-     "mirror_lr": 0.598,
-     "mirror_ud": 0.639,
+     "as_is": 0.942,
+     "mirror_lr": 0.636,
+     "mirror_ud": 0.634,
      "rot180": 0.603
     },
-    "orientation_gap": -0.23,
+    "orientation_gap": -0.306,
     "aspect": {
-     "drawing": 1.713,
+     "drawing": 2.012,
      "part": 2.0
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.803,
-       "v": 0.621,
-       "area": 0.0246
+       "u": 0.823,
+       "v": 0.554,
+       "area": 0.0324
       },
       {
-       "u": 0.67,
-       "v": 0.39,
-       "area": 0.0102
-      },
-      {
-       "u": 0.915,
-       "v": 0.298,
-       "area": 0.0179
+       "u": 0.678,
+       "v": 0.261,
+       "area": 0.0133
       }
      ],
      "part": [
       {
        "u": 0.748,
        "v": 0.254,
-       "area": 0.0167
+       "area": 0.0166
       }
      ]
     },
@@ -5972,7 +5973,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 17.72,
+  "prep_seconds": 18.33,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -5984,7 +5985,7 @@
   "note": null,
   "issues": [],
   "advisories": [
-   "top view: the drawing shows 4 hole(s) or closed outline(s), the part 4. In the drawing but not on the part: back-left, front-left, front-right. On the part but not in the drawing: back-left, front-left, front-right.",
+   "top view: the drawing shows 4 hole(s) or closed outline(s), the part 4. In the drawing but not on the part: front-right, front-left. On the part but not in the drawing: front-left, front-right.",
    "front view: the drawing shows 1 hole(s) or closed outline(s), the part 0. In the drawing but not on the part: left."
   ],
   "views": [
@@ -5992,37 +5993,37 @@
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.836,
-     "mirror_lr": 0.836,
-     "mirror_ud": 0.836,
-     "rot180": 0.836
+     "as_is": 0.941,
+     "mirror_lr": 0.941,
+     "mirror_ud": 0.941,
+     "rot180": 0.941
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.469,
+     "drawing": 1.588,
      "part": 1.667
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.248,
-       "v": 0.802,
-       "area": 0.0028
-      },
-      {
-       "u": 0.854,
-       "v": 0.802,
+       "u": 0.226,
+       "v": 0.853,
        "area": 0.0031
       },
       {
-       "u": 0.248,
-       "v": 0.354,
-       "area": 0.0028
+       "u": 0.851,
+       "v": 0.855,
+       "area": 0.0034
       },
       {
-       "u": 0.856,
-       "v": 0.354,
-       "area": 0.0033
+       "u": 0.851,
+       "v": 0.358,
+       "area": 0.0045
+      },
+      {
+       "u": 0.226,
+       "v": 0.357,
+       "area": 0.0029
       }
      ],
      "part": [
@@ -6054,22 +6055,22 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.936,
-     "mirror_lr": 0.936,
-     "mirror_ud": 0.936,
-     "rot180": 0.936
+     "as_is": 0.945,
+     "mirror_lr": 0.945,
+     "mirror_ud": 0.945,
+     "rot180": 0.945
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 9.929,
+     "drawing": 9.679,
      "part": 10.0
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.073,
-       "v": 0.554,
-       "area": 0.0582
+       "u": 0.049,
+       "v": 0.551,
+       "area": 0.0598
       }
      ],
      "part": []
@@ -6104,7 +6105,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 10.39,
+  "prep_seconds": 12.51,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -6116,66 +6117,66 @@
   "note": null,
   "issues": [],
   "advisories": [
-   "top view: the drawing shows 4 hole(s) or closed outline(s), the part 4. In the drawing but not on the part: back-left, front-right, front-left. On the part but not in the drawing: back-left, front-left, front-right."
+   "top view: the drawing shows 4 hole(s) or closed outline(s), the part 4. In the drawing but not on the part: front-left. On the part but not in the drawing: front-left."
   ],
   "views": [
    {
     "view": "top",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.796,
-     "mirror_lr": 0.796,
-     "mirror_ud": 0.796,
-     "rot180": 0.796
+     "as_is": 0.945,
+     "mirror_lr": 0.945,
+     "mirror_ud": 0.945,
+     "rot180": 0.945
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 1.443,
+     "drawing": 1.686,
      "part": 1.667
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.243,
-       "v": 0.767,
-       "area": 0.0025
+       "u": 0.901,
+       "v": 0.836,
+       "area": 0.0041
       },
       {
-       "u": 0.839,
-       "v": 0.768,
-       "area": 0.0025
+       "u": 0.24,
+       "v": 0.835,
+       "area": 0.0036
       },
       {
-       "u": 0.839,
-       "v": 0.333,
-       "area": 0.003
+       "u": 0.241,
+       "v": 0.27,
+       "area": 0.0042
       },
       {
-       "u": 0.243,
-       "v": 0.331,
-       "area": 0.0031
+       "u": 0.905,
+       "v": 0.275,
+       "area": 0.0038
       }
      ],
      "part": [
       {
        "u": 0.1,
        "v": 0.834,
-       "area": 0.0138
+       "area": 0.0136
       },
       {
        "u": 0.898,
        "v": 0.834,
-       "area": 0.0139
+       "area": 0.0137
       },
       {
        "u": 0.1,
        "v": 0.17,
-       "area": 0.0138
+       "area": 0.0136
       },
       {
        "u": 0.898,
        "v": 0.17,
-       "area": 0.0139
+       "area": 0.0137
       }
      ]
     },
@@ -6236,7 +6237,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 16.17,
+  "prep_seconds": 17.85,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -6317,14 +6318,14 @@
     "view": "front",
     "status": "ok",
     "orientation": {
-     "as_is": 0.924,
-     "mirror_lr": 0.924,
-     "mirror_ud": 0.924,
-     "rot180": 0.924
+     "as_is": 0.931,
+     "mirror_lr": 0.931,
+     "mirror_ud": 0.931,
+     "rot180": 0.931
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 9.981,
+     "drawing": 9.722,
      "part": 10.0
     },
     "holes": {
@@ -6379,7 +6380,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 14.82,
+  "prep_seconds": 15.77,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -6398,14 +6399,14 @@
     "view": "top",
     "status": "ok",
     "orientation": {
-     "as_is": 0.636,
-     "mirror_lr": 0.637,
-     "mirror_ud": 0.636,
-     "rot180": 0.637
+     "as_is": 0.649,
+     "mirror_lr": 0.646,
+     "mirror_ud": 0.649,
+     "rot180": 0.646
     },
-    "orientation_gap": 0.001,
+    "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 0.883,
+     "drawing": 0.851,
      "part": 1.0
     },
     "holes": {
@@ -6418,14 +6419,14 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.892,
-     "mirror_lr": 0.892,
-     "mirror_ud": 0.892,
-     "rot180": 0.892
+     "as_is": 0.967,
+     "mirror_lr": 0.967,
+     "mirror_ud": 0.967,
+     "rot180": 0.967
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.952,
+     "drawing": 3.072,
      "part": 2.667
     },
     "holes": {
@@ -6433,8 +6434,8 @@
      "part": [
       {
        "u": 0.873,
-       "v": 0.503,
-       "area": 0.0178
+       "v": 0.504,
+       "area": 0.0175
       }
      ]
     },
@@ -6468,7 +6469,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 10.36,
+  "prep_seconds": 7.42,
   "sam": {
    "calls": 1,
    "cost_usd": 0.0,
@@ -6487,14 +6488,14 @@
     "view": "top",
     "status": "ok",
     "orientation": {
-     "as_is": 0.621,
-     "mirror_lr": 0.623,
-     "mirror_ud": 0.621,
-     "rot180": 0.623
+     "as_is": 0.647,
+     "mirror_lr": 0.645,
+     "mirror_ud": 0.647,
+     "rot180": 0.645
     },
-    "orientation_gap": 0.002,
+    "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 0.942,
+     "drawing": 0.872,
      "part": 1.0
     },
     "holes": {
@@ -6507,14 +6508,14 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.779,
-     "mirror_lr": 0.779,
-     "mirror_ud": 0.779,
-     "rot180": 0.779
+     "as_is": 0.787,
+     "mirror_lr": 0.787,
+     "mirror_ud": 0.787,
+     "rot180": 0.787
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 3.07,
+     "drawing": 2.982,
      "part": 2.667
     },
     "holes": {
@@ -6522,8 +6523,8 @@
      "part": [
       {
        "u": 0.873,
-       "v": 0.504,
-       "area": 0.0175
+       "v": 0.503,
+       "area": 0.0174
       }
      ]
     },
@@ -6575,7 +6576,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 9.81,
+  "prep_seconds": 10.36,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,
@@ -6594,14 +6595,14 @@
     "view": "top",
     "status": "ok",
     "orientation": {
-     "as_is": 0.644,
-     "mirror_lr": 0.647,
-     "mirror_ud": 0.644,
-     "rot180": 0.647
+     "as_is": 0.713,
+     "mirror_lr": 0.713,
+     "mirror_ud": 0.713,
+     "rot180": 0.713
     },
-    "orientation_gap": 0.003,
+    "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 0.88,
+     "drawing": 0.975,
      "part": 1.0
     },
     "holes": {
@@ -6614,29 +6615,29 @@
     "view": "front",
     "status": "advisory",
     "orientation": {
-     "as_is": 0.592,
-     "mirror_lr": 0.592,
-     "mirror_ud": 0.592,
-     "rot180": 0.592
+     "as_is": 0.603,
+     "mirror_lr": 0.603,
+     "mirror_ud": 0.603,
+     "rot180": 0.603
     },
     "orientation_gap": 0.0,
     "aspect": {
-     "drawing": 2.496,
+     "drawing": 2.409,
      "part": 2.667
     },
     "holes": {
      "drawing": [
       {
-       "u": 0.761,
-       "v": 0.375,
-       "area": 0.0106
+       "u": 0.752,
+       "v": 0.373,
+       "area": 0.011
       }
      ],
      "part": [
       {
        "u": 0.873,
        "v": 0.503,
-       "area": 0.0177
+       "area": 0.0178
       }
      ]
     },
@@ -6688,7 +6689,7 @@
     "view": "top"
    }
   ],
-  "prep_seconds": 4.84,
+  "prep_seconds": 4.88,
   "sam": {
    "calls": 2,
    "cost_usd": 0.0,

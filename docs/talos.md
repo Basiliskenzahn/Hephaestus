@@ -3,9 +3,10 @@
 Talos turns a drawing into a part spec and checks the result against the drawing until they agree:
 
 ```
-read ─▶ compile ─▶ callouts ─▶ critic ─▶ clean? ── yes ─▶ done
-            ▲                              │ no
-            └──────── correction ◀─────────┘
+read ─▶ compile ─▶ callouts + shape check ─▶ critic ─▶ clean? ── yes ─▶ done
+            ▲                                            │ no
+            └──────────────── correction ◀───────────────┘
+SAM 3.1: sheet (photo) ─▶ view outlines   (in parallel with the read and the first compile)
 ```
 
 ```
@@ -14,7 +15,7 @@ python -m hephaestus.talos drawing.png --out out/run1/ [--preset live|benchmark|
 Writes `out/run1/iter_<k>/` (spec.json, part.step, part.stl, top/front/side masks, sheet.png, metrics.json) and
 `events.jsonl`. In Python: `for event in hephaestus.talos.run(image, client=..., out_dir=...)`.
 
-## The three checks
+## The checks
 1. **Compile** (`compile.py`): spec errors such as a hole outside the part, a fillet larger than its wall, or an
    unknown parameter, each phrased as one instruction to fix.
 2. **Callouts** (`measure.py`): the reader lists every dimension written on the drawing, plus positions the drawing
@@ -23,13 +24,47 @@ Writes `out/run1/iter_<k>/` (spec.json, part.step, part.stl, top/front/side mask
    measured on the compiled B-rep, and a mismatch over 0.5 mm becomes e.g.
    `callout '64' (distance corner_holes[0] → corner_holes[1] along x) measures 84 on the part, expected 64`.
    This checks the spec against the model's own reading, with no ground truth needed.
-3. **Visual critic** (`critic.py`): a separate call with a fresh context. It sees only the input drawing and a
+3. **Shape check** (`shape_check.py`, SAM 3.1): see below. Blocks like the callouts.
+4. **Visual critic** (`critic.py`): a separate call with a fresh context. It sees only the input drawing and a
    rendered sheet (`drawing.py`: FRONT/SIDE/TOP with hidden lines at one scale plus a shaded ISO, labelled with
    sizes, feature ids, hole diameters and slot sizes), and returns `{matches, issues: [{feature_id, issue, severity}]}`.
    Only **high** severity issues (wrong or missing shape, wrong orientation) trigger a correction; the rest are
-   advisories. The critic runs **only when the compile and callout checks pass** (it is the slow step), or when a
-   disputed callout needs confirming. It is sampled twice in parallel and only issues both samples raise on the
+   advisories. The critic runs **only when the compile, callout and shape checks pass** (it is the slow step), or
+   when a disputed callout needs confirming. It is sampled twice in parallel and only issues both samples raise on the
    same feature block (see Presets).
+
+## Shape check (SAM 3.1)
+Pixels of the drawing against pixels of the part, with no model opinion involved. Per run, once:
+1. **Sheet** (photos only; a scan with a white border is used as is): SAM 3.1 with the prompt "sheet of paper" →
+   largest mask → 4 corners → homography → the straightened sheet. Fallback: a brightness threshold. Starts with
+   the read.
+2. **View outlines**: the read also returns `views` (top/front/side, a box 0–1000 per view). Each box is mapped onto
+   the straightened sheet and widened to the bbox of the closed ink loops near it (model boxes are often shifted
+   5–15 %). SAM gets one request for all views: box + one positive point, the deepest pixel of the largest region
+   enclosed by ink (with a box alone SAM segments the pencil strokes, not the face). The mask is cut back to what
+   the drawing's lines enclose (SAM leaks into labels and dimension areas), thin leaks are opened away, holes filled.
+   An outline spanning less than half its box is rejected.
+
+Per iteration, every usable view against the part's silhouette (both cropped to their own bbox):
+- **orientation**: IoU of the outlines as is, mirrored left-right, mirrored up-down and rotated 180°, on a 96×96
+  grid. Flagged only when a transformed version beats as-is by `ORIENT_MARGIN` = 0.10: a relative decision, never an
+  absolute IoU threshold. Eval: correct parts ≤ 0.000, injected flips ≥ 0.289. Message, e.g. `side view: the
+  drawing has its tallest section at the back (right), the part has it at the front (left); the part's outline is
+  the drawing's mirrored along Y. Fix the positions along Y.`
+- **aspect ratio**: flagged when width:height differs by more than `ASPECT_TOL` = 45 % (correct parts reach 29 % on
+  photos and rough sketches, so the 30 % first planned had no margin; an X/Y swap of the plate gives ≥ 105 %).
+- **holes** (advisory): closed regions in the drawing (text loops, arrowheads, sharp-cornered hidden-line strips
+  and regions below 0.2 % of the outline dropped; regions split by centre lines merged; boundary must be solid ink)
+  against the closed regions of the part's own line drawing through the same detector, by count and rough position
+  (3×3 grid). Not blocking: it flags 18/24 correct parts, mostly because the SAM outline is larger than the part and
+  sketchy circles have gaps.
+
+If there are no view boxes, SAM fails or no outline is usable, `shape_check` says so (`available: false`, `note`)
+and the run continues with the other checks. Cost: $0.0025 per SAM request (2 per photo run, 1 per scan). Time: the
+sheet takes 4–5 s (mostly decoding the page-sized mask in pure Python) while the read runs; the views take ~1.4 s
+locally plus a ~1.3 s SAM round trip after the read, in parallel with the compile; the comparison takes 0.1–0.8 s per
+iteration. In practice the first check waits 1–2 s longer. Eval:
+`experiments/shape-check/` (`python eval.py --offline` re-scores from the caches).
 
 ## Frozen callouts
 The callouts from the first read are the contract: a correction returns a new spec, never new callouts, so it
@@ -52,7 +87,7 @@ critic sometimes insisted on a wrong slot direction, and this rule kept the corr
 Measurements behind the choice: `experiments/benchmark/results/matrix/summary.md`.
 
 ## Stopping
-- `pass`: no compile errors, no callout mismatches, no high-severity critic issue
+- `pass`: no compile errors, no callout mismatches, no shape issue, no high-severity critic issue
 - `max_iters`: correction budget used up (default 4 corrections)
 - `stuck`: the same issue list twice in a row
 - `disputed`: the correction returned the spec unchanged, i.e. the model rejected the remaining issues
@@ -69,7 +104,8 @@ Every event is a JSON-serialisable dict with `event`, `iteration` and `t` (secon
 | `read_started` | (none) |
 | `spec` | `spec`, `callouts` (the effective, frozen list), `changelog` (null for the first read), `disputes` raised by this correction, `call` {cost_usd, seconds, input_tokens, output_tokens, model, effort} |
 | `compiled` | `ok`; `metrics`, `warnings` and `files` (paths, if out_dir is set), or `errors`. Emitted as soon as the spec compiles, before any check, so the UI can show the part right after the read |
-| `checks` | `clean`, `issues` [{source: compile/callout/critic, message}], `advisories`, `callouts` (one row each, with status and measured value), `critic`, `critic_call`, `critic_skipped` / `critic_error` if it did not run, `disputes` |
+| `shape_check` | `available`, `note` (why not), `views` [{view, status ok/issue/advisory/unavailable, orientation (IoU per transform), orientation_gap, aspect {drawing, part}, holes {drawing, part}, issues, advisories, files {input, compare}}], `issues` (blocking, source `shape`), `advisories` (holes), `sheet` {method sam/threshold/scan/none, rectified, quad}, `files` {sheet_found, sheet_rectified, input_<view>}, `sam` {calls, cost_usd, seconds}. Emitted before `checks` in every iteration of a drawing run |
+| `checks` | `clean`, `issues` [{source: compile/callout/shape/critic, message}], `advisories`, `shape_advisories`, `callouts` (one row each, with status and measured value), `critic`, `critic_call`, `critic_skipped` / `critic_error` if it did not run, `disputes` |
 | `correction_started` | `issues` |
 | `error` | `message` |
 | `done` | `status`, `note`, `spec`, `callouts`, `final_iteration`, `remaining_issues`, `iterations`, `disputes`, `cost_usd`, `seconds`, `settings` |

@@ -103,6 +103,14 @@ const timeline = {
     return li;
   },
   finishActive() { if (this.active) this.active.classList.replace("active", "done"); this.active = null; },
+  // a step that ran in parallel with the active one: appended without finishing it
+  addAside(t, title, cls, body) {
+    const li = el("li", { class: `step ${cls}` }, el("span", { class: "t", text: `+${(t || 0).toFixed(1)}` }),
+      el("div", {}, el("b", { text: title }), body));
+    $("#timeline").append(li);
+    li.scrollIntoView({ block: "nearest" });
+    return li;
+  },
 };
 
 function p(text, cls) { return el("p", cls ? { class: cls } : {}, text); }
@@ -173,6 +181,9 @@ function onEvent(ev) {
       timeline.add(t, "Checking dimensions", "active", p("Measuring every dimension from the drawing on the built part."));
       break;
     }
+    case "shape_check":
+      shapeStep(ev, t);
+      break;
     case "checks": {
       setStatus("checking");
       const rows = ev.callouts || [];
@@ -194,7 +205,8 @@ function onEvent(ev) {
           critIssues.length ? list(critIssues.map(plain), "issue")
             : p("A second model looked at your drawing and the drawing of the built part: no shape differences."));
       } else if (ev.critic_skipped) {
-        timeline.add(t, "Critic skipped", "done", p("Dimensions are off, so Talos fixes those first."));
+        timeline.add(t, "Critic skipped", "done", p(/shape/.test(ev.critic_skipped)
+          ? "The shape check failed, so Talos fixes that first." : "Dimensions are off, so Talos fixes those first."));
       } else if (ev.critic_error) {
         timeline.add(t, "Critic unavailable", "done", p("The visual check failed; the dimension checks still count."));
       }
@@ -212,6 +224,42 @@ function onEvent(ev) {
       finish(ev);
       break;
   }
+}
+
+// SAM 3.1 shape check: the straightened sheet (first time), then per view the drawing's outline and the comparison
+function thumb(rel, caption, cls = "") {
+  if (!rel) return null;
+  const url = fileUrl(rel);
+  return el("figure", { class: `shape-fig ${cls}` }, el("a", { href: url, target: "_blank", rel: "noopener" },
+    el("img", { src: url, alt: caption, loading: "lazy" })), el("figcaption", { text: caption }));
+}
+
+function shapeStep(ev, t) {
+  const title = "Shape check (SAM 3.1)";
+  if (!ev.available) {
+    if (ev.iteration === 0) timeline.addAside(t, title, "done", p(`Skipped: ${ev.note || "no usable view outline"}.`, "muted"));
+    return;
+  }
+  const body = el("div", {});
+  const files = ev.files || {};
+  if (ev.iteration === 0 && ev.sheet?.rectified && files.sheet_found && files.sheet_rectified) {
+    body.append(el("div", { class: "shape-row" }, thumb(files.sheet_found, "SAM found the sheet"),
+      el("span", { class: "shape-arrow", text: "→" }), thumb(files.sheet_rectified, "straightened")));
+  }
+  const row = el("div", { class: "shape-row" });
+  for (const v of ev.views || []) {
+    if (v.status === "unavailable") { row.append(el("span", { class: "muted", text: `${v.view}: ${v.note}` })); continue; }
+    const mark = v.status === "issue" ? "✗" : "✓";
+    if (ev.iteration === 0) row.append(thumb(v.files?.input, `${v.view} outline`));
+    row.append(thumb(v.files?.compare, `${v.view} ${mark}`, v.status === "issue" ? "bad" : ""));
+  }
+  body.append(row, p("Blue: the drawing's outline found by SAM 3.1. Red: the built part's silhouette.", "fine"));
+  const issues = ev.issues || [];
+  body.append(issues.length ? list(issues.map(plain), "issue")
+    : p("Every view's outline in the drawing matches the part: same orientation and proportions."));
+  if ((ev.advisories || []).length) body.append(el("details", { class: "fine" },
+    el("summary", { text: `Holes: ${ev.advisories.length} note(s), advisory` }), list(ev.advisories.map((m) => plain({ message: m })))));
+  timeline.addAside(t, title, issues.length ? "fix" : "done", body);
 }
 
 function finish(done) {

@@ -19,9 +19,12 @@ them showing Talos catching and fixing an error. Deployment and limits: [`server
 1. **Read.** Muse Spark turns the drawing into a structured part spec (features + named parameters, see
    [`docs/spec-v1.md`](docs/spec-v1.md)) and lists every dimension it read, as *callouts*.
 2. **Compile.** A deterministic compiler builds the part with CadQuery: STEP, STL, metrics, silhouettes.
-3. **Verify.** Callouts are measured on the compiled geometry. A separate critic call compares the drawing with a
-   rendered drawing sheet of the part.
-4. **Correct.** Any compile error, callout mismatch or critic issue goes back to the model, until everything passes.
+3. **Verify.** Callouts are measured on the compiled geometry. **SAM 3.1** segments each view of the drawing (after
+   finding and straightening the sheet in a photo) and the outline is compared with the part's silhouette: a part
+   that is mirrored, rotated or has other proportions is caught without asking a model's opinion. Only if both pass,
+   a separate critic call compares the drawing with a rendered drawing sheet of the part.
+4. **Correct.** Any compile error, callout mismatch, shape issue or critic issue goes back to the model, until
+   everything passes.
 
 Details: [`docs/talos.md`](docs/talos.md). Run it with `python -m hephaestus.talos drawing.png --out out/run1/`.
 
@@ -67,10 +70,21 @@ correct spec with one deliberate mistake and the real drawing, 2 runs each.
 | chamfer instead of fillet | callouts | 2/2 | 15 s |
 | plate X/Y swapped | callouts | 2/2 | 12 s |
 | cable hole drilled through both walls | critic | 2/2 | 33 s |
-| upright at the front instead of the back | **not caught** | 0/2 | |
+| upright at the front instead of the back | **not caught** ² | 0/2 | |
 
 False alarms on the 8 correct parts: 1/16 checks with a single critic sample, 0/4 on a recheck of the affected
 parts with the 2-sample critic.
+
+² Added since: the SAM 3.1 shape check catches it on the clean drawing, the photo and the rough sketch.
+
+**Shape check (SAM 3.1)** ([`experiments/shape-check`](experiments/shape-check/), checks only, no new reads): the
+correct spec and every injected-error spec compared with all 24 input images (8 parts × clean / photo / rough).
+**0/24 blocking false alarms.** It catches every error that changes a view's outline: the upright at the front
+(3/3 input types), the angled bracket's slope mirrored (3/3) and the plate's X/Y swap (3/3). It cannot see errors
+inside the outline (hole size and position, slot direction, a missing side hole); those stay with the callouts. Hole
+counting is shown as an advisory only: on these drawings it is too noisy to block (text, centre lines and hidden lines
+form closed loops, sketchy circles have gaps). Cost: $0.0025 per SAM request, 1 request per run for a scan,
+2 for a photo.
 
 ## Experiments
 
@@ -80,3 +94,16 @@ parts with the 2-sample critic.
 | [`reading-spike-v2`](experiments/reading-spike-v2/) | Can it fill in the full parametric spec v1? 26/27 perfect |
 | [`loop-eval`](experiments/loop-eval/) | Does the loop catch and fix known errors, without false alarms? |
 | [`benchmark`](experiments/benchmark/) | Reading only vs the full loop on 8 parts × 3 input qualities |
+| [`sam-spike`](experiments/sam-spike/) | Can SAM 3.1 segment line drawings (views, through-holes) and find the paper in a photo? |
+| [`shape-check`](experiments/shape-check/) | Does the SAM shape check flag wrong parts without false alarms on correct ones? |
+
+## Third-party code
+
+- **[meta-sam-parser](https://pypi.org/project/meta-sam-parser/) 0.1.0** (pip dependency, not vendored) decodes SAM
+  3.1's mask payloads in `hephaestus/sam.py`. Published by Meta Platforms, Inc. (source:
+  <https://github.com/meta-models/meta-sam>) under the **SAM License** (Nov 19, 2025), which grants a
+  non-exclusive, worldwide, royalty-free licence to use, reproduce, distribute and modify the SAM Materials; anyone
+  redistributing them must include the licence. This repo only depends on the package; the licence text ships in
+  the package's `licenses/` folder.
+- CadQuery / OpenCascade (Apache 2.0 / LGPL), FastAPI, three.js, NumPy, SciPy, OpenCV, Pillow: standard open-source
+  dependencies installed from their package registries.

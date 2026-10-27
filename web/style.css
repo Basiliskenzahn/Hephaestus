@@ -217,3 +217,11 @@ input[type="range"]::-moz-range-thumb { width: 10px; height: 14px; background: v
   .step { grid-template-columns: 48px 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { .step.active b::before { animation: none; background: var(--accent); } }
+
+/* shape check thumbnails (SAM 3.1) */
+.shape-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 6px 0; }
+.shape-fig { margin: 0; }
+.shape-fig img { display: block; height: 76px; max-width: 150px; object-fit: contain; background: #fff; border: 1px solid var(--rule); }
+.shape-fig.bad img { border-color: var(--accent); }
+.shape-fig figcaption { font-size: 11px; color: var(--ink-3); max-width: 150px; }
+.shape-arrow { color: var(--ink-3); font-size: 18px; }
