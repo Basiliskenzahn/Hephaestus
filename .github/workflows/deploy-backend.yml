@@ -1,0 +1,28 @@
+# Deploys the backend (server/modal_app.py) to Modal on every push to main that touches it.
+# Needs repository secrets MODAL_TOKEN_ID and MODAL_TOKEN_SECRET (modal.com -> Settings -> API tokens).
+# For the judging period, run it manually with "min_containers: 1" (Actions -> Deploy backend -> Run workflow).
+name: Deploy backend
+on:
+  push:
+    branches: [main]
+    paths: ["server/**", "hephaestus/**", ".github/workflows/deploy-backend.yml"]
+  workflow_dispatch:
+    inputs:
+      min_containers:
+        description: "Containers kept warm (0 = scale to zero, 1 = judging period)"
+        default: "0"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency: deploy-backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install modal==1.6.2
+      - run: modal deploy server/modal_app.py
+        env:
+          MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+          MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+          HEPH_MIN_CONTAINERS: ${{ github.event.inputs.min_containers || '0' }}
