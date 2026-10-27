@@ -1,0 +1,125 @@
+[
+ {
+  "part": "01_plate",
+  "variant": "clean",
+  "iou": {
+   "box": {
+    "top": 0.706
+   },
+   "box+point": {
+    "top": 0.82
+   },
+   "classical": {
+    "top": 0.0
+   }
+  }
+ },
+ {
+  "part": "01_plate",
+  "variant": "photo",
+  "paper_objects": 1,
+  "rectify_ink_iou": {
+   "sam": 0.683,
+   "classical": 0.729
+  },
+  "iou": {
+   "box": {
+    "top": 0.812
+   },
+   "box+point": {
+    "top": 0.808
+   },
+   "classical": {
+    "top": 0.0
+   }
+  }
+ },
+ {
+  "part": "02_l_bracket",
+  "variant": "clean",
+  "iou": {
+   "box": {
+    "top": 0.875,
+    "front": 0.896,
+    "side": 0.858
+   },
+   "box+point": {
+    "top": 0.908,
+    "front": 0.859,
+    "side": 0.857
+   },
+   "classical": {
+    "top": 0.237,
+    "front": 0.001,
+    "side": 0.0
+   }
+  }
+ },
+ {
+  "part": "02_l_bracket",
+  "variant": "photo",
+  "paper_objects": 1,
+  "rectify_ink_iou": {
+   "sam": 0.654,
+   "classical": 0.763
+  },
+  "iou": {
+   "box": {
+    "top": 0.873,
+    "front": 0.786,
+    "side": 0.8
+   },
+   "box+point": {
+    "top": 0.897,
+    "front": 0.853,
+    "side": 0.781
+   },
+   "classical": {
+    "top": 0.107,
+    "front": 0.102,
+    "side": 0.792
+   }
+  }
+ },
+ {
+  "part": "06_angled_bracket",
+  "variant": "clean",
+  "iou": {
+   "box": {
+    "front": 0.872,
+    "top": 0.923
+   },
+   "box+point": {
+    "front": 0.926,
+    "top": 0.934
+   },
+   "classical": {
+    "front": 0.088,
+    "top": 0.001
+   }
+  }
+ },
+ {
+  "part": "06_angled_bracket",
+  "variant": "photo",
+  "paper_objects": 1,
+  "rectify_ink_iou": {
+   "sam": 0.693,
+   "classical": 0.087
+  },
+  "iou": {
+   "box": {
+    "front": 0.885,
+    "top": 0.898
+   },
+   "box+point": {
+    "front": 0.921,
+    "top": 0.917
+   },
+   "classical": {
+    "front": 0.0,
+    "top": 0.945
+   }
+  }
+ }
+]
