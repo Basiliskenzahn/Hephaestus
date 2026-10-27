@@ -31,6 +31,12 @@ SKETCHES = os.path.join(ROOT, "experiments", "reading-spike", "sketches")
 PARTS = {}          # short name -> (ground-truth key, image dir, clean image); extended by benchmark parts
 for key, gt in GROUND_TRUTH.items():
     PARTS[os.path.basename(gt["spec"])[:-5]] = (key, SKETCHES, gt["images"]["clean"])
+with open(os.path.join(ROOT, "experiments", "benchmark", "ground_truth.json")) as f:
+    _bench = {k: v for k, v in json.load(f).items() if not k.startswith("_")}
+GROUND_TRUTH.update(_bench)
+for key, gt in _bench.items():
+    PARTS[os.path.basename(gt["spec"])[:-5]] = (key, os.path.join(ROOT, "experiments", "benchmark", "sketches"),
+                                                gt["images"]["clean"])
 
 
 def load(name, kind):

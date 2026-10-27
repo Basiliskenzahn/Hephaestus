@@ -1,0 +1,28 @@
+{
+ "part": "l_bracket",
+ "run": 2,
+ "clean": false,
+ "issues": [
+  {
+   "source": "critic",
+   "message": "base_slot: slot is centered front-to-back in the model, drawing dimensions it 17.5 mm from the edge (medium)"
+  }
+ ],
+ "critic": {
+  "matches": false,
+  "issues": [
+   {
+    "feature_id": "base_slot",
+    "issue": "slot is centered front-to-back in the model, drawing dimensions it 17.5 mm from the edge",
+    "severity": "medium"
+   }
+  ]
+ },
+ "critic_call": {
+  "cost_usd": 0.002162,
+  "seconds": 117.2,
+  "input_tokens": 3335,
+  "output_tokens": 9144
+ },
+ "seconds": 117.5
+}
