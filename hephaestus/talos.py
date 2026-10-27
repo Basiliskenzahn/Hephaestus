@@ -56,7 +56,14 @@ def verify(result, sheet, callouts, drawing, client=None, use_critic=True, criti
     issues = [{"source": "callout", "message": m} for m in measure.issues(rows)]
     crit = call = None
     if use_critic and client is not None:
-        crit, info = critic_mod.consensus(client, drawing, sheet, samples=critic_samples)
+        try:
+            crit, info = critic_mod.consensus(client, drawing, sheet, samples=critic_samples)
+        except meta_api.BudgetExceeded:
+            raise
+        except meta_api.ModelError as e:
+            # a failed critic call should not end the run: carry on with the compile and callout checks
+            return {"issues": issues, "advisories": [], "callouts": rows, "critic": None, "critic_call": None,
+                    "critic_error": str(e)[:300]}, issues
         call = _call_info(info)
         for i in critic_mod.blocking(crit):
             who = f"{i['feature_id']}: " if i.get("feature_id") else ""
@@ -86,7 +93,7 @@ def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=
     """Generator of events. `start` = {"spec", "callouts"} skips the read and begins at the check (for evaluation)."""
     client = client or meta_api.Client()
     t0, iteration, history, best, seen = time.time(), 0, [], None, []
-    spent0 = client.budget.spent
+    spent = [0.0]           # this run's own calls (the budget may be shared by parallel runs)
 
     def ev(name, **kw):
         return {"event": name, "iteration": iteration, "t": round(time.time() - t0, 1), **kw}
@@ -95,7 +102,7 @@ def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=
         final = best or {"iteration": iteration, "spec": spec, "callouts": callouts, "n_issues": None}
         return ev("done", status=status, note=note, final_iteration=final["iteration"], spec=final["spec"],
                   callouts=final["callouts"], remaining_issues=final.get("issues"), iterations=iteration,
-                  corrections=iteration, cost_usd=round(client.budget.spent - spent0, 6),
+                  corrections=iteration, cost_usd=round(spent[0], 6),
                   seconds=round(time.time() - t0, 1))
 
     spec = callouts = None
@@ -106,6 +113,7 @@ def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=
                                                                    "list its dimensions."), meta_api.image(drawing)],
                                        json_schema(ReadOutput), "ReadOutput")
             spec, callouts = out.get("spec"), out.get("callouts", [])
+            spent[0] += info["cost_usd"]
             yield ev("spec", spec=spec, callouts=callouts, changelog=None, call=_call_info(info))
         else:
             spec, callouts = start["spec"], start.get("callouts", [])
@@ -123,6 +131,7 @@ def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=
                 checks = {"issues": issues, "callouts": [], "critic": None, "critic_call": None}
             else:
                 checks, issues = verify(result, sheet, callouts, drawing, client, use_critic)
+                spent[0] += (checks.get("critic_call") or {}).get("cost_usd", 0)
             clean = not issues
             yield ev("checks", clean=clean, **checks)
             score = len(issues) + (100 if not compiled["ok"] else 0)
@@ -143,6 +152,7 @@ def run(drawing, max_iters=4, client=None, out_dir=None, start=None, use_critic=
             yield ev("correction_started", issues=issues)
             content = [meta_api.text(correction_request(spec, callouts, issues)), meta_api.image(drawing)]
             out, info = client.respond(CORRECT_PROMPT, content, json_schema(CorrectionOutput), "CorrectionOutput")
+            spent[0] += info["cost_usd"]
             iteration += 1
             seen.append(_fingerprint(spec))
             new_fp = _fingerprint(out.get("spec"))

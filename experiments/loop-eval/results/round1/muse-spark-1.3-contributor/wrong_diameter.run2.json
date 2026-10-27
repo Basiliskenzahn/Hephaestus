@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.012788,
+ "cost_usd": 0.003412,
  "seconds": 117.0,
  "changelogs": [
   "Fixed centre bore diameter from 10 to 12 to match \u00d812 thru callout."
@@ -980,7 +980,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.012788,
+   "cost_usd": 0.003412,
    "seconds": 117.0
   }
  ]

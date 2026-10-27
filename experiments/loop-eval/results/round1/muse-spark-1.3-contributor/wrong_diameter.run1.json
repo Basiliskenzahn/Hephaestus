@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.010569,
+ "cost_usd": 0.00295,
  "seconds": 97.4,
  "changelogs": [
   "Corrected bore_d from 10 to 12 to match the \u00d812 thru drawing callout."
@@ -982,7 +982,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.010569,
+   "cost_usd": 0.00295,
    "seconds": 97.4
   }
  ]

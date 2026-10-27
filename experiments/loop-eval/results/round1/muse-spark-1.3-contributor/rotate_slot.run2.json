@@ -13,7 +13,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.007815,
+ "cost_usd": 0.002668,
  "seconds": 63.7,
  "changelogs": [
   "Fixed base_slot angle from 90 to 0 so slot length runs left-to-right along X as drawn in TOP view."
@@ -1097,7 +1097,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.007815,
+   "cost_usd": 0.002668,
    "seconds": 63.7
   }
  ]

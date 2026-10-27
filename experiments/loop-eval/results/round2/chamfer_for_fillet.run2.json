@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.011463,
+ "cost_usd": 0.00305,
  "seconds": 112.6,
  "changelogs": [
   "changed corners from chamfer to fillet vertical_outer R5 to give rounded plan corners per drawing"
@@ -1093,7 +1093,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.011463,
+   "cost_usd": 0.00305,
    "seconds": 112.6
   }
  ]

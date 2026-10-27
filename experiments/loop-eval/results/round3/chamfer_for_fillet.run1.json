@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.013392,
+ "cost_usd": 0.005335,
  "seconds": 122.5,
  "changelogs": [
   "Replaced straight chamfer corners with R5 rounded_rect body and corrected radius/chamfer callouts; kept symmetric centred holes."
@@ -1217,7 +1217,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.013392,
+   "cost_usd": 0.005335,
    "seconds": 122.5
   }
  ]

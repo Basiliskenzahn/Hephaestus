@@ -33,7 +33,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.013635,
+ "cost_usd": 0.003816,
  "seconds": 89.5,
  "changelogs": [
   "swapped width/depth to 80 along X and 50 along Y so overall, hole spacing and bore centring match the drawing"
@@ -1106,7 +1106,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.013635,
+   "cost_usd": 0.003816,
    "seconds": 89.5
   }
  ]

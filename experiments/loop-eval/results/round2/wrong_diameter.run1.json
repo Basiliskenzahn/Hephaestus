@@ -13,7 +13,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.00827,
+ "cost_usd": 0.002981,
  "seconds": 85.2,
  "changelogs": [
   "Fixed bore_d from 10 to 12 to match the \u00d812 thru dimension."
@@ -1097,7 +1097,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.00827,
+   "cost_usd": 0.002981,
    "seconds": 85.2
   }
  ]

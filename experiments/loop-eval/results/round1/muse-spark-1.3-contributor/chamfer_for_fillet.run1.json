@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 2,
- "cost_usd": 0.022967,
+ "cost_usd": 0.005498,
  "seconds": 194.0,
  "changelogs": [
   "changed corners from chamfer to fillet radius R5 so vertical corners are rounded as drawn",
@@ -1396,7 +1396,7 @@
    "remaining_issues": [],
    "iterations": 2,
    "corrections": 2,
-   "cost_usd": 0.022967,
+   "cost_usd": 0.005498,
    "seconds": 194.0
   }
  ]

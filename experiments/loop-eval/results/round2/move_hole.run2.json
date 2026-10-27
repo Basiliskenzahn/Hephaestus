@@ -13,7 +13,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.003685,
+ "cost_usd": 0.000864,
  "seconds": 40.7,
  "changelogs": [
   "Moved bore to width / 2 to match centred drawing; prior +5 offset caused 45 vs 40 mismatch."
@@ -967,7 +967,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.003685,
+   "cost_usd": 0.000864,
    "seconds": 40.7
   }
  ]

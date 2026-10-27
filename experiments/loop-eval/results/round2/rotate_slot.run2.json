@@ -13,7 +13,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.007056,
+ "cost_usd": 0.002435,
  "seconds": 64.3,
  "changelogs": [
   "fixed base_slot angle from 90 to 0 so the slot runs along X as drawn in TOP view"
@@ -1136,7 +1136,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.007056,
+   "cost_usd": 0.002435,
    "seconds": 64.3
   }
  ]

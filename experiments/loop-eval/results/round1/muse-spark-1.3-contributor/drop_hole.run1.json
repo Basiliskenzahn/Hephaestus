@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 3,
- "cost_usd": 0.041868,
+ "cost_usd": 0.009583,
  "seconds": 337.4,
  "changelogs": [
   "added linear_pattern side_holes (2x spacing side_pitch) to create the missing second \u00d86 hole",
@@ -1801,7 +1801,7 @@
    "remaining_issues": [],
    "iterations": 3,
    "corrections": 3,
-   "cost_usd": 0.041868,
+   "cost_usd": 0.009583,
    "seconds": 337.4
   }
  ]

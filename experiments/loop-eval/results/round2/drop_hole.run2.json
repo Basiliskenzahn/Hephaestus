@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.008629,
+ "cost_usd": 0.003,
  "seconds": 86.5,
  "changelogs": [
   "added linear_pattern side_holes for the second \u00d86 hole and fixed distance callout to use side_holes[0]/[1]."
@@ -1101,7 +1101,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.008629,
+   "cost_usd": 0.003,
    "seconds": 86.5
   }
  ]

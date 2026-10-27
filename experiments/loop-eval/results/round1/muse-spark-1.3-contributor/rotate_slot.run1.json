@@ -13,7 +13,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.009867,
+ "cost_usd": 0.002902,
  "seconds": 74.3,
  "changelogs": [
   "Fixed base_slot angle from 90 to 0 so long axis runs left-to-right along X, and derived hole spacing as width-2*hole_x instead of separate pitch."
@@ -1088,7 +1088,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.009867,
+   "cost_usd": 0.002902,
    "seconds": 74.3
   }
  ]

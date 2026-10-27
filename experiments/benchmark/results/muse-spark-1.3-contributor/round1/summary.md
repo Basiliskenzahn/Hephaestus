@@ -1,7 +1,7 @@
 | set | runs | perfect, loop off | perfect, loop on | compiles off / on | avg corrections | cost off / on (avg) | latency off / on (median) |
 |---|---|---|---|---|---|---|---|
-| clean | 16 | 16/16 | 16/16 | 16 / 16 | 0.4 | $0.0017 / $0.0106 | 52 s / 123 s |
-| photo | 16 | 15/16 | 16/16 | 16 / 16 | 0.2 | $0.0016 / $0.0095 | 45 s / 100 s |
+| clean | 16 | 16/16 | 16/16 | 16 / 16 | 0.4 | $0.0017 / $0.0036 | 52 s / 123 s |
+| photo | 16 | 15/16 | 16/16 | 16 / 16 | 0.2 | $0.0016 / $0.0032 | 45 s / 100 s |
 
 | part | set | off: perfect runs | on: perfect runs | corrections | still failing (loop on) |
 |---|---|---|---|---|---|

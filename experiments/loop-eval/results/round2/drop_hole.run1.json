@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.00886,
+ "cost_usd": 0.003053,
  "seconds": 103.6,
  "changelogs": [
   "added missing linear_pattern side_holes (2x spacing 46) to create the second \u00d86 hole and validate the 46 pitch callout"
@@ -1079,7 +1079,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.00886,
+   "cost_usd": 0.003053,
    "seconds": 103.6
   }
  ]

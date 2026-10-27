@@ -155,3 +155,14 @@ def test_returning_to_an_earlier_version_stops():
                                               for a in (90, 0)])
     ev = events_of(client, start={"spec": slot(0), "callouts": callouts("l_bracket")})
     assert ev[-1]["status"] == "oscillating" and ev[-1]["final_iteration"] == 0
+
+
+def test_critic_failure_does_not_end_the_run():
+    class Failing(ScriptedClient):
+        def respond(self, instructions, content, schema, name="Output", retries=1):
+            if name == "CriticOutput":
+                raise meta_api.ModelError("stream error: model failed to generate a response")
+            return super().respond(instructions, content, schema, name, retries)
+    ev = events_of(Failing(), start={"spec": example("block"), "callouts": callouts("block")})
+    checks = next(e for e in ev if e["event"] == "checks")
+    assert "model failed" in checks["critic_error"] and ev[-1]["status"] == "pass"

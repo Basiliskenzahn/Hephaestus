@@ -13,7 +13,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.004839,
+ "cost_usd": 0.002357,
  "seconds": 53.8,
  "changelogs": [
   "Moved bore to plate centre (width/2, depth/2); drawing shows bore centred so x distance is 40, previous +5 offset gave 45."
@@ -967,7 +967,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.004839,
+   "cost_usd": 0.002357,
    "seconds": 53.8
   }
  ]

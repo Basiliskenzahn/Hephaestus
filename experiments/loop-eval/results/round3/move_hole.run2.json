@@ -13,7 +13,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.011486,
+ "cost_usd": 0.00391,
  "seconds": 85.9,
  "changelogs": [
   "Moved bore to width/2 (centred) to match drawing centreline; removed erroneous +5 X offset."
@@ -1059,7 +1059,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.011486,
+   "cost_usd": 0.00391,
    "seconds": 85.9
   }
  ]

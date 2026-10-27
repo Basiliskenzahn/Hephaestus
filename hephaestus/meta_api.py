@@ -92,10 +92,12 @@ class Client:
         self.model, self.effort = model, effort
         self.budget = budget or Budget(float("inf"))
 
-    def respond(self, instructions, content, schema, name="Output", retries=2):
+    def respond(self, instructions, content, schema, name="Output", retries=2, max_output_tokens=24000):
         """One streamed call with structured output. Returns (parsed JSON, info {usage, cost_usd, seconds})."""
         self.budget.check()
+        # cap output: one critic call once ran away to 1.5 MB of broken JSON
         body = {"model": self.model, "reasoning": {"effort": self.effort}, "instructions": instructions,
+                "max_output_tokens": max_output_tokens,
                 "stream": True, "input": [{"type": "message", "role": "user", "content": content}],
                 "text": {"format": {"type": "json_schema", "name": name, "schema": schema}}}
         key = os.environ.get("MODEL_API_KEY")

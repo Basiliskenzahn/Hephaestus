@@ -33,7 +33,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.005644,
+ "cost_usd": 0.002288,
  "seconds": 61.4,
  "changelogs": [
   "Swapped width/depth to width=80 (X) and depth=50 (Y) so overall sizes, 64/34 hole spacings, and bore centre match the TOP view."
@@ -1036,7 +1036,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.005644,
+   "cost_usd": 0.002288,
    "seconds": 61.4
   }
  ]

@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "max_iters",
  "corrections": 3,
- "cost_usd": 0.03785,
+ "cost_usd": 0.009255,
  "seconds": 316.7,
  "changelogs": [
   "added linear_pattern side_holes to create the second \u00d86 hole so 46 spacing and 2x callout resolve",
@@ -1852,7 +1852,7 @@
    ],
    "iterations": 3,
    "corrections": 3,
-   "cost_usd": 0.03785,
+   "cost_usd": 0.009255,
    "seconds": 316.7
   }
  ]

@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.015836,
+ "cost_usd": 0.005415,
  "seconds": 132.7,
  "changelogs": [
   "changed vertical corners from chamfer to fillet to model R5 rounded corners"
@@ -1232,7 +1232,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.015836,
+   "cost_usd": 0.005415,
    "seconds": 132.7
   }
  ]

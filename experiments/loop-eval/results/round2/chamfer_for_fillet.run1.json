@@ -17,7 +17,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.007116,
+ "cost_usd": 0.002813,
  "seconds": 82.2,
  "changelogs": [
   "Replaced vertical_outer chamfer with rounded_rect body corners (R5) to match drawing; radius callout now measures 5."
@@ -1077,7 +1077,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.007116,
+   "cost_usd": 0.002813,
    "seconds": 82.2
   }
  ]

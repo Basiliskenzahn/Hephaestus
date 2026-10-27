@@ -25,7 +25,7 @@
  "fixed": true,
  "status": "pass",
  "corrections": 1,
- "cost_usd": 0.004956,
+ "cost_usd": 0.001799,
  "seconds": 44.3,
  "changelogs": [
   "swapped width/depth so width=80 along X and depth=50 along Y to match TOP view"
@@ -934,7 +934,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.004956,
+   "cost_usd": 0.001799,
    "seconds": 44.3
   }
  ]

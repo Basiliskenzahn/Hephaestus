@@ -7,7 +7,7 @@
  "corrections": 1,
  "final_iteration": 1,
  "cost_off": 0.002066,
- "cost_on": 0.025597,
+ "cost_on": 0.008287,
  "seconds_off": 59.3,
  "seconds_on": 345.2,
  "off": {
@@ -1211,7 +1211,7 @@
    "remaining_issues": [],
    "iterations": 1,
    "corrections": 1,
-   "cost_usd": 0.025597,
+   "cost_usd": 0.008287,
    "seconds": 345.2
   }
  ]

@@ -8,7 +8,7 @@
  "fixed": false,
  "status": "pass",
  "corrections": 0,
- "cost_usd": 0.002762,
+ "cost_usd": 0.000661,
  "seconds": 27.7,
  "changelogs": [],
  "final_score": {
@@ -524,7 +524,7 @@
    "remaining_issues": [],
    "iterations": 0,
    "corrections": 0,
-   "cost_usd": 0.002762,
+   "cost_usd": 0.000661,
    "seconds": 27.7
   }
  ]
