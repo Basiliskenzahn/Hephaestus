@@ -200,8 +200,10 @@ def check(callouts, result, tol=TOL):
     out = []
     for c in callouts:
         c = c.model_dump() if hasattr(c, "model_dump") else dict(c)
-        row = {"label": c["label"], "value": c["value"], "measure": c["measure"], "what": describe(c)}
-        if c["measure"] == "unchecked":
+        c.setdefault("label", "?")
+        c.setdefault("measure", "unchecked")
+        row = {"label": c["label"], "value": c.get("value"), "measure": c["measure"], "what": describe(c)}
+        if c["measure"] == "unchecked" or not isinstance(c.get("value"), (int, float)):
             out.append({**row, "status": "unchecked"})
             continue
         try:
