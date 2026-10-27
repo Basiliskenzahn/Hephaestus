@@ -246,6 +246,38 @@ class PartSpec(_Model):
         return self
 
 
+# ---------------------------------------------------------------- callouts and model outputs
+MeasureKind = Literal["overall", "diameter", "radius", "distance", "distance_to_edge", "slot_length", "slot_width",
+                      "thickness", "chamfer_size", "unchecked"]
+FEATURE_REF = "a feature id, or '<pattern_id>[k]' for copy k of a pattern (0 = the original)"
+
+
+class Callout(_Model):
+    """One dimension written on the drawing, and how to measure it on the compiled part (see hephaestus/measure.py)."""
+    label: str = Field(description="the dimension as written, e.g. '64', '4x Ø6', 'R5', 't = 6'")
+    value: float = Field(description="the number in mm")
+    measure: MeasureKind = Field(description=(
+        "overall: bbox size along axis | diameter / radius: of feature | distance: between the centres of feature "
+        "and feature_b along axis | distance_to_edge: from the centre of feature to the bbox edge | slot_length / "
+        "slot_width: of a slot | thickness: smallest size of an added extrude/revolve, or a shell's wall | "
+        "chamfer_size: of a chamfer | unchecked: anything else (angles, notes)"))
+    axis: Optional[Literal["x", "y", "z"]] = None
+    feature: Optional[str] = Field(None, description=FEATURE_REF)
+    feature_b: Optional[str] = Field(None, description=FEATURE_REF)
+    edge: Optional[Literal["x_min", "x_max", "y_min", "y_max", "z_min", "z_max"]] = None
+
+
+class ReadOutput(_Model):
+    spec: PartSpec
+    callouts: list[Callout] = Field(description="every dimension written on the drawing, once each")
+
+
+class CorrectionOutput(_Model):
+    changelog: str = Field(description="one line: what was changed and why")
+    spec: PartSpec
+    callouts: list[Callout]
+
+
 # ---------------------------------------------------------------- JSON Schema export
 def _inline(node, defs):
     if isinstance(node, dict):
@@ -261,9 +293,9 @@ def _inline(node, defs):
     return node
 
 
-def json_schema():
-    """JSON Schema for PartSpec with every $ref inlined (no $defs, no recursion), for structured output."""
-    raw = PartSpec.model_json_schema()
+def json_schema(model=None):
+    """JSON Schema for PartSpec (or another model) with every $ref inlined (no $defs, no recursion)."""
+    raw = (model or PartSpec).model_json_schema()
     return _inline(raw, raw.get("$defs", {}))
 
 

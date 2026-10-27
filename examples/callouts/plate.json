@@ -1,0 +1,11 @@
+[
+  {"label": "80", "value": 80, "measure": "overall", "axis": "x"},
+  {"label": "50", "value": 50, "measure": "overall", "axis": "y"},
+  {"label": "t = 6", "value": 6, "measure": "thickness", "feature": "base"},
+  {"label": "4x Ø6 thru", "value": 6, "measure": "diameter", "feature": "corner_hole"},
+  {"label": "Ø20 thru", "value": 20, "measure": "diameter", "feature": "bore"},
+  {"label": "64", "value": 64, "measure": "distance", "feature": "corner_holes[0]", "feature_b": "corner_holes[1]", "axis": "x"},
+  {"label": "34", "value": 34, "measure": "distance", "feature": "corner_holes[0]", "feature_b": "corner_holes[2]", "axis": "y"},
+  {"label": "8", "value": 8, "measure": "distance_to_edge", "feature": "corner_hole", "edge": "x_min"},
+  {"label": "8", "value": 8, "measure": "distance_to_edge", "feature": "corner_hole", "edge": "y_min"}
+]

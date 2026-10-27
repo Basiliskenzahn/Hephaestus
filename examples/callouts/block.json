@@ -1,0 +1,11 @@
+[
+  {"label": "70", "value": 70, "measure": "overall", "axis": "x"},
+  {"label": "40", "value": 40, "measure": "overall", "axis": "y"},
+  {"label": "20", "value": 20, "measure": "overall", "axis": "z"},
+  {"label": "Ø12 thru", "value": 12, "measure": "diameter", "feature": "bore"},
+  {"label": "2x Ø6 thru", "value": 6, "measure": "diameter", "feature": "side_hole"},
+  {"label": "46", "value": 46, "measure": "distance", "feature": "side_holes[0]", "feature_b": "side_holes[1]", "axis": "x"},
+  {"label": "20", "value": 20, "measure": "distance_to_edge", "feature": "bore", "edge": "y_min"},
+  {"label": "R5 (4x)", "value": 5, "measure": "radius", "feature": "corners"},
+  {"label": "1 x 45° all top edges", "value": 1, "measure": "chamfer_size", "feature": "top_edges"}
+]

@@ -64,6 +64,7 @@ class Result:
     silhouettes: dict
     warnings: list = field(default_factory=list)
     timings: dict = field(default_factory=dict)
+    geometry: dict = field(default_factory=dict)   # per feature id: where it ended up (see feature_geometry)
 
 
 # ---------------------------------------------------------------- small helpers
@@ -630,7 +631,7 @@ def _shell(f, part, bbox):
 
 def build(feats):
     """Run the feature list. Returns (solid, feature_status). Raises SpecError on the first failing feature."""
-    part, status, records, by_id, boxes = None, [], {}, {}, {}
+    part, status, records, by_id, boxes, geometry = None, [], {}, {}, {}, {}
     for idx, f in enumerate(feats):
         fid, t = f["id"], f["type"]
         before = part.Volume() if part is not None else 0.0
@@ -659,12 +660,61 @@ def build(feats):
         if t in ("extrude", "revolve") and f["operation"] == "add":
             boxes[fid] = bbox_of(rec[0][0])
         by_id[fid] = f
+        geometry[fid] = feature_geometry(f, rec, by_id, geometry)
         status.append({"id": fid, "type": t, "status": "ok",
                        "volume_delta_mm3": round(part.Volume() - before, 4)})
     if not part.isValid():
         raise SpecError(["the finished part is not a valid solid (the CAD kernel reports bad topology); "
                          "check overlapping or touching features"], status)
-    return part, status
+    return part, status, geometry
+
+
+def _vec(v):
+    return [round(c, 9) for c in v.toTuple()]
+
+
+def feature_geometry(f, rec, by_id, geometry):
+    """Where a feature ended up, in world coordinates, for measuring callouts without re-deriving the spec.
+
+    holes/slots: one instance (axis point on the entry plane, axis direction); patterns: one instance per copy;
+    extrude/revolve: their own body's bbox (and axis for circles/revolves); slots also carry direction, length, width.
+    """
+    t = f["type"]
+    g = {"type": t}
+    if t in ("hole", "slot"):
+        plane = f["plane"] or FACES[split_face(f["face"])[0]][0]
+        p, n = rec[1][0]
+        g.update(plane=plane, axis=_vec(n), instances=[{"center": _vec(p)}])
+        if t == "hole":
+            g["diameter"] = f["diameter"]
+        else:
+            th = math.radians(f["angle"])
+            d = axis_vec(plane, "u") * math.cos(th) + axis_vec(plane, "v") * math.sin(th)
+            g.update(direction=_vec(d), length=f["length"], width=f["width"])
+    elif t in ("linear_pattern", "circular_pattern"):
+        src = geometry[f["feature"]]
+        g.update({k: v for k, v in src.items() if k not in ("type", "instances")}, source=f["feature"])
+        g["instances"] = [{"center": _vec(p)} for p, _ in rec[1]]
+        if "direction" in src and t == "circular_pattern":
+            g["direction"] = None          # rotated copies: direction differs per copy
+    elif t in ("extrude", "revolve"):
+        lo, hi = bbox_of(rec[0][0])
+        g.update(operation=f["operation"], bbox=[_r(lo), _r(hi)], axis=_vec(axis_vec(f["plane"], "w")))
+        prof = f["profile"]
+        if t == "extrude" and prof["shape"] == "circle":
+            g["instances"] = [{"center": _vec(world(f["plane"], prof["u"], prof["v"], 0))}]
+            g["diameter"] = prof["diameter"]
+        if t == "revolve":
+            au, av = f["axis_origin"]
+            g["axis"] = _vec(axis_vec(f["plane"], f["axis"]))
+            g["instances"] = [{"center": _vec(world(f["plane"], au, av, f["offset"]))}]
+    elif t == "fillet":
+        g["radius"] = f["radius"]
+    elif t == "chamfer":
+        g["size"] = f["size"]
+    elif t == "shell":
+        g["thickness"] = f["thickness"]
+    return g
 
 
 # ---------------------------------------------------------------- exports
@@ -697,7 +747,7 @@ def compile(spec, overrides=None, mm_per_px=0.2):  # noqa: A001 - the name is th
     timings["resolve"] = time.perf_counter() - t0
 
     t = time.perf_counter()
-    solid, status = build(feats)
+    solid, status, geometry = build(feats)
     timings["build"] = time.perf_counter() - t
 
     t = time.perf_counter()
@@ -730,7 +780,7 @@ def compile(spec, overrides=None, mm_per_px=0.2):  # noqa: A001 - the name is th
         "warnings": warnings,
     }
     timings["total"] = time.perf_counter() - t0
-    return Result(spec, params, solid, step, stl, metrics, sil, warnings, timings)
+    return Result(spec, params, solid, step, stl, metrics, sil, warnings, timings, geometry)
 
 
 def _pydantic_msg(err):
