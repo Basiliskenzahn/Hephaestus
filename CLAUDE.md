@@ -54,6 +54,7 @@ $150 total for the whole project; ~$6.60 spent by Oct 27 afternoon. Spending mus
   - `talos.py`: the loop read → compile → callouts → critic → correct; event generator + CLI (`python -m hephaestus.talos img --out dir`). See `docs/talos.md`.
   - `critic.py` (visual critic, fresh context), `drawing.py` (labelled drawing sheet for the critic), `prompts.py` (+ `fewshot/`), `meta_api.py` (streamed Meta API client with a spend budget).
   - `sam.py`: SAM 3.1 client (box/point prompts, output parser, mask decoder via meta-sam-parser), every response cached by image hash + prompt (`experiments/sam_cache/`; the server caches inside the run folder).
+  - `edit.py`: edits in words (typed or transcribed): one low-effort call → structured edit (spec.EditOutput), applied and validated in code; `voice.py`: Muse Voice Transcribe client (WAV only).
   - `shape_check.py`: sheet rectification + per-view SAM outlines vs the part's silhouettes (orientation and aspect block, holes advisory). See docs/talos.md.
 - `server/` — FastAPI backend on Modal (`api.py`, `runs.py`, `modal_app.py`); `MOCK_MODELS=1` for development; `build_gallery.py` makes `web/gallery/` + `mock_data/` from recorded runs. See `server/README.md`.
 - `web/` — static frontend (Netlify, base directory `web/`); `config.js` holds the backend URL.

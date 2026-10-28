@@ -3,7 +3,7 @@
 **Turn a sketch, a prompt or a real object into a parametric CAD part.**
 Powered by **Talos**, an agent that generates a part, checks it against the input and corrects itself until the geometry matches.
 
-Built during the [Meta Global AI Developer Hackathon](https://dev.meta.ai/events/global-hackathon), Oct 26 – Nov 4, 2026, on Meta's Muse Spark and SAM 3.1 models.
+Built during the [Meta Global AI Developer Hackathon](https://dev.meta.ai/events/global-hackathon), Oct 26 – Nov 4, 2026, on Meta's Muse Spark, SAM 3.1 and Muse Voice Transcribe models.
 
 ## Web app
 
@@ -11,7 +11,8 @@ Built during the [Meta Global AI Developer Hackathon](https://dev.meta.ai/events
 
 `web/` (static, Netlify) + `server/` (FastAPI on Modal). Upload a sketch or photo, take one with your phone, or
 describe the part in words; watch Talos read, build, check and correct it live; drag the parameter sliders to
-rebuild the part instantly; download STEP, STL and the spec. Six examples replay recorded runs instantly, two of
+rebuild the part instantly; change it in words, typed or spoken ("make the holes M6", "remove the slot"); download
+STEP, STL and the spec. Six examples replay recorded runs instantly, two of
 them showing Talos catching and fixing an error. Deployment and limits: [`server/README.md`](server/README.md).
 
 ## How it works
@@ -24,7 +25,13 @@ them showing Talos catching and fixing an error. Deployment and limits: [`server
    that is mirrored, rotated or has other proportions is caught without asking a model's opinion. Only if both pass,
    a separate critic call compares the drawing with a rendered drawing sheet of the part.
 4. **Correct.** Any compile error, callout mismatch, shape issue or critic issue goes back to the model, until
-   everything passes.
+   everything passes. The critic cannot loop on its own: an issue only the critic sees gets one correction, and if
+   that does not hold up, the measured part is kept and the critic's issue is shown as an unverified note.
+5. **Edit.** After that, the part can be changed in words: typed, or spoken and transcribed by **Muse Voice
+   Transcribe** (the transcript is shown for correction first). Muse Spark (low effort) turns the instruction into a
+   small structured edit (parameter values, holes, slots, patterns, fillets, chamfers, pockets, or a clarifying
+   question when the instruction is ambiguous or impossible); our code applies it, rebuilds and validates. The part
+   is then marked *edited*: the drawing's dimensions you changed leave the check, the others still count.
 
 Details: [`docs/talos.md`](docs/talos.md). Run it with `python -m hephaestus.talos drawing.png --out out/run1/`.
 
@@ -58,33 +65,36 @@ the correction invented an unwritten 28 mm height to add it. Since then the crit
 corrections may not invent dimensions; on a rerun the critic hallucinated the same kink in both samples, and the
 correction refused because the drawing gives no such size, so the read stayed intact.
 
-**Injected errors** ([`experiments/loop-eval`](experiments/loop-eval/), live settings): the loop starts from a
-correct spec with one deliberate mistake and the real drawing, 2 runs each.
+**Injected errors**: a correct spec with one deliberate mistake, checked against the real drawing. Which check
+catches it ([`experiments/loop-eval`](experiments/loop-eval/), [`experiments/shape-check`](experiments/shape-check/),
+critic flags from [`experiments/benchmark/results/matrix`](experiments/benchmark/results/matrix/summary.md)):
 
-| error | caught by | fixed | mean time per run |
-|---|---|---|---|
-| slot turned 90° | callouts | 2/2 | 23 s |
-| hole moved 5 mm | callouts | 2/2 | 10 s |
-| hole missing | callouts | 2/2 | 21 s |
-| wrong diameter | callouts | 2/2 | 18 s |
-| chamfer instead of fillet | callouts | 2/2 | 15 s |
-| plate X/Y swapped | callouts | 2/2 | 12 s |
-| cable hole drilled through both walls | critic | 2/2 | 33 s |
-| upright at the front instead of the back | **not caught** ² | 0/2 | |
+| error | callouts | shape check (SAM 3.1) | critic (2 samples) | fixed by the loop (live, 2 runs) |
+|---|---|---|---|---|
+| slot turned 90° | ✓ | – | ✓ | 2/2, 23 s |
+| hole moved 5 mm | ✓ | – | – | 2/2, 10 s |
+| hole missing | ✓ | – | ✓ | 2/2, 21 s |
+| wrong diameter | ✓ | – | – | 2/2, 18 s |
+| chamfer instead of fillet | ✓ | – | ✓ | 2/2, 15 s |
+| plate X/Y swapped | ✓ | ✓ (3/3 inputs) | – | 2/2, 12 s |
+| cable hole drilled through both walls | – | – | ✓ | 2/2, 33 s |
+| upright at the front instead of the back | – | **✓ (3/3 inputs)** | – | not re-run since the shape check ¹ |
+| angled bracket's slope mirrored | – | **✓ (3/3 inputs)** | not tested | not run |
+| hole pair moved to the other end | ✓ | – | not tested | not run |
 
-False alarms on the 8 correct parts: 1/16 checks with a single critic sample, 0/4 on a recheck of the affected
-parts with the 2-sample critic.
+"3/3 inputs" = the clean drawing, the phone photo and the rough pencil photo. The checks complement each other:
+callouts are exact on every written dimension, the shape check sees the outline of each view (orientation and
+proportions, which no single dimension captures), the critic sees what neither measures (which walls a hole goes
+through). None of them sees a misreading they all share (the angled bracket's 15/10 swap above).
 
-² Added since: the SAM 3.1 shape check catches it on the clean drawing, the photo and the rough sketch.
+**No false alarms**: the 8 correct parts pass the callouts and the shape check on all 24 inputs (0/24 blocking
+shape issues: for a correct part a mirrored or rotated outline never fits the drawing better than the part as built,
+while the injected flips fit better by at least 0.29 IoU; the flag needs 0.10), and the 2-sample critic
+raised 0/4 on a recheck (1/16 with a single sample, which is why it takes two). The shape check's hole comparison
+is switched off: it flagged 18 of 24 correct parts (text, centre lines and gaps in sketched circles), so it would
+only be noise.
 
-**Shape check (SAM 3.1)** ([`experiments/shape-check`](experiments/shape-check/), checks only, no new reads): the
-correct spec and every injected-error spec compared with all 24 input images (8 parts × clean / photo / rough).
-**0/24 blocking false alarms.** It catches every error that changes a view's outline: the upright at the front
-(3/3 input types), the angled bracket's slope mirrored (3/3) and the plate's X/Y swap (3/3). It cannot see errors
-inside the outline (hole size and position, slot direction, a missing side hole); those stay with the callouts. Hole
-counting is shown as an advisory only: on these drawings it is too noisy to block (text, centre lines and hidden lines
-form closed loops, sketchy circles have gaps). Cost: $0.0025 per SAM request, 1 request per run for a scan,
-2 for a photo.
+¹ In the earlier loop evaluation, before the shape check existed, nothing caught it (0/2).
 
 ## Experiments
 
@@ -96,6 +106,8 @@ form closed loops, sketchy circles have gaps). Cost: $0.0025 per SAM request, 1 
 | [`benchmark`](experiments/benchmark/) | Reading only vs the full loop on 8 parts × 3 input qualities |
 | [`sam-spike`](experiments/sam-spike/) | Can SAM 3.1 segment line drawings (views, through-holes) and find the paper in a photo? |
 | [`shape-check`](experiments/shape-check/) | Does the SAM shape check flag wrong parts without false alarms on correct ones? |
+| [`edits`](experiments/edits/) | Voice and typed edits: 8 spoken instructions → Muse Voice Transcribe → structured edit (recorded for the tests) |
+| [`load`](experiments/load/) | Does SAM mask decoding stall the sliders? `/compile` p50 during 3 runs: 730 ms → 134 ms with worker processes |
 
 ## Third-party code
 
