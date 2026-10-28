@@ -84,7 +84,10 @@ critic sometimes insisted on a wrong slot direction, and this rule kept the corr
 | `benchmark` | same as live | | | reported numbers describe the product |
 | `dev` | contributor, low | contributor, medium | contributor, medium, 1 sample | cheap iteration (~12x cheaper, 2-3x slower) |
 
-Measurements behind the choice: `experiments/benchmark/results/matrix/summary.md`.
+Measurements behind the choice: `experiments/benchmark/results/matrix/summary.md`. Read effort low was re-tested with the full
+loop on the 8 rough photos (Oct 28): 5/8 perfect against 7/8 at medium, 18 s vs 22 s median read, so medium stays
+(`experiments/benchmark/results/muse-spark-1.3/live-low-rough/compare.md`). The `views` field of the read does not
+slow it down (`experiments/read-views/`: same time and tokens with and without it, dev preset).
 
 ## Stopping
 - `pass`: no compile errors, no callout mismatches, no shape issue, no high-severity critic issue

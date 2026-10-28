@@ -1,0 +1,119 @@
+[
+ {
+  "image": "02_l_bracket__photo.jpg",
+  "variant": "with_views",
+  "seconds": 53.0,
+  "output_tokens": 5636,
+  "reasoning_tokens": 4383,
+  "cost_usd": 0.002083,
+  "views": [
+   {
+    "box": [
+     244.0,
+     355.0,
+     465.0,
+     538.0
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     527.0,
+     314.0,
+     665.0,
+     524.0
+    ],
+    "view": "side"
+   },
+   {
+    "box": [
+     271.0,
+     588.0,
+     484.0,
+     752.0
+    ],
+    "view": "top"
+   }
+  ],
+  "answer_chars": 3699
+ },
+ {
+  "image": "02_l_bracket__photo.jpg",
+  "variant": "without_views",
+  "seconds": 47.1,
+  "output_tokens": 4952,
+  "reasoning_tokens": 3770,
+  "cost_usd": 0.001918,
+  "views": null,
+  "answer_chars": 3668
+ },
+ {
+  "image": "06_angled_bracket__photo.jpg",
+  "variant": "with_views",
+  "seconds": 88.1,
+  "output_tokens": 9084,
+  "reasoning_tokens": 7901,
+  "cost_usd": 0.002819,
+  "views": [
+   {
+    "box": [
+     275,
+     300,
+     685,
+     525
+    ],
+    "view": "front"
+   },
+   {
+    "box": [
+     285,
+     560,
+     670,
+     735
+    ],
+    "view": "top"
+   }
+  ],
+  "answer_chars": 3622
+ },
+ {
+  "image": "06_angled_bracket__photo.jpg",
+  "variant": "without_views",
+  "seconds": 115.6,
+  "output_tokens": 11820,
+  "reasoning_tokens": 10571,
+  "cost_usd": 0.003338,
+  "views": null,
+  "answer_chars": 3787
+ },
+ {
+  "image": "01_plate__rough.jpg",
+  "variant": "with_views",
+  "seconds": 23.2,
+  "output_tokens": 3027,
+  "reasoning_tokens": 2021,
+  "cost_usd": 0.001538,
+  "views": [
+   {
+    "box": [
+     295,
+     330,
+     735,
+     720
+    ],
+    "view": "top"
+   }
+  ],
+  "answer_chars": 3061
+ },
+ {
+  "image": "01_plate__rough.jpg",
+  "variant": "without_views",
+  "seconds": 22.7,
+  "output_tokens": 2966,
+  "reasoning_tokens": 2031,
+  "cost_usd": 0.001498,
+  "views": null,
+  "answer_chars": 2869
+ }
+]

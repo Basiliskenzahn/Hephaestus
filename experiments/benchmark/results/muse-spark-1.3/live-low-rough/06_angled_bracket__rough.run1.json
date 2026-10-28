@@ -1,0 +1,1190 @@
+{
+ "part": "06_angled_bracket",
+ "set": "rough",
+ "run": 1,
+ "status": "disputed",
+ "note": "Kept spec unchanged: overall X=80 and Z=40 fix front ratio at 2.0 so 1.28 shape report is photo-perspective error contradicting passing callouts.",
+ "corrections": 1,
+ "final_iteration": 0,
+ "cost_off": 0.051356,
+ "cost_on": 0.086181,
+ "seconds_off": 59.3,
+ "seconds_on": 84.5,
+ "off": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.9198,
+  "bbox_ok": true,
+  "dims_ok": "9/13",
+  "failed_dims": [
+   {
+    "label": "slope",
+    "ok": false,
+    "expected": 27.5,
+    "measured": 25.0
+   },
+   {
+    "label": "15",
+    "ok": false,
+    "expected": 15.25,
+    "measured": 10.3
+   },
+   {
+    "label": "\u00d88 thru",
+    "ok": false,
+    "expected": 8,
+    "measured": null,
+    "note": "nearest y-cylinder is \u00d88.00 at [60.0, 15.0]"
+   },
+   {
+    "label": "10",
+    "ok": false,
+    "expected": 10,
+    "measured": 15.0
+   }
+  ],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 17,
+   "computed_exprs": 2,
+   "literal_numbers": 4,
+   "examples": [
+    "length - side_inset_x",
+    "depth - 2 * hole_inset_y"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.9186,
+   "ok": false
+  }
+ },
+ "on": {
+  "compiles": true,
+  "perfect": false,
+  "iou": 0.9198,
+  "bbox_ok": true,
+  "dims_ok": "9/13",
+  "failed_dims": [
+   {
+    "label": "slope",
+    "ok": false,
+    "expected": 27.5,
+    "measured": 25.0
+   },
+   {
+    "label": "15",
+    "ok": false,
+    "expected": 15.25,
+    "measured": 10.3
+   },
+   {
+    "label": "\u00d88 thru",
+    "ok": false,
+    "expected": 8,
+    "measured": null,
+    "note": "nearest y-cylinder is \u00d88.00 at [60.0, 15.0]"
+   },
+   {
+    "label": "10",
+    "ok": false,
+    "expected": 10,
+    "measured": 15.0
+   }
+  ],
+  "errors": null,
+  "params": {
+   "parameters": 11,
+   "expr_fields": 17,
+   "computed_exprs": 2,
+   "literal_numbers": 4,
+   "examples": [
+    "length - side_inset_x",
+    "depth - 2 * hole_inset_y"
+   ]
+  },
+  "x_param": {
+   "param": "length",
+   "iou_after_change": 0.9186,
+   "ok": false
+  }
+ },
+ "iterations": [
+  {
+   "iteration": 0,
+   "issues": [
+    {
+     "source": "shape",
+     "message": "front view: the drawing's outline is 1.28 : 1 (width along X : height along Z), the part's is 2.00 : 1. Check which sizes run along X and Z."
+    }
+   ],
+   "critic_seconds": null
+  }
+ ],
+ "corrections_log": [
+  {
+   "iteration": 1,
+   "changelog": "Kept spec unchanged: overall X=80 and Z=40 fix front ratio at 2.0 so 1.28 shape report is photo-perspective error contradicting passing callouts.",
+   "cost_usd": 0.032325,
+   "seconds": 21.5,
+   "input_tokens": 11060,
+   "output_tokens": 4353,
+   "reasoning_tokens": 3689,
+   "model": "muse-spark-1.3",
+   "effort": "medium"
+  }
+ ],
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 59.4,
+   "spec": {
+    "description": "Base plate with full-width angled rib on top. Assumed: rib covers the full depth and sits on top of the base; base holes go through the rib and base at the flat-top region; rib edge at top_len divides flat top from slope in top view; base holes symmetric front-back as depth - 2 * hole_inset_y.",
+    "features": [
+     {
+      "distance": "base_t",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "depth",
+      "id": "rib",
+      "offset": 0.0,
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         "base_t"
+        ],
+        [
+         0,
+         "height"
+        ],
+        [
+         "top_len",
+         "height"
+        ],
+        [
+         "length",
+         "base_t"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - side_inset_x",
+       "side_z"
+      ],
+      "diameter": "side_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "hole_inset_x",
+       "hole_inset_y"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "base_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_v": 2,
+      "feature": "base_hole",
+      "id": "base_holes",
+      "spacing_v": "depth - 2 * hole_inset_y",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "base_t": {
+      "description": "base plate thickness in Z",
+      "value": 10
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "hole_dia": {
+      "description": "base mounting hole diameter",
+      "value": 6
+     },
+     "hole_inset_x": {
+      "description": "base hole centre from left edge",
+      "value": 15
+     },
+     "hole_inset_y": {
+      "description": "base hole centre from front/back edges; second hole symmetric",
+      "value": 8
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "side_dia": {
+      "description": "side hole diameter in rib",
+      "value": 8
+     },
+     "side_inset_x": {
+      "description": "side hole centre from right edge",
+      "value": 20
+     },
+     "side_z": {
+      "description": "side hole centre height from bottom",
+      "value": 15
+     },
+     "top_len": {
+      "description": "rib flat top length along X from left",
+      "value": 30
+     }
+    },
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "rib",
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "axis": null,
+     "edge": "x_max",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "10",
+     "measure": "thickness",
+     "value": 10
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.051356,
+    "seconds": 59.3,
+    "input_tokens": 10025,
+    "output_tokens": 10854,
+    "reasoning_tokens": 9711,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 60.1,
+   "ok": true,
+   "metrics": {
+    "name": "angled_bracket",
+    "volume_mm3": 69730.0888,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      30.0,
+      40.0
+     ],
+     "size": [
+      80.0,
+      30.0,
+      40.0
+     ]
+    },
+    "faces": 10,
+    "edges": 24,
+    "triangles": 1540,
+    "parameters": {
+     "base_t": 10.0,
+     "depth": 30.0,
+     "height": 40.0,
+     "hole_dia": 6.0,
+     "hole_inset_x": 15.0,
+     "hole_inset_y": 8.0,
+     "length": 80.0,
+     "side_dia": 8.0,
+     "side_inset_x": 20.0,
+     "side_z": 15.0,
+     "top_len": 30.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 24000.0
+     },
+     {
+      "id": "rib",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 49500.0
+     },
+     {
+      "id": "side_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1507.9645
+     },
+     {
+      "id": "base_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     },
+     {
+      "id": "base_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -1130.9734
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       170
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       170,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 63.0,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "unavailable",
+     "note": "SAM's outline covers only part of the view box"
+    },
+    {
+     "view": "front",
+     "status": "issue",
+     "issues": [
+      "front view: the drawing's outline is 1.28 : 1 (width along X : height along Z), the part's is 2.00 : 1. Check which sizes run along X and Z."
+     ],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.282,
+      "part": 2.0
+     },
+     "orientation": {
+      "as_is": 0.761,
+      "mirror_lr": 0.76,
+      "mirror_ud": 0.765,
+      "rot180": 0.764
+     },
+     "orientation_gap": 0.004
+    }
+   ],
+   "issues": [
+    {
+     "source": "shape",
+     "message": "front view: the drawing's outline is 1.28 : 1 (width along X : height along Z), the part's is 2.00 : 1. Check which sizes run along X and Z."
+    }
+   ],
+   "advisories": [],
+   "sheet": {
+    "method": "sam",
+    "rectified": true,
+    "quad": [
+     [
+      380.0,
+      293.0
+     ],
+     [
+      1398.0,
+      337.0
+     ],
+     [
+      1335.0,
+      1504.0
+     ],
+     [
+      276.0,
+      1339.0
+     ]
+    ]
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 2,
+    "cost_usd": 0.0025,
+    "seconds": 0.91
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 63.0,
+   "clean": false,
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "unchecked",
+     "what": "unchecked of rib",
+     "status": "unchecked"
+    },
+    {
+     "label": "\u00d88 thru",
+     "value": 8,
+     "measure": "diameter",
+     "what": "diameter of side_hole",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to x_max",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to z_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "thickness",
+     "what": "thickness of base",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from base_hole to x_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of base_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from base_hole to y_min",
+     "status": "ok",
+     "measured": 8.0
+    }
+   ],
+   "critic": null,
+   "critic_call": null,
+   "advisories": [],
+   "shape_advisories": [],
+   "critic_skipped": "the shape check failed; fixing that first",
+   "issues": [
+    {
+     "source": "shape",
+     "message": "front view: the drawing's outline is 1.28 : 1 (width along X : height along Z), the part's is 2.00 : 1. Check which sizes run along X and Z."
+    }
+   ],
+   "disputes": []
+  },
+  {
+   "event": "correction_started",
+   "iteration": 0,
+   "t": 63.0,
+   "issues": [
+    {
+     "source": "shape",
+     "message": "front view: the drawing's outline is 1.28 : 1 (width along X : height along Z), the part's is 2.00 : 1. Check which sizes run along X and Z."
+    }
+   ]
+  },
+  {
+   "event": "spec",
+   "iteration": 1,
+   "t": 84.5,
+   "spec": {
+    "description": "Base plate with full-width angled rib on top. Assumed: rib covers the full depth and sits on top of the base; base holes go through the rib and base at the flat-top region; rib edge at top_len divides flat top from slope in top view; base holes symmetric front-back as depth - 2 * hole_inset_y.",
+    "features": [
+     {
+      "distance": "base_t",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "depth",
+      "id": "rib",
+      "offset": 0.0,
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         "base_t"
+        ],
+        [
+         0,
+         "height"
+        ],
+        [
+         "top_len",
+         "height"
+        ],
+        [
+         "length",
+         "base_t"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - side_inset_x",
+       "side_z"
+      ],
+      "diameter": "side_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "hole_inset_x",
+       "hole_inset_y"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "base_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_v": 2,
+      "feature": "base_hole",
+      "id": "base_holes",
+      "spacing_v": "depth - 2 * hole_inset_y",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "base_t": {
+      "description": "base plate thickness in Z",
+      "value": 10
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "hole_dia": {
+      "description": "base mounting hole diameter",
+      "value": 6
+     },
+     "hole_inset_x": {
+      "description": "base hole centre from left edge",
+      "value": 15
+     },
+     "hole_inset_y": {
+      "description": "base hole centre from front/back edges; second hole symmetric",
+      "value": 8
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "side_dia": {
+      "description": "side hole diameter in rib",
+      "value": 8
+     },
+     "side_inset_x": {
+      "description": "side hole centre from right edge",
+      "value": 20
+     },
+     "side_z": {
+      "description": "side hole centre height from bottom",
+      "value": 15
+     },
+     "top_len": {
+      "description": "rib flat top length along X from left",
+      "value": 30
+     }
+    },
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "rib",
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "axis": null,
+     "edge": "x_max",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "10",
+     "measure": "thickness",
+     "value": 10
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    }
+   ],
+   "changelog": "Kept spec unchanged: overall X=80 and Z=40 fix front ratio at 2.0 so 1.28 shape report is photo-perspective error contradicting passing callouts.",
+   "disputes": [],
+   "call": {
+    "cost_usd": 0.032325,
+    "seconds": 21.5,
+    "input_tokens": 11060,
+    "output_tokens": 4353,
+    "reasoning_tokens": 3689,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 1,
+   "t": 84.5,
+   "status": "disputed",
+   "note": "Kept spec unchanged: overall X=80 and Z=40 fix front ratio at 2.0 so 1.28 shape report is photo-perspective error contradicting passing callouts.",
+   "final_iteration": 0,
+   "spec": {
+    "description": "Base plate with full-width angled rib on top. Assumed: rib covers the full depth and sits on top of the base; base holes go through the rib and base at the flat-top region; rib edge at top_len divides flat top from slope in top view; base holes symmetric front-back as depth - 2 * hole_inset_y.",
+    "features": [
+     {
+      "distance": "base_t",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "depth",
+      "id": "rib",
+      "offset": 0.0,
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         "base_t"
+        ],
+        [
+         0,
+         "height"
+        ],
+        [
+         "top_len",
+         "height"
+        ],
+        [
+         "length",
+         "base_t"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - side_inset_x",
+       "side_z"
+      ],
+      "diameter": "side_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "hole_inset_x",
+       "hole_inset_y"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "base_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_v": 2,
+      "feature": "base_hole",
+      "id": "base_holes",
+      "spacing_v": "depth - 2 * hole_inset_y",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "base_t": {
+      "description": "base plate thickness in Z",
+      "value": 10
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "hole_dia": {
+      "description": "base mounting hole diameter",
+      "value": 6
+     },
+     "hole_inset_x": {
+      "description": "base hole centre from left edge",
+      "value": 15
+     },
+     "hole_inset_y": {
+      "description": "base hole centre from front/back edges; second hole symmetric",
+      "value": 8
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "side_dia": {
+      "description": "side hole diameter in rib",
+      "value": 8
+     },
+     "side_inset_x": {
+      "description": "side hole centre from right edge",
+      "value": 20
+     },
+     "side_z": {
+      "description": "side hole centre height from bottom",
+      "value": 15
+     },
+     "top_len": {
+      "description": "rib flat top length along X from left",
+      "value": 30
+     }
+    },
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "80",
+     "measure": "overall",
+     "value": 80
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "value": 40
+    },
+    {
+     "axis": "y",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "rib",
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "value": 30
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "value": 8
+    },
+    {
+     "axis": null,
+     "edge": "x_max",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "value": 20
+    },
+    {
+     "axis": null,
+     "edge": "z_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "10",
+     "measure": "thickness",
+     "value": 10
+    },
+    {
+     "axis": null,
+     "edge": "x_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "value": 15
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "value": 6
+    },
+    {
+     "axis": null,
+     "edge": "y_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "8",
+     "measure": "distance_to_edge",
+     "value": 8
+    }
+   ],
+   "remaining_issues": [
+    "front view: the drawing's outline is 1.28 : 1 (width along X : height along Z), the part's is 2.00 : 1. Check which sizes run along X and Z."
+   ],
+   "unverified_notes": [],
+   "iterations": 1,
+   "corrections": 1,
+   "disputes": [],
+   "cost_usd": 0.086181,
+   "seconds": 84.5,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "low",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

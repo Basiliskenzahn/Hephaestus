@@ -15,6 +15,7 @@ import statistics as st
 import sys
 import threading
 from concurrent.futures import ThreadPoolExecutor
+from dataclasses import replace
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -111,6 +112,7 @@ def main():
     ap.add_argument("--summarize", action="store_true")
     ap.add_argument("--rescore", action="store_true", help="re-score saved runs (e.g. after a ground-truth fix), no API calls")
     ap.add_argument("--tag", default="", help="results subfolder, e.g. round2")
+    ap.add_argument("--read-effort", help="override the preset's read effort (low/medium/high)")
     args = ap.parse_args()
     outdir = os.path.join(HERE, "results", args.model, args.tag) if args.tag else os.path.join(HERE, "results", args.model)
     os.makedirs(outdir, exist_ok=True)
@@ -130,11 +132,14 @@ def main():
     parts = args.parts.split(",") if args.parts else sorted(scorer.GROUND_TRUTH)
     jobs = [(p, s, r) for s in args.sets.split(",") for p in parts for r in range(1, args.runs + 1)]
     lock = threading.Lock()
+    settings = PRESETS[args.preset]
+    if args.read_effort:
+        settings = replace(settings, read_effort=args.read_effort)
 
     def do(job):
         part, set_name, r = job
         try:
-            rec = one(part, set_name, r, client, args.max_iters, outdir, PRESETS[args.preset])
+            rec = one(part, set_name, r, client, args.max_iters, outdir, settings)
             msg = (f"off perfect={rec['off']['perfect']} on perfect={rec['on']['perfect']} {rec['status']} "
                    f"{rec['corrections']} corr ${rec['cost_on']:.4f} {rec['seconds_on']:.0f}s")
         except Exception as e:  # noqa: BLE001 - keep the benchmark going; record nothing for this run
