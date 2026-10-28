@@ -1,0 +1,586 @@
+{
+ "name": "bushing",
+ "kind": "complete",
+ "prompt": "Flanged bushing on a vertical axis: \u00d840 x 5 mm flange at the bottom, \u00d824 body, 30 mm total height, \u00d816 bore through, four \u00d84 holes through the flange on a \u00d832 bolt circle",
+ "status": "pass",
+ "note": null,
+ "cost_usd": 0.001685,
+ "seconds": 36.7,
+ "corrections": 0,
+ "ok": true,
+ "detail": "",
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 24.9,
+   "spec": {
+    "description": "Flanged bushing with vertical (Z) axis. Flange at bottom, cylindrical body coaxial on top, coaxial through bore. Assumed: body and bore are coaxial with the flange; the four flange holes are equally spaced on the bolt circle with one on the +X axis.",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "total_h - flange_t",
+      "id": "body",
+      "offset": "flange_t",
+      "plane": "XY",
+      "profile": {
+       "diameter": "body_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top_of_feature:body",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2 + bolt_circle / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bolt_hole_dia",
+      "face": "top_of_feature:flange",
+      "id": "bolt_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "bolt_hole",
+      "id": "bolt_pattern",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "body_dia": {
+      "description": "body outer diameter",
+      "value": 24.0
+     },
+     "bolt_circle": {
+      "description": "bolt-hole circle diameter",
+      "value": 32.0
+     },
+     "bolt_hole_dia": {
+      "description": "flange through-hole diameter",
+      "value": 4.0
+     },
+     "bore_dia": {
+      "description": "central bore diameter through",
+      "value": 16.0
+     },
+     "flange_dia": {
+      "description": "flange outer diameter",
+      "value": 40.0
+     },
+     "flange_t": {
+      "description": "flange thickness at the bottom",
+      "value": 5.0
+     },
+     "total_h": {
+      "description": "total height",
+      "value": 30.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "\u00d840 flange",
+     "measure": "diameter",
+     "value": 40.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "5 mm flange",
+     "measure": "thickness",
+     "value": 5.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "body",
+     "feature_b": null,
+     "label": "\u00d824 body",
+     "measure": "diameter",
+     "value": 24.0
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30 mm total height",
+     "measure": "overall",
+     "value": 30.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d816 bore",
+     "measure": "diameter",
+     "value": 16.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bolt_hole",
+     "feature_b": null,
+     "label": "four \u00d84 holes",
+     "measure": "diameter",
+     "value": 4.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bolt_pattern[0]",
+     "feature_b": "bolt_pattern[2]",
+     "label": "\u00d832 bolt circle",
+     "measure": "distance",
+     "value": 32.0
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.001336,
+    "seconds": 24.8,
+    "input_tokens": 7008,
+    "output_tokens": 3174,
+    "reasoning_tokens": 2253,
+    "model": "muse-spark-1.3-contributor",
+    "effort": "low"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 25.9,
+   "ok": true,
+   "metrics": {
+    "name": "flanged_bushing",
+    "volume_mm3": 11309.7336,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      40.0,
+      40.0,
+      30.0
+     ],
+     "size": [
+      40.0,
+      40.0,
+      30.0
+     ]
+    },
+    "faces": 10,
+    "edges": 21,
+    "triangles": 3544,
+    "parameters": {
+     "body_dia": 24.0,
+     "bolt_circle": 32.0,
+     "bolt_hole_dia": 4.0,
+     "bore_dia": 16.0,
+     "flange_dia": 40.0,
+     "flange_t": 5.0,
+     "total_h": 30.0
+    },
+    "features": [
+     {
+      "id": "flange",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 6283.1853
+     },
+     {
+      "id": "body",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 11309.7336
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -6031.8579
+     },
+     {
+      "id": "bolt_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -62.8319
+     },
+     {
+      "id": "bolt_pattern",
+      "type": "circular_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -188.4956
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       220
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 36.7,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "\u00d840 flange",
+     "value": 40.0,
+     "measure": "diameter",
+     "what": "diameter of flange",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "5 mm flange",
+     "value": 5.0,
+     "measure": "thickness",
+     "what": "thickness of flange",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "\u00d824 body",
+     "value": 24.0,
+     "measure": "diameter",
+     "what": "diameter of body",
+     "status": "ok",
+     "measured": 24.0
+    },
+    {
+     "label": "30 mm total height",
+     "value": 30.0,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "\u00d816 bore",
+     "value": 16.0,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 16.0
+    },
+    {
+     "label": "four \u00d84 holes",
+     "value": 4.0,
+     "measure": "diameter",
+     "what": "diameter of bolt_hole",
+     "status": "ok",
+     "measured": 4.0
+    },
+    {
+     "label": "\u00d832 bolt circle",
+     "value": 32.0,
+     "measure": "distance",
+     "what": "distance bolt_pattern[0] \u2192 bolt_pattern[2] along None",
+     "status": "invalid",
+     "message": "callout '\u00d832 bolt circle' (distance bolt_pattern[0] \u2192 bolt_pattern[2] along None): measure 'distance' needs axis"
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.000349,
+    "seconds": 10.8,
+    "input_tokens": 1715,
+    "output_tokens": 885,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3-contributor",
+    "effort": "medium"
+   },
+   "advisories": [],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 36.7,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Flanged bushing with vertical (Z) axis. Flange at bottom, cylindrical body coaxial on top, coaxial through bore. Assumed: body and bore are coaxial with the flange; the four flange holes are equally spaced on the bolt circle with one on the +X axis.",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "total_h - flange_t",
+      "id": "body",
+      "offset": "flange_t",
+      "plane": "XY",
+      "profile": {
+       "diameter": "body_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top_of_feature:body",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2 + bolt_circle / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bolt_hole_dia",
+      "face": "top_of_feature:flange",
+      "id": "bolt_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "bolt_hole",
+      "id": "bolt_pattern",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "body_dia": {
+      "description": "body outer diameter",
+      "value": 24.0
+     },
+     "bolt_circle": {
+      "description": "bolt-hole circle diameter",
+      "value": 32.0
+     },
+     "bolt_hole_dia": {
+      "description": "flange through-hole diameter",
+      "value": 4.0
+     },
+     "bore_dia": {
+      "description": "central bore diameter through",
+      "value": 16.0
+     },
+     "flange_dia": {
+      "description": "flange outer diameter",
+      "value": 40.0
+     },
+     "flange_t": {
+      "description": "flange thickness at the bottom",
+      "value": 5.0
+     },
+     "total_h": {
+      "description": "total height",
+      "value": 30.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "\u00d840 flange",
+     "measure": "diameter",
+     "value": 40.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "5 mm flange",
+     "measure": "thickness",
+     "value": 5.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "body",
+     "feature_b": null,
+     "label": "\u00d824 body",
+     "measure": "diameter",
+     "value": 24.0
+    },
+    {
+     "axis": "z",
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30 mm total height",
+     "measure": "overall",
+     "value": 30.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d816 bore",
+     "measure": "diameter",
+     "value": 16.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bolt_hole",
+     "feature_b": null,
+     "label": "four \u00d84 holes",
+     "measure": "diameter",
+     "value": 4.0
+    },
+    {
+     "axis": null,
+     "edge": null,
+     "feature": "bolt_pattern[0]",
+     "feature_b": "bolt_pattern[2]",
+     "label": "\u00d832 bolt circle",
+     "measure": "distance",
+     "value": 32.0
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.001685,
+   "seconds": 36.7,
+   "settings": {
+    "read_model": "muse-spark-1.3-contributor",
+    "read_effort": "low",
+    "correct_model": "muse-spark-1.3-contributor",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3-contributor",
+    "critic_effort": "medium",
+    "critic_samples": 1,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

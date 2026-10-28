@@ -1,0 +1,347 @@
+{
+ "name": "nema17",
+ "kind": "vague",
+ "prompt": "a mounting plate for a NEMA 17 stepper motor",
+ "status": "pass",
+ "note": null,
+ "cost_usd": 0.001606,
+ "seconds": 42.3,
+ "corrections": 0,
+ "ok": true,
+ "detail": "5/5 parameters marked assumed; given sizes kept: True",
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 18.5,
+   "spec": {
+    "description": "Square mounting plate for a NEMA 17 stepper motor. Assumed standard NEMA 17 dimensions used: 42 mm motor face, 31 mm square mounting-hole spacing, 22 mm centre bore for the motor boss, M3 clearance holes Dia 3.5 mm. Assumed: 50x50x5 mm plate to cover the 42 mm face with margin, holes and bore centred on the plate.",
+    "features": [
+     {
+      "distance": "plate_t",
+      "id": "plate",
+      "plane": "XY",
+      "profile": {
+       "height": "plate_size",
+       "shape": "rect",
+       "width": "plate_size"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "plate_size / 2",
+       "plate_size / 2"
+      ],
+      "diameter": "center_dia",
+      "face": "top",
+      "id": "centre_bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(plate_size - mount_spacing) / 2",
+       "(plate_size - mount_spacing) / 2"
+      ],
+      "diameter": "mount_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "mount_spacing",
+      "spacing_v": "mount_spacing",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "nema17_mounting_plate",
+    "parameters": {
+     "center_dia": {
+      "description": "assumed: standard NEMA 17 centre boss bore diameter",
+      "value": 22
+     },
+     "mount_dia": {
+      "description": "assumed: standard M3 clearance hole diameter for NEMA 17 mounting holes",
+      "value": 3.5
+     },
+     "mount_spacing": {
+      "description": "assumed: standard NEMA 17 mounting-hole square spacing",
+      "value": 31
+     },
+     "plate_size": {
+      "description": "assumed: square plate size to cover 42 mm NEMA 17 face",
+      "value": 50
+     },
+     "plate_t": {
+      "description": "assumed: plate thickness",
+      "value": 5
+     }
+    }
+   },
+   "callouts": [],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.00108,
+    "seconds": 18.5,
+    "input_tokens": 7011,
+    "output_tokens": 1893,
+    "reasoning_tokens": 1399,
+    "model": "muse-spark-1.3-contributor",
+    "effort": "low"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 19.3,
+   "ok": true,
+   "metrics": {
+    "name": "nema17_mounting_plate",
+    "volume_mm3": 10406.9139,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      50.0,
+      50.0,
+      5.0
+     ],
+     "size": [
+      50.0,
+      50.0,
+      5.0
+     ]
+    },
+    "faces": 11,
+    "edges": 27,
+    "triangles": 2552,
+    "parameters": {
+     "center_dia": 22.0,
+     "mount_dia": 3.5,
+     "mount_spacing": 31.0,
+     "plate_size": 50.0,
+     "plate_t": 5.0
+    },
+    "features": [
+     {
+      "id": "plate",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 12500.0
+     },
+     {
+      "id": "centre_bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1900.6636
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -48.1056
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -144.3169
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       270,
+       270
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       270,
+       45
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       270,
+       45
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 42.3,
+   "clean": true,
+   "callouts": [],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.000526,
+    "seconds": 23.0,
+    "input_tokens": 1678,
+    "output_tokens": 1790,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3-contributor",
+    "effort": "medium"
+   },
+   "advisories": [],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 42.3,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Square mounting plate for a NEMA 17 stepper motor. Assumed standard NEMA 17 dimensions used: 42 mm motor face, 31 mm square mounting-hole spacing, 22 mm centre bore for the motor boss, M3 clearance holes Dia 3.5 mm. Assumed: 50x50x5 mm plate to cover the 42 mm face with margin, holes and bore centred on the plate.",
+    "features": [
+     {
+      "distance": "plate_t",
+      "id": "plate",
+      "plane": "XY",
+      "profile": {
+       "height": "plate_size",
+       "shape": "rect",
+       "width": "plate_size"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "plate_size / 2",
+       "plate_size / 2"
+      ],
+      "diameter": "center_dia",
+      "face": "top",
+      "id": "centre_bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(plate_size - mount_spacing) / 2",
+       "(plate_size - mount_spacing) / 2"
+      ],
+      "diameter": "mount_dia",
+      "face": "top",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "mount_spacing",
+      "spacing_v": "mount_spacing",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "nema17_mounting_plate",
+    "parameters": {
+     "center_dia": {
+      "description": "assumed: standard NEMA 17 centre boss bore diameter",
+      "value": 22
+     },
+     "mount_dia": {
+      "description": "assumed: standard M3 clearance hole diameter for NEMA 17 mounting holes",
+      "value": 3.5
+     },
+     "mount_spacing": {
+      "description": "assumed: standard NEMA 17 mounting-hole square spacing",
+      "value": 31
+     },
+     "plate_size": {
+      "description": "assumed: square plate size to cover 42 mm NEMA 17 face",
+      "value": 50
+     },
+     "plate_t": {
+      "description": "assumed: plate thickness",
+      "value": 5
+     }
+    }
+   },
+   "callouts": [],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.001606,
+   "seconds": 42.3,
+   "settings": {
+    "read_model": "muse-spark-1.3-contributor",
+    "read_effort": "low",
+    "correct_model": "muse-spark-1.3-contributor",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3-contributor",
+    "critic_effort": "medium",
+    "critic_samples": 1,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}
