@@ -71,9 +71,22 @@ part's outline in that view, as [x1, y1, x2, y2] normalised 0-1000 over the imag
 The box encloses only the part's lines: not the dimension lines, extension lines, text or the view label. Use the
 view labels on the drawing; an unlabelled single view of a flat part is its top view."""
 
+INPUT_CHECK = """## First: can this become a part?
+Set `input_kind` and `problem` before anything else.
+- A drawing or sketch with at least one dimension: input_kind "drawing", problem null. Hand sketches are rarely to
+  scale: trust the written numbers, not the drawn proportions.
+- No dimension anywhere: "no_dimensions", problem asks for at least one size (we never guess the scale).
+- A photo of something that is not a drawing (a person, an animal, a room), a screenshot, an empty page:
+  "not_a_drawing", problem says what you see and asks for a sketch or drawing with dimensions.
+- Too blurry, dark or small to read the numbers: "unreadable", problem asks for a sharper, brighter photo.
+- Dimensions that contradict each other or describe something that cannot be built: problem explains it in one
+  sentence.
+Whenever problem is not null, return a placeholder spec (one 10 mm cube, no callouts, no views): it is ignored."""
+
 READ_PROMPT = ("You convert dimensioned engineering drawings into a parametric part spec (JSON, spec v1) plus the "
                "list of dimensions you read.\nA deterministic CAD compiler builds the part from your spec, so it must "
-               "be exact.\n\n" + _SPEC_GUIDE + "\n\n" + VIEWS_GUIDE + "\n\n" + _EXAMPLE + "\n\nReturn only the JSON.")
+               "be exact.\n\n" + INPUT_CHECK + "\n\n" + _SPEC_GUIDE + "\n\n" + VIEWS_GUIDE + "\n\n" + _EXAMPLE
+               + "\n\nReturn only the JSON.")
 
 # locating the views alone (evaluation of the shape check without new reads)
 VIEWS_PROMPT = ("You locate the orthographic views on an engineering drawing.\n\n" + VIEWS_GUIDE
@@ -107,7 +120,12 @@ READ_TEXT_PROMPT = ("You convert a text description of a mechanical part into a 
                     "- Choose sensible values for anything the description leaves open (hole positions, an M5 "
                     "clearance hole is Ø5.5, ...) and list those choices in the spec `description`; do not add callouts "
                     "for them.\n- Keep the part simple: only the features the description asks for.\n- `views` is [] (there "
-                    "is no drawing).\n\n"
+                    "is no drawing). `input_kind` is \"description\", or \"no_dimensions\" if the text gives no size "
+                    "at all (then `problem` asks for one; we never guess the scale).\n- Vague but sized (\"a small "
+                    "bracket for a 20 mm pipe\"): build a reasonable part and start the description of every parameter "
+                    "you chose with \"assumed:\".\n- Contradictory or impossible (\"a 50 mm cube with a 60 mm hole\"): "
+                    "`problem` explains it in one friendly sentence and suggests a fix; return a placeholder spec (one "
+                    "10 mm cube, no callouts).\n\n"
                     + _EXAMPLE + "\n\nReturn only the JSON.")
 
 

@@ -184,6 +184,10 @@ function onEvent(ev) {
     case "shape_check":
       shapeStep(ev, t);
       break;
+    case "rejected":
+      timeline.add(t, "Can’t build a part from this", "fix", p(ev.message));
+      setStatus("needs input");
+      break;
     case "checks": {
       setStatus("checking");
       const rows = ev.callouts || [];
@@ -225,7 +229,8 @@ function onEvent(ev) {
       timeline.add(t, "Correcting", "active", p("Sending the drawing, the spec and what is wrong back to the model."));
       break;
     case "error":
-      timeline.add(t, "Problem", "fix", p(ev.message));
+      timeline.add(t, "Problem", "fix", el("div", {}, p(friendlyError(ev.message)),
+        el("details", { class: "fine" }, el("summary", { text: "details" }), p(ev.message || ""))));
       break;
     case "done":
       finish(ev);
@@ -267,15 +272,31 @@ function shapeStep(ev, t) {
   timeline.addAside(t, title, issues.length ? "fix" : "done", body);
 }
 
+// what went wrong, in words a user can act on; the raw message stays available under "details"
+function friendlyError(msg) {
+  const m = String(msg || "");
+  if (/budget|daily spend cap/i.test(m)) return "Today’s budget for live runs is used up, so Talos stopped here. The examples still replay; live runs resume tomorrow (UTC).";
+  if (/timed? ?out|Timeout|Read timed out|stream/i.test(m)) return "The model took too long to answer. Talos kept the best version so far; try again in a minute.";
+  if (/not JSON|no output text|malformed|invalid/i.test(m)) return "The model returned an answer Talos could not use. Talos kept the best version so far; try again.";
+  if (/HTTP 5\d\d|HTTP 429|overloaded|rate/i.test(m)) return "The model service is busy right now. Try again in a minute.";
+  return "Something went wrong while talking to the model. Try again, or pick an example.";
+}
+
 function finish(done) {
   timeline.finishActive();
   const words = {
     pass: "Verified", stuck: "Stopped: the same issue came back", max_iters: "Stopped after the maximum corrections",
     disputed: "Stopped: the model rejected the remaining issues", oscillating: "Stopped: the checks went back and forth",
     unverified: "Measured checks pass; critic note unverified",
-    budget: "Stopped: budget", error: "Stopped: error",
+    budget: "Stopped: today’s budget is used up", error: "Stopped: the model did not answer properly",
   };
-  setStatus(done.status === "pass" ? "verified" : done.status === "unverified" ? "built, 1 note" : done.status);
+  setStatus(done.status === "pass" ? "verified" : done.status === "unverified" ? "built, 1 note"
+    : done.status === "rejected" ? "needs input" : done.status);
+  if (done.status === "rejected") {
+    showBanner("CHECK THE INPUT", done.note || "Talos cannot build a part from this input.", true);
+    if (current.mode === "replay") $("#run-actions").hidden = !API;
+    return;
+  }
   const rem = done.remaining_issues || [];
   if (done.status === "unverified") {
     const notes = done.unverified_notes || [];
@@ -284,8 +305,11 @@ function finish(done) {
         "which did not hold up, so it kept the measured part. Check this by eye."),
       notes.length ? list(notes.map((m) => plain({ message: m })), "note") : null));
   } else if (done.status !== "pass") {
+    const note = ["error", "budget"].includes(done.status) ? friendlyError(done.note) : done.note;
+    const shown = done.spec ? "Showing the best version Talos found." : "No part could be built.";
     timeline.add(done.t, words[done.status] || done.status, "done",
-      el("div", {}, p(done.note || "Showing the best version Talos found."), rem.length ? list(rem.map((m) => plain({ message: m })), "issue") : null));
+      el("div", {}, p(note || shown), done.spec && note ? p(shown, "fine") : null,
+        rem.length ? list(rem.map((m) => plain({ message: m })), "issue") : null));
   }
   // what Talos caught and fixed, from the first check that found problems
   const firstChecks = current.events.find((e) => e.event === "checks" && (e.issues || []).length);

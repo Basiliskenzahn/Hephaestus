@@ -19,12 +19,13 @@ feature. If that correction declines (returns the spec unchanged), breaks a meas
 or the critic flags the same feature again, the run stops as `unverified`: the measured version is kept and the
 critic's issue is reported as an unverified note.
 
-Stops: pass | unverified | max_iters | stuck (same issues twice) | disputed (spec returned unchanged) | oscillating
+Stops: pass | rejected (the read says the input cannot become a part: not a drawing, unreadable, no dimension,
+contradictory; its message is shown to the user) | unverified | max_iters | stuck (same issues twice) | disputed (spec returned unchanged) | oscillating
 (back to an earlier version) | budget | error. The returned spec is the best version seen (fewest issues; a critic
 issue counts half, measurements beat the critic).
 
 Events are JSON-serialisable dicts with an "event" key:
-  read_started, spec, compiled, shape_check, checks, correction_started, error, done
+  read_started, rejected, spec, compiled, shape_check, checks, correction_started, error, done
 
 CLI: python -m hephaestus.talos drawing.png --out out/run1/ [--preset live|benchmark] [--max-iters 4] [--max-usd 0.5]
 """
@@ -77,6 +78,16 @@ PRESETS = {
     "benchmark": LIVE,
     # development: contributor models are ~12x cheaper but slower; read effort low matched medium on them
     "dev": Settings(read_effort="low", critic_effort="medium", critic_samples=1, critic_max_tokens=10000),
+}
+
+
+REJECT = {  # input_kind -> the message when the read gives none
+    "no_dimensions": "There is no dimension in it. Add at least one size (e.g. the overall length) so the part has a "
+                     "scale; we never guess it.",
+    "not_a_drawing": "This does not look like a technical drawing. Upload a sketch or drawing of a part with at least "
+                     "one dimension, or describe the part in words.",
+    "unreadable": "The numbers cannot be read: the image is too blurry, dark or small. Try a sharper photo in good "
+                  "light, straight from above.",
 }
 
 
@@ -230,6 +241,13 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
                                        model=settings.read_model, effort=settings.read_effort)
             spec, callouts = out.get("spec"), out.get("callouts") or []
             spent[0] += info["cost_usd"]
+            kind, problem = out.get("input_kind") or ("description" if prompt is not None else "drawing"), out.get("problem")
+            if problem or kind in REJECT:
+                message = problem or REJECT[kind]
+                yield ev("rejected", input_kind=kind, message=message, call=_call_info(info))
+                spec = callouts = None
+                yield finish("rejected", message)
+                return
             if shape_input is not None:
                 shape_input.start_views(out.get("views"))          # SAM on the views, parallel with the compile
             yield ev("spec", spec=spec, callouts=callouts, changelog=None, call=_call_info(info))

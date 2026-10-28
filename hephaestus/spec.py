@@ -279,7 +279,19 @@ class ViewBox(_Model):
         "normalised 0-1000 over the image width and height, x right, y down"))
 
 
+InputKind = Literal["drawing", "description", "no_dimensions", "not_a_drawing", "unreadable"]
+
+
 class ReadOutput(_Model):
+    input_kind: InputKind = Field(description=(
+        "drawing: a technical drawing or sketch of a part with at least one dimension | description: a text "
+        "description with at least one size | no_dimensions: a drawing or text of a part without any size | "
+        "not_a_drawing: a photo of something else, a screenshot, an empty page | unreadable: too blurry, dark or "
+        "small to read"))
+    problem: Optional[str] = Field(description=(
+        "null if a part can be built. Otherwise one or two friendly sentences for the user: what is wrong and what "
+        "to send instead (e.g. 'This looks like a photo of a cat, not a drawing. Upload a sketch with at least one "
+        "dimension.' or 'A 60 mm hole cannot fit in a 50 mm cube.')"))
     spec: PartSpec
     callouts: list[Callout] = Field(description="every dimension written on the drawing, once each")
     views: list[ViewBox] = Field(description="each orthographic view drawn on the image, once; [] for a text "

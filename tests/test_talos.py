@@ -291,3 +291,24 @@ def test_recorded_angled_bracket_run_stops_after_one_critic_correction():
     assert client.calls == ["ReadOutput", "CriticOutput", "CriticOutput", "CorrectionOutput"]
     assert done["status"] == "unverified" and done["final_iteration"] == 0 and done["spec"] == rec["read"]["spec"]
     assert len(done["unverified_notes"]) == 1 and done["unverified_notes"][0].startswith("base: ")
+
+
+def test_read_rejects_inputs_that_are_not_parts():
+    cube = example("block")
+    for kind, problem, expect in (("not_a_drawing", "This is a photo of a cat. Upload a sketch with a dimension.", "cat"),
+                                  ("no_dimensions", None, "at least one size"),
+                                  ("unreadable", None, "too blurry"),
+                                  ("description", "A 60 mm hole cannot fit in a 50 mm cube.", "60 mm hole")):
+        client = ScriptedClient(ReadOutput=[{"input_kind": kind, "problem": problem, "spec": cube, "callouts": [],
+                                             "views": []}])
+        ev = events_of(client)
+        assert [e["event"] for e in ev] == ["read_started", "rejected", "done"]
+        assert ev[-1]["status"] == "rejected" and expect in ev[-1]["note"] and ev[-1]["spec"] is None
+        assert client.calls == ["ReadOutput"]            # no compile, no critic, no correction
+        json.dumps(ev)
+
+
+def test_read_without_input_kind_still_builds():
+    """Recordings from before the input check have no input_kind: treated as a drawing."""
+    client = ScriptedClient(ReadOutput=[{"spec": example("block"), "callouts": callouts("block")}], CriticOutput=[OK] * 2)
+    assert events_of(client)[-1]["status"] == "pass"
