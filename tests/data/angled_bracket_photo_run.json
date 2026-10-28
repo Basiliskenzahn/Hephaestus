@@ -1,0 +1,526 @@
+{
+ "_source": "experiments/smoke/image.events.json: production run yNCRzpH0dphg (live preset, Oct 27), angled bracket photo",
+ "read": {
+  "spec": {
+   "description": "Solid tapered block extruded in Y. Front profile has full-height 30 long flat then single slope to 10 high tip. Assumed: 20 is hole centre to right edge, 15 is hole centre height above bottom, 10 is tip height, 8 is Y-inset of base holes from side edges with second hole symmetric (spacing depth - 2*edge).",
+   "features": [
+    {
+     "distance": "depth",
+     "id": "base",
+     "operation": "add",
+     "plane": "XZ",
+     "profile": {
+      "points": [
+       [
+        0,
+        0
+       ],
+       [
+        80,
+        0
+       ],
+       [
+        80,
+        10
+       ],
+       [
+        30,
+        40
+       ],
+       [
+        0,
+        40
+       ]
+      ],
+      "shape": "polygon"
+     },
+     "type": "extrude"
+    },
+    {
+     "center": [
+      "length - hole_right",
+      "hole_z"
+     ],
+     "diameter": "side_dia",
+     "face": "front",
+     "id": "side_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "center": [
+      "base_x",
+      "base_edge"
+     ],
+     "diameter": "base_dia",
+     "face": "top",
+     "id": "base_hole",
+     "through": true,
+     "type": "hole"
+    },
+    {
+     "count_u": 1,
+     "count_v": 2,
+     "feature": "base_hole",
+     "id": "base_holes",
+     "spacing_u": 0,
+     "spacing_v": "depth - 2 * base_edge",
+     "type": "linear_pattern"
+    }
+   ],
+   "name": "angled_bracket",
+   "parameters": {
+    "base_dia": {
+     "description": "vertical mounting hole diameter",
+     "value": 6
+    },
+    "base_edge": {
+     "description": "base hole centre from Y side edges, second hole symmetric",
+     "value": 8
+    },
+    "base_x": {
+     "description": "base hole centre from left edge",
+     "value": 15
+    },
+    "depth": {
+     "description": "overall depth along Y",
+     "value": 30
+    },
+    "height": {
+     "description": "overall height at left",
+     "value": 40
+    },
+    "hole_right": {
+     "description": "side hole centre to right edge",
+     "value": 20
+    },
+    "hole_z": {
+     "description": "side hole centre height above bottom",
+     "value": 15
+    },
+    "length": {
+     "description": "overall length along X",
+     "value": 80
+    },
+    "side_dia": {
+     "description": "transverse hole diameter",
+     "value": 8
+    },
+    "tip_h": {
+     "description": "height of right tip edge",
+     "value": 10
+    },
+    "top_len": {
+     "description": "length of full-height top flat",
+     "value": 30
+    }
+   }
+  },
+  "callouts": [
+   {
+    "axis": "x",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "80",
+    "measure": "overall",
+    "value": 80
+   },
+   {
+    "axis": "z",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "40",
+    "measure": "overall",
+    "value": 40
+   },
+   {
+    "axis": "y",
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "30",
+    "measure": "overall",
+    "value": 30
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "30",
+    "measure": "unchecked",
+    "value": 30
+   },
+   {
+    "axis": null,
+    "edge": "x_max",
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "20",
+    "measure": "distance_to_edge",
+    "value": 20
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "\u00d88 thru",
+    "measure": "diameter",
+    "value": 8
+   },
+   {
+    "axis": null,
+    "edge": "z_min",
+    "feature": "side_hole",
+    "feature_b": null,
+    "label": "15",
+    "measure": "distance_to_edge",
+    "value": 15
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": null,
+    "feature_b": null,
+    "label": "10",
+    "measure": "unchecked",
+    "value": 10
+   },
+   {
+    "axis": null,
+    "edge": "x_min",
+    "feature": "base_hole",
+    "feature_b": null,
+    "label": "15",
+    "measure": "distance_to_edge",
+    "value": 15
+   },
+   {
+    "axis": null,
+    "edge": null,
+    "feature": "base_hole",
+    "feature_b": null,
+    "label": "2x \u00d86 thru",
+    "measure": "diameter",
+    "value": 6
+   },
+   {
+    "axis": null,
+    "edge": "y_min",
+    "feature": "base_hole",
+    "feature_b": null,
+    "label": "8",
+    "measure": "distance_to_edge",
+    "value": 8
+   }
+  ],
+  "views": []
+ },
+ "critic_samples": [
+  {
+   "matches": false,
+   "issues": [
+    {
+     "feature_id": "base",
+     "issue": "top edge is a single straight slope, drawing shows two slopes meeting 20 mm from the right edge",
+     "severity": "high"
+    }
+   ]
+  },
+  {
+   "matches": false,
+   "issues": [
+    {
+     "feature_id": "base",
+     "issue": "top profile has two slopes with a kink above the side hole, model shows a single straight slope",
+     "severity": "high"
+    }
+   ]
+  }
+ ],
+ "corrections": [
+  {
+   "changelog": "Fixed single-slope top into two slopes meeting above side hole; reread 15 as kink height and hole aligned with 10 tip, disputing hole-height callout.",
+   "spec": {
+    "description": "Solid tapered block extruded in Y. Front has 30 long full-height flat then shallow slope to break 20 from right at 15 high then shallow slope to 10 high tip. Assumed: 20 is kink and side-hole centre to right edge (kink above hole), 15 is kink height, 10 is tip-point height with side-hole centre level with tip (drawn aligned).",
+    "features": [
+     {
+      "distance": "depth",
+      "id": "base",
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "tip_h"
+        ],
+        [
+         "length - hole_right",
+         "kink_h"
+        ],
+        [
+         "top_len",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - hole_right",
+       "tip_h"
+      ],
+      "diameter": "side_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "base_x",
+       "base_edge"
+      ],
+      "diameter": "base_dia",
+      "face": "top",
+      "id": "base_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "base_hole",
+      "id": "base_holes",
+      "spacing_u": 0,
+      "spacing_v": "depth - 2 * base_edge",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "base_dia": {
+      "description": "vertical mounting hole diameter",
+      "value": 6
+     },
+     "base_edge": {
+      "description": "base hole centre from Y side edges, second hole symmetric",
+      "value": 8
+     },
+     "base_x": {
+      "description": "base hole centre from left edge",
+      "value": 15
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height at left",
+      "value": 40
+     },
+     "hole_right": {
+      "description": "side hole centre and top break point to right edge; break stays above hole",
+      "value": 20
+     },
+     "kink_h": {
+      "description": "height of break where two top slopes meet",
+      "value": 15
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "side_dia": {
+      "description": "transverse hole diameter",
+      "value": 8
+     },
+     "tip_h": {
+      "description": "height of right tip point; side hole centre is level with tip",
+      "value": 10
+     },
+     "top_len": {
+      "description": "length of full-height top flat",
+      "value": 30
+     }
+    }
+   },
+   "disputed_callouts": [
+    {
+     "index": 6,
+     "reason": "label 15 dimensions the break-point/kink height above bottom, not the side-hole centre; hole centre is drawn level with the 10-high tip point",
+     "replacement": {
+      "axis": null,
+      "edge": null,
+      "feature": null,
+      "feature_b": null,
+      "label": "15",
+      "measure": "unchecked",
+      "value": 15
+     }
+    }
+   ]
+  },
+  {
+   "changelog": "Kept spec unchanged: 15 is the kink height above bottom and 10 is the tip height with side hole level with tip; disputed callout 6 which misreads kink height as hole height.",
+   "spec": {
+    "description": "Solid tapered block extruded in Y. Front has 30 long full-height flat then shallow slope to break 20 from right at 15 high then shallow slope to 10 high tip. Assumed: 20 is kink and side-hole centre to right edge (kink above hole), 15 is kink height, 10 is tip-point height with side-hole centre level with tip (drawn aligned).",
+    "features": [
+     {
+      "distance": "depth",
+      "id": "base",
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "tip_h"
+        ],
+        [
+         "length - hole_right",
+         "kink_h"
+        ],
+        [
+         "top_len",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - hole_right",
+       "tip_h"
+      ],
+      "diameter": "side_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "base_x",
+       "base_edge"
+      ],
+      "diameter": "base_dia",
+      "face": "top",
+      "id": "base_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "base_hole",
+      "id": "base_holes",
+      "spacing_u": 0,
+      "spacing_v": "depth - 2 * base_edge",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "base_dia": {
+      "description": "vertical mounting hole diameter",
+      "value": 6
+     },
+     "base_edge": {
+      "description": "base hole centre from Y side edges, second hole symmetric",
+      "value": 8
+     },
+     "base_x": {
+      "description": "base hole centre from left edge",
+      "value": 15
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height at left",
+      "value": 40
+     },
+     "hole_right": {
+      "description": "side hole centre and top break point to right edge; break stays above hole",
+      "value": 20
+     },
+     "kink_h": {
+      "description": "height of break where two top slopes meet",
+      "value": 15
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "side_dia": {
+      "description": "transverse hole diameter",
+      "value": 8
+     },
+     "tip_h": {
+      "description": "height of right tip point; side hole centre is level with tip",
+      "value": 10
+     },
+     "top_len": {
+      "description": "length of full-height top flat",
+      "value": 30
+     }
+    }
+   },
+   "disputed_callouts": [
+    {
+     "index": 6,
+     "reason": "15 dimensions the kink/break point height, not the hole centre: drawing shows vertical centreline from kink down to hole (kink above hole) and horizontal centreline from hole to tip (hole level with 10 tip); hole at 10 fits just below 15 kink, hole at 15 would centre on the top edge.",
+     "replacement": {
+      "axis": null,
+      "edge": null,
+      "feature": null,
+      "feature_b": null,
+      "label": "15",
+      "measure": "unchecked",
+      "value": 15
+     }
+    }
+   ]
+  }
+ ],
+ "recorded": {
+  "status": "disputed",
+  "corrections": 2,
+  "cost_usd": 0.247454,
+  "seconds": 211.3
+ }
+}

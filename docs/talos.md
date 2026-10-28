@@ -53,7 +53,7 @@ Per iteration, every usable view against the part's silhouette (both cropped to 
   the drawing's mirrored along Y. Fix the positions along Y.`
 - **aspect ratio**: flagged when width:height differs by more than `ASPECT_TOL` = 45 % (correct parts reach 29 % on
   photos and rough sketches, so the 30 % first planned had no margin; an X/Y swap of the plate gives ≥ 105 %).
-- **holes** (advisory): closed regions in the drawing (text loops, arrowheads, sharp-cornered hidden-line strips
+- **holes** (off by default, `HOLE_CHECK`; the eval switches it on): closed regions in the drawing (text loops, arrowheads, sharp-cornered hidden-line strips
   and regions below 0.2 % of the outline dropped; regions split by centre lines merged; boundary must be solid ink)
   against the closed regions of the part's own line drawing through the same detector, by count and rough position
   (3×3 grid). Not blocking: it flags 18/24 correct parts, mostly because the SAM outline is larger than the part and
@@ -88,6 +88,12 @@ Measurements behind the choice: `experiments/benchmark/results/matrix/summary.md
 
 ## Stopping
 - `pass`: no compile errors, no callout mismatches, no shape issue, no high-severity critic issue
+- `unverified`: the critic cannot loop on its own. A check whose only issues come from the critic gets **one**
+  correction per flagged feature. If that correction declines (spec unchanged), breaks a measured check (compile,
+  callout, shape; the version before it is kept), or the critic flags the same feature again, the run stops: the
+  measured part is returned and the critic's issue is reported in `unverified_notes`. No second critic pair runs
+  after a declined correction. (Production, Oct 27: the critic pair invented a kink in the angled bracket's slope;
+  the old loop spent two corrections and a callout regression on it, $0.247 and 224 s.)
 - `max_iters`: correction budget used up (default 4 corrections)
 - `stuck`: the same issue list twice in a row
 - `disputed`: the correction returned the spec unchanged, i.e. the model rejected the remaining issues
@@ -108,4 +114,4 @@ Every event is a JSON-serialisable dict with `event`, `iteration` and `t` (secon
 | `checks` | `clean`, `issues` [{source: compile/callout/shape/critic, message}], `advisories`, `shape_advisories`, `callouts` (one row each, with status and measured value), `critic`, `critic_call`, `critic_skipped` / `critic_error` if it did not run, `disputes` |
 | `correction_started` | `issues` |
 | `error` | `message` |
-| `done` | `status`, `note`, `spec`, `callouts`, `final_iteration`, `remaining_issues`, `iterations`, `disputes`, `cost_usd`, `seconds`, `settings` |
+| `done` | `status`, `note`, `spec`, `callouts`, `final_iteration`, `remaining_issues`, `unverified_notes` (critic issues left as notes, status `unverified`), `iterations`, `disputes`, `cost_usd`, `seconds`, `settings` |

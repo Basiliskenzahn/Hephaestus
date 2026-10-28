@@ -14,8 +14,14 @@ only if the critic consensus had independently flagged the same feature in the c
 the replacement is kept only if the next critic consensus no longer flags that feature. Otherwise the original
 callout stays and keeps blocking. Measurements beat the critic.
 
-Stops: pass | max_iters | stuck (same issues twice) | disputed (spec returned unchanged) | oscillating (back to an
-earlier version) | budget | error. The returned spec is the best version seen (fewest issues).
+The critic cannot loop on its own: a check whose only issues come from the critic gets one correction per flagged
+feature. If that correction declines (returns the spec unchanged), breaks a measured check (compile, callout, shape),
+or the critic flags the same feature again, the run stops as `unverified`: the measured version is kept and the
+critic's issue is reported as an unverified note.
+
+Stops: pass | unverified | max_iters | stuck (same issues twice) | disputed (spec returned unchanged) | oscillating
+(back to an earlier version) | budget | error. The returned spec is the best version seen (fewest issues; a critic
+issue counts half, measurements beat the critic).
 
 Events are JSON-serialisable dicts with an "event" key:
   read_started, spec, compiled, shape_check, checks, correction_started, error, done
@@ -122,7 +128,8 @@ def critic_issues(crit):
     out = []
     for i in critic_mod.blocking(crit):
         who = f"{i['feature_id']}: " if i.get("feature_id") else ""
-        out.append({"source": "critic", "message": f"{who}{i['issue']} ({i['severity']})"})
+        out.append({"source": "critic", "message": f"{who}{i['issue']} ({i['severity']})",
+                    "feature": critic_mod._key(i)})
     return out
 
 
@@ -183,6 +190,8 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
     t0, iteration, history, best, seen = time.time(), 0, [], None, []
     spent = [0.0]           # this run's own calls (the budget may be shared by parallel runs)
     shape_cost = [0.0]      # SAM spend already counted in `spent`
+    critic_tried = set()    # features the critic alone has already had one correction for
+    critic_round = False    # the last correction answered critic-only issues
     disputes = []           # every dispute raised, with its outcome
     critic_flagged = set()  # features the critic consensus flagged in the latest check
 
@@ -191,8 +200,10 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
 
     def finish(status, note=None):
         final = best or {"iteration": iteration, "spec": spec, "callouts": callouts}
+        notes = final.get("notes") if status == "unverified" else []
         return ev("done", status=status, note=note, final_iteration=final["iteration"], spec=final["spec"],
-                  callouts=final["callouts"], remaining_issues=final.get("issues"), iterations=iteration,
+                  callouts=final["callouts"], remaining_issues=final.get("issues"), unverified_notes=notes,
+                  iterations=iteration,
                   corrections=iteration, disputes=disputes, cost_usd=round(spent[0], 6),
                   seconds=round(time.time() - t0, 1), settings=asdict(settings))
 
@@ -272,13 +283,29 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
             checks["disputes"] = copy.deepcopy(disputes)
             clean = not issues
             yield ev("checks", clean=clean, **checks)
-            score = len(issues) + (100 if not compiled["ok"] else 0)
+            measured = [i for i in issues if i["source"] != "critic"]
+            critic_only = [i for i in issues if i["source"] == "critic"] if not measured else []
+            score = len(measured) + 0.5 * (len(issues) - len(measured)) + (100 if not compiled["ok"] else 0)
             if best is None or score < best["score"]:
                 best = {"iteration": iteration, "spec": spec, "callouts": copy.deepcopy(callouts), "score": score,
-                        "issues": [i["message"] for i in issues]}
+                        "issues": [i["message"] for i in issues],
+                        "notes": [i["message"] for i in issues if i["source"] == "critic"]}
             if clean:
                 yield finish("pass")
                 return
+            if critic_round and measured:
+                yield finish("unverified", "the correction for the critic's issue broke a measured check, so the "
+                                           "version before it is kept; the critic's issue stays an unverified note")
+                return
+            if critic_only:
+                fresh = [i for i in critic_only if i.get("feature") not in critic_tried]
+                if not fresh:
+                    yield finish("unverified", "the critic still flags a feature that already had its one "
+                                               "correction; the measurements pass, so its issue stays a note")
+                    return
+                issues = fresh
+                critic_tried.update(i.get("feature") for i in fresh)
+            critic_round = bool(critic_only)
             key = sorted(i["message"] for i in issues)
             if history and history[-1] == key:
                 yield finish("stuck", "the same issues came back after a correction")
@@ -320,7 +347,7 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
                      call=_call_info(info))
             if unchanged and not any(r["status"] == "provisional" for r in raised):
                 # the corrector rejected every remaining issue; another round would only re-roll the critic
-                yield finish("disputed", out.get("changelog"))
+                yield finish("unverified" if critic_round else "disputed", out.get("changelog"))
                 return
             if revisits:
                 # back to an earlier version: the checks are flip-flopping, keep the best version seen

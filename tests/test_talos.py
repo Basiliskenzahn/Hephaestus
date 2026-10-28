@@ -67,14 +67,15 @@ def test_read_check_correct_pass(tmp_path):
         assert (tmp_path / "iter_1" / f).exists()
 
 
-def test_unchanged_correction_is_disputed():
+def test_declined_critic_correction_stops_unverified():
     critic_says = {"matches": False, "issues": [{"feature_id": "bore", "issue": "bore missing", "severity": "high"}]}
     client = ScriptedClient(CriticOutput=[critic_says] * 2,
                             CorrectionOutput=[{"changelog": "kept, the drawing shows the bore", "spec": example("block"),
                                                "callouts": callouts("block")}])
     ev = events_of(client, start={"spec": example("block"), "callouts": callouts("block")})
-    assert ev[-1]["status"] == "disputed" and ev[-1]["note"] == "kept, the drawing shows the bore"
-    assert client.calls == ["CriticOutput", "CriticOutput", "CorrectionOutput"]
+    assert ev[-1]["status"] == "unverified" and ev[-1]["note"] == "kept, the drawing shows the bore"
+    assert ev[-1]["unverified_notes"] == ["bore: bore missing (high)"]
+    assert client.calls == ["CriticOutput", "CriticOutput", "CorrectionOutput"]     # no second critic pair
 
 
 def test_medium_critic_issues_are_advisories():
@@ -144,7 +145,7 @@ def test_critic_samples_must_agree_to_block():
     assert [i["source"] for i in first["issues"]] == ["critic"]
 
 
-def test_returning_to_an_earlier_version_stops():
+def test_critic_reflagging_a_corrected_feature_stops_unverified():
     def slot(angle):
         spec = example("l_bracket")
         spec["features"][4]["angle"] = angle
@@ -155,7 +156,11 @@ def test_returning_to_an_earlier_version_stops():
                             CorrectionOutput=[{"changelog": f"angle {a}", "spec": slot(a), "callouts": callouts("l_bracket")}
                                               for a in (90, 0)])
     ev = events_of(client, start={"spec": slot(0), "callouts": callouts("l_bracket")})
-    assert ev[-1]["status"] == "oscillating" and ev[-1]["final_iteration"] == 0
+    assert ev[-1]["status"] == "unverified" and ev[-1]["final_iteration"] == 0     # the read; no second correction
+    # turning the slot breaks its measured length along X: the run stops before a second critic pair
+    assert client.calls == ["CriticOutput"] * 2 + ["CorrectionOutput"]
+    assert "broke a measured check" in ev[-1]["note"]
+    assert ev[-1]["unverified_notes"] == ["base_slot: runs along Y, should be X (high)"]
 
 
 def test_critic_failure_does_not_end_the_run():
@@ -258,3 +263,31 @@ def test_text_prompt_path():
     assert seen[0][0] == "ReadOutput" and "text description" in seen[0][1] and seen[0][2] == ["input_text"]
     assert seen[1][0] == "CriticOutput" and "text description" in seen[1][1]
     assert "input_image" in seen[1][2]                      # the render, but no input drawing
+
+
+def test_critic_reflags_after_a_passing_correction():
+    corners = {"matches": False, "issues": [{"feature_id": "corners", "issue": "corners look sharp", "severity": "high"}]}
+    tweaked = example("block")
+    tweaked["parameters"]["note_only"] = {"value": 1, "description": "a change that passes every callout"}
+    client = ScriptedClient(CriticOutput=[corners] * 4,
+                            CorrectionOutput=[{"changelog": "tweaked", "spec": tweaked, "disputed_callouts": []}])
+    ev = events_of(client, start={"spec": example("block"), "callouts": callouts("block")})
+    assert ev[-1]["status"] == "unverified" and "already had its one correction" in ev[-1]["note"]
+    assert client.calls == ["CriticOutput"] * 2 + ["CorrectionOutput"] + ["CriticOutput"] * 2
+    assert ev[-1]["final_iteration"] == 0 and ev[-1]["unverified_notes"] == ["corners: corners look sharp (high)"]
+
+
+def test_recorded_angled_bracket_run_stops_after_one_critic_correction():
+    """Production run (Oct 27): the critic pair invented a kink in the slope; correction 1 added it and broke the
+    side-hole callout, correction 2 declined. $0.247, 224 s. Now: one correction, then the read is kept."""
+    with open(os.path.join(os.path.dirname(__file__), "data", "angled_bracket_photo_run.json")) as f:
+        rec = json.load(f)
+    client = ScriptedClient(ReadOutput=[rec["read"]], CriticOutput=rec["critic_samples"] * 2,
+                            CorrectionOutput=rec["corrections"])
+    drawing = os.path.join(os.path.dirname(EXAMPLES), "experiments", "benchmark", "sketches",
+                           "06_angled_bracket__photo.jpg")
+    ev = list(run(drawing, client=client, use_shape=False))
+    done = ev[-1]
+    assert client.calls == ["ReadOutput", "CriticOutput", "CriticOutput", "CorrectionOutput"]
+    assert done["status"] == "unverified" and done["final_iteration"] == 0 and done["spec"] == rec["read"]["spec"]
+    assert len(done["unverified_notes"]) == 1 and done["unverified_notes"][0].startswith("base: ")
