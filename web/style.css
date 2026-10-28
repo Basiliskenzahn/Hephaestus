@@ -225,3 +225,4 @@ input[type="range"]::-moz-range-thumb { width: 10px; height: 14px; background: v
 .shape-fig.bad img { border-color: var(--accent); }
 .shape-fig figcaption { font-size: 11px; color: var(--ink-3); max-width: 150px; }
 .shape-arrow { color: var(--ink-3); font-size: 18px; }
+.step .note { color: var(--ink-3); font-style: italic; }

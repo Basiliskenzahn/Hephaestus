@@ -117,6 +117,7 @@ def main():
     ap.add_argument("--parts", default=",".join(PARTS))
     ap.add_argument("--variants", default=",".join(VARIANTS))
     args = ap.parse_args()
+    shape_check.HOLE_CHECK = True          # off in the product; evaluated here
     os.environ.setdefault("SPEND_SCRIPT", "experiments/shape-check/eval.py")
     budget = meta_api.Budget(args.max_usd)
     client = meta_api.Client(PRESETS["dev"].read_model, budget=budget)

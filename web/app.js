@@ -210,7 +210,14 @@ function onEvent(ev) {
       } else if (ev.critic_error) {
         timeline.add(t, "Critic unavailable", "done", p("The visual check failed; the dimension checks still count."));
       }
-      if (ev.clean) timeline.add(t, "Verified", "done", p("Every dimension matches and the critic agrees."));
+      if (ev.clean) {
+        const shapeOk = current.events.some((e) => e.event === "shape_check" && e.iteration === ev.iteration && e.available);
+        const what = [rows.length ? "every dimension matches" : null, shapeOk ? "the outlines match (SAM 3.1)" : null]
+          .filter(Boolean).join(", ") || "the part built";
+        const critic = ev.critic ? " and the critic agrees"
+          : ev.critic_error ? "; the critic was unavailable, so it did not look" : "";
+        timeline.add(t, "Verified", "done", p(what.charAt(0).toUpperCase() + what.slice(1) + critic + "."));
+      }
       break;
     }
     case "correction_started":
@@ -257,8 +264,6 @@ function shapeStep(ev, t) {
   const issues = ev.issues || [];
   body.append(issues.length ? list(issues.map(plain), "issue")
     : p("Every view's outline in the drawing matches the part: same orientation and proportions."));
-  if ((ev.advisories || []).length) body.append(el("details", { class: "fine" },
-    el("summary", { text: `Holes: ${ev.advisories.length} note(s), advisory` }), list(ev.advisories.map((m) => plain({ message: m })))));
   timeline.addAside(t, title, issues.length ? "fix" : "done", body);
 }
 
@@ -267,11 +272,18 @@ function finish(done) {
   const words = {
     pass: "Verified", stuck: "Stopped: the same issue came back", max_iters: "Stopped after the maximum corrections",
     disputed: "Stopped: the model rejected the remaining issues", oscillating: "Stopped: the checks went back and forth",
+    unverified: "Measured checks pass; critic note unverified",
     budget: "Stopped: budget", error: "Stopped: error",
   };
-  setStatus(done.status === "pass" ? "verified" : done.status);
+  setStatus(done.status === "pass" ? "verified" : done.status === "unverified" ? "built, 1 note" : done.status);
   const rem = done.remaining_issues || [];
-  if (done.status !== "pass") {
+  if (done.status === "unverified") {
+    const notes = done.unverified_notes || [];
+    timeline.add(done.t, words.unverified, "done", el("div", {},
+      p("Every dimension and outline check passes. The critic raised the note below; Talos tried one correction, " +
+        "which did not hold up, so it kept the measured part. Check this by eye."),
+      notes.length ? list(notes.map((m) => plain({ message: m })), "note") : null));
+  } else if (done.status !== "pass") {
     timeline.add(done.t, words[done.status] || done.status, "done",
       el("div", {}, p(done.note || "Showing the best version Talos found."), rem.length ? list(rem.map((m) => plain({ message: m })), "issue") : null));
   }

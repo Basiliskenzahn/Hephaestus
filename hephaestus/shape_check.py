@@ -17,7 +17,8 @@ Per iteration (`compare`), each view against the part's silhouette, both cropped
   rotated 180 degrees. Flagged only when a transformed version beats the as-is IoU by ORIENT_MARGIN: the decision is
   relative, never an absolute IoU threshold, because SAM outlines of correct parts score only 0.8-0.95 (blocking);
 - holes: closed regions in the drawing vs closed regions in the part's own line drawing (same detector), by count
-  and rough position (advisory unless HOLES_BLOCKING).
+  and rough position. Off by default (HOLE_CHECK): it flags most correct parts (see experiments/shape-check); when
+  on, it is advisory unless HOLES_BLOCKING.
 Anything unusable (no views, SAM error, a mask that is not a part) makes the check unavailable, never fails a run.
 Thresholds come from experiments/shape-check (false alarms on 8 correct parts x 3 input types, injected errors).
 """
@@ -45,7 +46,8 @@ ASPECT_TOL = 1.45       # width:height may differ by up to 45 % (correct parts r
 HOLE_MIN_FRAC = 0.002   # closed region area / outline area: smaller is text or arrowheads
 HOLE_MAX_FRAC = 0.30    # larger is a face of the part (a step, a slope) rather than a hole
 HOLE_MATCH = 0.15       # hole centres match within this fraction of the outline's size
-HOLES_BLOCKING = False  # holes stay advisory unless the eval shows zero false alarms
+HOLE_CHECK = False      # the hole comparison is off: too noisy on real drawings (the eval switches it on)
+HOLES_BLOCKING = False  # when on, holes stay advisory unless the eval shows zero false alarms
 MIN_FILL = 0.12         # a view outline covering less of its box is not a part
 MIN_SPAN = 0.5          # ... nor one spanning less than half of the box's width or height
 
@@ -552,7 +554,7 @@ class InputShape:
         cnts, _ = cv2.findContours(m.astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         cv2.drawContours(tint, cnts, -1, (30, 90, 200), 2)
         s = (ox2 - ox1 + 1) / iv["work_size"][0]
-        for hole in iv["holes"]:
+        for hole in iv["holes"] if HOLE_CHECK else []:
             c = (int(hole["px"][0] * s + ox1 - x1), int(hole["px"][1] * s + oy1 - y1))
             cv2.circle(tint, c, max(4, int(hole["r_px"] * s) + 3), (212, 68, 28), 2)
         path = os.path.join(d, f"input_{v}.png")
@@ -598,11 +600,14 @@ def compare_view(iv, result, out_dir=None):
     if not rec["issues"] and rec["orientation_gap"] > ORIENT_MARGIN:
         rec["issues"].append(orientation_message(v, best, gd, gp))
     # holes: the part's own line drawing through the same detector, at the drawing's working size
-    ink, outline = part_lines(result, v, tuple(iv["work_size"]))
-    part_holes = closed_regions(ink, outline)
-    rec["holes"] = {"drawing": [{k: h[k] for k in ("u", "v", "area")} for h in iv["holes"]],
-                    "part": [{k: h[k] for k in ("u", "v", "area")} for h in part_holes]}
-    pairs, miss, extra = match_holes(iv["holes"], part_holes)
+    holes_in = iv["holes"] if HOLE_CHECK else []
+    part_holes, miss, extra = [], [], []
+    if HOLE_CHECK:
+        ink, outline = part_lines(result, v, tuple(iv["work_size"]))
+        part_holes = closed_regions(ink, outline)
+        rec["holes"] = {"drawing": [{k: h[k] for k in ("u", "v", "area")} for h in holes_in],
+                        "part": [{k: h[k] for k in ("u", "v", "area")} for h in part_holes]}
+        _, miss, extra = match_holes(holes_in, part_holes)
     if miss or extra:
         def plist(hs, idx):
             return ", ".join(where(v, hs[i]["u"], hs[i]["v"]) for i in idx)
@@ -618,7 +623,7 @@ def compare_view(iv, result, out_dir=None):
     elif rec["advisories"]:
         rec["status"] = "advisory"
     if out_dir:
-        rec["files"]["compare"] = save_compare(v, drawn, part, iv["holes"], part_holes, out_dir)
+        rec["files"]["compare"] = save_compare(v, drawn, part, holes_in, part_holes, out_dir)
     return rec
 
 
