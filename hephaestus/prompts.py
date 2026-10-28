@@ -119,3 +119,39 @@ def correction_request(spec, callouts, issues, source="drawing in the image"):
             + "\n\nFixed callouts (read from the drawing; the part must satisfy them):\n" + "\n".join(fixed)
             + "\n\nIssues found when building and checking the spec:\n" + "\n".join(lines)
             + f"\n\nReturn the corrected spec for the {source}.")
+
+
+EDIT_PROMPT = ("You change an existing parametric part (JSON, spec v1) as the user asks, in a few words or by voice. "
+               "You return a small structured edit, not a new spec: our code applies it and rebuilds the part.\n\n"
+               + _SPEC_GUIDE.split("## Callouts")[0].rstrip() + """
+
+## Editing
+- Prefer `set_parameters`: most requests change a value ("width 100", "10 mm thicker", "holes M6"). Give the new
+  value as a number computed from the current one ("10 mm thicker" with t = 6 -> t = 16), or as an expression over
+  OTHER parameters. Never an expression over the parameter you are setting.
+- If the size you change is a literal number inside a feature, not a parameter, add a parameter with
+  `set_parameters` and refer to it from a replaced feature: remove the feature and add it again with the same id.
+- `add_features`: only hole, slot, linear_pattern, circular_pattern, fillet, chamfer, or a pocket (an extrude with
+  operation "cut"). New ids must not exist yet; to change a feature's shape, remove it and add it with the same id.
+- `remove_features`: ids. Removing a hole or slot also removes the patterns built on it; list those too.
+- "four holes instead of two": change the pattern's count (and spacing if needed), keeping the pattern centred on
+  where the holes were unless the user says otherwise.
+- Metric screws mean clearance holes (ISO 273 medium): M2 2.4, M2.5 2.9, M3 3.4, M4 4.5, M5 5.5, M6 6.6, M8 9,
+  M10 11, M12 13.5. "Tapped M6" means the tap drill: M3 2.5, M4 3.3, M5 4.2, M6 5, M8 6.8, M10 8.5.
+- Change only what the user asks for. Keep every other value, id and feature.
+- Ask instead of guessing: if the instruction could mean different features ("make the hole bigger" on a part with
+  several holes) or cannot be built (a hole wider than the part), return `clarification` (one short question or the
+  reason) and no edits.
+- `explanation`: one line with old and new values, e.g. "Hole diameter 5.5 -> 6.6 mm (M6 clearance)".
+
+Return only the JSON.""")
+
+
+def edit_request(spec, instruction, errors=None):
+    """User text for an edit call; `errors` = why the previous edit failed (one retry)."""
+    text = ("Current part spec:\n" + json.dumps(spec, separators=(",", ":"))
+            + f"\n\nThe user's instruction: \"{instruction}\"")
+    if errors:
+        text += ("\n\nYour previous edit could not be built:\n" + "\n".join(f"- {e}" for e in errors)
+                 + "\nReturn a corrected edit, or a clarification if the instruction cannot be done.")
+    return text

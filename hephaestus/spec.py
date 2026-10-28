@@ -348,3 +348,31 @@ def load(path_or_dict):
 
 if __name__ == "__main__":
     print(json.dumps(json_schema(), indent=2))
+
+
+# ---------------------------------------------------------------- edits (voice or typed, after a part is shown)
+class Pocket(Extrude):
+    """An extrude that cuts: the only kind of extrude an edit may add."""
+    operation: Literal["cut"] = Field(description="always cut: a pocket or a cut-out")
+
+
+EditFeature = Annotated[Union[Hole, Slot, LinearPattern, CircularPattern, Fillet, Chamfer, Pocket],
+                        Field(discriminator="type")]
+
+
+class ParamSet(_Model):
+    name: str = Field(pattern=r"^[A-Za-z_][A-Za-z0-9_]*$", description="an existing parameter, or a new one")
+    value: Num = Field(description="the new value as a number in mm (or degrees), or an expression over OTHER "
+                                   "parameters; never an expression over the parameter itself")
+
+
+class EditOutput(_Model):
+    clarification: Optional[str] = Field(description=(
+        "a short question to the user INSTEAD of edits, when the instruction is ambiguous (which feature?) or cannot "
+        "be done (say why); null when you return edits"))
+    explanation: str = Field(description="one line, what changes, with old and new values, e.g. "
+                                         "'Hole diameter 5.5 -> 6.6 mm (M6 clearance)'")
+    set_parameters: list[ParamSet] = Field(description="parameter changes; prefer these over feature changes")
+    add_features: list[EditFeature] = Field(description="new features (hole, slot, pattern, fillet, chamfer, pocket), "
+                                                        "applied after the existing ones")
+    remove_features: list[str] = Field(description="ids of features to remove")

@@ -1,0 +1,376 @@
+[
+ {
+  "name": "holes_m6",
+  "part": "l_bracket",
+  "spoken": "make the holes M6",
+  "expect": "hole_d 5 -> 6.6",
+  "asr": {
+   "transcript": "make the holes M6",
+   "audio_ms": 2480,
+   "seconds": 1.46,
+   "cost_usd": 0.0001
+  },
+  "outputs": [
+   {
+    "add_features": [],
+    "clarification": null,
+    "explanation": "Hole diameter 5 -> 6.6 mm (M6 clearance)",
+    "remove_features": [],
+    "set_parameters": [
+     {
+      "name": "hole_d",
+      "value": 6.6
+     }
+    ]
+   }
+  ],
+  "status": "applied",
+  "explanation": "Hole diameter 5 -> 6.6 mm (M6 clearance)",
+  "clarification": null,
+  "changes": [
+   "hole_d: 5 -> 6.6"
+  ],
+  "errors": [],
+  "calls": [
+   {
+    "seconds": 2.4,
+    "cost_usd": 0.000504,
+    "output_tokens": 185,
+    "model": "muse-spark-1.3-contributor"
+   }
+  ],
+  "seconds": 2.7
+ },
+ {
+  "name": "thicker",
+  "part": "l_bracket",
+  "spoken": "make it 10 millimetres thicker",
+  "expect": "t 5 -> 15",
+  "asr": {
+   "transcript": "make it ten millimetres thicker",
+   "audio_ms": 2800,
+   "seconds": 1.51,
+   "cost_usd": 0.0001
+  },
+  "outputs": [
+   {
+    "add_features": [],
+    "clarification": null,
+    "explanation": "Thickness t 5 -> 15 mm (+10 mm thicker)",
+    "remove_features": [],
+    "set_parameters": [
+     {
+      "name": "t",
+      "value": 15
+     }
+    ]
+   }
+  ],
+  "status": "applied",
+  "explanation": "Thickness t 5 -> 15 mm (+10 mm thicker)",
+  "clarification": null,
+  "changes": [
+   "t: 5 -> 15"
+  ],
+  "errors": [],
+  "calls": [
+   {
+    "seconds": 3.0,
+    "cost_usd": 0.000507,
+    "output_tokens": 197,
+    "model": "muse-spark-1.3-contributor"
+   }
+  ],
+  "seconds": 3.4
+ },
+ {
+  "name": "width",
+  "part": "l_bracket",
+  "spoken": "width 100",
+  "expect": "width 60 -> 100",
+  "asr": {
+   "transcript": "with one hundred",
+   "audio_ms": 2160,
+   "seconds": 0.86,
+   "cost_usd": 0.0001
+  },
+  "outputs": [
+   {
+    "add_features": [],
+    "clarification": "Which dimension should be 100 mm \u2014 width, leg size, hole/slot size, or something else?",
+    "explanation": "Ambiguous request 'with one hundred' \u2014 needs which dimension to change",
+    "remove_features": [],
+    "set_parameters": []
+   }
+  ],
+  "status": "clarification",
+  "explanation": "Ambiguous request 'with one hundred' \u2014 needs which dimension to change",
+  "clarification": "Which dimension should be 100 mm \u2014 width, leg size, hole/slot size, or something else?",
+  "changes": [],
+  "errors": [],
+  "calls": [
+   {
+    "seconds": 4.3,
+    "cost_usd": 0.000527,
+    "output_tokens": 302,
+    "model": "muse-spark-1.3-contributor"
+   }
+  ],
+  "seconds": 4.3
+ },
+ {
+  "name": "fillet",
+  "part": "l_bracket",
+  "spoken": "add a 2 millimetre fillet on the outer edges",
+  "expect": "new fillet r2",
+  "asr": {
+   "transcript": "add a two millimetre fillet on the outer edges.",
+   "audio_ms": 3360,
+   "seconds": 1.24,
+   "cost_usd": 0.00015
+  },
+  "outputs": [
+   {
+    "add_features": [
+     {
+      "edges": "all_outer",
+      "id": "outer_fillet",
+      "radius": "fillet_r",
+      "type": "fillet"
+     }
+    ],
+    "clarification": null,
+    "explanation": "Added 2 mm fillet on all outer edges (new param fillet_r = 2)",
+    "remove_features": [],
+    "set_parameters": [
+     {
+      "name": "fillet_r",
+      "value": 2
+     }
+    ]
+   }
+  ],
+  "status": "applied",
+  "explanation": "Added 2 mm fillet on all outer edges (new param fillet_r = 2)",
+  "clarification": null,
+  "changes": [
+   "fillet_r: new, 2",
+   "added outer_fillet"
+  ],
+  "errors": [],
+  "calls": [
+   {
+    "seconds": 7.9,
+    "cost_usd": 0.00063,
+    "output_tokens": 812,
+    "model": "muse-spark-1.3-contributor"
+   }
+  ],
+  "seconds": 8.7
+ },
+ {
+  "name": "remove_slot",
+  "part": "l_bracket",
+  "spoken": "remove the slot",
+  "expect": "base_slot removed",
+  "asr": {
+   "transcript": "remove the slot.",
+   "audio_ms": 1920,
+   "seconds": 0.8,
+   "cost_usd": 5e-05
+  },
+  "outputs": [
+   {
+    "add_features": [],
+    "clarification": null,
+    "explanation": "Removed base slot (20 x 6 through slot)",
+    "remove_features": [
+     "base_slot"
+    ],
+    "set_parameters": []
+   }
+  ],
+  "status": "applied",
+  "explanation": "Removed base slot (20 x 6 through slot)",
+  "clarification": null,
+  "changes": [
+   "removed base_slot"
+  ],
+  "errors": [],
+  "calls": [
+   {
+    "seconds": 2.4,
+    "cost_usd": 0.000513,
+    "output_tokens": 228,
+    "model": "muse-spark-1.3-contributor"
+   }
+  ],
+  "seconds": 2.6
+ },
+ {
+  "name": "four_holes",
+  "part": "l_bracket",
+  "spoken": "four holes instead of two",
+  "expect": "pattern count 2 -> 4",
+  "asr": {
+   "transcript": "four fold instead of two.",
+   "audio_ms": 2800,
+   "seconds": 0.93,
+   "cost_usd": 0.0001
+  },
+  "outputs": [
+   {
+    "add_features": [
+     {
+      "count_u": 4,
+      "feature": "upright_hole",
+      "id": "upright_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     }
+    ],
+    "clarification": null,
+    "explanation": "Upright holes 2 -> 4, pitch 30 -> 10 mm ((width - 2*hole_x)/3) keeping outer holes at 15/45",
+    "remove_features": [
+     "upright_holes"
+    ],
+    "set_parameters": [
+     {
+      "name": "hole_pitch",
+      "value": "(width - 2 * hole_x) / 3"
+     }
+    ]
+   }
+  ],
+  "status": "applied",
+  "explanation": "Upright holes 2 -> 4, pitch 30 -> 10 mm ((width - 2*hole_x)/3) keeping outer holes at 15/45",
+  "clarification": null,
+  "changes": [
+   "hole_pitch: 30 -> (width - 2 * hole_x) / 3",
+   "removed upright_holes",
+   "replaced upright_holes"
+  ],
+  "errors": [],
+  "calls": [
+   {
+    "seconds": 10.9,
+    "cost_usd": 0.000746,
+    "output_tokens": 1395,
+    "model": "muse-spark-1.3-contributor"
+   }
+  ],
+  "seconds": 11.2
+ },
+ {
+  "name": "width_typed",
+  "part": "l_bracket",
+  "expect": "the user corrects the misheard 'with one hundred'",
+  "typed": "width 100",
+  "asr": {
+   "transcript": "width 100",
+   "audio_ms": 0,
+   "seconds": 0,
+   "cost_usd": 0
+  },
+  "outputs": [
+   {
+    "add_features": [],
+    "clarification": null,
+    "explanation": "Width 60 -> 100 mm",
+    "remove_features": [],
+    "set_parameters": [
+     {
+      "name": "width",
+      "value": 100
+     }
+    ]
+   }
+  ],
+  "status": "applied",
+  "explanation": "Width 60 -> 100 mm",
+  "clarification": null,
+  "changes": [
+   "width: 60 -> 100"
+  ],
+  "errors": [],
+  "calls": [
+   {
+    "seconds": 5.2,
+    "cost_usd": 0.000575,
+    "output_tokens": 539,
+    "model": "muse-spark-1.3-contributor"
+   }
+  ],
+  "seconds": 5.5
+ },
+ {
+  "name": "ambiguous",
+  "part": "l_bracket",
+  "spoken": "make it bigger",
+  "expect": "clarification",
+  "asr": {
+   "transcript": "make it bigger.",
+   "audio_ms": 1840,
+   "seconds": 0.79,
+   "cost_usd": 5e-05
+  },
+  "outputs": [
+   {
+    "add_features": [],
+    "clarification": "Which size should be bigger \u2013 width, leg length, thickness, hole/slot size, or everything scaled up?",
+    "explanation": "No change: 'make it bigger' is ambiguous about which dimension to enlarge",
+    "remove_features": [],
+    "set_parameters": []
+   }
+  ],
+  "status": "clarification",
+  "explanation": "No change: 'make it bigger' is ambiguous about which dimension to enlarge",
+  "clarification": "Which size should be bigger \u2013 width, leg length, thickness, hole/slot size, or everything scaled up?",
+  "changes": [],
+  "errors": [],
+  "calls": [
+   {
+    "seconds": 3.0,
+    "cost_usd": 0.000525,
+    "output_tokens": 288,
+    "model": "muse-spark-1.3-contributor"
+   }
+  ],
+  "seconds": 3.0
+ },
+ {
+  "name": "impossible",
+  "part": "plate",
+  "spoken": "make the hole bigger than the plate",
+  "expect": "clarification or a build error",
+  "asr": {
+   "transcript": "make the hole bigger than the plate.",
+   "audio_ms": 2800,
+   "seconds": 0.9,
+   "cost_usd": 0.0001
+  },
+  "outputs": [
+   {
+    "add_features": [],
+    "clarification": "Which hole do you mean? A hole bigger than the 80x50 plate cannot be built \u2014 what diameter do you want?",
+    "explanation": "No edit: hole larger than plate is not buildable and hole is ambiguous",
+    "remove_features": [],
+    "set_parameters": []
+   }
+  ],
+  "status": "clarification",
+  "explanation": "No edit: hole larger than plate is not buildable and hole is ambiguous",
+  "clarification": "Which hole do you mean? A hole bigger than the 80x50 plate cannot be built \u2014 what diameter do you want?",
+  "changes": [],
+  "errors": [],
+  "calls": [
+   {
+    "seconds": 4.6,
+    "cost_usd": 0.000556,
+    "output_tokens": 494,
+    "model": "muse-spark-1.3-contributor"
+   }
+  ],
+  "seconds": 4.6
+ }
+]
