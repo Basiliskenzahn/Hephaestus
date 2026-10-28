@@ -1,0 +1,107 @@
+{
+ "setup": "mock models (MOCK_DELAY 1 s per call), SAM replayed (angled-bracket photo: page-sized sheet mask + 2 view masks), 3 concurrent runs; /compile every 0.25 s from the same client. before = decoding in the server process, after = 2 spawned decode workers (SAM_DECODE_WORKERS=2)",
+ "results": [
+  {
+   "label": "before",
+   "idle": {
+    "n": 12,
+    "p50_ms": 119,
+    "p95_ms": 162,
+    "max_ms": 168
+   },
+   "during_3_runs": {
+    "n": 25,
+    "p50_ms": 730,
+    "p95_ms": 1322,
+    "max_ms": 1430
+   },
+   "runs_seconds": [
+    24.0,
+    24.5,
+    24.5
+   ],
+   "shape_available": [
+    true,
+    true,
+    true
+   ],
+   "wall_seconds": 24.6
+  },
+  {
+   "label": "after",
+   "idle": {
+    "n": 12,
+    "p50_ms": 128,
+    "p95_ms": 161,
+    "max_ms": 182
+   },
+   "during_3_runs": {
+    "n": 28,
+    "p50_ms": 134,
+    "p95_ms": 299,
+    "max_ms": 408
+   },
+   "runs_seconds": [
+    8.4,
+    8.9,
+    11.5
+   ],
+   "shape_available": [
+    true,
+    true,
+    true
+   ],
+   "wall_seconds": 11.7
+  },
+  {
+   "label": "before-repeat",
+   "idle": {
+    "n": 12,
+    "p50_ms": 116,
+    "p95_ms": 137,
+    "max_ms": 154
+   },
+   "during_3_runs": {
+    "n": 21,
+    "p50_ms": 676,
+    "p95_ms": 1105,
+    "max_ms": 1146
+   },
+   "runs_seconds": [
+    18.2,
+    18.2
+   ],
+   "shape_available": [
+    true,
+    true
+   ],
+   "wall_seconds": 18.2,
+   "note": "repeat: 2 runs (the third hit the 5 runs/hour per-IP limit)"
+  },
+  {
+   "label": "after-repeat",
+   "idle": {
+    "n": 12,
+    "p50_ms": 148,
+    "p95_ms": 160,
+    "max_ms": 162
+   },
+   "during_3_runs": {
+    "n": 21,
+    "p50_ms": 149,
+    "p95_ms": 235,
+    "max_ms": 297
+   },
+   "runs_seconds": [
+    7.6,
+    8.5
+   ],
+   "shape_available": [
+    true,
+    true
+   ],
+   "wall_seconds": 8.5,
+   "note": "repeat: 2 runs (the third hit the 5 runs/hour per-IP limit)"
+  }
+ ]
+}

@@ -3,6 +3,8 @@ import os
 
 MOCK_MODELS = os.environ.get("MOCK_MODELS", "0") == "1"        # serve recorded model responses, no Meta calls
 MOCK_DELAY = float(os.environ.get("MOCK_DELAY", "1.0"))          # seconds per mocked model call, to feel like streaming
+MOCK_DATA_DIR = os.environ.get("MOCK_DATA_DIR")                  # recordings folder (default server/mock_data)
+MOCK_SAM_REPLAY_DIR = os.environ.get("MOCK_SAM_REPLAY_DIR")      # sheet.json + views.json: SAM responses to replay
 DATA_DIR = os.environ.get("DATA_DIR", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".server-data"))
 RUNS_DIR = os.path.join(DATA_DIR, "runs")
 SPEND_LOG = os.path.join(DATA_DIR, "spend.jsonl")               # every production API call, one JSON line each

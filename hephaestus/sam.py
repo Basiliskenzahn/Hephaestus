@@ -16,7 +16,9 @@ import io
 import json
 import os
 import re
+import threading
 import time
+from concurrent.futures.process import BrokenProcessPool
 
 import numpy as np
 import requests
@@ -97,20 +99,61 @@ def parse(text):
     return records
 
 
+def _decode_raw(encoding, payload, w, h):
+    """Mask payload -> raster bytes (one per pixel). Pure Python arithmetic decoding, ~1 s per page-sized mask:
+    it runs in a worker process (see decode) so it does not hold the server's GIL."""
+    from meta_sam_parser import SegmentationMask, decode_mask_to_raster
+    if encoding == "one_bit":
+        try:   # the public decoder re-encodes every mask to check it is canonical, doubling the time
+            from meta_sam_parser._mask_codec import _decode_raster
+            return _decode_raster(payload, w, h)
+        except (ImportError, AttributeError):
+            pass
+    return decode_mask_to_raster(SegmentationMask(encoding=encoding, payload=payload, width=w, height=h))
+
+
+_pool, _pool_lock = None, threading.Lock()
+
+
+def _workers():
+    """Process pool for mask decoding (SAM_DECODE_WORKERS, default 2; 0 = decode in this process)."""
+    global _pool
+    n = int(os.environ.get("SAM_DECODE_WORKERS", "2"))
+    if n <= 0:
+        return None
+    with _pool_lock:
+        if _pool is None:
+            import multiprocessing
+            from concurrent.futures import ProcessPoolExecutor
+            _pool = ProcessPoolExecutor(max_workers=n, mp_context=multiprocessing.get_context("spawn"))
+        return _pool
+
+
+def warm():
+    """Start the decode workers ahead of the first run (spawning takes ~1 s)."""
+    pool = _workers()
+    if pool is not None:
+        for f in [pool.submit(_decode_raw, "one_bit", "!", 0, 0) for _ in range(pool._max_workers)]:
+            try:
+                f.result(timeout=60)
+            except Exception:  # noqa: BLE001 - an empty mask is invalid; this only starts the process
+                pass
+
+
 def decode(record):
     """The record's mask raster as a bool array of shape mask_hw (rows, columns)."""
-    from meta_sam_parser import SegmentationMask, decode_mask_to_raster
+    global _pool
     h, w = record["mask_hw"]
-    raster = None
-    if record["encoding"] == "one_bit":
-        try:   # the public decoder re-encodes every mask to check it is canonical, doubling the (pure Python) time
-            from meta_sam_parser._mask_codec import _decode_raster
-            raster = _decode_raster(record["payload"], w, h)
-        except (ImportError, AttributeError):
-            raster = None
+    args = (record["encoding"], record["payload"], w, h)
+    pool, raster = _workers(), None
+    if pool is not None:
+        try:
+            raster = pool.submit(_decode_raw, *args).result(timeout=120)
+        except BrokenProcessPool:
+            with _pool_lock:                       # a worker died: start a fresh pool next time
+                _pool = None
     if raster is None:
-        raster = decode_mask_to_raster(SegmentationMask(encoding=record["encoding"], payload=record["payload"],
-                                                        width=w, height=h))
+        raster = _decode_raw(*args)
     return np.frombuffer(raster, dtype=np.uint8).reshape(h, w).astype(bool)
 
 

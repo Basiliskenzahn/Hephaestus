@@ -13,7 +13,7 @@ import time
 
 from hephaestus import meta_api
 
-from .config import MOCK_DELAY
+from .config import MOCK_DATA_DIR, MOCK_DELAY
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OK = {"matches": True, "issues": []}
@@ -21,7 +21,7 @@ OK = {"matches": True, "issues": []}
 
 def recordings():
     out = {}
-    for path in sorted(glob.glob(os.path.join(HERE, "mock_data", "*.json"))):
+    for path in sorted(glob.glob(os.path.join(MOCK_DATA_DIR or os.path.join(HERE, "mock_data"), "*.json"))):
         with open(path) as f:
             out[os.path.basename(path)[:-5]] = json.load(f)
     return out
@@ -99,3 +99,21 @@ class MockEditClient:
         info = {"usage": {"input_tokens": 0, "output_tokens": 0}, "cost_usd": 0.0, "seconds": 0.0, "model": "mock",
                 "effort": kw.get("effort")}
         return copy.deepcopy(out), info
+
+
+class ReplaySegmenter:
+    """Mock SAM (MOCK_SAM_REPLAY_DIR): serves a recorded sheet response for "sheet of paper" and a recorded views
+    response for any box prompt, whatever the image. For load tests of the mask decoding, not for checking shapes."""
+
+    def __init__(self, folder):
+        with open(os.path.join(folder, "sheet.json")) as f:
+            self.sheet = json.load(f)
+        with open(os.path.join(folder, "views.json")) as f:
+            self.views = json.load(f)
+        self.calls, self.cost_usd, self.seconds = 0, 0.0, 0.0
+
+    def __call__(self, image_bytes, prompt):
+        from hephaestus import sam
+        rec = self.sheet if prompt == "sheet of paper" else self.views
+        self.calls += 1
+        return {**rec, "records": sam.parse(rec["text"]), "cached": True, "cost_usd": 0.0}

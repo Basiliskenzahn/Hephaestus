@@ -24,7 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, Response, StreamingResponse
 
 from hephaestus import edit as edits
-from hephaestus import meta_api, voice
+from hephaestus import meta_api, sam, voice
 from hephaestus.talos import PRESETS
 from hephaestus.compile import SpecError, compile as compile_spec  # imports CadQuery at startup
 
@@ -81,6 +81,7 @@ def create_app(on_finish=None):
     app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"],
                        expose_headers=["*"])
     runs = RunManager(make_client, on_finish)
+    threading.Thread(target=sam.warm, daemon=True).start()       # SAM mask decoding runs in worker processes
     run_limit = RateLimiter(config.RUNS_PER_IP_PER_HOUR, 3600)
     compile_limit = RateLimiter(max(1, int(config.COMPILES_PER_IP_PER_SECOND)), 1.0)
     edit_limit = RateLimiter(config.EDITS_PER_IP_PER_HOUR, 3600)        # shared by /transcribe and /edit

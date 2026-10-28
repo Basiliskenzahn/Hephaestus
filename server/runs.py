@@ -120,6 +120,9 @@ class RunManager:
         # Mock mode never calls SAM: the cache is empty, so the shape check reports itself unavailable.
         segmenter = sam.Segmenter(budget=budget, cache_dir=os.path.join(run.dir, "sam"), offline=config.MOCK_MODELS,
                                   tag=run.id)
+        if config.MOCK_MODELS and config.MOCK_SAM_REPLAY_DIR:
+            from .mock import ReplaySegmenter
+            segmenter = ReplaySegmenter(config.MOCK_SAM_REPLAY_DIR)
         try:
             kwargs = {"prompt": run.prompt} if run.kind == "text" else {"drawing": os.path.join(run.dir, "input.jpg")}
             for event in talos.run(client=client, out_dir=run.dir, settings=settings, segmenter=segmenter, **kwargs):
