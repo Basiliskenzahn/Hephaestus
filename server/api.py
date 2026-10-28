@@ -5,6 +5,8 @@ POST /runs                     image upload (multipart field "image") or text ("
 GET  /runs/{id}/events         Server-Sent Events: the Talos events, replayed from the start (or Last-Event-ID)
 GET  /runs/{id}/files/{path}   files of a run: input.jpg, iter_<k>/part.glb|stl|step, sheet.png, ...
 POST /compile                  {spec, overrides} -> recompiled part (GLB inline, STL/STEP links), no model call
+POST /transcribe               WAV clip (multipart "audio", mono 16-bit 16/24 kHz) -> {transcript}: Muse Voice Transcribe
+POST /edit                     {spec, instruction, callouts?, base_spec?} -> edited part, or a clarification question
 GET  /compiles/{id}/{name}     part.stl / part.step / spec.json of a /compile result
 GET  /status                   mock mode, today's spend vs the daily cap, timing of the last 10 runs
 """
@@ -21,12 +23,14 @@ from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, Response, StreamingResponse
 
-from hephaestus import meta_api
+from hephaestus import edit as edits
+from hephaestus import meta_api, voice
+from hephaestus.talos import PRESETS
 from hephaestus.compile import SpecError, compile as compile_spec  # imports CadQuery at startup
 
 from . import config, mock
 from .images import UploadError, normalise
-from .runs import RunManager, spent_today
+from .runs import GuardedBudget, RunManager, log_line, spent_today
 
 BUSY = ("Hephaestus is busy right now ({why}). Try one of the examples: they replay recorded runs instantly.")
 
@@ -79,6 +83,7 @@ def create_app(on_finish=None):
     runs = RunManager(make_client, on_finish)
     run_limit = RateLimiter(config.RUNS_PER_IP_PER_HOUR, 3600)
     compile_limit = RateLimiter(max(1, int(config.COMPILES_PER_IP_PER_SECOND)), 1.0)
+    edit_limit = RateLimiter(config.EDITS_PER_IP_PER_HOUR, 3600)        # shared by /transcribe and /edit
     compiles = collections.OrderedDict()          # compile_id -> {name: bytes}, small LRU
     app.state.runs = runs
 
@@ -177,6 +182,10 @@ def create_app(on_finish=None):
             return {"ok": False, "errors": e.errors, "features": e.feature_status}
         except Exception as e:  # noqa: BLE001 - a malformed request should come back as a readable error
             return {"ok": False, "errors": [f"could not compile: {e}"]}
+        return {**package(result), "seconds": round(time.perf_counter() - t0, 3)}
+
+    def package(result):
+        """A compiled part for the browser: GLB inline, STL/STEP/spec behind short-lived links."""
         import trimesh, io  # noqa: E401 - local: only needed here
         glb = trimesh.load(io.BytesIO(result.stl), file_type="stl").export(file_type="glb")
         cid = secrets.token_urlsafe(8)
@@ -186,8 +195,70 @@ def create_app(on_finish=None):
             compiles.popitem(last=False)
         return {"ok": True, "compile_id": cid, "metrics": result.metrics, "warnings": result.warnings,
                 "params": result.params, "glb_b64": base64.b64encode(glb).decode(),
-                "files": {n: f"/compiles/{cid}/{n}" for n in compiles[cid]},
-                "seconds": round(time.perf_counter() - t0, 3)}
+                "files": {n: f"/compiles/{cid}/{n}" for n in compiles[cid]}}
+
+    def model_budget(request):
+        """None if the caller may spend now, else the JSONResponse to return."""
+        if not config.MOCK_MODELS and spent_today() >= config.DAILY_CAP_USD:
+            return busy("today's budget for live runs is used up")
+        if not edit_limit.allow(client_ip(request)):
+            return busy(f"you have made {config.EDITS_PER_IP_PER_HOUR} edits in the last hour")
+        return None
+
+    @app.post("/transcribe")
+    async def transcribe(request: Request, audio: UploadFile = File(...)):
+        data = await audio.read(config.MAX_AUDIO_BYTES + 1)
+        if len(data) > config.MAX_AUDIO_BYTES:
+            raise HTTPException(400, "the recording is too long; keep an edit under 30 s")
+        try:
+            voice.wav_info(data)
+        except voice.VoiceError as e:
+            raise HTTPException(400, str(e)) from None
+        refused = model_budget(request)
+        if refused:
+            return refused
+        if config.MOCK_MODELS:
+            return {"transcript": mock.transcript(), "audio_ms": int(voice.wav_info(data)[0] * 1000), "seconds": 0.0,
+                    "mock": True}
+        os.environ["SPEND_SCRIPT"] = "server"
+        try:
+            out = await asyncio.to_thread(voice.transcribe, data, GuardedBudget(config.EDIT_CAP_USD), "transcribe")
+        except (voice.VoiceError, meta_api.ModelError) as e:
+            return JSONResponse({"error": "transcription failed", "message": str(e)[:300]}, status_code=502)
+        log_line({"kind": "transcribe", "seconds": out["seconds"], "audio_ms": out["audio_ms"],
+                  "cost_usd": out["cost_usd"]})
+        return out
+
+    @app.post("/edit")
+    async def edit_part(request: Request):
+        body = await request.json()
+        spec, instruction = body.get("spec"), (body.get("instruction") or "").strip()
+        if not isinstance(spec, dict) or not instruction:
+            raise HTTPException(400, "send the current spec and an instruction")
+        if len(instruction) > config.MAX_INSTRUCTION_CHARS:
+            raise HTTPException(400, f"the instruction is too long (max {config.MAX_INSTRUCTION_CHARS} characters)")
+        refused = model_budget(request)
+        if refused:
+            return refused
+        settings = PRESETS[config.PRESET]
+        if config.MOCK_MODELS:
+            client = mock.MockEditClient(instruction)
+        else:
+            os.environ["SPEND_SCRIPT"] = "server"
+            client = meta_api.Client(budget=GuardedBudget(config.EDIT_CAP_USD))
+            client.tag = "edit"
+        try:
+            rec = await asyncio.to_thread(edits.edit_part, spec, instruction, client, settings.read_model,
+                                          edits.EDIT_EFFORT, body.get("callouts"), body.get("base_spec"))
+        except meta_api.ModelError as e:
+            return JSONResponse({"error": "edit failed", "message": str(e)[:300]}, status_code=502)
+        out = edits.public(rec)
+        if rec["result"] is not None:
+            out.update(await asyncio.to_thread(package, rec["result"]))
+        log_line({"kind": "edit", "status": rec["status"], "seconds": rec["seconds"],
+                  "model_seconds": round(sum(c["seconds"] for c in rec["calls"]), 1), "calls": len(rec["calls"]),
+                  "cost_usd": rec["cost_usd"]})
+        return out
 
     @app.get("/compiles/{cid}/{name}")
     def compiled_file(cid: str, name: str):

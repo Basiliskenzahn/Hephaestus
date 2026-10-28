@@ -1,0 +1,166 @@
+{
+ "_source": "tests/data/edits.json (dev-preset recordings, experiments/edits/record.py)",
+ "edits": [
+  {
+   "instruction": "make the holes M6",
+   "part": "l_bracket",
+   "outputs": [
+    {
+     "add_features": [],
+     "clarification": null,
+     "explanation": "Hole diameter 5 -> 6.6 mm (M6 clearance)",
+     "remove_features": [],
+     "set_parameters": [
+      {
+       "name": "hole_d",
+       "value": 6.6
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "instruction": "make it ten millimetres thicker",
+   "part": "l_bracket",
+   "outputs": [
+    {
+     "add_features": [],
+     "clarification": null,
+     "explanation": "Thickness t 5 -> 15 mm (+10 mm thicker)",
+     "remove_features": [],
+     "set_parameters": [
+      {
+       "name": "t",
+       "value": 15
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "instruction": "with one hundred",
+   "part": "l_bracket",
+   "outputs": [
+    {
+     "add_features": [],
+     "clarification": "Which dimension should be 100 mm \u2014 width, leg size, hole/slot size, or something else?",
+     "explanation": "Ambiguous request 'with one hundred' \u2014 needs which dimension to change",
+     "remove_features": [],
+     "set_parameters": []
+    }
+   ]
+  },
+  {
+   "instruction": "add a two millimetre fillet on the outer edges.",
+   "part": "l_bracket",
+   "outputs": [
+    {
+     "add_features": [
+      {
+       "edges": "all_outer",
+       "id": "outer_fillet",
+       "radius": "fillet_r",
+       "type": "fillet"
+      }
+     ],
+     "clarification": null,
+     "explanation": "Added 2 mm fillet on all outer edges (new param fillet_r = 2)",
+     "remove_features": [],
+     "set_parameters": [
+      {
+       "name": "fillet_r",
+       "value": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "instruction": "remove the slot.",
+   "part": "l_bracket",
+   "outputs": [
+    {
+     "add_features": [],
+     "clarification": null,
+     "explanation": "Removed base slot (20 x 6 through slot)",
+     "remove_features": [
+      "base_slot"
+     ],
+     "set_parameters": []
+    }
+   ]
+  },
+  {
+   "instruction": "four fold instead of two.",
+   "part": "l_bracket",
+   "outputs": [
+    {
+     "add_features": [
+      {
+       "count_u": 4,
+       "feature": "upright_hole",
+       "id": "upright_holes",
+       "spacing_u": "hole_pitch",
+       "type": "linear_pattern"
+      }
+     ],
+     "clarification": null,
+     "explanation": "Upright holes 2 -> 4, pitch 30 -> 10 mm ((width - 2*hole_x)/3) keeping outer holes at 15/45",
+     "remove_features": [
+      "upright_holes"
+     ],
+     "set_parameters": [
+      {
+       "name": "hole_pitch",
+       "value": "(width - 2 * hole_x) / 3"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "instruction": "width 100",
+   "part": "l_bracket",
+   "outputs": [
+    {
+     "add_features": [],
+     "clarification": null,
+     "explanation": "Width 60 -> 100 mm",
+     "remove_features": [],
+     "set_parameters": [
+      {
+       "name": "width",
+       "value": 100
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "instruction": "make it bigger.",
+   "part": "l_bracket",
+   "outputs": [
+    {
+     "add_features": [],
+     "clarification": "Which size should be bigger \u2013 width, leg length, thickness, hole/slot size, or everything scaled up?",
+     "explanation": "No change: 'make it bigger' is ambiguous about which dimension to enlarge",
+     "remove_features": [],
+     "set_parameters": []
+    }
+   ]
+  },
+  {
+   "instruction": "make the hole bigger than the plate.",
+   "part": "plate",
+   "outputs": [
+    {
+     "add_features": [],
+     "clarification": "Which hole do you mean? A hole bigger than the 80x50 plate cannot be built \u2014 what diameter do you want?",
+     "explanation": "No edit: hole larger than plate is not buildable and hole is ambiguous",
+     "remove_features": [],
+     "set_parameters": []
+    }
+   ]
+  }
+ ]
+}

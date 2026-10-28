@@ -67,6 +67,18 @@ def publish_shape(event, run_dir):
     return {**event, "files": rel(event.get("files")), "views": views}
 
 
+def log_line(rec):
+    """Append a timing line to RUNS_LOG (runs, transcriptions, edits)."""
+    rec = {"ts": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"), **rec}
+    print("timing", json.dumps(rec), flush=True)                     # Modal logs
+    try:
+        os.makedirs(os.path.dirname(config.RUNS_LOG), exist_ok=True)
+        with open(config.RUNS_LOG, "a") as f:
+            f.write(json.dumps(rec) + "\n")
+    except OSError:
+        traceback.print_exc()
+
+
 class Run:
     def __init__(self, run_id, ip, kind, prompt=None):
         self.id, self.ip, self.kind, self.prompt = run_id, ip, kind, prompt
@@ -133,16 +145,12 @@ class RunManager:
             first = next((e for e in run.events if e["event"] == "compiled" and e.get("ok")), None)
             done = run.events[-1] if run.events and run.events[-1]["event"] == "done" else {}
             call = (read or {}).get("call") or {}
-            rec = {"ts": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"), "run": run.id,
-                   "kind": run.kind, "preset": config.PRESET, "read_seconds": call.get("seconds"),
+            rec = {"run": run.id, "kind": run.kind, "preset": config.PRESET, "read_seconds": call.get("seconds"),
                    "read_effort": call.get("effort"), "read_output_tokens": call.get("output_tokens"),
                    "read_reasoning_tokens": call.get("reasoning_tokens"),
                    "first_part_t": (first or {}).get("t"), "done_t": done.get("t"), "status": done.get("status"),
                    "corrections": done.get("iterations"), "cost_usd": done.get("cost_usd")}
-            print("run timing", json.dumps(rec), flush=True)          # Modal logs
-            os.makedirs(os.path.dirname(config.RUNS_LOG), exist_ok=True)
-            with open(config.RUNS_LOG, "a") as f:
-                f.write(json.dumps(rec) + "\n")
+            log_line(rec)
         except Exception:  # noqa: BLE001 - logging must never break a run
             traceback.print_exc()
 

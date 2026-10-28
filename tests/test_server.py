@@ -159,3 +159,27 @@ def test_run_timing_is_logged(api):
     rec = recent[-1]
     assert rec["run"] == r.json()["run_id"] and rec["read_seconds"] is not None and rec["first_part_t"] is not None
     assert "ip" not in json.dumps(rec)
+
+
+def test_transcribe_and_edit_in_mock_mode(api):
+    from test_edit import wav_bytes
+    client, _ = api
+    r = client.post("/transcribe", files={"audio": ("clip.wav", wav_bytes(1.5), "audio/wav")})
+    assert r.status_code == 200 and r.json()["transcript"] == "make the holes M6"
+    bad = client.post("/transcribe", files={"audio": ("clip.wav", wav_bytes(1.0, rate=44100), "audio/wav")})
+    assert bad.status_code == 400 and "16 or 24 kHz" in bad.json()["detail"]
+
+    from conftest import example
+    with open(os.path.join(os.path.dirname(__file__), "..", "examples", "callouts", "l_bracket.json")) as f:
+        callouts = json.load(f)
+    r = client.post("/edit", json={"spec": example("l_bracket"), "instruction": "Make the holes M6.",
+                                   "callouts": callouts, "base_spec": example("l_bracket")})
+    out = r.json()
+    assert out["status"] == "applied" and out["spec"]["parameters"]["hole_d"]["value"] == 6.6
+    assert out["glb_b64"] and out["files"]["part.step"].startswith("/compiles/")
+    assert {row["label"]: row["status"] for row in out["callouts"]}["2x Ø5 thru"] == "edited"
+    r = client.post("/edit", json={"spec": example("l_bracket"), "instruction": "paint it red"})
+    assert r.json()["status"] == "clarification" and "glb_b64" not in r.json()
+    assert client.post("/edit", json={"spec": example("l_bracket"), "instruction": "x" * 400}).status_code == 400
+    kinds = [x["kind"] for x in client.get("/status").json()["recent_runs"]]
+    assert "edit" in kinds

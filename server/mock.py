@@ -66,3 +66,36 @@ class MockClient:
         info = {"usage": {"input_tokens": 0, "output_tokens": 0}, "cost_usd": 0.0, "seconds": self.delay,
                 "model": "mock", "effort": kw.get("effort")}
         return copy.deepcopy(out), info
+
+
+# ------------------------------------------------------------------ edits
+with open(os.path.join(HERE, "mock_edits.json")) as f:
+    EDITS = json.load(f)["edits"]
+
+
+def _norm(text):
+    return " ".join("".join(c for c in text.lower() if c.isalnum() or c == " ").split())
+
+
+def transcript():
+    """Mock /transcribe: always the same sentence (the browser shows it for correction, as with a real one)."""
+    return "make the holes M6"
+
+
+class MockEditClient:
+    """Mock /edit: the recorded edit for a known instruction (recorded on the L-bracket and the plate), else a
+    clarification listing what mock mode knows."""
+
+    def __init__(self, instruction):
+        rec = next((e for e in EDITS if _norm(e["instruction"]) == _norm(instruction)), None)
+        known = "; ".join(f"'{e['instruction']}'" for e in EDITS)
+        self.outputs = copy.deepcopy(rec["outputs"]) if rec else [{
+            "clarification": f"Mock mode replays recorded edits only: {known}", "explanation": "mock mode",
+            "set_parameters": [], "add_features": [], "remove_features": []}]
+        self.budget = meta_api.Budget(float("inf"))
+
+    def respond(self, instructions, content, schema, name="Output", retries=2, **kw):
+        out = self.outputs.pop(0) if len(self.outputs) > 1 else self.outputs[0]
+        info = {"usage": {"input_tokens": 0, "output_tokens": 0}, "cost_usd": 0.0, "seconds": 0.0, "model": "mock",
+                "effort": kw.get("effort")}
+        return copy.deepcopy(out), info
