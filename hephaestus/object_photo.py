@@ -230,3 +230,48 @@ def parallax_correct(mask, camera, thickness, ppm=PX_PER_MM):
     M = np.array([[s, 0, (1 - s) * nadir[0]], [0, s, (1 - s) * nadir[1]]], np.float32)
     out = cv2.warpAffine(mask.astype(np.uint8) * 255, M, (mask.shape[1], mask.shape[0]), flags=cv2.INTER_LINEAR) > 127
     return out, s, nadir, D
+
+
+# ---------------------------------------------------------------- 2b. the top face
+def face_seed(sheet, region):
+    """Seed on the top face, not a wall: the face is the largest flat, evenly coloured area inside the object
+    (walls are narrow strips, holes small). Returns (x, y) and the flat area, or (None, None)."""
+    lab = cv2.cvtColor(cv2.GaussianBlur(sheet, (5, 5), 0), cv2.COLOR_RGB2LAB).astype(np.float32)
+    grad = sum(np.hypot(cv2.Sobel(lab[..., k], cv2.CV_32F, 1, 0), cv2.Sobel(lab[..., k], cv2.CV_32F, 0, 1))
+               for k in range(3))
+    inner = cv2.erode(region.astype(np.uint8), np.ones((5, 5), np.uint8)).astype(bool)
+    if not inner.any():
+        return None, None
+    flat = inner & (grad < np.percentile(grad[inner], 60))
+    lb, n = ndimage.label(flat)
+    if n == 0:
+        return None, None
+    sizes = ndimage.sum(flat, lb, index=np.arange(1, n + 1))
+    face = lb == 1 + int(np.argmax(sizes))
+    d = ndimage.distance_transform_edt(face)
+    y, x = np.unravel_index(np.argmax(d), d.shape)
+    return (int(x), int(y)), face
+
+
+def top_face(sheet, mask):
+    """The object's top face inside its SAM mask: watershed on the colour gradient between a marker on the face
+    (around the seed) and markers outside the object and in paper-coloured holes, so the boundary settles on the
+    strongest edge loop around the face. Walls and shadows fall outside it; parallax_correct then maps the face to
+    the footprint. Returns the face mask, or the mask itself if no face seed is found."""
+    region = ndimage.binary_fill_holes(mask)
+    seed, face = face_seed(sheet, region)
+    if seed is None:
+        return mask
+    markers = np.zeros(mask.shape, np.int32)
+    outside = ~cv2.dilate(region.astype(np.uint8), np.ones((15, 15), np.uint8)).astype(bool)
+    holes = region & ~mask
+    hole_core = cv2.erode(holes.astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool)
+    markers[outside | hole_core] = 1
+    markers[cv2.erode(face.astype(np.uint8), np.ones((5, 5), np.uint8)).astype(bool)] = 2
+    cv2.watershed(cv2.cvtColor(cv2.GaussianBlur(sheet, (3, 3), 0), cv2.COLOR_RGB2BGR), markers)
+    out = markers == 2
+    lb, n = ndimage.label(out)
+    if n > 1:
+        out = lb == lb[seed[1], seed[0]] if lb[seed[1], seed[0]] else lb == 1 + int(np.argmax(
+            ndimage.sum(out, lb, index=np.arange(1, n + 1))))
+    return out

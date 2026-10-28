@@ -1,0 +1,154 @@
+[
+ {
+  "name": "block__a",
+  "true": [
+   70.0,
+   40.0
+  ],
+  "silhouette": [
+   81.0,
+   47.0
+  ],
+  "top_face": [
+   70.3,
+   39.7
+  ],
+  "top_face_error": [
+   0.3,
+   -0.3
+  ]
+ },
+ {
+  "name": "block__b",
+  "true": [
+   70.0,
+   40.0
+  ],
+  "silhouette": [
+   73.0,
+   52.8
+  ],
+  "top_face": [
+   72.4,
+   41.3
+  ],
+  "top_face_error": [
+   2.4,
+   1.3
+  ]
+ },
+ {
+  "name": "plate__a",
+  "true": [
+   80.0,
+   50.0
+  ],
+  "silhouette": [
+   82.2,
+   51.6
+  ],
+  "top_face": [
+   83.2,
+   53.2
+  ],
+  "top_face_error": [
+   3.2,
+   3.2
+  ]
+ },
+ {
+  "name": "plate__b",
+  "true": [
+   80.0,
+   50.0
+  ],
+  "silhouette": [
+   86.1,
+   53.1
+  ],
+  "top_face": [
+   86.1,
+   52.7
+  ],
+  "top_face_error": [
+   6.1,
+   2.7
+  ]
+ },
+ {
+  "name": "pocket_plate__a",
+  "true": [
+   100.0,
+   60.0
+  ],
+  "silhouette": [
+   105.6,
+   67.2
+  ],
+  "top_face": [
+   102.5,
+   60.5
+  ],
+  "top_face_error": [
+   2.5,
+   0.5
+  ]
+ },
+ {
+  "name": "pocket_plate__b",
+  "true": [
+   100.0,
+   60.0
+  ],
+  "silhouette": [
+   105.6,
+   66.1
+  ],
+  "top_face": [
+   105.8,
+   61.5
+  ],
+  "top_face_error": [
+   5.8,
+   1.5
+  ]
+ },
+ {
+  "name": "shaft_collar__a",
+  "true": [
+   40.0,
+   39.975
+  ],
+  "silhouette": [
+   48.9,
+   40.7
+  ],
+  "top_face": [
+   48.7,
+   40.3
+  ],
+  "top_face_error": [
+   8.7,
+   0.3
+  ]
+ },
+ {
+  "name": "shaft_collar__b",
+  "true": [
+   40.0,
+   39.975
+  ],
+  "silhouette": [
+   53.9,
+   43.0
+  ],
+  "top_face": [
+   44.8,
+   40.6
+  ],
+  "top_face_error": [
+   4.8,
+   0.6
+  ]
+ }
+]
