@@ -297,6 +297,7 @@ function finish(done) {
     showBanner("VERIFIED", `Right on the first read. ${done.seconds ? `${fmt(done.seconds)} s` : ""}`.trim(), true);
   }
   if (done.spec) setSpec(done.spec);
+  editor.ready(done);
   // downloads: files of the version Talos returned
   const compiled = current.events.filter((e) => e.event === "compiled" && e.ok && e.files);
   const fin = compiled.find((e) => e.iteration === done.final_iteration) || compiled[compiled.length - 1];
@@ -438,6 +439,7 @@ function begin(opts) {
   $("#sheet-view").innerHTML = '<p class="empty">What Talos compares with your drawing.</p>';
   setDownloads(null, null, null);
   ["#dl-spec"].forEach((id) => $(id).setAttribute("aria-disabled", "true"));
+  editor.reset();
   viewer.reset();
   viewer.clear();
   timeline.start();
@@ -548,4 +550,161 @@ $("#sheet-view").addEventListener("click", (e) => { if (e.currentTarget.querySel
   const first = items.find((i) => i.corrections) || items[0];
   const params = new URLSearchParams(location.search);
   if (params.get("example")) replay(items.find((i) => i.id === params.get("example")) || first);
+})();
+
+
+// ------------------------------------------------------------------ edits in words (typed or spoken)
+// The model returns a small structured edit; the server applies it, rebuilds and validates. The part is then
+// "edited": the drawing checks no longer cover the changed dimensions, and every edit can be undone.
+const editor = (() => {
+  let history = [], verified = null, recorder = null, chunks = [], stopTimer = null;
+  const status = (html, cls = "") => { const s = $("#edit-status"); s.className = `edit-status ${cls}`; s.innerHTML = html; };
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function liveSpec() {                       // the spec as shown, slider changes included
+    const spec = structuredClone(current.spec);
+    for (const [k, v] of Object.entries(overrides)) spec.parameters[k].value = v;
+    return spec;
+  }
+
+  function badge(on) {
+    let b = $("#tb-part .edited-badge");
+    if (on && !b) $("#tb-part").append(el("span", { class: "edited-badge", text: "edited" }));
+    if (!on && b) b.remove();
+  }
+
+  async function show(out) {                  // a compiled part from /edit or /compile
+    const bin = Uint8Array.from(atob(out.glb_b64), (c) => c.charCodeAt(0));
+    await viewer.load(bin.buffer);
+    const s = out.metrics.bbox.size;
+    $("#tb-size").textContent = `${fmt(s[0])} × ${fmt(s[1])} × ${fmt(s[2])}`;
+    setDownloads(`${API}${out.files["part.step"]}`, `${API}${out.files["part.stl"]}`, current.spec);
+  }
+
+  async function apply(instruction) {
+    if (!instruction || !current?.spec) return;
+    const mine = session;
+    $("#edit-apply").disabled = true;
+    status(`Editing: “${esc(instruction)}”…`);
+    setStatus("editing");
+    let r, out;
+    try {
+      r = await fetch(`${API}/edit`, { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ spec: liveSpec(), instruction, callouts: verified?.callouts || [], base_spec: verified?.spec }) });
+      out = await r.json();
+    } catch (e) { out = { message: e.message }; r = { ok: false }; }
+    $("#edit-apply").disabled = false;
+    if (mine !== session) return;
+    if (!r.ok) { status(esc(out.message || out.detail || "The edit failed."), "bad"); setStatus("edit failed"); return; }
+    if (out.status === "clarification") { status(esc(out.clarification), "ask"); setStatus("question"); return; }
+    if (out.status === "error") {
+      status(`Could not build that: ${esc((out.errors || []).join(" "))}`, "bad"); setStatus("edit failed"); return;
+    }
+    history.push({ spec: liveSpec(), label: out.explanation });
+    setSpec(out.spec);
+    await show(out);
+    badge(true);
+    $("#edit-undo").disabled = false;
+    $("#edit-text").value = "";
+    const rows = out.callouts || [];
+    const edited = rows.filter((x) => x.status === "edited").length;
+    const held = rows.filter((x) => x.status === "ok").length;
+    const off = (out.callout_issues || []).length;
+    const note = rows.length ? ` ${held} drawing dimension${held === 1 ? "" : "s"} still match${edited ? `, ${edited} changed by you` : ""}${off ? `, ${off} off` : ""}.` : "";
+    status(`<b>${esc(out.explanation)}</b> · rebuilt and validated.${note}`, "done");
+    setStatus("edited");
+    timeline.add(current.events.at(-1)?.t || 0, `Edited: ${out.explanation}`, "done", p(`“${instruction}” → ${(out.changes || []).join(", ")}. ` +
+      "The drawing checks no longer cover these dimensions; the build is validated."));
+    timeline.active = null;
+  }
+
+  async function undo() {
+    const prev = history.pop();
+    if (!prev) return;
+    setSpec(prev.spec);
+    $("#edit-undo").disabled = !history.length;
+    badge(history.length > 0);
+    status(`Undone: ${esc(prev.label)}`);
+    const r = await fetch(`${API}/compile`, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ spec: prev.spec, overrides: {} }) });
+    const out = await r.json();
+    if (out.ok) await show(out);
+    setStatus(history.length ? "edited" : "verified part");
+  }
+
+  // ---------- voice: MediaRecorder -> decode -> 16 kHz mono 16-bit WAV (the only format the API takes)
+  async function toWav(blob) {
+    const ctx = new AudioContext();
+    const audio = await ctx.decodeAudioData(await blob.arrayBuffer());
+    ctx.close();
+    const off = new OfflineAudioContext(1, Math.max(1, Math.ceil(audio.duration * 16000)), 16000);
+    const src = off.createBufferSource();
+    src.buffer = audio;
+    src.connect(off.destination);
+    src.start();
+    const pcm = (await off.startRendering()).getChannelData(0);
+    const v = new DataView(new ArrayBuffer(44 + pcm.length * 2));
+    const str = (o, t) => [...t].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
+    str(0, "RIFF"); v.setUint32(4, 36 + pcm.length * 2, true); str(8, "WAVEfmt ");
+    v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, 16000, true); v.setUint32(28, 32000, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+    str(36, "data"); v.setUint32(40, pcm.length * 2, true);
+    for (let i = 0; i < pcm.length; i++) v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, pcm[i])) * 0x7fff, true);
+    return new Blob([v], { type: "audio/wav" });
+  }
+
+  async function micToggle() {
+    const btn = $("#mic");
+    if (recorder) { recorder.stop(); return; }
+    let stream;
+    try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+    catch (e) { status("No microphone access. Type the edit instead.", "bad"); return; }
+    chunks = [];
+    recorder = new MediaRecorder(stream);
+    recorder.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+    recorder.onstop = async () => {
+      clearTimeout(stopTimer);
+      stream.getTracks().forEach((t) => t.stop());
+      btn.classList.remove("recording"); btn.querySelector(".mic-label").textContent = "Speak";
+      const blob = new Blob(chunks, { type: recorder.mimeType });
+      recorder = null;
+      status("Transcribing (Muse Voice Transcribe)…");
+      try {
+        const form = new FormData();
+        form.append("audio", await toWav(blob), "edit.wav");
+        const t0 = performance.now();
+        const r = await fetch(`${API}/transcribe`, { method: "POST", body: form });
+        const out = await r.json();
+        if (!r.ok) throw new Error(out.message || out.detail || r.statusText);
+        if (!out.transcript) { status("Heard nothing. Try again, closer to the microphone.", "bad"); return; }
+        $("#edit-text").value = out.transcript;
+        $("#edit-text").focus();
+        status(`Heard <b>“${esc(out.transcript)}”</b> in ${((performance.now() - t0) / 1000).toFixed(1)} s. ` +
+          "Fix it if it is wrong, then Apply.", "heard");
+      } catch (e) { status(`Could not transcribe: ${esc(e.message)}`, "bad"); }
+    };
+    recorder.start();
+    btn.classList.add("recording"); btn.querySelector(".mic-label").textContent = "Stop";
+    status("Listening… say the change, then press Stop.");
+    stopTimer = setTimeout(() => recorder && recorder.stop(), 15000);
+  }
+
+  $("#edit-form").addEventListener("submit", (e) => { e.preventDefault(); apply($("#edit-text").value.trim()); });
+  $("#edit-undo").addEventListener("click", undo);
+  $("#mic").addEventListener("click", micToggle);
+  if (!window.MediaRecorder || !navigator.mediaDevices) $("#mic").hidden = true;
+
+  return {
+    reset() {
+      history = []; verified = null;
+      $("#edit-form").hidden = true; $("#edit-undo").disabled = true; $("#edit-text").value = ""; status("");
+      badge(false);
+    },
+    ready(done) {
+      if (!API || !done.spec) return;
+      verified = { spec: done.spec, callouts: done.callouts || [] };
+      $("#edit-form").hidden = false;
+      status("Change the part in words: type, or press Speak.");
+    },
+  };
 })();

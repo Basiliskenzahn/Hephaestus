@@ -75,6 +75,16 @@
         <figure class="view view-3d">
           <figcaption><span class="tag">B</span> Part <span id="iter-label" class="num muted"></span></figcaption>
           <div id="viewer" class="view-body"><p class="empty">The part appears as soon as the first read compiles.</p></div>
+          <form id="edit-form" class="edit-form" hidden>
+            <div class="edit-row">
+              <button type="button" id="mic" class="btn mic" aria-label="Speak an edit" title="Speak an edit"><span class="mic-dot" aria-hidden="true"></span><span class="mic-label">Speak</span></button>
+              <input id="edit-text" type="text" maxlength="300" autocomplete="off" aria-label="Edit the part in words"
+                placeholder="Change it: “make the holes M6”, “width 100”, “remove the slot”">
+              <button class="btn" type="submit" id="edit-apply">Apply</button>
+              <button type="button" class="btn" id="edit-undo" disabled>Undo</button>
+            </div>
+            <p id="edit-status" class="edit-status" aria-live="polite"></p>
+          </form>
         </figure>
         <figure class="view">
           <figcaption><span class="tag">C</span> Drawing from the part</figcaption>
@@ -110,7 +120,7 @@
 
   <footer class="footer">
     <span>Built during the Meta Global AI Developer Hackathon, Oct 26 – Nov 4, 2026.</span>
-    <span>Models: Meta Muse Spark 1.3 (reading, critic, corrections), SAM 3.1 (shape check). CAD: CadQuery / OpenCascade.</span>
+    <span>Models: Meta Muse Spark 1.3 (reading, critic, corrections), SAM 3.1 (shape check), Muse Voice Transcribe (voice edits). CAD: CadQuery / OpenCascade.</span>
     <a href="https://github.com/Basiliskenzahn/Hephaestus">Source</a>
   </footer>
 

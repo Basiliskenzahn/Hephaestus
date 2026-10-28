@@ -226,3 +226,21 @@ input[type="range"]::-moz-range-thumb { width: 10px; height: 14px; background: v
 .shape-fig figcaption { font-size: 11px; color: var(--ink-3); max-width: 150px; }
 .shape-arrow { color: var(--ink-3); font-size: 18px; }
 .step .note { color: var(--ink-3); font-style: italic; }
+
+/* edits in words (typed or spoken) under the 3D view */
+.edit-form { margin-top: 10px; }
+.edit-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: stretch; }
+.edit-row .btn { flex: 1 1 0; }
+.edit-row input { flex: 1 1 100%; order: -1; min-width: 0; font: inherit; font-size: 14px; padding: 8px 10px; border: 1px solid var(--rule); background: #fff; color: var(--ink); }
+.edit-row input:focus { outline: 2px solid var(--ink); outline-offset: -1px; }
+.mic { display: inline-flex; align-items: center; gap: 6px; }
+.mic-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid currentColor; }
+.mic.recording { color: var(--accent); border-color: var(--accent); }
+.mic.recording .mic-dot { background: var(--accent); animation: pulse 1s steps(2) infinite; }
+@keyframes pulse { 50% { opacity: 0.25; } }
+.edit-status { min-height: 1.4em; margin: 6px 0 0; font-size: 13px; color: var(--ink-3); }
+.edit-status.heard b, .edit-status.done b { color: var(--ink); }
+.edit-status.ask { color: var(--ink); }
+.edit-status.ask::before { content: "? "; color: var(--accent); font-weight: 600; }
+.edit-status.bad { color: var(--accent); }
+.edited-badge { margin-left: 8px; padding: 1px 6px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); vertical-align: 1px; }
