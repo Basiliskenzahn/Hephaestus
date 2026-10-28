@@ -51,8 +51,9 @@ Per iteration, every usable view against the part's silhouette (both cropped to 
   absolute IoU threshold. Eval: correct parts ≤ 0.000, injected flips ≥ 0.289. Message, e.g. `side view: the
   drawing has its tallest section at the back (right), the part has it at the front (left); the part's outline is
   the drawing's mirrored along Y. Fix the positions along Y.`
-- **aspect ratio**: flagged when width:height differs by more than `ASPECT_TOL` = 45 % (correct parts reach 29 % on
-  photos and rough sketches, so the 30 % first planned had no margin; an X/Y swap of the plate gives ≥ 105 %).
+- **aspect ratio** (advisory): noted when width:height differs by more than `ASPECT_TOL` = 45 %. It used to block,
+  but hand sketches are not to scale: in `experiments/hand-sketches` a correct block's top view came out 1.47x off
+  and raised a false alarm. Swapped sizes are caught by the callouts anyway.
 - **holes** (off by default, `HOLE_CHECK`; the eval switches it on): closed regions in the drawing (text loops, arrowheads, sharp-cornered hidden-line strips
   and regions below 0.2 % of the outline dropped; regions split by centre lines merged; boundary must be solid ink)
   against the closed regions of the part's own line drawing through the same detector, by count and rough position

@@ -12,7 +12,8 @@ Per run, once (`InputShape`):
    holes filled, is the view's outline. SAM does not cut through-holes, so holes come from the ink: closed regions
    inside the outline (see `closed_regions`).
 Per iteration (`compare`), each view against the part's silhouette, both cropped to their own bounding box:
-- aspect ratio: flagged when width:height differs by more than ASPECT_TOL (45 %; blocking);
+- aspect ratio: noted when width:height differs by more than ASPECT_TOL (45 %), as an advisory only: hand sketches
+  are not to scale (the hand-sketch set reaches 1.47x on a correct part), and the callouts catch swapped sizes;
 - orientation: IoU of the drawing's outline with the part's, as is and mirrored left-right, mirrored up-down and
   rotated 180 degrees. Flagged only when a transformed version beats the as-is IoU by ORIENT_MARGIN: the decision is
   relative, never an absolute IoU threshold, because SAM outlines of correct parts score only 0.8-0.95 (blocking);
@@ -42,7 +43,8 @@ WORDS = {"top": (("left", "right"), ("front", "back")), "front": (("left", "righ
 GRID = 96               # orientation compare resolution
 WORK = 400              # longest side of the outline crop for hole detection, px
 ORIENT_MARGIN = 0.10    # a mirrored/rotated outline must beat as-is IoU by this much (tuned in experiments/shape-check)
-ASPECT_TOL = 1.45       # width:height may differ by up to 45 % (correct parts reach 1.29 on photos and sketches)
+ASPECT_TOL = 1.45       # width:height may differ by up to 45 % before a (non-blocking) note
+ASPECT_BLOCKING = False # not-to-scale hand sketches (experiments/hand-sketches) reach 1.47x on correct parts
 HOLE_MIN_FRAC = 0.002   # closed region area / outline area: smaller is text or arrowheads
 HOLE_MAX_FRAC = 0.30    # larger is a face of the part (a step, a slope) rather than a hole
 HOLE_MATCH = 0.15       # hole centres match within this fraction of the outline's size
@@ -589,7 +591,7 @@ def compare_view(iv, result, out_dir=None):
     rec["aspect"] = {"drawing": round(a_in, 3), "part": round(a_part, 3)}
     ax_r, ax_u = AXES[v]
     if max(a_in / a_part, a_part / a_in) > ASPECT_TOL:
-        rec["issues"].append(f"{v} view: the drawing's outline is {_fmt_ratio(a_in)} (width along {ax_r} : height "
+        (rec["issues"] if ASPECT_BLOCKING else rec["advisories"]).append(f"{v} view: the drawing's outline is {_fmt_ratio(a_in)} (width along {ax_r} : height "
                              f"along {ax_u}), the part's is {_fmt_ratio(a_part)}. Check which sizes run along "
                              f"{ax_r} and {ax_u}.")
     gd, gp = grid(drawn), grid(part)
@@ -597,7 +599,7 @@ def compare_view(iv, result, out_dir=None):
     rec["orientation"] = scores
     best = max((k for k in scores if k != "as_is"), key=scores.get)
     rec["orientation_gap"] = round(scores[best] - scores["as_is"], 3)
-    if not rec["issues"] and rec["orientation_gap"] > ORIENT_MARGIN:
+    if rec["orientation_gap"] > ORIENT_MARGIN:
         rec["issues"].append(orientation_message(v, best, gd, gp))
     # holes: the part's own line drawing through the same detector, at the drawing's working size
     holes_in = iv["holes"] if HOLE_CHECK else []

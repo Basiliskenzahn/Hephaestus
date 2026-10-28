@@ -26,7 +26,7 @@ Blocking false alarms: 0/24; hole advisories on correct parts: 18/24; unavailabl
 | the second side hole is missing | block | missed (holes: +3 mismatch) | missed (holes: +1 mismatch) | missed |
 | bore Ø10 instead of Ø12 | block | missed | missed | missed |
 | vertical corners chamfered instead of R5 | block | missed | missed | missed |
-| plate 50 x 80 instead of 80 x 50 | plate | **caught** | **caught** | **caught** |
+| plate 50 x 80 instead of 80 x 50 | plate | missed (holes: +2 mismatch) | missed (holes: +4 mismatch) | missed |
 | cable hole drilled through both walls | enclosure | missed | missed | missed |
 | upright at the front edge instead of the back | l_bracket | **caught** | **caught** | **caught** |
 | slope profile mirrored (flat top at the right) | angled_bracket | **caught** | **caught** | **caught** |
@@ -38,12 +38,12 @@ Holes: '+n mismatch' = n more unmatched holes than the correct part on the same 
 ## Messages on injected errors
 
 - move_hole / clean (advisory): top view: the drawing shows 4 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: back-left. On the part but not in the drawing: back-left, front-left.
-- swap_xy / clean: top view: the drawing's outline is 1.61 : 1 (width along X : height along Y), the part's is 1 : 1.60. Check which sizes run along X and Y.
+- swap_xy / clean (advisory): top view: the drawing's outline is 1.61 : 1 (width along X : height along Y), the part's is 1 : 1.60. Check which sizes run along X and Y.
 - swap_xy / clean (advisory): top view: the drawing shows 4 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: back-left, back-right. On the part but not in the drawing: back-left, back-right, front-left.
-- swap_xy / photo: top view: the drawing's outline is 1.55 : 1 (width along X : height along Y), the part's is 1 : 1.60. Check which sizes run along X and Y.
+- swap_xy / photo (advisory): top view: the drawing's outline is 1.55 : 1 (width along X : height along Y), the part's is 1 : 1.60. Check which sizes run along X and Y.
 - swap_xy / photo (advisory): top view: the drawing shows 5 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: back-left, back-right. On the part but not in the drawing: back-left, back-right.
 - move_hole / rough (advisory): top view: the drawing shows 4 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: front-right. On the part but not in the drawing: front-left, front-right.
-- swap_xy / rough: top view: the drawing's outline is 1.28 : 1 (width along X : height along Y), the part's is 1 : 1.60. Check which sizes run along X and Y.
+- swap_xy / rough (advisory): top view: the drawing's outline is 1.28 : 1 (width along X : height along Y), the part's is 1 : 1.60. Check which sizes run along X and Y.
 - swap_xy / rough (advisory): top view: the drawing shows 4 hole(s) or closed outline(s), the part 5. In the drawing but not on the part: front-right. On the part but not in the drawing: front-left, front-right.
 - rotate_slot / clean (advisory): top view: the drawing shows 0 hole(s) or closed outline(s), the part 1. On the part but not in the drawing: centre.
 - rotate_slot / clean (advisory): front view: the drawing shows 1 hole(s) or closed outline(s), the part 2. On the part but not in the drawing: top-right.

@@ -76,7 +76,7 @@ critic flags from [`experiments/benchmark/results/matrix`](experiments/benchmark
 | hole missing | ✓ | – | ✓ | 2/2, 21 s |
 | wrong diameter | ✓ | – | – | 2/2, 18 s |
 | chamfer instead of fillet | ✓ | – | ✓ | 2/2, 15 s |
-| plate X/Y swapped | ✓ | ✓ (3/3 inputs) | – | 2/2, 12 s |
+| plate X/Y swapped | ✓ | note only ² | – | 2/2, 12 s |
 | cable hole drilled through both walls | – | – | ✓ | 2/2, 33 s |
 | upright at the front instead of the back | – | **✓ (3/3 inputs)** | – | not re-run since the shape check ¹ |
 | angled bracket's slope mirrored | – | **✓ (3/3 inputs)** | not tested | not run |
@@ -95,6 +95,8 @@ is switched off: it flagged 18 of 24 correct parts (text, centre lines and gaps 
 only be noise.
 
 ¹ In the earlier loop evaluation, before the shape check existed, nothing caught it (0/2).
+² The shape check's proportion test flags it on all 3 inputs, but only as a note: hand sketches are not to scale
+(a correct part's view came out 1.47× off in the hand-sketch set), so proportions cannot block.
 
 ## Experiments
 
