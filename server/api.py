@@ -225,9 +225,10 @@ def create_app(on_finish=None):
         try:
             out = await asyncio.to_thread(voice.transcribe, data, GuardedBudget(config.EDIT_CAP_USD), "transcribe")
         except (voice.VoiceError, meta_api.ModelError) as e:
+            log_line({"kind": "transcribe", "status": "error", "error": str(e)[:200]})
             return JSONResponse({"error": "transcription failed", "message": str(e)[:300]}, status_code=502)
-        log_line({"kind": "transcribe", "seconds": out["seconds"], "audio_ms": out["audio_ms"],
-                  "cost_usd": out["cost_usd"]})
+        log_line({"kind": "transcribe", "status": "ok", "seconds": out["seconds"], "audio_ms": out["audio_ms"],
+                  "transcript_chars": len(out["transcript"]), "cost_usd": out["cost_usd"]})
         return out
 
     @app.post("/edit")
@@ -242,6 +243,7 @@ def create_app(on_finish=None):
         if refused:
             return refused
         settings = PRESETS[config.PRESET]
+        t0 = time.perf_counter()
         if config.MOCK_MODELS:
             client = mock.MockEditClient(instruction)
         else:
@@ -252,6 +254,8 @@ def create_app(on_finish=None):
             rec = await asyncio.to_thread(edits.edit_part, spec, instruction, client, settings.read_model,
                                           edits.EDIT_EFFORT, body.get("callouts"), body.get("base_spec"))
         except meta_api.ModelError as e:
+            log_line({"kind": "edit", "status": "model_error", "seconds": round(time.perf_counter() - t0, 1),
+                      "error": str(e)[:200]})
             return JSONResponse({"error": "edit failed", "message": str(e)[:300]}, status_code=502)
         out = edits.public(rec)
         if rec["result"] is not None:

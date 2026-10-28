@@ -590,9 +590,13 @@ const editor = (() => {
     let r, out;
     try {
       r = await fetch(`${API}/edit`, { method: "POST", headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(60000),
         body: JSON.stringify({ spec: liveSpec(), instruction, callouts: verified?.callouts || [], base_spec: verified?.spec }) });
       out = await r.json();
-    } catch (e) { out = { message: e.message }; r = { ok: false }; }
+    } catch (e) {
+      out = { message: e.name === "TimeoutError" ? "The edit took longer than a minute. Try again." : e.message };
+      r = { ok: false };
+    }
     $("#edit-apply").disabled = false;
     if (mine !== session) return;
     if (!r.ok) { status(esc(out.message || out.detail || "The edit failed."), "bad"); setStatus("edit failed"); return; }
@@ -673,7 +677,7 @@ const editor = (() => {
         const form = new FormData();
         form.append("audio", await toWav(blob), "edit.wav");
         const t0 = performance.now();
-        const r = await fetch(`${API}/transcribe`, { method: "POST", body: form });
+        const r = await fetch(`${API}/transcribe`, { method: "POST", body: form, signal: AbortSignal.timeout(30000) });
         const out = await r.json();
         if (!r.ok) throw new Error(out.message || out.detail || r.statusText);
         if (!out.transcript) { status("Heard nothing. Try again, closer to the microphone.", "bad"); return; }

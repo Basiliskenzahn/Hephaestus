@@ -1,0 +1,37 @@
+{
+ "edit_ms": 3492,
+ "edit_status": "Hole diameter 5 -> 6.6 mm (M6 clearance) · rebuilt and validated. 12 drawing dimensions still match, 1 changed by you.",
+ "tb_status": "edited",
+ "badge": "l_bracketedited",
+ "sliders": [
+  "depth=40",
+  "height=40",
+  "hole_dia=6.6",
+  "hole_height=28",
+  "hole_inset=15",
+  "length=60",
+  "slot_len=20",
+  "slot_w=6",
+  "slot_y=17.5",
+  "wall_t=5"
+ ],
+ "server_timing": [
+  {
+   "ts": "2026-10-28T06:39:47+00:00",
+   "kind": "transcribe",
+   "seconds": 1.77,
+   "audio_ms": 2960,
+   "cost_usd": 0.0001
+  },
+  {
+   "ts": "2026-10-28T06:43:02+00:00",
+   "kind": "edit",
+   "status": "applied",
+   "seconds": 2.4,
+   "model_seconds": 2.2,
+   "calls": 1,
+   "cost_usd": 0.007077
+  }
+ ],
+ "spent_today_usd": 0.0072
+}
