@@ -1,0 +1,44 @@
+[
+ {
+  "input": "blurry_dark.jpg",
+  "input_kind": "unreadable",
+  "problem": "The image is too dark and blurry to read any dimensions. Please send a sharper, brighter photo of the drawing.",
+  "seconds": 4.4,
+  "cost_usd": 0.00105
+ },
+ {
+  "input": "empty_page.jpg",
+  "input_kind": "not_a_drawing",
+  "problem": "This looks like a blank sheet of paper, not a drawing. Please upload a sketch or drawing with at least one dimension.",
+  "seconds": 4.6,
+  "cost_usd": 0.001064
+ },
+ {
+  "input": "no_dimensions.png",
+  "input_kind": "no_dimensions",
+  "problem": "This sketch shows a part but no dimensions can be read from it. Please upload a drawing with at least one written size.",
+  "seconds": 7.1,
+  "cost_usd": 0.000308
+ },
+ {
+  "input": "object_photo.jpg",
+  "input_kind": "no_dimensions",
+  "problem": "This image shows a plate with holes but no dimensions can be read. Please upload a sketch or drawing with at least one written size.",
+  "seconds": 4.3,
+  "cost_usd": 0.000335
+ },
+ {
+  "input": "screenshot.png",
+  "input_kind": "drawing",
+  "problem": null,
+  "seconds": 33.8,
+  "cost_usd": 0.001065
+ },
+ {
+  "input": "cat (Wikimedia Cat03.jpg, not committed)",
+  "input_kind": "not_a_drawing",
+  "problem": "This looks like a photo of a cat, not a drawing. Upload a sketch with at least one dimension.",
+  "seconds": 4.2,
+  "cost_usd": 0.000424
+ }
+]

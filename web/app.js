@@ -320,8 +320,13 @@ function finish(done) {
   } else if (done.status === "pass") {
     showBanner("VERIFIED", `Right on the first read. ${done.seconds ? `${fmt(done.seconds)} s` : ""}`.trim(), true);
   }
-  if (done.spec) setSpec(done.spec);
-  editor.ready(done);
+  const built = current.events.some((e) => e.event === "compiled" && e.ok);
+  if (done.spec && built) {
+    setSpec(done.spec);
+    editor.ready(done);
+  } else if (done.spec) {
+    showBanner("NO PART", "The spec never compiled, so there is no part to show. The timeline lists why; try a clearer drawing or describe the part in words.", true);
+  }
   // downloads: files of the version Talos returned
   const compiled = current.events.filter((e) => e.event === "compiled" && e.ok && e.files);
   const fin = compiled.find((e) => e.iteration === done.final_iteration) || compiled[compiled.length - 1];
@@ -524,7 +529,16 @@ async function startLive(form, preview) {
     current.lastId = id;
     push(JSON.parse(m.data));
   });
-  es.addEventListener("end", () => es.close());
+  es.addEventListener("end", () => { current.ended = true; es.close(); });
+  // EventSource retries on its own after a dropped connection (resuming from Last-Event-ID); it gives up only when
+  // the server answers with an error, e.g. 404 after a restart lost the run
+  es.addEventListener("error", () => {
+    if (mine !== session || current.ended || es.readyState !== EventSource.CLOSED) return;
+    timeline.finishActive();
+    timeline.add(current.events.at(-1)?.t || 0, "Connection lost", "fix",
+      p("The server lost this run (it may have restarted). Upload the drawing again, or pick an example."));
+    setStatus("disconnected");
+  });
 }
 
 // ------------------------------------------------------------------ inputs

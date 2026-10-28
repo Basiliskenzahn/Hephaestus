@@ -183,3 +183,25 @@ def test_transcribe_and_edit_in_mock_mode(api):
     assert client.post("/edit", json={"spec": example("l_bracket"), "instruction": "x" * 400}).status_code == 400
     kinds = [x["kind"] for x in client.get("/status").json()["recent_runs"]]
     assert "edit" in kinds
+
+
+def test_image_edge_cases():
+    from server.images import UploadError, normalise
+
+    def enc(img, fmt, **kw):
+        buf = io.BytesIO()
+        img.save(buf, fmt, **kw)
+        return buf.getvalue()
+
+    with pytest.raises(UploadError, match="too small"):
+        normalise(enc(Image.new("RGB", (120, 80), "white"), "PNG"))
+    rgba = Image.new("RGBA", (600, 400), (0, 0, 0, 0))                 # transparent PNG: becomes white, not black
+    rgba.paste((20, 30, 40, 255), (100, 100, 200, 200))
+    out = Image.open(io.BytesIO(normalise(enc(rgba, "PNG"))))
+    assert out.mode == "RGB" and out.getpixel((10, 10))[0] > 240 and out.getpixel((150, 150))[0] < 60
+    huge = Image.new("RGB", (9000, 6000), "white")
+    assert max(Image.open(io.BytesIO(normalise(enc(huge, "JPEG", quality=50)))).size) == 2000
+    pillow_heif = pytest.importorskip("pillow_heif")
+    pillow_heif.register_heif_opener()
+    heic = normalise(enc(Image.new("RGB", (800, 600), "white"), "HEIF"))
+    assert Image.open(io.BytesIO(heic)).format == "JPEG"

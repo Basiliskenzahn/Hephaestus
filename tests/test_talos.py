@@ -312,3 +312,49 @@ def test_read_without_input_kind_still_builds():
     """Recordings from before the input check have no input_kind: treated as a drawing."""
     client = ScriptedClient(ReadOutput=[{"spec": example("block"), "callouts": callouts("block")}], CriticOutput=[OK] * 2)
     assert events_of(client)[-1]["status"] == "pass"
+
+
+class Failing(ScriptedClient):
+    """Raises for the named outputs (a timeout, invalid JSON) and serves the rest from the queues."""
+
+    def __init__(self, fail, message, **queues):
+        super().__init__(**queues)
+        self.fail, self.message = fail, message
+
+    def respond(self, instructions, content, schema, name="Output", retries=1, **kw):
+        if name in self.fail:
+            self.calls.append(name)
+            raise meta_api.ModelError(self.message)
+        return super().respond(instructions, content, schema, name, retries)
+
+
+def test_read_timeout_ends_the_run_with_an_error():
+    ev = events_of(Failing({"ReadOutput"}, "ReadTimeout: Read timed out"))
+    assert [e["event"] for e in ev] == ["read_started", "error", "done"]
+    assert ev[-1]["status"] == "error" and "timed out" in ev[-1]["note"]
+
+
+def test_invalid_json_in_a_correction_keeps_the_best_version():
+    client = Failing({"CorrectionOutput"}, "output is not JSON (Expecting value): {'spec':",
+                     ReadOutput=[{"spec": wrong_block(), "callouts": callouts("block")}])
+    ev = events_of(client)
+    assert ev[-2]["event"] == "error" and ev[-1]["status"] == "error"
+    assert ev[-1]["spec"] == wrong_block() and ev[-1]["final_iteration"] == 0      # the part shown so far stays
+
+
+def test_spec_that_never_compiles_stops():
+    broken = example("plate")
+    broken["features"][3]["diameter"] = 200                  # the bore removes the whole part
+    client = ScriptedClient(ReadOutput=[{"spec": broken, "callouts": []}],
+                            CorrectionOutput=[{"changelog": "tried", "spec": broken, "disputed_callouts": []}] * 3)
+    ev = events_of(client)
+    compiled = [e for e in ev if e["event"] == "compiled"]
+    assert compiled and not any(c["ok"] for c in compiled)
+    assert ev[-1]["status"] in ("disputed", "stuck", "max_iters") and ev[-1]["remaining_issues"]
+
+
+def test_daily_cap_reached_mid_run():
+    client = ScriptedClient(ReadOutput=[{"spec": wrong_block(), "callouts": callouts("block")}])
+    client.budget = meta_api.Budget(0.001)                     # enough for the read only
+    ev = events_of(client)
+    assert ev[-1]["status"] == "budget" and ev[-1]["spec"] == wrong_block()

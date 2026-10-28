@@ -3,7 +3,7 @@ import io
 
 from PIL import Image, ImageOps
 
-from .config import MAX_IMAGE_SIDE, MAX_UPLOAD_BYTES
+from .config import MAX_IMAGE_SIDE, MAX_UPLOAD_BYTES, MIN_IMAGE_SIDE
 
 try:
     import pillow_heif
@@ -27,6 +27,9 @@ def normalise(data):
         raise UploadError("this file is not a JPEG, PNG or HEIC image") from None
     if img.format not in ("JPEG", "PNG", "HEIF", "HEIC", "MPO"):
         raise UploadError(f"{img.format} images are not supported; use JPEG, PNG or HEIC")
+    if min(img.size) < MIN_IMAGE_SIDE:
+        raise UploadError(f"the image is only {img.size[0]} x {img.size[1]} px: too small to read dimensions. Send "
+                          f"at least {MIN_IMAGE_SIDE} px on the short side")
     img = ImageOps.exif_transpose(img)            # keep the orientation the phone recorded, then drop the EXIF
     if img.mode not in ("RGB", "L"):
         bg = Image.new("RGB", img.size, "white")
