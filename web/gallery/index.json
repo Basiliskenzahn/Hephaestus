@@ -2,7 +2,7 @@
  {
   "id": "enclosure",
   "title": "Enclosure, phone photo",
-  "note": "Caught: the cable hole went through the back wall too. Fixed.",
+  "note": "Caught: the cable hole went through the back wall too. Fixed. Recorded with the cheaper development model; the live model reads this photo right the first time.",
   "input": "input.jpg",
   "model": "muse-spark-1.3-contributor",
   "seconds": 186.3,
@@ -12,11 +12,11 @@
  {
   "id": "shaft_collar",
   "title": "Shaft collar, phone photo",
-  "note": "Caught: the first spec did not compile (a duplicate feature id). Fixed.",
+  "note": "A split ring with a cross hole: right on the first read, outlines checked by SAM 3.1.",
   "input": "input.jpg",
-  "model": "muse-spark-1.3-contributor",
-  "seconds": 198.7,
-  "corrections": 1,
+  "model": "muse-spark-1.3",
+  "seconds": 64.6,
+  "corrections": 0,
   "status": "pass"
  },
  {

@@ -26,10 +26,13 @@ MOCK = os.path.join(ROOT, "server", "mock_data")
 
 # id, recorded run, title, note shown with the replay
 PICKS = [
+    # kept from development: the live model reads this photo right the first time (re-recorded Oct 28,
+    # muse-spark-1.3/rerecord), so this catch-and-fix comes from the cheaper contributor model, and says so
     ("enclosure", "muse-spark-1.3-contributor/round3/05_enclosure__photo.run1.json", "Enclosure, phone photo",
-     "Caught: the cable hole went through the back wall too. Fixed."),
-    ("shaft_collar", "muse-spark-1.3-contributor/round2/08_shaft_collar__photo.run1.json", "Shaft collar, phone photo",
-     "Caught: the first spec did not compile (a duplicate feature id). Fixed."),
+     "Caught: the cable hole went through the back wall too. Fixed. Recorded with the cheaper development model; "
+     "the live model reads this photo right the first time."),
+    ("shaft_collar", "muse-spark-1.3/rerecord/08_shaft_collar__photo.run1.json", "Shaft collar, phone photo",
+     "A split ring with a cross hole: right on the first read, outlines checked by SAM 3.1."),
     ("l_bracket", "muse-spark-1.3/live/02_l_bracket__clean.run1.json", "L-bracket, drawing",
      "Three views, a slot and two holes: right on the first read."),
     ("bushing", "muse-spark-1.3/live/04_bushing__photo.run1.json", "Flanged bushing, phone photo",

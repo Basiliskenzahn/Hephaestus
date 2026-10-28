@@ -486,6 +486,7 @@ async function replay(entry) {
   begin({ mode: "replay", id: entry.id, base: `gallery/${entry.id}/`, model: entry.model, entry, kind: "image" });
   const mine = session;
   showInput(`gallery/${entry.id}/${entry.input}`);
+  if (entry.note) timeline.addAside(0, "About this replay", "done", p(entry.note, "fine"));
   const events = await (await fetch(`gallery/${entry.id}/events.json`)).json();
   let prevT = 0;
   for (const ev of events) {

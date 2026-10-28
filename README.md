@@ -12,8 +12,9 @@ Built during the [Meta Global AI Developer Hackathon](https://dev.meta.ai/events
 `web/` (static, Netlify) + `server/` (FastAPI on Modal). Upload a sketch or photo, take one with your phone, or
 describe the part in words; watch Talos read, build, check and correct it live; drag the parameter sliders to
 rebuild the part instantly; change it in words, typed or spoken ("make the holes M6", "remove the slot"); download
-STEP, STL and the spec. Six examples replay recorded runs instantly, two of
-them showing Talos catching and fixing an error. Deployment and limits: [`server/README.md`](server/README.md).
+STEP, STL and the spec. Six examples replay recorded runs instantly. Five are
+live-model runs; the enclosure, the one showing Talos catch and fix an error, was recorded with the cheaper
+development model, and says so (the live model reads that photo right the first time). Deployment and limits: [`server/README.md`](server/README.md).
 
 ## How it works
 
