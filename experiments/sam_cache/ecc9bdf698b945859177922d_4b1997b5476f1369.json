@@ -1,0 +1,1 @@
+{"prompt": "object", "metadata": null, "text": "", "usage": {"images_processed": 1, "input_tokens": 0, "input_tokens_details": {"cached_tokens": 0}, "output_tokens": 0, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 0}, "seconds": 1.5, "image_size": [1050, 1485]}

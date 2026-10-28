@@ -1,0 +1,298 @@
+[
+ {
+  "name": "block__a",
+  "sheet": "sam",
+  "sheet_mm": [
+   210.0,
+   297.0
+  ],
+  "sheet_s": 6.48,
+  "camera_height": 392.6,
+  "true_height": 420,
+  "focal": 1201.8,
+  "true_focal": 1300.0,
+  "box_point": {
+   "iou_raw": 0.696,
+   "iou_corrected": 0.773,
+   "edge_mm": [
+    3.21,
+    10.6
+   ],
+   "holes": 4,
+   "true_holes": 3,
+   "scale": 0.9491,
+   "seconds": 1.63
+  },
+  "box_point_neg": {
+   "iou_raw": 0.681,
+   "iou_corrected": 0.757,
+   "edge_mm": [
+    3.1,
+    10.81
+   ],
+   "holes": 4,
+   "true_holes": 3,
+   "scale": 0.9491,
+   "seconds": 0.7
+  }
+ },
+ {
+  "name": "block__b",
+  "sheet": "sam",
+  "sheet_mm": [
+   210.0,
+   297.0
+  ],
+  "sheet_s": 3.54,
+  "camera_height": 320.6,
+  "true_height": 340,
+  "focal": 1201.8,
+  "true_focal": 1300.0,
+  "box_point": {
+   "iou_raw": 0.642,
+   "iou_corrected": 0.665,
+   "edge_mm": [
+    4.22,
+    11.64
+   ],
+   "holes": 9,
+   "true_holes": 3,
+   "scale": 0.9376,
+   "seconds": 0.94
+  },
+  "box_point_neg": {
+   "iou_raw": 0.651,
+   "iou_corrected": 0.656,
+   "edge_mm": [
+    3.9,
+    11.09
+   ],
+   "holes": 7,
+   "true_holes": 3,
+   "scale": 0.9376,
+   "seconds": 3.12
+  }
+ },
+ {
+  "name": "plate__a",
+  "sheet": "sam",
+  "sheet_mm": [
+   210.0,
+   297.0
+  ],
+  "sheet_s": 3.5,
+  "camera_height": 355.1,
+  "true_height": 380,
+  "focal": 1201.8,
+  "true_focal": 1300.0,
+  "box_point": {
+   "iou_raw": 0.883,
+   "iou_corrected": 0.913,
+   "edge_mm": [
+    0.68,
+    1.98
+   ],
+   "holes": 1,
+   "true_holes": 5,
+   "scale": 0.9831,
+   "seconds": 0.8
+  },
+  "box_point_neg": {
+   "iou_raw": 0.907,
+   "iou_corrected": 0.951,
+   "edge_mm": [
+    0.44,
+    1.8
+   ],
+   "holes": 5,
+   "true_holes": 5,
+   "scale": 0.9831,
+   "seconds": 2.2
+  }
+ },
+ {
+  "name": "plate__b",
+  "sheet": "sam",
+  "sheet_mm": [
+   210.0,
+   297.0
+  ],
+  "sheet_s": 3.73,
+  "camera_height": 309.5,
+  "true_height": 330,
+  "focal": 1201.8,
+  "true_focal": 1300.0,
+  "box_point": {
+   "iou_raw": 0.744,
+   "iou_corrected": 0.696,
+   "edge_mm": [
+    3.46,
+    10.2
+   ],
+   "holes": 4,
+   "true_holes": 5,
+   "scale": 0.9806,
+   "seconds": 0.91
+  },
+  "box_point_neg": {
+   "iou_raw": 0.723,
+   "iou_corrected": 0.672,
+   "edge_mm": [
+    3.6,
+    10.11
+   ],
+   "holes": 5,
+   "true_holes": 5,
+   "scale": 0.9806,
+   "seconds": 2.33
+  }
+ },
+ {
+  "name": "pocket_plate__a",
+  "sheet": "sam",
+  "sheet_mm": [
+   210.0,
+   297.0
+  ],
+  "sheet_s": 2.66,
+  "camera_height": 374.0,
+  "true_height": 400,
+  "focal": 1201.8,
+  "true_focal": 1300.0,
+  "box_point": {
+   "iou_raw": 0.815,
+   "iou_corrected": 0.86,
+   "edge_mm": [
+    2.66,
+    6.8
+   ],
+   "holes": 1,
+   "true_holes": 4,
+   "scale": 0.9733,
+   "seconds": 1.18
+  },
+  "box_point_neg": {
+   "iou_raw": 0.059,
+   "iou_corrected": 0.061,
+   "edge_mm": [
+    2.93,
+    7.0
+   ],
+   "holes": 6,
+   "true_holes": 4,
+   "scale": 0.9733,
+   "seconds": 3.68
+  }
+ },
+ {
+  "name": "pocket_plate__b",
+  "sheet": "sam",
+  "sheet_mm": [
+   210.0,
+   297.0
+  ],
+  "sheet_s": 4.14,
+  "camera_height": 329.3,
+  "true_height": 350,
+  "focal": 1201.8,
+  "true_focal": 1300.0,
+  "box_point": {
+   "iou_raw": 0.846,
+   "iou_corrected": 0.819,
+   "edge_mm": [
+    3.52,
+    7.86
+   ],
+   "holes": 0,
+   "true_holes": 4,
+   "scale": 0.9696,
+   "seconds": 1.96
+  },
+  "box_point_neg": {
+   "iou_raw": 0.863,
+   "iou_corrected": 0.824,
+   "edge_mm": [
+    7.6,
+    29.82
+   ],
+   "holes": 14,
+   "true_holes": 4,
+   "scale": 0.9696,
+   "seconds": 2.2
+  }
+ },
+ {
+  "name": "shaft_collar__a",
+  "sheet": "sam",
+  "sheet_mm": [
+   210.0,
+   297.0
+  ],
+  "sheet_s": 3.0,
+  "camera_height": 335.9,
+  "true_height": 360,
+  "focal": 1201.8,
+  "true_focal": 1300.0,
+  "box_point": {
+   "iou_raw": 0.614,
+   "iou_corrected": 0.673,
+   "edge_mm": [
+    2.48,
+    8.35
+   ],
+   "holes": 1,
+   "true_holes": 0,
+   "scale": 0.9553,
+   "seconds": 0.52
+  },
+  "box_point_neg": {
+   "iou_raw": 0.568,
+   "iou_corrected": 0.633,
+   "edge_mm": [
+    2.85,
+    8.92
+   ],
+   "holes": 10,
+   "true_holes": 0,
+   "scale": 0.9553,
+   "seconds": 2.99
+  }
+ },
+ {
+  "name": "shaft_collar__b",
+  "sheet": "sam",
+  "sheet_mm": [
+   210.0,
+   297.0
+  ],
+  "sheet_s": 3.86,
+  "camera_height": 302.8,
+  "true_height": 320,
+  "focal": 1201.8,
+  "true_focal": 1300.0,
+  "box_point": {
+   "iou_raw": 0.452,
+   "iou_corrected": 0.276,
+   "edge_mm": [
+    7.33,
+    20.87
+   ],
+   "holes": 2,
+   "true_holes": 0,
+   "scale": 0.9505,
+   "seconds": 0.53
+  },
+  "box_point_neg": {
+   "iou_raw": 0.5,
+   "iou_corrected": 0.292,
+   "edge_mm": [
+    8.02,
+    19.4
+   ],
+   "holes": 5,
+   "true_holes": 0,
+   "scale": 0.9505,
+   "seconds": 2.57
+  }
+ }
+]

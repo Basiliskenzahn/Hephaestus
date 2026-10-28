@@ -1,0 +1,26 @@
+{
+ "part": "shaft_collar",
+ "rot_deg": -100,
+ "at_mm": [
+  -25,
+  -20
+ ],
+ "camera_mm": [
+  -0.39,
+  61.65,
+  320.0
+ ],
+ "camera_height_mm": 320,
+ "tilt_deg": 12,
+ "focal_px": 1300.0,
+ "image": [
+  1600,
+  1200
+ ],
+ "thickness_mm": 15.0,
+ "bbox_mm": [
+  39.975,
+  40.0,
+  15.0
+ ]
+}

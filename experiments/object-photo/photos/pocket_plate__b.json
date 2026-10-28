@@ -1,0 +1,26 @@
+{
+ "part": "pocket_plate",
+ "rot_deg": 81,
+ "at_mm": [
+  -5,
+  -15
+ ],
+ "camera_mm": [
+  18.0,
+  87.23,
+  350.0
+ ],
+ "camera_height_mm": 350,
+ "tilt_deg": 15,
+ "focal_px": 1300.0,
+ "image": [
+  1600,
+  1200
+ ],
+ "thickness_mm": 10.0,
+ "bbox_mm": [
+  100.0,
+  60.0,
+  10.0
+ ]
+}

@@ -1,0 +1,26 @@
+{
+ "part": "block",
+ "rot_deg": -8,
+ "at_mm": [
+  5,
+  -5
+ ],
+ "camera_mm": [
+  -1.2,
+  50.0,
+  420.0
+ ],
+ "camera_height_mm": 420,
+ "tilt_deg": 7,
+ "focal_px": 1300.0,
+ "image": [
+  1600,
+  1200
+ ],
+ "thickness_mm": 20.0,
+ "bbox_mm": [
+  70.0,
+  40.0,
+  20.0
+ ]
+}

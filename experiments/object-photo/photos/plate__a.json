@@ -1,0 +1,26 @@
+{
+ "part": "plate",
+ "rot_deg": 12,
+ "at_mm": [
+  -10,
+  20
+ ],
+ "camera_mm": [
+  -0.21,
+  45.84,
+  380.0
+ ],
+ "camera_height_mm": 380,
+ "tilt_deg": 6,
+ "focal_px": 1300.0,
+ "image": [
+  1600,
+  1200
+ ],
+ "thickness_mm": 6.0,
+ "bbox_mm": [
+  80.0,
+  50.0,
+  6.0
+ ]
+}
