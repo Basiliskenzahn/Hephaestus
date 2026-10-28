@@ -27,6 +27,8 @@ The URL is `https://<modal-workspace>--hephaestus-web.modal.run`; put it in `web
   When a limit trips, the API answers 429 with "busy, try an example".
 - Every production model call is a line in `spend.jsonl` on the volume `hephaestus-data`:
   `modal volume get hephaestus-data spend.jsonl -`. `GET /status` shows today's total.
+- Every run is a line in `runs.jsonl` (read seconds, effort, output and reasoning tokens, time to the first part and
+  to the end, status, cost); `GET /status` shows the last 10 under `recent_runs`.
 - Runs (uploads, events, files) are deleted after 24 h. Uploads are re-encoded: EXIF removed, at most 2000 px.
 
 Environment (all optional): `DAILY_CAP_USD`, `RUN_CAP_USD`, `RUNS_PER_IP_PER_HOUR`, `COMPILES_PER_IP_PER_SECOND`,

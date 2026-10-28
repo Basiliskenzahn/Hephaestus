@@ -122,8 +122,29 @@ class RunManager:
             self._emit(run, {"event": "done", "status": "error", "note": str(e), "spec": None})
         finally:
             run.done = True
+            self._log_timing(run)
             if self.on_finish:
                 self.on_finish()
+
+    def _log_timing(self, run):
+        """One line per run in RUNS_LOG: read time and tokens, time to first part and to the end, cost."""
+        try:
+            read = next((e for e in run.events if e["event"] == "spec" and e.get("changelog") is None), None)
+            first = next((e for e in run.events if e["event"] == "compiled" and e.get("ok")), None)
+            done = run.events[-1] if run.events and run.events[-1]["event"] == "done" else {}
+            call = (read or {}).get("call") or {}
+            rec = {"ts": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"), "run": run.id,
+                   "kind": run.kind, "preset": config.PRESET, "read_seconds": call.get("seconds"),
+                   "read_effort": call.get("effort"), "read_output_tokens": call.get("output_tokens"),
+                   "read_reasoning_tokens": call.get("reasoning_tokens"),
+                   "first_part_t": (first or {}).get("t"), "done_t": done.get("t"), "status": done.get("status"),
+                   "corrections": done.get("iterations"), "cost_usd": done.get("cost_usd")}
+            print("run timing", json.dumps(rec), flush=True)          # Modal logs
+            os.makedirs(os.path.dirname(config.RUNS_LOG), exist_ok=True)
+            with open(config.RUNS_LOG, "a") as f:
+                f.write(json.dumps(rec) + "\n")
+        except Exception:  # noqa: BLE001 - logging must never break a run
+            traceback.print_exc()
 
     def cleanup(self, max_age_hours=config.RETENTION_HOURS):
         """Delete runs (memory and files) older than max_age_hours, including folders left by earlier containers."""

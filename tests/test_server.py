@@ -22,6 +22,7 @@ def api(tmp_path, monkeypatch):
     monkeypatch.setattr(config, "DATA_DIR", str(tmp_path))
     monkeypatch.setattr(config, "RUNS_DIR", str(tmp_path / "runs"))
     monkeypatch.setattr(config, "SPEND_LOG", str(tmp_path / "spend.jsonl"))
+    monkeypatch.setattr(config, "RUNS_LOG", str(tmp_path / "runs.jsonl"))
     from server import mock
     monkeypatch.setattr(mock, "MOCK_DELAY", 0.0)
     from server.api import create_app
@@ -143,3 +144,18 @@ def test_shape_check_event_is_published_with_relative_paths(api, tmp_path):
     events = [e for _, e in read_events(client, r.json()["run_id"])]
     sc = [e for e in events if e["event"] == "shape_check"]
     assert sc and not sc[0]["available"] and events[-1]["event"] == "done"
+
+
+def test_run_timing_is_logged(api):
+    client, _ = api
+    r = client.post("/runs", files={"image": ("bracket.png", sketch_bytes(), "image/png")})
+    list(read_events(client, r.json()["run_id"]))
+    import time
+    for _ in range(50):                  # the timing line is written right after the done event
+        recent = client.get("/status").json()["recent_runs"]
+        if recent and recent[-1]["run"] == r.json()["run_id"]:
+            break
+        time.sleep(0.05)
+    rec = recent[-1]
+    assert rec["run"] == r.json()["run_id"] and rec["read_seconds"] is not None and rec["first_part_t"] is not None
+    assert "ip" not in json.dumps(rec)

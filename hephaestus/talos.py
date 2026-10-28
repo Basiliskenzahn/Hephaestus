@@ -84,6 +84,7 @@ def _call_info(info):
     u = info["usage"]
     return {"cost_usd": round(info["cost_usd"], 6), "seconds": info["seconds"],
             "input_tokens": u.get("input_tokens", 0), "output_tokens": u.get("output_tokens", 0),
+            "reasoning_tokens": (u.get("output_tokens_details") or {}).get("reasoning_tokens"),
             "model": info.get("model"), "effort": info.get("effort")}
 
 

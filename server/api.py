@@ -6,7 +6,7 @@ GET  /runs/{id}/events         Server-Sent Events: the Talos events, replayed fr
 GET  /runs/{id}/files/{path}   files of a run: input.jpg, iter_<k>/part.glb|stl|step, sheet.png, ...
 POST /compile                  {spec, overrides} -> recompiled part (GLB inline, STL/STEP links), no model call
 GET  /compiles/{id}/{name}     part.stl / part.step / spec.json of a /compile result
-GET  /status                   mock mode, today's spend vs the daily cap
+GET  /status                   mock mode, today's spend vs the daily cap, timing of the last 10 runs
 """
 import asyncio
 import base64
@@ -92,9 +92,14 @@ def create_app(on_finish=None):
     @app.get("/status")
     def status():
         spent = 0.0 if config.MOCK_MODELS else spent_today()
+        recent = []
+        if os.path.exists(config.RUNS_LOG):
+            with open(config.RUNS_LOG) as f:
+                recent = [json.loads(line) for line in f.readlines()[-10:]]
         return {"mock": config.MOCK_MODELS, "preset": config.PRESET, "spent_today_usd": round(spent, 4),
                 "daily_cap_usd": config.DAILY_CAP_USD, "busy": spent >= config.DAILY_CAP_USD,
-                "active_runs": sum(not r.done for r in runs.runs.values())}
+                "active_runs": sum(not r.done for r in runs.runs.values()),
+                "recent_runs": recent}          # timing only: no IPs, no content
 
     @app.post("/runs")
     async def create_run(request: Request, image: UploadFile | None = File(None), prompt: str | None = Form(None)):

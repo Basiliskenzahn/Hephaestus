@@ -42,6 +42,9 @@ def log_spend(model, usage, usd, name, tag=None):
            "script": os.environ.get("SPEND_SCRIPT") or os.path.basename(sys.argv[0] or "python"),
            "call": name, "model": model, "input_tokens": usage.get("input_tokens", 0),
            "output_tokens": usage.get("output_tokens", 0), "cost_usd": round(usd, 6)}
+    reasoning = (usage.get("output_tokens_details") or {}).get("reasoning_tokens")
+    if reasoning is not None:
+        rec["reasoning_tokens"] = reasoning
     if tag:
         rec["tag"] = tag
     with _log_lock:

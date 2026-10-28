@@ -6,6 +6,7 @@ MOCK_DELAY = float(os.environ.get("MOCK_DELAY", "1.0"))          # seconds per m
 DATA_DIR = os.environ.get("DATA_DIR", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".server-data"))
 RUNS_DIR = os.path.join(DATA_DIR, "runs")
 SPEND_LOG = os.path.join(DATA_DIR, "spend.jsonl")               # every production API call, one JSON line each
+RUNS_LOG = os.path.join(DATA_DIR, "runs.jsonl")                 # one line per run: read time and tokens, latency
 PRESET = os.environ.get("TALOS_PRESET", "live")
 
 DAILY_CAP_USD = float(os.environ.get("DAILY_CAP_USD", "5.0"))   # global, all users, per UTC day
