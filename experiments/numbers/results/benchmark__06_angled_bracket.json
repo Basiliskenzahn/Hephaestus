@@ -1,0 +1,331 @@
+{
+ "name": "benchmark__06_angled_bracket",
+ "group": "benchmark",
+ "key": "06_angled_bracket",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "30",
+   "value": 30,
+   "parameter": "top_flat",
+   "text_box": [
+    328,
+    184,
+    360,
+    209
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "40",
+   "value": 40,
+   "parameter": "height",
+   "text_box": [
+    210,
+    340,
+    232,
+    367
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "\u00d88 thru",
+   "value": 8,
+   "parameter": "hole8_dia",
+   "text_box": [
+    460,
+    325,
+    535,
+    350
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "\u00d88",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "20",
+   "value": 20,
+   "parameter": "hole8_xoff",
+   "text_box": [
+    704,
+    296,
+    730,
+    315
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 0.0,
+   "reread": "0",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "15",
+   "value": 15,
+   "parameter": "right_h",
+   "text_box": [
+    806,
+    432,
+    832,
+    457
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "10",
+   "value": 10,
+   "parameter": "hole8_z",
+   "text_box": [
+    806,
+    464,
+    832,
+    490
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "80",
+   "value": 80,
+   "parameter": "length",
+   "text_box": [
+    483,
+    531,
+    510,
+    554
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 80.0,
+   "reread": "80",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "15",
+   "value": 15,
+   "parameter": "hole6_x",
+   "text_box": [
+    283,
+    576,
+    308,
+    600
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "30",
+   "value": 30,
+   "parameter": "depth",
+   "text_box": [
+    205,
+    694,
+    231,
+    720
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "2x \u00d86 thru",
+   "value": 6,
+   "parameter": "hole6_dia",
+   "text_box": [
+    434,
+    708,
+    528,
+    732
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "2x \u00d86",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "8",
+   "value": 8,
+   "parameter": "hole6_y_inset",
+   "text_box": [
+    801,
+    797,
+    822,
+    823
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 2,
+ "not_located": 0,
+ "read_cost": 0.001247,
+ "read_seconds": 48.1,
+ "reread_cost": 0.000269,
+ "reread_seconds": 9.3,
+ "crops": 11,
+ "spec": {
+  "description": "Angled bracket extruded from front profile. Assumed: the two vertical holes share the same X and are symmetric front-back, 8 from each Y edge; the side hole goes through the depth.",
+  "features": [
+   {
+    "distance": "depth",
+    "id": "base",
+    "operation": "add",
+    "plane": "XZ",
+    "profile": {
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       80,
+       0
+      ],
+      [
+       80,
+       "right_h"
+      ],
+      [
+       30,
+       "height"
+      ],
+      [
+       0,
+       "height"
+      ]
+     ],
+     "shape": "polygon"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "length - hole8_xoff",
+     "hole8_z"
+    ],
+    "diameter": "hole8_dia",
+    "face": "front",
+    "id": "side_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "hole6_x",
+     "hole6_y_inset"
+    ],
+    "diameter": "hole6_dia",
+    "face": "top",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 1,
+    "count_v": 2,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_v": "depth - 2 * hole6_y_inset",
+    "type": "linear_pattern"
+   }
+  ],
+  "name": "angled_bracket",
+  "parameters": {
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 30
+   },
+   "height": {
+    "description": "overall height along Z, left side height",
+    "value": 40
+   },
+   "hole6_dia": {
+    "description": "vertical mounting hole diameter",
+    "value": 6
+   },
+   "hole6_x": {
+    "description": "vertical hole centre from left edge",
+    "value": 15
+   },
+   "hole6_y_inset": {
+    "description": "vertical hole centre from each Y edge; holes symmetric front-back",
+    "value": 8
+   },
+   "hole8_dia": {
+    "description": "side hole diameter",
+    "value": 8
+   },
+   "hole8_xoff": {
+    "description": "side hole centre from right edge",
+    "value": 20
+   },
+   "hole8_z": {
+    "description": "side hole centre height from bottom",
+    "value": 10
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 80
+   },
+   "right_h": {
+    "description": "height of short right edge",
+    "value": 15
+   },
+   "top_flat": {
+    "description": "length of horizontal top edge",
+    "value": 30
+   }
+  }
+ }
+}

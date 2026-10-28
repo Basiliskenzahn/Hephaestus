@@ -33,6 +33,17 @@ Writes `out/run1/iter_<k>/` (spec.json, part.step, part.stl, top/front/side mask
    when a disputed callout needs confirming. It is sampled twice in parallel and only issues both samples raise on the
    same feature block (see Presets).
 
+## Number re-read (`reread.py`)
+The checks above all start from the read, so a misread digit (a handwritten 40 read as 60) passes all of them. The
+read gives every callout a `text_box` (where its number is written, 0-1000 normalised), a `confidence` and the
+`parameter` that holds it. Right after the read, in parallel with the first compile, each box is cropped from the
+full-resolution image (generous margin: grounding boxes are often a few % off; upscaled to >= 96 px) and all crops
+go in one request with a minimal prompt ("transcribe the number nearest the centre", no drawing, no other numbers),
+read model, low effort. Same number -> `confirmed`; a different number, or "unclear" on a callout the read was not
+sure of -> `uncertain` with both readings; "unclear" on a confident callout -> `unverified` (shown, not highlighted).
+Uncertain numbers never trigger a correction: the loop continues with the first reading and the UI shows chips on
+the drawing; choosing a value sets the parameter and recompiles (no model call). A failed re-read never fails the run.
+
 ## Shape check (SAM 3.1)
 Pixels of the drawing against pixels of the part, with no model opinion involved. Per run, once:
 1. **Sheet** (photos only; a scan with a white border is used as is): SAM 3.1 with the prompt "sheet of paper" →
@@ -119,6 +130,7 @@ Every event is a JSON-serialisable dict with `event`, `iteration` and `t` (secon
 | `spec` | `spec`, `callouts` (the effective, frozen list), `changelog` (null for the first read), `disputes` raised by this correction, `call` {cost_usd, seconds, input_tokens, output_tokens, model, effort} |
 | `compiled` | `ok`; `metrics`, `warnings` and `files` (paths, if out_dir is set), or `errors`. Emitted as soon as the spec compiles, before any check, so the UI can show the part right after the read |
 | `shape_check` | `available`, `note` (why not), `views` [{view, status ok/issue/advisory/unavailable, orientation (IoU per transform), orientation_gap, aspect {drawing, part}, holes {drawing, part}, issues, advisories, files {input, compare}}], `issues` (blocking, source `shape`), `advisories` (holes), `sheet` {method sam/threshold/scan/none, rectified, quad}, `files` {sheet_found, sheet_rectified, input_<view>}, `sam` {calls, cost_usd, seconds}. Emitted before `checks` in every iteration of a drawing run |
+| `numbers` | `available`, `note` (why not), `numbers` [{index, label, value, parameter, text_box, confidence, status confirmed/uncertain/unverified/not_located, second (the re-read value), reread (its text)}], `uncertain` (count), `calls`, `cost_usd`, `seconds`. Once per drawing run, after `compiled` if the re-read is done, else after the first `checks` |
 | `checks` | `clean`, `issues` [{source: compile/callout/shape/critic, message}], `advisories`, `shape_advisories`, `callouts` (one row each, with status and measured value), `critic`, `critic_call`, `critic_skipped` / `critic_error` if it did not run, `disputes` |
 | `correction_started` | `issues` |
 | `error` | `message` |

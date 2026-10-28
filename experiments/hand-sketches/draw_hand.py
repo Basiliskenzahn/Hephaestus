@@ -158,7 +158,11 @@ class HandAxes:
             # a wrong number, struck through, and the right one written next to it
             wrong = str(int(round(float(s) * self.rng.choice([0.8, 1.2]))))
             t = self.ax.text(wx - 2.5, wy, wrong, **{**props, "ha": "right"})
-            self.ax.plot([wx - 2.5 - 1.8 * len(wrong), wx - 1.8], [wy + 0.3, wy + 1.6], color=ds.INK, lw=1.2)
+            # strike it through with dashes drawn as text, same anchor, alignment and font: they land on the digits
+            # whatever the axis limits and the font metrics turn out to be
+            for rot in (8, -6):
+                self.ax.text(wx - 2.5, wy, "—" * len(wrong), **{**props, "ha": "right", "rotation": rot,
+                                                                    "rotation_mode": "anchor"})
             self.ax.text(wx + 0.5, wy, s, **{**props, "ha": "left"})
             return t
         return self.ax.text(wx, wy, s, **props)

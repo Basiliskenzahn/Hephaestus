@@ -1,0 +1,298 @@
+{
+ "name": "hand__03_block__photo",
+ "group": "hand",
+ "key": "03_block",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "20",
+   "value": 20.0,
+   "parameter": "thick",
+   "text_box": [
+    700,
+    368,
+    730,
+    412
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "40",
+   "value": 40.0,
+   "parameter": "depth",
+   "text_box": [
+    300,
+    597,
+    330,
+    642
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "70",
+   "value": 70.0,
+   "parameter": "length",
+   "text_box": [
+    497,
+    734,
+    527,
+    759
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 70.0,
+   "reread": "70",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "46P",
+   "value": 46.0,
+   "parameter": "hole_pitch",
+   "text_box": [
+    493,
+    761,
+    530,
+    800
+   ],
+   "confidence": "medium",
+   "status": "confirmed",
+   "second": 46.0,
+   "reread": "46",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "2x \u00d86 thru",
+   "value": 6.0,
+   "parameter": "hole_dia",
+   "text_box": [
+    364,
+    463,
+    453,
+    488
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "2x \u00d86",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "\u00d812 thru",
+   "value": 12.0,
+   "parameter": "bore_dia",
+   "text_box": [
+    498,
+    464,
+    583,
+    487
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 12.0,
+   "reread": "\u00d812",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "R5 (4x)",
+   "value": 5.0,
+   "parameter": "corner_r",
+   "text_box": [
+    631,
+    464,
+    697,
+    490
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 5.0,
+   "reread": "R5",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "1 x 45\u00b0 all top edges",
+   "value": 1.0,
+   "parameter": "chamfer_sz",
+   "text_box": [
+    595,
+    279,
+    761,
+    308
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 1.0,
+   "reread": "1 x 45\u00b0",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "20",
+   "value": 20.0,
+   "parameter": null,
+   "text_box": [
+    655,
+    617,
+    678,
+    657
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "20",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "bore centred in X",
+   "value": 35.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "bore on centreline",
+   "value": 20.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 0,
+ "not_located": 0,
+ "read_cost": 0.000906,
+ "read_seconds": 20.6,
+ "reread_cost": 0.000698,
+ "reread_seconds": 27.0,
+ "crops": 9,
+ "spec": {
+  "description": "Flat 70x40x20 plate with rounded top-view corners, central \u00d812 thru hole and two \u00d86 thru holes symmetric about centre. Assumed: all three holes lie on the Y centreline (drawn on centre marks, 20 dimension is half of 40) and the central bore and the 46 pitch are centred in X.",
+  "features": [
+   {
+    "distance": "thick",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "anchor": "corner",
+     "height": "depth",
+     "radius": "corner_r",
+     "shape": "rounded_rect",
+     "u": 0.0,
+     "v": 0.0,
+     "width": "length"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "length / 2",
+     "depth / 2"
+    ],
+    "diameter": "bore_dia",
+    "face": "top",
+    "id": "bore",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "(length - hole_pitch) / 2",
+     "depth / 2"
+    ],
+    "diameter": "hole_dia",
+    "face": "top",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 2,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_u": "hole_pitch",
+    "type": "linear_pattern"
+   },
+   {
+    "edges": "top_outer",
+    "id": "chamf",
+    "size": "chamfer_sz",
+    "type": "chamfer"
+   }
+  ],
+  "name": "drilled_plate",
+  "parameters": {
+   "bore_dia": {
+    "description": "central thru hole diameter",
+    "value": 12.0
+   },
+   "chamfer_sz": {
+    "description": "1mm 45deg chamfer on all top edges",
+    "value": 1.0
+   },
+   "corner_r": {
+    "description": "top-view corner radius, 4x",
+    "value": 5.0
+   },
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 40.0
+   },
+   "hole_dia": {
+    "description": "two small thru hole diameter",
+    "value": 6.0
+   },
+   "hole_pitch": {
+    "description": "spacing between the two \u00d86 holes, centred in X",
+    "value": 46.0
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 70.0
+   },
+   "thick": {
+    "description": "overall thickness / height along Z",
+    "value": 20.0
+   }
+  }
+ }
+}

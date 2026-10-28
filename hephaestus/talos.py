@@ -25,7 +25,7 @@ contradictory; its message is shown to the user) | unverified | max_iters | stuc
 issue counts half, measurements beat the critic).
 
 Events are JSON-serialisable dicts with an "event" key:
-  read_started, rejected, spec, compiled, shape_check, checks, correction_started, error, done
+  read_started, rejected, spec, compiled, numbers, shape_check, checks, correction_started, error, done
 
 CLI: python -m hephaestus.talos drawing.png --out out/run1/ [--preset live|benchmark] [--max-iters 4] [--max-usd 0.5]
 """
@@ -35,10 +35,11 @@ import json
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, replace
 
 from . import critic as critic_mod
-from . import measure, meta_api, sam, shape_check
+from . import measure, meta_api, reread, sam, shape_check
 from .compile import SpecError, compile, write_outputs
 from .drawing import render_sheet
 from .prompts import CORRECT_PROMPT, READ_PROMPT, READ_TEXT_PROMPT, correction_request
@@ -192,10 +193,11 @@ def _feature_key(callout):
 
 
 def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use_critic=True, settings=None,
-        prompt=None, segmenter=None, use_shape=True):
+        prompt=None, segmenter=None, use_shape=True, use_reread=True):
     """Generator of events for a drawing (image path or bytes) or a text `prompt`.
     `start` = {"spec", "callouts", optional "views"} skips the read and begins at the check (for evaluation).
-    `segmenter`: a sam.Segmenter for the shape check (default: one on the client's budget); use_shape=False skips it."""
+    `segmenter`: a sam.Segmenter for the shape check (default: one on the client's budget); use_shape=False skips it.
+    use_reread=False skips the independent re-read of the written numbers (reread.py)."""
     settings = settings or Settings()
     max_iters = settings.max_iters if max_iters is None else max_iters
     client = client or meta_api.Client()
@@ -204,6 +206,22 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
     shape_cost = [0.0]      # SAM spend already counted in `spent`
     critic_tried = set()    # features the critic alone has already had one correction for
     critic_round = False    # the last correction answered critic-only issues
+    numbers = {"future": None, "sent": False}
+
+    def numbers_event(wait):
+        """The re-read of the written numbers, once it is done (or, with `wait`, once it finishes)."""
+        f = numbers["future"]
+        if f is None or numbers["sent"] or not (wait or f.done()):
+            return None
+        numbers["sent"] = True
+        try:
+            res = f.result(timeout=90)
+        except Exception as e:  # noqa: BLE001 - the re-read is a hint for the user; never fail the run on it
+            return ev("numbers", available=False, note=f"{type(e).__name__}: {str(e)[:200]}", numbers=[])
+        spent[0] += res["cost_usd"]
+        unc = [n for n in res["numbers"] if n["status"] == "uncertain"]
+        return ev("numbers", available=True, numbers=res["numbers"], uncertain=len(unc), calls=res["calls"],
+                  cost_usd=res["cost_usd"], seconds=res["seconds"])
     disputes = []           # every dispute raised, with its outcome
     critic_flagged = set()  # features the critic consensus flagged in the latest check
 
@@ -250,6 +268,9 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
                 return
             if shape_input is not None:
                 shape_input.start_views(out.get("views"))          # SAM on the views, parallel with the compile
+            if use_reread and prompt is None and any(c.get("text_box") for c in callouts if isinstance(c, dict)):
+                numbers["future"] = ThreadPoolExecutor(max_workers=1).submit(
+                    reread.reread, client, drawing, copy.deepcopy(callouts), settings.read_model)
             yield ev("spec", spec=spec, callouts=callouts, changelog=None, call=_call_info(info))
         else:
             spec, callouts = start["spec"], start.get("callouts") or []
@@ -267,6 +288,9 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
                     json.dump({"spec": spec, "callouts": callouts}, f, indent=2)
             compiled, result, sheet, issues = build(spec, idir)
             yield ev("compiled", **compiled)      # the UI can show the part before any check runs
+            n = numbers_event(wait=False)
+            if n:
+                yield n
             pending = [d for d in disputes if d["status"] == "provisional"]
             if result is None:
                 checks = {"issues": issues, "callouts": [], "critic": None, "critic_call": None}
@@ -302,6 +326,9 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
             checks["disputes"] = copy.deepcopy(disputes)
             clean = not issues
             yield ev("checks", clean=clean, **checks)
+            n = numbers_event(wait=True)
+            if n:
+                yield n
             measured = [i for i in issues if i["source"] != "critic"]
             critic_only = [i for i in issues if i["source"] == "critic"] if not measured else []
             score = len(measured) + 0.5 * (len(issues) - len(measured)) + (100 if not compiled["ok"] else 0)

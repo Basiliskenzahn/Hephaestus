@@ -1,0 +1,290 @@
+{
+ "name": "hand__04_bushing",
+ "group": "hand",
+ "key": "04_bushing",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "30",
+   "value": 30.0,
+   "parameter": "total_h",
+   "text_box": [
+    297,
+    272,
+    328,
+    315
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "5",
+   "value": 5.0,
+   "parameter": "flange_t",
+   "text_box": [
+    714,
+    355,
+    735,
+    377
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "\u00d840",
+   "value": 40.0,
+   "parameter": "flange_dia",
+   "text_box": [
+    633,
+    435,
+    678,
+    459
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "\u00d840",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "\u00d824",
+   "value": 24.0,
+   "parameter": "boss_dia",
+   "text_box": [
+    300,
+    485,
+    341,
+    505
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "\u00d816 thru",
+   "value": 16.0,
+   "parameter": "bore_dia",
+   "text_box": [
+    632,
+    735,
+    728,
+    758
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "4x \u00d84 thru",
+   "value": 4.0,
+   "parameter": "hole_dia",
+   "text_box": [
+    687,
+    535,
+    790,
+    556
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 4.0,
+   "reread": "4x \u00d84",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "PCD \u00d832",
+   "value": 32.0,
+   "parameter": "pcd_dia",
+   "text_box": [
+    305,
+    731,
+    406,
+    755
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 32.0,
+   "reread": "\u00d832",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "boss centred",
+   "value": 20.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "boss centred",
+   "value": 20.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "bore centred",
+   "value": 20.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "bore centred",
+   "value": 20.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 0,
+ "not_located": 0,
+ "read_cost": 0.000826,
+ "read_seconds": 23.5,
+ "reread_cost": 0.000258,
+ "reread_seconds": 9.0,
+ "crops": 7,
+ "spec": {
+  "description": "Flanged bushing with full-height central bore and 4-hole bolt circle. Assumed: flange, boss, bore and bolt circle are all concentric (drawn coaxial, not dimensioned from an edge).",
+  "features": [
+   {
+    "distance": "flange_t",
+    "id": "flange",
+    "plane": "XY",
+    "profile": {
+     "diameter": "flange_dia",
+     "shape": "circle",
+     "u": "flange_dia / 2",
+     "v": "flange_dia / 2"
+    },
+    "type": "extrude"
+   },
+   {
+    "distance": "total_h - flange_t",
+    "id": "boss",
+    "offset": "flange_t",
+    "plane": "XY",
+    "profile": {
+     "diameter": "boss_dia",
+     "shape": "circle",
+     "u": "flange_dia / 2",
+     "v": "flange_dia / 2"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "flange_dia / 2",
+     "flange_dia / 2"
+    ],
+    "diameter": "bore_dia",
+    "face": "top_of_feature:boss",
+    "id": "bore",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "flange_dia / 2",
+     "flange_dia / 2 + pcd_dia / 2"
+    ],
+    "diameter": "hole_dia",
+    "face": "top_of_feature:flange",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "flange_dia / 2",
+     "flange_dia / 2"
+    ],
+    "count": 4,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "type": "circular_pattern"
+   }
+  ],
+  "name": "flanged_bushing",
+  "parameters": {
+   "bore_dia": {
+    "description": "central through bore diameter",
+    "value": 16.0
+   },
+   "boss_dia": {
+    "description": "raised boss outer diameter",
+    "value": 24.0
+   },
+   "flange_dia": {
+    "description": "flange outer diameter",
+    "value": 40.0
+   },
+   "flange_t": {
+    "description": "flange thickness",
+    "value": 5.0
+   },
+   "hole_dia": {
+    "description": "flange mounting hole diameter",
+    "value": 4.0
+   },
+   "pcd_dia": {
+    "description": "mounting holes pitch circle diameter",
+    "value": 32.0
+   },
+   "total_h": {
+    "description": "overall height",
+    "value": 30.0
+   }
+  }
+ }
+}

@@ -1,0 +1,347 @@
+{
+ "name": "hand__06_angled_bracket",
+ "group": "hand",
+ "key": "06_angled_bracket",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "80",
+   "value": 80,
+   "parameter": "length",
+   "text_box": [
+    453,
+    578,
+    489,
+    610
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 80.0,
+   "reread": "80",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "40",
+   "value": 40,
+   "parameter": "height",
+   "text_box": [
+    202,
+    352,
+    228,
+    407
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "30",
+   "value": 30,
+   "parameter": "depth",
+   "text_box": [
+    192,
+    722,
+    219,
+    773
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "30",
+   "value": 30,
+   "parameter": "top_flat",
+   "text_box": [
+    336,
+    196,
+    366,
+    218
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "\u00d88 thru",
+   "value": 8,
+   "parameter": "hole_dia",
+   "text_box": [
+    536,
+    351,
+    619,
+    380
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "\u00d88",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "20",
+   "value": 20,
+   "parameter": "hole_inset",
+   "text_box": [
+    701,
+    307,
+    730,
+    329
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "20",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "15",
+   "value": 15,
+   "parameter": "tip_h",
+   "text_box": [
+    768,
+    454,
+    793,
+    491
+   ],
+   "confidence": "medium",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "10",
+   "value": 10,
+   "parameter": "hole_z",
+   "text_box": [
+    795,
+    478,
+    821,
+    519
+   ],
+   "confidence": "medium",
+   "status": "confirmed",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "2x \u00d86 thru",
+   "value": 6,
+   "parameter": "mount_dia",
+   "text_box": [
+    502,
+    750,
+    597,
+    780
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "15",
+   "value": 15,
+   "parameter": "mount_inset_x",
+   "text_box": [
+    267,
+    585,
+    296,
+    610
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "8",
+   "value": 8,
+   "parameter": "mount_edge",
+   "text_box": [
+    754,
+    816,
+    778,
+    841
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 11,
+   "label": "hole centred",
+   "value": 15,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 0,
+ "not_located": 0,
+ "read_cost": 0.002175,
+ "read_seconds": 58.7,
+ "reread_cost": 0.000244,
+ "reread_seconds": 7.7,
+ "crops": 11,
+ "spec": {
+  "description": "Tapered flat bracket: front profile 80 long, 40 tall on left tapering to 15 at the right tip after a 30 long top flat, extruded 30 deep. One \u00d88 cross hole 20 from tip and 10 up from bottom; two \u00d86 vertical holes 15 from left edge and 8 from side edges. Assumed: \u00d88 hole centred in depth; mount holes symmetric in depth; tip height is 15 and hole height is 10.",
+  "features": [
+   {
+    "distance": "depth",
+    "id": "base",
+    "offset": 0.0,
+    "operation": "add",
+    "plane": "XZ",
+    "profile": {
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       "length",
+       0
+      ],
+      [
+       "length",
+       "tip_h"
+      ],
+      [
+       "top_flat",
+       "height"
+      ],
+      [
+       0,
+       "height"
+      ]
+     ],
+     "shape": "polygon"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "length - hole_inset",
+     "hole_z"
+    ],
+    "diameter": "hole_dia",
+    "face": "front",
+    "id": "hole8",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "mount_inset_x",
+     "mount_edge"
+    ],
+    "diameter": "mount_dia",
+    "face": "top_of_feature:base",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 1,
+    "count_v": 2,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_v": "depth - 2 * mount_edge",
+    "type": "linear_pattern"
+   }
+  ],
+  "name": "angled_bracket",
+  "parameters": {
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 30
+   },
+   "height": {
+    "description": "overall height on left along Z",
+    "value": 40
+   },
+   "hole_dia": {
+    "description": "cross hole diameter",
+    "value": 8
+   },
+   "hole_inset": {
+    "description": "cross hole centre from right tip edge along X",
+    "value": 20
+   },
+   "hole_z": {
+    "description": "cross hole centre height from bottom",
+    "value": 10
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 80
+   },
+   "mount_dia": {
+    "description": "mounting hole diameter",
+    "value": 6
+   },
+   "mount_edge": {
+    "description": "mounting hole centre from side edges along Y; second hole follows as depth - mount_edge",
+    "value": 8
+   },
+   "mount_inset_x": {
+    "description": "mounting hole centre from left edge along X",
+    "value": 15
+   },
+   "tip_h": {
+    "description": "tip height at right end along Z",
+    "value": 15
+   },
+   "top_flat": {
+    "description": "length of horizontal top portion before taper",
+    "value": 30
+   }
+  },
+  "spec_version": "1",
+  "units": "mm"
+ }
+}

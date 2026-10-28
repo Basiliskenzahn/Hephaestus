@@ -1,0 +1,331 @@
+{
+ "name": "benchmark__05_enclosure__photo",
+ "group": "benchmark",
+ "key": "05_enclosure",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "40",
+   "value": 40,
+   "parameter": "height",
+   "text_box": [
+    330,
+    365,
+    348,
+    400
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "100",
+   "value": 100,
+   "parameter": "length",
+   "text_box": [
+    518,
+    667,
+    543,
+    685
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 100.0,
+   "reread": "100",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "60",
+   "value": 60,
+   "parameter": "depth",
+   "text_box": [
+    342,
+    580,
+    360,
+    617
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 60.0,
+   "reread": "60",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "4x \u00d83.2 thru floor",
+   "value": 3.2,
+   "parameter": "mount_dia",
+   "text_box": [
+    502,
+    430,
+    595,
+    447
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 3.2,
+   "reread": "4x \u00d83.2",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "10",
+   "value": 10,
+   "parameter": "mount_inset",
+   "text_box": [
+    390,
+    713,
+    409,
+    732
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "10",
+   "value": 10,
+   "parameter": "mount_inset",
+   "text_box": [
+    683,
+    596,
+    697,
+    615
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "R6 (4x)",
+   "value": 6,
+   "parameter": "corner_r",
+   "text_box": [
+    661,
+    405,
+    704,
+    424
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "R6 (4x)",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "wall 2",
+   "value": 2,
+   "parameter": "wall_t",
+   "text_box": [
+    702,
+    491,
+    732,
+    510
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 2.0,
+   "reread": "2",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "\u00d88 thru front wall",
+   "value": 8,
+   "parameter": "front_dia",
+   "text_box": [
+    527,
+    238,
+    547,
+    256
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "\u00d88",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "0.5 x 45\u00b0",
+   "value": 0.5,
+   "parameter": null,
+   "text_box": [
+    604,
+    225,
+    679,
+    243
+   ],
+   "confidence": "medium",
+   "status": "confirmed",
+   "second": 0.5,
+   "reread": "0.5 x 45\u00b0",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "20",
+   "value": 20,
+   "parameter": "front_z",
+   "text_box": [
+    654,
+    331,
+    671,
+    365
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "20",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 11,
+   "label": "front hole centred",
+   "value": 50,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 0,
+ "not_located": 0,
+ "read_cost": 0.00113,
+ "read_seconds": 31.2,
+ "reread_cost": 0.000373,
+ "reread_seconds": 12.3,
+ "crops": 11,
+ "spec": {
+  "description": "Rectangular enclosure open top with 2 mm walls. Assumed: front hole centred in X (drawn symmetric) and mounting holes symmetric 10 mm from all walls.",
+  "features": [
+   {
+    "distance": "height",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "anchor": "corner",
+     "height": "depth",
+     "radius": "corner_r",
+     "shape": "rounded_rect",
+     "u": 0,
+     "v": 0,
+     "width": "length"
+    },
+    "type": "extrude"
+   },
+   {
+    "id": "shell1",
+    "open_faces": [
+     "top"
+    ],
+    "thickness": "wall_t",
+    "type": "shell"
+   },
+   {
+    "center": [
+     "mount_inset",
+     "mount_inset"
+    ],
+    "diameter": "mount_dia",
+    "face": "bottom",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 2,
+    "count_v": 2,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_u": "length - 2 * mount_inset",
+    "spacing_v": "depth - 2 * mount_inset",
+    "type": "linear_pattern"
+   },
+   {
+    "center": [
+     "length / 2",
+     "front_z"
+    ],
+    "depth": "wall_t",
+    "diameter": "front_dia",
+    "face": "front",
+    "id": "front_hole",
+    "type": "hole"
+   }
+  ],
+  "name": "enclosure",
+  "parameters": {
+   "corner_r": {
+    "description": "outer corner radius, 4x",
+    "value": 6
+   },
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 60
+   },
+   "front_dia": {
+    "description": "hole diameter in front wall",
+    "value": 8
+   },
+   "front_z": {
+    "description": "front hole centre height from bottom",
+    "value": 20
+   },
+   "height": {
+    "description": "overall height along Z",
+    "value": 40
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 100
+   },
+   "mount_dia": {
+    "description": "floor mounting hole diameter, 4x",
+    "value": 3.2
+   },
+   "mount_inset": {
+    "description": "mounting hole centre inset from walls in X and Y",
+    "value": 10
+   },
+   "wall_t": {
+    "description": "wall and floor thickness of open enclosure",
+    "value": 2
+   }
+  },
+  "spec_version": "1",
+  "units": "mm"
+ }
+}

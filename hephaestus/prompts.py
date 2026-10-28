@@ -80,12 +80,20 @@ Set `input_kind` and `problem` before anything else.
   "not_a_drawing", problem says what you see and asks for a sketch or drawing with dimensions.
 - Too blurry, dark or small to read the numbers: "unreadable", problem asks for a sharper, brighter photo.
 - Dimensions that contradict each other or describe something that cannot be built: problem explains it in one
-  sentence.
+  sentence. Only when no reading of the drawing makes the numbers fit together: a number you cannot place (it may
+  locate a hole, not size the outline) or a sketch that is not to scale is not a contradiction; build the most
+  plausible part.
 Whenever problem is not null, return a placeholder spec (one 10 mm cube, no callouts, no views): it is ignored."""
+
+NUMBERS_GUIDE = """## Reading the numbers
+- A crossed-out number is never used: use the number written next to it as its replacement.
+- For every callout give `text_box` (where its number is written, digits only), `confidence` and `parameter`.
+- Handwritten digits are easy to confuse (1/7, 3/5/8, 4/9, 6/0): if a digit could be read two ways, set confidence
+  to medium or low. Every number is checked again independently; an honest confidence costs nothing."""
 
 READ_PROMPT = ("You convert dimensioned engineering drawings into a parametric part spec (JSON, spec v1) plus the "
                "list of dimensions you read.\nA deterministic CAD compiler builds the part from your spec, so it must "
-               "be exact.\n\n" + INPUT_CHECK + "\n\n" + _SPEC_GUIDE + "\n\n" + VIEWS_GUIDE + "\n\n" + _EXAMPLE
+               "be exact.\n\n" + INPUT_CHECK + "\n\n" + _SPEC_GUIDE + "\n\n" + NUMBERS_GUIDE + "\n\n" + VIEWS_GUIDE + "\n\n" + _EXAMPLE
                + "\n\nReturn only the JSON.")
 
 # locating the views alone (evaluation of the shape check without new reads)
@@ -120,7 +128,7 @@ READ_TEXT_PROMPT = ("You convert a text description of a mechanical part into a 
                     "- Choose sensible values for anything the description leaves open (hole positions, an M5 "
                     "clearance hole is Ø5.5, ...) and list those choices in the spec `description`; do not add callouts "
                     "for them.\n- Keep the part simple: only the features the description asks for.\n- `views` is [] (there "
-                    "is no drawing). `input_kind` is \"description\", or \"no_dimensions\" if the text gives no size "
+                    "is no drawing). Callouts: `text_box` null, `confidence` high, `parameter` the parameter holding the number. `input_kind` is \"description\", or \"no_dimensions\" if the text gives no size "
                     "at all (then `problem` asks for one; we never guess the scale). A named standard is a size: "
                     "\"NEMA 17\", \"M5\", \"608 bearing\", \"2020 extrusion\" mean their standard dimensions (say "
                     "which ones you used, marked assumed).\n- Vague but sized (\"a small "

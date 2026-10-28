@@ -1,0 +1,261 @@
+{
+ "name": "benchmark__08_shaft_collar__rough",
+ "group": "benchmark",
+ "key": "08_shaft_collar",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "15",
+   "value": 15.0,
+   "parameter": "thickness",
+   "text_box": [
+    400,
+    350,
+    418,
+    385
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "\u00d840",
+   "value": 40.0,
+   "parameter": "outer_dia",
+   "text_box": [
+    430,
+    440,
+    463,
+    456
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "\u00d840",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "\u00d820 thru",
+   "value": 20.0,
+   "parameter": "inner_dia",
+   "text_box": [
+    361,
+    614,
+    424,
+    631
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "\u00d820",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "\u00d84 thru",
+   "value": 4.0,
+   "parameter": "pin_dia",
+   "text_box": [
+    698,
+    304,
+    748,
+    323
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 4.0,
+   "reread": "\u00d84",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "slit 2",
+   "value": 2.0,
+   "parameter": "slit_w",
+   "text_box": [
+    700,
+    522,
+    733,
+    537
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 2.0,
+   "reread": "2",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "35",
+   "value": 35.0,
+   "parameter": "pin_x",
+   "text_box": [
+    537,
+    687,
+    554,
+    701
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 35.0,
+   "reread": "35",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "bore centred",
+   "value": 20.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "bore centred",
+   "value": 20.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "pin hole centred",
+   "value": 7.5,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "slit centred",
+   "value": 20.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 0,
+ "not_located": 0,
+ "read_cost": 0.001526,
+ "read_seconds": 56.1,
+ "reread_cost": 0.000251,
+ "reread_seconds": 8.9,
+ "crops": 6,
+ "spec": {
+  "description": "Split shaft collar with central bore and transverse clamp screw across the slit. Assumed: bore is centred in the outer disc, slit is on the +X side on the centreline and runs from the bore to the outside through the full thickness, pin hole runs along Y at pin_x from the left edge and is centred in Z.",
+  "features": [
+   {
+    "distance": "thickness",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "diameter": "outer_dia",
+     "shape": "circle",
+     "u": "outer_dia / 2",
+     "v": "outer_dia / 2"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "outer_dia / 2",
+     "outer_dia / 2"
+    ],
+    "diameter": "inner_dia",
+    "face": "top_of_feature:base",
+    "id": "bore",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "distance": "slit_w",
+    "id": "slit",
+    "offset": "outer_dia / 2 - slit_w / 2",
+    "operation": "cut",
+    "plane": "XZ",
+    "profile": {
+     "height": "thickness",
+     "shape": "rect",
+     "u": "outer_dia / 2",
+     "v": 0.0,
+     "width": "outer_dia / 2"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "pin_x",
+     "thickness / 2"
+    ],
+    "diameter": "pin_dia",
+    "face": "front",
+    "id": "pin_hole",
+    "through": true,
+    "type": "hole"
+   }
+  ],
+  "name": "shaft_collar",
+  "parameters": {
+   "inner_dia": {
+    "description": "central bore diameter",
+    "value": 20.0
+   },
+   "outer_dia": {
+    "description": "collar outside diameter",
+    "value": 40.0
+   },
+   "pin_dia": {
+    "description": "clamp screw hole diameter",
+    "value": 4.0
+   },
+   "pin_x": {
+    "description": "clamp hole centre from left edge",
+    "value": 35.0
+   },
+   "slit_w": {
+    "description": "slit gap width",
+    "value": 2.0
+   },
+   "thickness": {
+    "description": "collar axial thickness along Z",
+    "value": 15.0
+   }
+  }
+ }
+}

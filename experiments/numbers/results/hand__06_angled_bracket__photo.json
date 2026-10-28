@@ -1,0 +1,333 @@
+{
+ "name": "hand__06_angled_bracket__photo",
+ "group": "hand",
+ "key": "06_angled_bracket",
+ "input_kind": "drawing",
+ "read_perfect": false,
+ "after_taps": false,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "30",
+   "value": 30,
+   "parameter": "top_len",
+   "text_box": [
+    435,
+    300,
+    475,
+    320
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "40",
+   "value": 40,
+   "parameter": "left_h",
+   "text_box": [
+    295,
+    410,
+    315,
+    485
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "80",
+   "value": 80,
+   "parameter": "length",
+   "text_box": [
+    505,
+    550,
+    530,
+    575
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 80.0,
+   "reread": "80",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "20",
+   "value": 20,
+   "parameter": "hole8_tip_dist",
+   "text_box": [
+    625,
+    360,
+    645,
+    380
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "20",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "08 thru",
+   "value": 8,
+   "parameter": "hole8_dia",
+   "text_box": [
+    540,
+    400,
+    595,
+    425
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "\u00d88",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "15",
+   "value": 15,
+   "parameter": "hole8_z",
+   "text_box": [
+    655,
+    445,
+    675,
+    475
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "10",
+   "value": 10,
+   "parameter": "tip_h",
+   "text_box": [
+    685,
+    455,
+    700,
+    480
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "15",
+   "value": 15,
+   "parameter": "hole6_inset_x",
+   "text_box": [
+    365,
+    560,
+    390,
+    585
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "30",
+   "value": 30,
+   "parameter": "depth",
+   "text_box": [
+    305,
+    675,
+    325,
+    710
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "2x 06 thru",
+   "value": 6,
+   "parameter": "hole6_dia",
+   "text_box": [
+    505,
+    640,
+    590,
+    665
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "2x \u00d86",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "8",
+   "value": 8,
+   "parameter": "hole6_inset_y",
+   "text_box": [
+    670,
+    635,
+    685,
+    660
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "8",
+   "written": true,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 1,
+ "not_located": 0,
+ "read_cost": 0.002622,
+ "read_seconds": 77.9,
+ "reread_cost": 0.000302,
+ "reread_seconds": 10.3,
+ "crops": 11,
+ "spec": {
+  "description": "Tapered bracket block 80x30x40 with 10 high tip centred at 15. Assumed: bottom edge slopes from 0 up to tip bottom (tip centred at 15), top slopes from end of 30 straight to tip top; side hole is 20 from tip in X and 15 up from bbox bottom; 2x vertical holes share X=15 and are symmetric in Y at 8 from edges.",
+  "features": [
+   {
+    "direction": "positive",
+    "distance": "depth",
+    "id": "base",
+    "offset": 0.0,
+    "operation": "add",
+    "plane": "XZ",
+    "profile": {
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       80,
+       "hole8_z - tip_h / 2"
+      ],
+      [
+       80,
+       "hole8_z + tip_h / 2"
+      ],
+      [
+       "top_len",
+       "left_h"
+      ],
+      [
+       0,
+       "left_h"
+      ]
+     ],
+     "shape": "polygon"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "hole6_inset_x",
+     "hole6_inset_y"
+    ],
+    "diameter": "hole6_dia",
+    "face": "top",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_v": 2,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_v": "depth - 2 * hole6_inset_y",
+    "type": "linear_pattern"
+   },
+   {
+    "center": [
+     "length - hole8_tip_dist",
+     "hole8_z"
+    ],
+    "diameter": "hole8_dia",
+    "face": "front",
+    "id": "side_hole",
+    "through": true,
+    "type": "hole"
+   }
+  ],
+  "name": "angled_bracket",
+  "parameters": {
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 30
+   },
+   "hole6_dia": {
+    "description": "mounting hole diameter",
+    "value": 6
+   },
+   "hole6_inset_x": {
+    "description": "mounting hole centre from left edge",
+    "value": 15
+   },
+   "hole6_inset_y": {
+    "description": "mounting hole centre from side edges; spacing follows as depth - 2 * inset",
+    "value": 8
+   },
+   "hole8_dia": {
+    "description": "side hole diameter",
+    "value": 8
+   },
+   "hole8_tip_dist": {
+    "description": "side hole centre from tip (right) edge along X",
+    "value": 20
+   },
+   "hole8_z": {
+    "description": "side hole centre height from bbox bottom; also tip centre height",
+    "value": 15
+   },
+   "left_h": {
+    "description": "overall height at left",
+    "value": 40
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 80
+   },
+   "tip_h": {
+    "description": "tip height at right end",
+    "value": 10
+   },
+   "top_len": {
+    "description": "length of straight top before taper",
+    "value": 30
+   }
+  },
+  "units": "mm"
+ }
+}

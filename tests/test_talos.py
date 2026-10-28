@@ -44,6 +44,7 @@ def wrong_block():
 
 def events_of(client, **kw):
     kw.setdefault("use_shape", False)           # the shape check has its own tests (test_shape_check.py)
+    kw.setdefault("use_reread", False)          # the number re-read has its own tests (test_reread.py)
     return list(run(DRAWING, client=client, **kw))
 
 

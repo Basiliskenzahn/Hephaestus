@@ -1,0 +1,283 @@
+{
+ "name": "hand__01_plate__photo",
+ "group": "hand",
+ "key": "01_plate",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "80",
+   "value": 80,
+   "parameter": "length",
+   "text_box": [
+    498,
+    336,
+    529,
+    358
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 80.0,
+   "reread": "80",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "50",
+   "value": 50,
+   "parameter": "depth",
+   "text_box": [
+    718,
+    498,
+    737,
+    540
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 50.0,
+   "reread": "50",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "t = 6",
+   "value": 6,
+   "parameter": "thickness",
+   "text_box": [
+    585,
+    706,
+    602,
+    724
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "6",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "\u00d820 thru",
+   "value": 20,
+   "parameter": "center_dia",
+   "text_box": [
+    566,
+    303,
+    632,
+    331
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "\u00d820",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "4x \u00d86 thru",
+   "value": 6,
+   "parameter": "hole_dia",
+   "text_box": [
+    687,
+    293,
+    755,
+    323
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "4x \u00d86",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "64",
+   "value": 64,
+   "parameter": null,
+   "text_box": [
+    497,
+    683,
+    522,
+    704
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 64.0,
+   "reread": "64",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "34",
+   "value": 34,
+   "parameter": null,
+   "text_box": [
+    297,
+    515,
+    317,
+    563
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 34.0,
+   "reread": "34",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "8",
+   "value": 8,
+   "parameter": "hole_inset",
+   "text_box": [
+    349,
+    648,
+    375,
+    670
+   ],
+   "confidence": "medium",
+   "status": "uncertain",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "8",
+   "value": 8,
+   "parameter": "hole_inset",
+   "text_box": [
+    309,
+    595,
+    327,
+    620
+   ],
+   "confidence": "medium",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "8",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "center hole centred",
+   "value": 40,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "center hole centred",
+   "value": 25,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 1,
+ "not_located": 0,
+ "read_cost": 0.001584,
+ "read_seconds": 21.6,
+ "reread_cost": 0.000332,
+ "reread_seconds": 13.5,
+ "crops": 9,
+ "spec": {
+  "description": "Flat rectangular plate with central thru hole and four corner thru holes. Assumed: centre hole is centred (drawn symmetric with centrelines, not dimensioned from an edge); corner holes are symmetric with 8 inset from each edge, pitch dimensions 64 and 34 follow as overall minus 2x inset.",
+  "features": [
+   {
+    "distance": "thickness",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "height": "depth",
+     "shape": "rect",
+     "width": "length"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "length / 2",
+     "depth / 2"
+    ],
+    "diameter": "center_dia",
+    "face": "top_of_feature:base",
+    "id": "center_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "hole_inset",
+     "hole_inset"
+    ],
+    "diameter": "hole_dia",
+    "face": "top_of_feature:base",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 2,
+    "count_v": 2,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_u": "length - 2 * hole_inset",
+    "spacing_v": "depth - 2 * hole_inset",
+    "type": "linear_pattern"
+   }
+  ],
+  "name": "plate_80x50",
+  "parameters": {
+   "center_dia": {
+    "description": "central thru hole diameter",
+    "value": 20
+   },
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 50
+   },
+   "hole_dia": {
+    "description": "corner mounting hole diameter",
+    "value": 6
+   },
+   "hole_inset": {
+    "description": "corner hole centre inset from each edge; pitches follow as overall minus 2x inset",
+    "value": 8
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 80
+   },
+   "thickness": {
+    "description": "plate thickness",
+    "value": 6
+   }
+  },
+  "units": "mm"
+ }
+}

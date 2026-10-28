@@ -1,0 +1,402 @@
+{
+ "name": "benchmark__07_pocket_plate__rough",
+ "group": "benchmark",
+ "key": "07_pocket_plate",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "10",
+   "value": 10.0,
+   "parameter": "thickness",
+   "text_box": [
+    310,
+    335,
+    322,
+    360
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "60",
+   "value": 60.0,
+   "parameter": "depth",
+   "text_box": [
+    276,
+    555,
+    292,
+    596
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 60.0,
+   "reread": "60",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "100",
+   "value": 100.0,
+   "parameter": "length",
+   "text_box": [
+    439,
+    714,
+    472,
+    732
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 100.0,
+   "reread": "100",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "80",
+   "value": 80.0,
+   "parameter": null,
+   "text_box": [
+    493,
+    688,
+    515,
+    704
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": true
+  },
+  {
+   "index": 4,
+   "label": "10",
+   "value": 10.0,
+   "parameter": "hole_inset",
+   "text_box": [
+    304,
+    683,
+    324,
+    700
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "10",
+   "value": 10.0,
+   "parameter": "hole_inset",
+   "text_box": [
+    642,
+    643,
+    662,
+    667
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "40",
+   "value": 40.0,
+   "parameter": null,
+   "text_box": [
+    640,
+    554,
+    657,
+    597
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": true
+  },
+  {
+   "index": 7,
+   "label": "50",
+   "value": 50.0,
+   "parameter": "pocket_len",
+   "text_box": [
+    509,
+    481,
+    528,
+    497
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 60.0,
+   "reread": "60",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "30",
+   "value": 30.0,
+   "parameter": "pocket_w",
+   "text_box": [
+    588,
+    559,
+    605,
+    582
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "R3",
+   "value": 3.0,
+   "parameter": "pocket_r",
+   "text_box": [
+    348,
+    549,
+    369,
+    568
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 3.0,
+   "reread": "R3",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "pocket 4 deep",
+   "value": 4.0,
+   "parameter": "pocket_depth",
+   "text_box": [
+    556,
+    434,
+    568,
+    448
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 4.0,
+   "reread": "4x \u00d86.6",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 11,
+   "label": "4x \u00d86.6 thru. counterbore \u00d811 x 6.4 deep",
+   "value": 6.6,
+   "parameter": "hole_dia",
+   "text_box": [
+    557,
+    412,
+    592,
+    428
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.6,
+   "reread": "4",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 12,
+   "label": "4x \u00d86.6 thru. counterbore \u00d811 x 6.4 deep",
+   "value": 11.0,
+   "parameter": "cbore_dia",
+   "text_box": [
+    703,
+    413,
+    728,
+    429
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 11.0,
+   "reread": "\u00d811",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 13,
+   "label": "4x \u00d86.6 thru. counterbore \u00d811 x 6.4 deep",
+   "value": 6.4,
+   "parameter": "cbore_depth",
+   "text_box": [
+    753,
+    413,
+    781,
+    429
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.4,
+   "reread": "x 6.4",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 14,
+   "label": "pocket centred",
+   "value": 25.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 15,
+   "label": "pocket centred",
+   "value": 15.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 2,
+ "caught": 0,
+ "false_flags": 1,
+ "not_located": 0,
+ "read_cost": 0.001255,
+ "read_seconds": 35.2,
+ "reread_cost": 0.000687,
+ "reread_seconds": 28.3,
+ "crops": 14,
+ "spec": {
+  "description": "Pocket plate with central rounded pocket and 4 counterbored thru holes. Assumed: pocket is centred (drawn symmetric, not dimensioned from an edge).",
+  "features": [
+   {
+    "distance": "thickness",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "height": "depth",
+     "shape": "rect",
+     "width": "length"
+    },
+    "type": "extrude"
+   },
+   {
+    "distance": "pocket_depth",
+    "id": "pocket",
+    "offset": "thickness - pocket_depth",
+    "operation": "cut",
+    "plane": "XY",
+    "profile": {
+     "anchor": "corner",
+     "height": "pocket_w",
+     "radius": "pocket_r",
+     "shape": "rounded_rect",
+     "u": "(length - pocket_len) / 2",
+     "v": "(depth - pocket_w) / 2",
+     "width": "pocket_len"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "hole_inset",
+     "hole_inset"
+    ],
+    "counterbore": {
+     "depth": "cbore_depth",
+     "diameter": "cbore_dia"
+    },
+    "diameter": "hole_dia",
+    "face": "top_of_feature:base",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 2.0,
+    "count_v": 2.0,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_u": "length - 2 * hole_inset",
+    "spacing_v": "depth - 2 * hole_inset",
+    "type": "linear_pattern"
+   }
+  ],
+  "name": "pocket_plate",
+  "parameters": {
+   "cbore_depth": {
+    "description": "counterbore depth from top",
+    "value": 6.4
+   },
+   "cbore_dia": {
+    "description": "counterbore diameter",
+    "value": 11.0
+   },
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 60.0
+   },
+   "hole_dia": {
+    "description": "mounting thru hole diameter",
+    "value": 6.6
+   },
+   "hole_inset": {
+    "description": "hole centre from each edge; hole spacing follows as length/depth - 2 * hole_inset",
+    "value": 10.0
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 100.0
+   },
+   "pocket_depth": {
+    "description": "pocket depth from top",
+    "value": 4.0
+   },
+   "pocket_len": {
+    "description": "pocket length along X",
+    "value": 50.0
+   },
+   "pocket_r": {
+    "description": "pocket corner radius",
+    "value": 3.0
+   },
+   "pocket_w": {
+    "description": "pocket width along Y",
+    "value": 30.0
+   },
+   "thickness": {
+    "description": "plate thickness",
+    "value": 10.0
+   }
+  }
+ }
+}

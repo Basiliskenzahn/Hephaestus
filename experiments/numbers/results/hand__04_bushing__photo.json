@@ -1,0 +1,290 @@
+{
+ "name": "hand__04_bushing__photo",
+ "group": "hand",
+ "key": "04_bushing",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "30",
+   "value": 30,
+   "parameter": "overall_h",
+   "text_box": [
+    355,
+    350,
+    385,
+    395
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "5",
+   "value": 5,
+   "parameter": "flange_t",
+   "text_box": [
+    608,
+    378,
+    630,
+    396
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 2.0,
+   "reread": "2",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "\u00d840",
+   "value": 40,
+   "parameter": "flange_dia",
+   "text_box": [
+    630,
+    435,
+    675,
+    460
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "\u00d840",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "\u00d824",
+   "value": 24,
+   "parameter": "tube_od",
+   "text_box": [
+    375,
+    485,
+    410,
+    510
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 24.0,
+   "reread": "\u00d824",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "\u00d816 thru",
+   "value": 16,
+   "parameter": "bore_dia",
+   "text_box": [
+    630,
+    640,
+    705,
+    665
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 16.0,
+   "reread": "\u00d816",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "4x \u00d84 thru",
+   "value": 4,
+   "parameter": "mount_dia",
+   "text_box": [
+    640,
+    510,
+    725,
+    530
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 4.0,
+   "reread": "4x \u00d84",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "PCD \u00d832",
+   "value": 32,
+   "parameter": "pcd",
+   "text_box": [
+    355,
+    670,
+    435,
+    700
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 32.0,
+   "reread": "\u00d832",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "tube centred",
+   "value": 20,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "tube centred",
+   "value": 20,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "bore centred",
+   "value": 20,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "bore centred",
+   "value": 20,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 1,
+ "not_located": 0,
+ "read_cost": 0.001025,
+ "read_seconds": 28.2,
+ "reread_cost": 0.000326,
+ "reread_seconds": 11.8,
+ "crops": 7,
+ "spec": {
+  "description": "Flanged bushing with central through bore and 4-hole flange. Assumed: flange, tube, bore and bolt circle are coaxial and centred (drawn concentric, not dimensioned from an edge). Overall height 30 includes the flange.",
+  "features": [
+   {
+    "distance": "flange_t",
+    "id": "flange",
+    "plane": "XY",
+    "profile": {
+     "diameter": "flange_dia",
+     "shape": "circle",
+     "u": "flange_dia / 2",
+     "v": "flange_dia / 2"
+    },
+    "type": "extrude"
+   },
+   {
+    "distance": "overall_h - flange_t",
+    "id": "tube",
+    "offset": "flange_t",
+    "plane": "XY",
+    "profile": {
+     "diameter": "tube_od",
+     "shape": "circle",
+     "u": "flange_dia / 2",
+     "v": "flange_dia / 2"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "flange_dia / 2",
+     "flange_dia / 2"
+    ],
+    "diameter": "bore_dia",
+    "face": "top_of_feature:tube",
+    "id": "bore",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "flange_dia / 2 + pcd / 2",
+     "flange_dia / 2"
+    ],
+    "diameter": "mount_dia",
+    "face": "top_of_feature:flange",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "flange_dia / 2",
+     "flange_dia / 2"
+    ],
+    "count": 4,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "type": "circular_pattern"
+   }
+  ],
+  "name": "flanged_bushing",
+  "parameters": {
+   "bore_dia": {
+    "description": "central through bore diameter",
+    "value": 16
+   },
+   "flange_dia": {
+    "description": "flange outside diameter",
+    "value": 40
+   },
+   "flange_t": {
+    "description": "flange thickness",
+    "value": 5
+   },
+   "mount_dia": {
+    "description": "flange bolt hole diameter",
+    "value": 4
+   },
+   "overall_h": {
+    "description": "overall height including flange",
+    "value": 30
+   },
+   "pcd": {
+    "description": "bolt-hole pitch circle diameter",
+    "value": 32
+   },
+   "tube_od": {
+    "description": "bushing tube outside diameter",
+    "value": 24
+   }
+  }
+ }
+}

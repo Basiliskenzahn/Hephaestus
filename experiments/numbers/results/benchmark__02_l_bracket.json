@@ -1,0 +1,392 @@
+{
+ "name": "benchmark__02_l_bracket",
+ "group": "benchmark",
+ "key": "02_l_bracket",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "60",
+   "value": 60,
+   "parameter": "width",
+   "text_box": [
+    347,
+    202,
+    380,
+    230
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 60.0,
+   "reread": "60",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "40",
+   "value": 40,
+   "parameter": "height",
+   "text_box": [
+    196,
+    326,
+    225,
+    412
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "40",
+   "value": 40,
+   "parameter": "depth",
+   "text_box": [
+    670,
+    522,
+    700,
+    553
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "5",
+   "value": 5,
+   "parameter": "thick",
+   "text_box": [
+    585,
+    445,
+    620,
+    468
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 5.0,
+   "reread": "5",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "5",
+   "value": 5,
+   "parameter": "thick",
+   "text_box": [
+    795,
+    204,
+    812,
+    234
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 5.0,
+   "reread": "5",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "2x \u00d85 thru",
+   "value": 5,
+   "parameter": "hole_dia",
+   "text_box": [
+    536,
+    203,
+    630,
+    230
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 5.0,
+   "reread": "\u00d85",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "15",
+   "value": 15,
+   "parameter": "hole_x1",
+   "text_box": [
+    244,
+    264,
+    275,
+    286
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "30",
+   "value": 30,
+   "parameter": "hole_pitch",
+   "text_box": [
+    327,
+    262,
+    358,
+    284
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "28",
+   "value": 28,
+   "parameter": "hole_z",
+   "text_box": [
+    514,
+    377,
+    543,
+    462
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 28.0,
+   "reread": "28",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "slot w = 6",
+   "value": 6,
+   "parameter": "slot_w",
+   "text_box": [
+    443,
+    612,
+    540,
+    642
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "6",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "20",
+   "value": 20,
+   "parameter": "slot_len",
+   "text_box": [
+    354,
+    871,
+    387,
+    901
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "20",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 11,
+   "label": "17.5",
+   "value": 17.5,
+   "parameter": "slot_y",
+   "text_box": [
+    545,
+    716,
+    573,
+    801
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 17.5,
+   "reread": "17.5",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 12,
+   "label": "60",
+   "value": 60,
+   "parameter": "width",
+   "text_box": [
+    412,
+    832,
+    445,
+    862
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 20.0,
+   "reread": "20",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 13,
+   "label": "40",
+   "value": 40,
+   "parameter": "depth",
+   "text_box": [
+    195,
+    668,
+    225,
+    755
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 14,
+   "label": "slot centred",
+   "value": 30,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 1,
+ "not_located": 0,
+ "read_cost": 0.001078,
+ "read_seconds": 33.5,
+ "reread_cost": 0.00044,
+ "reread_seconds": 15.0,
+ "crops": 14,
+ "spec": {
+  "description": "L-bracket made of two overlapping 5 mm plates: base 60x40 and vertical 60x40 at the back. Assumed: the two holes are through the vertical leg in Y; the slot is through the base in Z and centred in X (drawn symmetric, not dimensioned from edge); the 60 dimension repeated in TOP is the same overall width.",
+  "features": [
+   {
+    "distance": "thick",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "height": "depth",
+     "shape": "rect",
+     "width": "width"
+    },
+    "type": "extrude"
+   },
+   {
+    "distance": "thick",
+    "id": "vert",
+    "offset": "depth - thick",
+    "operation": "add",
+    "plane": "XZ",
+    "profile": {
+     "height": "height",
+     "shape": "rect",
+     "width": "width"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "hole_x1",
+     "hole_z"
+    ],
+    "diameter": "hole_dia",
+    "face": "front",
+    "id": "hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 2,
+    "feature": "hole",
+    "id": "holes",
+    "spacing_u": "hole_pitch",
+    "type": "linear_pattern"
+   },
+   {
+    "angle": 0,
+    "center": [
+     "width / 2",
+     "slot_y"
+    ],
+    "face": "top_of_feature:base",
+    "id": "slot",
+    "length": "slot_len",
+    "through": true,
+    "type": "slot",
+    "width": "slot_w"
+   }
+  ],
+  "name": "L-bracket",
+  "parameters": {
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 40
+   },
+   "height": {
+    "description": "overall height along Z",
+    "value": 40
+   },
+   "hole_dia": {
+    "description": "vertical-leg hole diameter",
+    "value": 5
+   },
+   "hole_pitch": {
+    "description": "spacing between the two hole centres along X",
+    "value": 30
+   },
+   "hole_x1": {
+    "description": "first hole centre from left edge",
+    "value": 15
+   },
+   "hole_z": {
+    "description": "hole centre height from bottom (z=0)",
+    "value": 28
+   },
+   "slot_len": {
+    "description": "slot overall end-to-end length along X",
+    "value": 20
+   },
+   "slot_w": {
+    "description": "slot width along Y",
+    "value": 6
+   },
+   "slot_y": {
+    "description": "slot centre distance from front edge",
+    "value": 17.5
+   },
+   "thick": {
+    "description": "wall thickness of both legs",
+    "value": 5
+   },
+   "width": {
+    "description": "overall width along X",
+    "value": 60
+   }
+  }
+ }
+}

@@ -184,6 +184,9 @@ function onEvent(ev) {
     case "shape_check":
       shapeStep(ev, t);
       break;
+    case "numbers":
+      numbersStep(ev, t);
+      break;
     case "rejected":
       timeline.add(t, "Can’t build a part from this", "fix", p(ev.message));
       setStatus("needs input");
@@ -236,6 +239,59 @@ function onEvent(ev) {
       finish(ev);
       break;
   }
+}
+
+// ------------------------------------------------------------------ the numbers, checked twice
+// Each written number is read again from a crop of where it is written, with nothing else in view. Chips sit on the
+// input image: confirmed ones are subtle, uncertain ones offer both readings and a field; a choice sets the
+// parameter and rebuilds (no model call).
+function numbersStep(ev, t) {
+  if (!ev.available) return;
+  const located = (ev.numbers || []).filter((n) => n.text_box && n.status !== "not_located");
+  const unc = located.filter((n) => n.status === "uncertain");
+  timeline.addAside(t, unc.length ? `Checked the numbers: ${unc.length} uncertain, please confirm`
+    : `Checked the numbers: all ${located.length} read the same twice`, unc.length ? "fix" : "done",
+    p(unc.length ? "Each number was read a second time on its own. Tap the highlighted ones on the drawing and pick the right value."
+      : "Each number was read a second time on its own, from a crop of where it is written."));
+  const layer = $("#input-view .chips-layer");
+  if (!layer) return;
+  layer.innerHTML = "";
+  for (const n of located) {
+    const [x1, y1, x2, y2] = n.text_box;
+    const chip = el("button", { type: "button", class: `chip-num ${n.status}`, title: n.status === "uncertain"
+      ? `Read as ${fmt(n.value)}, re-read as ${n.second == null ? "unclear" : fmt(n.second)}` : `${n.label}: ${n.status}`,
+      style: `left:${Math.min(x1, x2) / 10}%;top:${Math.min(y1, y2) / 10}%` }, fmt(n.value));
+    if (n.status === "uncertain") chip.addEventListener("click", (e) => { e.stopPropagation(); chooser(chip, n); });
+    layer.append(chip);
+  }
+}
+
+function chooser(chip, n) {
+  document.querySelectorAll(".chip-pop").forEach((x) => x.remove());
+  const pop = el("div", { class: "chip-pop" });
+  const pick = (v) => { pop.remove(); confirmNumber(chip, n, v); };
+  for (const v of [n.value, n.second].filter((v, i, a) => v != null && a.indexOf(v) === i)) {
+    const b = el("button", { type: "button", class: "btn" }, fmt(v));
+    b.addEventListener("click", () => pick(v));
+    pop.append(b);
+  }
+  const inp = el("input", { type: "number", step: "any", placeholder: "other", "aria-label": `value for ${n.label}` });
+  const ok = el("button", { type: "button", class: "btn" }, "OK");
+  ok.addEventListener("click", () => inp.value !== "" && pick(Number(inp.value)));
+  inp.addEventListener("keydown", (e) => { if (e.key === "Enter" && inp.value !== "") pick(Number(inp.value)); });
+  pop.append(inp, ok);
+  chip.after(pop);
+  pop.style.left = chip.style.left;
+  pop.style.top = `calc(${chip.style.top} + 26px)`;
+}
+
+async function confirmNumber(chip, n, v) {
+  chip.classList.remove("uncertain");
+  chip.classList.add("by-user");
+  chip.textContent = fmt(v);
+  if (v === n.value) return;                                  // the first reading was right: nothing to change
+  const ok = await editor.setNumber(n, v);
+  if (!ok) { chip.classList.add("uncertain"); chip.classList.remove("by-user"); chip.textContent = fmt(n.value); }
 }
 
 // SAM 3.1 shape check: the straightened sheet (first time), then per view the drawing's outline and the comparison
@@ -357,7 +413,7 @@ function showInput(src, prompt) {
   const v = $("#input-view");
   v.innerHTML = "";
   if (prompt) v.append(el("p", { class: "prompt-text", text: prompt }));
-  else v.append(el("img", { src, alt: "The input drawing" }));
+  else v.append(el("div", { class: "input-wrap" }, el("img", { src, alt: "The input drawing" }), el("div", { class: "chips-layer" })));
 }
 
 // ------------------------------------------------------------------ parameters
@@ -737,7 +793,32 @@ const editor = (() => {
   $("#mic").addEventListener("click", micToggle);
   if (!window.MediaRecorder || !navigator.mediaDevices) $("#mic").hidden = true;
 
+  // a number confirmed by the user on the drawing: set its parameter and rebuild, no model call
+  async function setNumber(n, v) {
+    const spec = liveSpec();
+    const prm = n.parameter && spec.parameters?.[n.parameter];
+    if (!prm || typeof prm.value !== "number") {
+      $("#edit-text").value = `${n.label} should be ${fmt(v)}`;
+      status(`“${esc(n.label)}” is not a single parameter. Check the sentence in the box, then Apply.`, "ask");
+      return false;
+    }
+    const r = await fetch(`${API}/compile`, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ spec: { ...spec, parameters: { ...spec.parameters, [n.parameter]: { ...prm, value: v } } }, overrides: {} }) });
+    const out = await r.json();
+    if (!out.ok) { status(`Could not build with ${esc(n.parameter)} = ${fmt(v)}: ${esc((out.errors || []).join(" "))}`, "bad"); return false; }
+    history.push({ spec, label: `${n.parameter} ${fmt(prm.value)} → ${fmt(v)}` });
+    spec.parameters[n.parameter] = { ...prm, value: v };
+    setSpec(spec);
+    if (verified?.callouts?.[n.index]) verified.callouts[n.index] = { ...verified.callouts[n.index], value: v, label: String(v) };
+    await show(out);
+    $("#edit-undo").disabled = false;
+    status(`<b>${esc(n.parameter)} ${fmt(prm.value)} → ${fmt(v)}</b> · confirmed on the drawing, rebuilt (no model call).`, "done");
+    setStatus("confirmed");
+    return true;
+  }
+
   return {
+    setNumber,
     reset() {
       history = []; verified = null;
       $("#edit-form").hidden = true; $("#edit-undo").disabled = true; $("#edit-text").value = ""; status("");

@@ -269,6 +269,15 @@ class Callout(_Model):
     feature_b: Optional[str] = Field(description="distance only: " + FEATURE_REF + "; else null")
     edge: Optional[Literal["x_min", "x_max", "y_min", "y_max", "z_min", "z_max"]] = Field(
         description="distance_to_edge only, else null")
+    parameter: Optional[str] = Field(description="the spec parameter that holds this number (so the user can "
+                                                 "correct it), or null if no parameter does")
+    text_box: Optional[list[float]] = Field(min_length=4, max_length=4, description=(
+        "[x1, y1, x2, y2] around the number as written on the image (the digits only, not the arrows), normalised "
+        "0-1000 over the image width and height, x right, y down; null for positions the drawing only implies and "
+        "for text descriptions"))
+    confidence: Literal["high", "medium", "low"] = Field(description=(
+        "how sure you are of the digits: medium or low for ambiguous handwriting (1/7, 3/5/8, 4/9, 6/0), smudges, "
+        "or a number next to a crossed-out one"))
 
 
 class ViewBox(_Model):

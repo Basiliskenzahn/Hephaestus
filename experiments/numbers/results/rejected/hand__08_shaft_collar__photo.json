@@ -1,0 +1,34 @@
+{
+ "name": "hand__08_shaft_collar__photo",
+ "group": "hand",
+ "key": "08_shaft_collar",
+ "input_kind": "drawing",
+ "read_perfect": false,
+ "after_taps": false,
+ "numbers": [],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 0,
+ "not_located": 0,
+ "read_cost": 0.001559,
+ "read_seconds": 27.6,
+ "reread_cost": 0,
+ "reread_seconds": 0,
+ "crops": 0,
+ "spec": {
+  "features": [
+   {
+    "distance": 10.0,
+    "id": "base",
+    "plane": "XY",
+    "profile": {
+     "height": 10.0,
+     "shape": "rect",
+     "width": 10.0
+    },
+    "type": "extrude"
+   }
+  ],
+  "name": "placeholder"
+ }
+}

@@ -1,0 +1,371 @@
+{
+ "name": "benchmark__06_angled_bracket__photo",
+ "group": "benchmark",
+ "key": "06_angled_bracket",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "40",
+   "value": 40,
+   "parameter": "height",
+   "text_box": [
+    276,
+    424,
+    294,
+    456
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "80",
+   "value": 80,
+   "parameter": "length",
+   "text_box": [
+    522,
+    525,
+    545,
+    540
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "30",
+   "value": 30,
+   "parameter": "top_flat",
+   "text_box": [
+    343,
+    305,
+    363,
+    320
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "15",
+   "value": 15,
+   "parameter": "right_h",
+   "text_box": [
+    710,
+    439,
+    729,
+    469
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "\u00d88 thru",
+   "value": 8,
+   "parameter": "hole8_dia",
+   "text_box": [
+    502,
+    397,
+    551,
+    414
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "\u00d88",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "20",
+   "value": 20,
+   "parameter": "hole8_inset_x",
+   "text_box": [
+    686,
+    370,
+    705,
+    385
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "10",
+   "value": 10,
+   "parameter": "hole8_h",
+   "text_box": [
+    729,
+    445,
+    744,
+    471
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "30",
+   "value": 30,
+   "parameter": "depth",
+   "text_box": [
+    312,
+    643,
+    328,
+    675
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "80",
+   "value": 80,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "40",
+   "value": 40,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "2x \u00d86 thru",
+   "value": 6,
+   "parameter": "hole6_dia",
+   "text_box": [
+    514,
+    635,
+    580,
+    655
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "2x \u00d86",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 11,
+   "label": "15",
+   "value": 15,
+   "parameter": "hole6_inset_x",
+   "text_box": [
+    355,
+    567,
+    373,
+    581
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 12,
+   "label": "8",
+   "value": 8,
+   "parameter": "hole6_inset_y",
+   "text_box": [
+    684,
+    667,
+    696,
+    685
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "8",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 13,
+   "label": "upper hole symmetric",
+   "value": 8,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 2,
+ "not_located": 2,
+ "read_cost": 0.002819,
+ "read_seconds": 83.0,
+ "reread_cost": 0.000243,
+ "reread_seconds": 7.8,
+ "crops": 11,
+ "spec": {
+  "description": "Single solid extruded in Y with sloped top from (30,40) to (80,15). Assumed: top edge is one straight line; 20 is hole centre to right edge; 10 is hole centre to bottom; 8 is lower hole centre to front edge and upper hole is symmetric; \u00d88 hole is through Y; 2x \u00d86 holes are through Z.",
+  "features": [
+   {
+    "distance": "depth",
+    "id": "base",
+    "operation": "add",
+    "plane": "XZ",
+    "profile": {
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       80,
+       0
+      ],
+      [
+       80,
+       "right_h"
+      ],
+      [
+       30,
+       40
+      ],
+      [
+       0,
+       40
+      ]
+     ],
+     "shape": "polygon"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "length - hole8_inset_x",
+     "hole8_h"
+    ],
+    "diameter": "hole8_dia",
+    "direction": "positive",
+    "face": "front",
+    "id": "hole8",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "hole6_inset_x",
+     "hole6_inset_y"
+    ],
+    "diameter": "hole6_dia",
+    "face": "top",
+    "id": "hole6",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_v": 2,
+    "feature": "hole6",
+    "id": "holes_y",
+    "spacing_v": "depth - 2 * hole6_inset_y",
+    "type": "linear_pattern"
+   }
+  ],
+  "name": "angled_bracket",
+  "parameters": {
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 30
+   },
+   "height": {
+    "description": "overall height along Z",
+    "value": 40
+   },
+   "hole6_dia": {
+    "description": "mounting hole diameter",
+    "value": 6
+   },
+   "hole6_inset_x": {
+    "description": "mounting hole centre from left edge",
+    "value": 15
+   },
+   "hole6_inset_y": {
+    "description": "lower hole centre from front edge; upper hole symmetric",
+    "value": 8
+   },
+   "hole8_dia": {
+    "description": "side hole diameter",
+    "value": 8
+   },
+   "hole8_h": {
+    "description": "side hole centre above bottom",
+    "value": 10
+   },
+   "hole8_inset_x": {
+    "description": "side hole centre from right edge",
+    "value": 20
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 80
+   },
+   "right_h": {
+    "description": "height of right end",
+    "value": 15
+   },
+   "top_flat": {
+    "description": "length of flat top before slope",
+    "value": 30
+   }
+  },
+  "units": "mm"
+ }
+}

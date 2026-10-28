@@ -95,6 +95,26 @@ raised 0/4 on a recheck (1/16 with a single sample, which is why it takes two). 
 is switched off: it flagged 18 of 24 correct parts (text, centre lines and gaps in sketched circles), so it would
 only be noise.
 
+**Hand sketches** ([`experiments/hand-sketches`](experiments/hand-sketches/)): the 8 parts drawn sloppily in
+handwriting fonts, not to scale, with a crossed-out and corrected number, as scans and phone photos (16 images,
+contributor models, 1 run each). Most misses were misread numbers, which every check shares. So every written number
+is now **read a second time** from a crop of where the read says it is written, with nothing else in view (one extra
+call, all crops in one request, in parallel with the first compile: ~10 s, ~$0.0003 per run with contributor models).
+Numbers the two readings disagree on are shown on the drawing as chips with both readings; one tap sets the
+parameter and rebuilds, no model call ([`experiments/numbers`](experiments/numbers/)).
+
+| hand sketches (16) | read perfect | perfect after the user taps the flagged numbers |
+|---|---|---|
+| before (read only, loop on) | 11/16 | – |
+| with the number rules + re-read | 13/16 | **14/16** |
+
+The misread 60 (written 40) on the block was flagged with "40" as the second reading; tapping it makes the part
+perfect. A crossed-out 10 is no longer used (the read prompt now says so; the plate and pocket plate were also redrawn so the strike
+is visible). False flags: 15 correct numbers on 16 sketches (max 4 on one, ~1 per sketch), 16 on the 24 printed
+benchmark images (max 2). The remaining misses are not digit errors (a hole through the wrong wall, the 15/10 swap of
+two correct numbers), which a re-read cannot see. Single runs on partly redrawn images: read the before/after as
+indicative, not exact.
+
 ¹ In the earlier loop evaluation, before the shape check existed, nothing caught it (0/2).
 ² The shape check's proportion test flags it on all 3 inputs, but only as a note: hand sketches are not to scale
 (a correct part's view came out 1.47× off in the hand-sketch set), so proportions cannot block.
@@ -110,6 +130,7 @@ only be noise.
 | [`sam-spike`](experiments/sam-spike/) | Can SAM 3.1 segment line drawings (views, through-holes) and find the paper in a photo? |
 | [`shape-check`](experiments/shape-check/) | Does the SAM shape check flag wrong parts without false alarms on correct ones? |
 | [`edits`](experiments/edits/) | Voice and typed edits: 8 spoken instructions → Muse Voice Transcribe → structured edit (recorded for the tests) |
+| [`numbers`](experiments/numbers/) | Does an independent re-read of every written number flag misread handwriting, without flagging correct numbers? |
 | [`load`](experiments/load/) | Does SAM mask decoding stall the sliders? `/compile` p50 during 3 runs: 730 ms → 134 ms with worker processes |
 
 ## Third-party code

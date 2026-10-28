@@ -1,0 +1,393 @@
+{
+ "name": "hand__02_l_bracket",
+ "group": "hand",
+ "key": "02_l_bracket",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "60",
+   "value": 60.0,
+   "parameter": "width",
+   "text_box": [
+    357,
+    258,
+    387,
+    284
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "40",
+   "value": 40.0,
+   "parameter": "height",
+   "text_box": [
+    230,
+    407,
+    254,
+    441
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "30",
+   "value": 30.0,
+   "parameter": "hole_pitch",
+   "text_box": [
+    338,
+    311,
+    363,
+    332
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "15",
+   "value": 15.0,
+   "parameter": "hole_inset",
+   "text_box": [
+    290,
+    310,
+    309,
+    331
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "2x \u00d85 thru",
+   "value": 5.0,
+   "parameter": "hole_dia",
+   "text_box": [
+    538,
+    251,
+    638,
+    278
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "28",
+   "value": 28.0,
+   "parameter": "hole_height",
+   "text_box": [
+    606,
+    460,
+    627,
+    503
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 5.0,
+   "reread": "5",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "5",
+   "value": 5.0,
+   "parameter": "thick",
+   "text_box": [
+    789,
+    240,
+    802,
+    263
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "5",
+   "value": 5.0,
+   "parameter": "thick",
+   "text_box": [
+    600,
+    540,
+    626,
+    560
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "40",
+   "value": 40.0,
+   "parameter": "depth",
+   "text_box": [
+    695,
+    605,
+    726,
+    628
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "40",
+   "value": 40.0,
+   "parameter": "depth",
+   "text_box": [
+    225,
+    767,
+    249,
+    804
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "60",
+   "value": 60.0,
+   "parameter": "width",
+   "text_box": [
+    368,
+    897,
+    397,
+    920
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 11,
+   "label": "slot w = 6",
+   "value": 6.0,
+   "parameter": "slot_w",
+   "text_box": [
+    492,
+    723,
+    603,
+    755
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 17.0,
+   "reread": "17",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 12,
+   "label": "20",
+   "value": 20.0,
+   "parameter": "slot_len",
+   "text_box": [
+    372,
+    925,
+    401,
+    951
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 13,
+   "label": "17.5",
+   "value": 17.5,
+   "parameter": "slot_y",
+   "text_box": [
+    625,
+    804,
+    657,
+    852
+   ],
+   "confidence": "medium",
+   "status": "uncertain",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 14,
+   "label": "base_slot centred",
+   "value": 30.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 4,
+ "not_located": 0,
+ "read_cost": 0.001658,
+ "read_seconds": 31.7,
+ "reread_cost": 0.000314,
+ "reread_seconds": 11.2,
+ "crops": 14,
+ "spec": {
+  "description": "L-bracket with vertical leg carrying 2 thru holes and base carrying a central slot. Assumed: vertical leg sits at the back of the base and both span the full 60 width; slot is centred in X and 17.5 from the front edge in Y; front holes are 28 from the bottom of the part.",
+  "features": [
+   {
+    "distance": "thick",
+    "id": "base",
+    "offset": 0.0,
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "height": "depth",
+     "shape": "rect",
+     "width": "width"
+    },
+    "type": "extrude"
+   },
+   {
+    "distance": "thick",
+    "id": "upright",
+    "offset": "depth - thick",
+    "operation": "add",
+    "plane": "XZ",
+    "profile": {
+     "height": "height",
+     "shape": "rect",
+     "width": "width"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "hole_inset",
+     "hole_height"
+    ],
+    "diameter": "hole_dia",
+    "face": "back",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 2,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_u": "hole_pitch",
+    "type": "linear_pattern"
+   },
+   {
+    "angle": 0.0,
+    "center": [
+     "width / 2",
+     "slot_y"
+    ],
+    "face": "top_of_feature:base",
+    "id": "base_slot",
+    "length": "slot_len",
+    "through": true,
+    "type": "slot",
+    "width": "slot_w"
+   }
+  ],
+  "name": "L-bracket",
+  "parameters": {
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 40.0
+   },
+   "height": {
+    "description": "overall height along Z",
+    "value": 40.0
+   },
+   "hole_dia": {
+    "description": "vertical leg hole diameter",
+    "value": 5.0
+   },
+   "hole_height": {
+    "description": "hole centre height from bottom",
+    "value": 28.0
+   },
+   "hole_inset": {
+    "description": "first hole centre from left edge",
+    "value": 15.0
+   },
+   "hole_pitch": {
+    "description": "spacing between the two holes",
+    "value": 30.0
+   },
+   "slot_len": {
+    "description": "base slot overall length along X",
+    "value": 20.0
+   },
+   "slot_w": {
+    "description": "base slot width along Y",
+    "value": 6.0
+   },
+   "slot_y": {
+    "description": "slot centre from front edge along Y",
+    "value": 17.5
+   },
+   "thick": {
+    "description": "wall thickness of both legs",
+    "value": 5.0
+   },
+   "width": {
+    "description": "overall width along X",
+    "value": 60.0
+   }
+  }
+ }
+}

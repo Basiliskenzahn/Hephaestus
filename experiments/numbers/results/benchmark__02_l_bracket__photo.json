@@ -1,0 +1,357 @@
+{
+ "name": "benchmark__02_l_bracket__photo",
+ "group": "benchmark",
+ "key": "02_l_bracket",
+ "input_kind": "drawing",
+ "read_perfect": false,
+ "after_taps": false,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "60",
+   "value": 60.0,
+   "parameter": "length",
+   "text_box": [
+    320,
+    326,
+    360,
+    352
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "40",
+   "value": 40.0,
+   "parameter": "height",
+   "text_box": [
+    250,
+    431,
+    270,
+    461
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "40",
+   "value": 40.0,
+   "parameter": "depth",
+   "text_box": [
+    600,
+    498,
+    628,
+    518
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "5",
+   "value": 5.0,
+   "parameter": "base_t",
+   "text_box": [
+    518,
+    461,
+    534,
+    480
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 5.0,
+   "reread": "5",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "5",
+   "value": 5.0,
+   "parameter": "base_t",
+   "text_box": [
+    652,
+    288,
+    666,
+    307
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 5.0,
+   "reread": "5",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "2x \u00d85 thru",
+   "value": 5.0,
+   "parameter": "hole_dia",
+   "text_box": [
+    486,
+    308,
+    555,
+    332
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 5.0,
+   "reread": "2x \u00d85",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "15",
+   "value": 15.0,
+   "parameter": "hole_inset",
+   "text_box": [
+    295,
+    377,
+    315,
+    393
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "30",
+   "value": 30.0,
+   "parameter": "hole_pitch",
+   "text_box": [
+    340,
+    370,
+    362,
+    386
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 30.0,
+   "reread": "30",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "28",
+   "value": 28.0,
+   "parameter": "hole_h",
+   "text_box": [
+    460,
+    421,
+    480,
+    450
+   ],
+   "confidence": "medium",
+   "status": "confirmed",
+   "second": 28.0,
+   "reread": "28",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "slot w = 6",
+   "value": 6.0,
+   "parameter": "slot_w",
+   "text_box": [
+    446,
+    587,
+    515,
+    612
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "6",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "20",
+   "value": 20.0,
+   "parameter": "slot_len",
+   "text_box": [
+    372,
+    737,
+    393,
+    755
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "20",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 11,
+   "label": "17.5",
+   "value": 17.5,
+   "parameter": "slot_y",
+   "text_box": [
+    501,
+    654,
+    524,
+    688
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 17.5,
+   "reread": "17.5",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 12,
+   "label": "slot centred",
+   "value": 30.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 1,
+ "not_located": 0,
+ "read_cost": 0.001476,
+ "read_seconds": 52.3,
+ "reread_cost": 0.000262,
+ "reread_seconds": 8.5,
+ "crops": 12,
+ "spec": {
+  "description": "L-bracket made from 5mm plate with vertical back leg and base. Assumed: holes symmetric left-right (15 from each end), slot centred left-right, slot centre 17.5 from front edge, hole height 28 above top of base (dimension stops at base top, not at bottom).",
+  "features": [
+   {
+    "distance": "base_t",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "height": "depth",
+     "shape": "rect",
+     "width": "length"
+    },
+    "type": "extrude"
+   },
+   {
+    "distance": "base_t",
+    "id": "upright",
+    "offset": "depth - base_t",
+    "operation": "add",
+    "plane": "XZ",
+    "profile": {
+     "height": "height - base_t",
+     "shape": "rect",
+     "u": 0.0,
+     "v": "base_t",
+     "width": "length"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "hole_inset",
+     "base_t + hole_h"
+    ],
+    "diameter": "hole_dia",
+    "face": "back",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 2.0,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_u": "hole_pitch",
+    "type": "linear_pattern"
+   },
+   {
+    "center": [
+     "length / 2",
+     "slot_y"
+    ],
+    "face": "top_of_feature:base",
+    "id": "base_slot",
+    "length": "slot_len",
+    "through": true,
+    "type": "slot",
+    "width": "slot_w"
+   }
+  ],
+  "name": "L-bracket",
+  "parameters": {
+   "base_t": {
+    "description": "plate thickness for base and upright",
+    "value": 5.0
+   },
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 40.0
+   },
+   "height": {
+    "description": "overall height along Z",
+    "value": 40.0
+   },
+   "hole_dia": {
+    "description": "vertical-leg hole diameter",
+    "value": 5.0
+   },
+   "hole_h": {
+    "description": "hole centre height above top of base",
+    "value": 28.0
+   },
+   "hole_inset": {
+    "description": "hole centre from each end along X",
+    "value": 15.0
+   },
+   "hole_pitch": {
+    "description": "hole spacing along X",
+    "value": 30.0
+   },
+   "length": {
+    "description": "overall width along X",
+    "value": 60.0
+   },
+   "slot_len": {
+    "description": "base slot overall length along X",
+    "value": 20.0
+   },
+   "slot_w": {
+    "description": "base slot width",
+    "value": 6.0
+   },
+   "slot_y": {
+    "description": "slot centre from front edge along Y",
+    "value": 17.5
+   }
+  }
+ }
+}

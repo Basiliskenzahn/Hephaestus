@@ -1,0 +1,266 @@
+{
+ "name": "benchmark__04_bushing__photo",
+ "group": "benchmark",
+ "key": "04_bushing",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "30",
+   "value": 30,
+   "parameter": "total_h",
+   "text_box": [
+    304,
+    356,
+    329,
+    407
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "5",
+   "value": 5,
+   "parameter": "flange_t",
+   "text_box": [
+    609,
+    388,
+    627,
+    407
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "\u00d840",
+   "value": 40,
+   "parameter": "flange_dia",
+   "text_box": [
+    602,
+    500,
+    637,
+    518
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 4.0,
+   "reread": "4x \u00d84",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "\u00d824",
+   "value": 24,
+   "parameter": "barrel_od",
+   "text_box": [
+    402,
+    521,
+    437,
+    539
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "\u00d816 thru",
+   "value": 16,
+   "parameter": "bore_dia",
+   "text_box": [
+    610,
+    667,
+    696,
+    690
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 16.0,
+   "reread": "\u00d816",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "4x \u00d84 thru",
+   "value": 4,
+   "parameter": "mount_dia",
+   "text_box": [
+    625,
+    554,
+    711,
+    574
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 4.0,
+   "reread": "4x \u00d84",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "PCD \u00d832",
+   "value": 32,
+   "parameter": "pcd",
+   "text_box": [
+    409,
+    670,
+    494,
+    691
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 32.0,
+   "reread": "\u00d832",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "bore centred",
+   "value": 20,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "bore centred",
+   "value": 20,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 1,
+ "not_located": 0,
+ "read_cost": 0.001732,
+ "read_seconds": 33.2,
+ "reread_cost": 0.000253,
+ "reread_seconds": 8.6,
+ "crops": 7,
+ "spec": {
+  "description": "Flanged bushing with central barrel and through bore. Assumed: flange, barrel, bore and bolt-circle are all coaxial and centred (drawn symmetric, not dimensioned from an edge).",
+  "features": [
+   {
+    "distance": "flange_t",
+    "id": "flange",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "diameter": "flange_dia",
+     "shape": "circle",
+     "u": "flange_dia / 2",
+     "v": "flange_dia / 2"
+    },
+    "type": "extrude"
+   },
+   {
+    "distance": "total_h - flange_t",
+    "id": "barrel",
+    "offset": "flange_t",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "diameter": "barrel_od",
+     "shape": "circle",
+     "u": "flange_dia / 2",
+     "v": "flange_dia / 2"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "flange_dia / 2",
+     "flange_dia / 2"
+    ],
+    "diameter": "bore_dia",
+    "face": "top_of_feature:barrel",
+    "id": "bore",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "flange_dia / 2 + pcd / 2",
+     "flange_dia / 2"
+    ],
+    "diameter": "mount_dia",
+    "face": "top_of_feature:flange",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "flange_dia / 2",
+     "flange_dia / 2"
+    ],
+    "count": 4,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "type": "circular_pattern"
+   }
+  ],
+  "name": "flanged_bushing",
+  "parameters": {
+   "barrel_od": {
+    "description": "barrel outside diameter",
+    "value": 24
+   },
+   "bore_dia": {
+    "description": "central through bore diameter",
+    "value": 16
+   },
+   "flange_dia": {
+    "description": "flange outside diameter",
+    "value": 40
+   },
+   "flange_t": {
+    "description": "flange thickness",
+    "value": 5
+   },
+   "mount_dia": {
+    "description": "flange bolt hole diameter",
+    "value": 4
+   },
+   "pcd": {
+    "description": "bolt-circle diameter for 4x holes",
+    "value": 32
+   },
+   "total_h": {
+    "description": "overall height along Z",
+    "value": 30
+   }
+  }
+ }
+}

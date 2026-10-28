@@ -1,0 +1,365 @@
+{
+ "name": "benchmark__06_angled_bracket__rough",
+ "group": "benchmark",
+ "key": "06_angled_bracket",
+ "input_kind": "drawing",
+ "read_perfect": false,
+ "after_taps": false,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "30",
+   "value": 30,
+   "parameter": "top_len",
+   "text_box": [
+    498,
+    267,
+    527,
+    285
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "40",
+   "value": 40,
+   "parameter": "height",
+   "text_box": [
+    320,
+    375,
+    338,
+    408
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "80",
+   "value": 80,
+   "parameter": "length",
+   "text_box": [
+    528,
+    537,
+    557,
+    555
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 80.0,
+   "reread": "80",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "30",
+   "value": 30,
+   "parameter": "depth",
+   "text_box": [
+    306,
+    653,
+    327,
+    683
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 70.0,
+   "reread": "70",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "\u00d88 thru",
+   "value": 8,
+   "parameter": "hole_dia",
+   "text_box": [
+    540,
+    381,
+    590,
+    397
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "\u00d88",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "20",
+   "value": 20,
+   "parameter": "hole_x_from_right",
+   "text_box": [
+    671,
+    359,
+    692,
+    375
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "15",
+   "value": 15,
+   "parameter": "hole_z",
+   "text_box": [
+    709,
+    469,
+    731,
+    490
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "10",
+   "value": 10,
+   "parameter": "base_t",
+   "text_box": [
+    734,
+    482,
+    754,
+    500
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 10.0,
+   "reread": "10",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "2x \u00d86 thru",
+   "value": 6,
+   "parameter": "mhole_dia",
+   "text_box": [
+    532,
+    688,
+    604,
+    706
+   ],
+   "confidence": "medium",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "2x \u00d86",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "15",
+   "value": 15,
+   "parameter": "mhole_inset_x",
+   "text_box": [
+    374,
+    574,
+    395,
+    590
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "8",
+   "value": 8,
+   "parameter": "fin_t",
+   "text_box": [
+    676,
+    736,
+    693,
+    754
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "8",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 11,
+   "label": "fin centred",
+   "value": 11,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 12,
+   "label": "mount holes symmetric",
+   "value": 7.5,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "medium",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 1,
+ "not_located": 0,
+ "read_cost": 0.002401,
+ "read_seconds": 100.6,
+ "reread_cost": 0.000355,
+ "reread_seconds": 12.2,
+ "crops": 11,
+ "spec": {
+  "description": "Angled bracket: flat base with a tapered vertical fin on top. Assumed: fin is centred in Y; the two base holes share the same X and are symmetric about Y centre with 15 spacing.",
+  "features": [
+   {
+    "distance": "base_t",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "height": "depth",
+     "shape": "rect",
+     "width": "length"
+    },
+    "type": "extrude"
+   },
+   {
+    "distance": "fin_t",
+    "id": "fin",
+    "offset": "(depth - fin_t) / 2",
+    "operation": "add",
+    "plane": "XZ",
+    "profile": {
+     "points": [
+      [
+       0,
+       "base_t"
+      ],
+      [
+       0,
+       "height"
+      ],
+      [
+       "top_len",
+       "height"
+      ],
+      [
+       "length",
+       "base_t"
+      ]
+     ],
+     "shape": "polygon"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "length - hole_x_from_right",
+     "hole_z"
+    ],
+    "diameter": "hole_dia",
+    "face": "front",
+    "id": "fin_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "mhole_inset_x",
+     "depth / 2 - 7.5"
+    ],
+    "diameter": "mhole_dia",
+    "face": "top_of_feature:base",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_v": 2,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_v": 15,
+    "type": "linear_pattern"
+   }
+  ],
+  "name": "angled_bracket",
+  "parameters": {
+   "base_t": {
+    "description": "base plate thickness, tip height at right",
+    "value": 10
+   },
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 30
+   },
+   "fin_t": {
+    "description": "fin plate thickness along Y",
+    "value": 8
+   },
+   "height": {
+    "description": "overall height along Z at left",
+    "value": 40
+   },
+   "hole_dia": {
+    "description": "fin hole diameter",
+    "value": 8
+   },
+   "hole_x_from_right": {
+    "description": "fin hole centre from right edge",
+    "value": 20
+   },
+   "hole_z": {
+    "description": "fin hole centre from bottom",
+    "value": 15
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 80
+   },
+   "mhole_dia": {
+    "description": "base mounting hole diameter",
+    "value": 6
+   },
+   "mhole_inset_x": {
+    "description": "mounting hole centre from left edge",
+    "value": 15
+   },
+   "top_len": {
+    "description": "length of flat top before taper",
+    "value": 30
+   }
+  }
+ }
+}

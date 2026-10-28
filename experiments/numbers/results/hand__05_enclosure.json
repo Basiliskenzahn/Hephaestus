@@ -1,0 +1,337 @@
+{
+ "name": "hand__05_enclosure",
+ "group": "hand",
+ "key": "05_enclosure",
+ "input_kind": "drawing",
+ "read_perfect": false,
+ "after_taps": false,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "40",
+   "value": 40,
+   "parameter": "height",
+   "text_box": [
+    244,
+    302,
+    264,
+    342
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "20",
+   "value": 20,
+   "parameter": "front_hole_z",
+   "text_box": [
+    772,
+    342,
+    792,
+    382
+   ],
+   "confidence": "high",
+   "status": "uncertain",
+   "second": 4.0,
+   "reread": "4x",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "60",
+   "value": 60,
+   "parameter": "depth",
+   "text_box": [
+    273,
+    642,
+    293,
+    682
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "100",
+   "value": 100,
+   "parameter": "length",
+   "text_box": [
+    493,
+    850,
+    528,
+    870
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "10",
+   "value": 10,
+   "parameter": "hole_inset_x",
+   "text_box": [
+    313,
+    899,
+    338,
+    919
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "10",
+   "value": 10,
+   "parameter": "hole_inset_y",
+   "text_box": [
+    792,
+    746,
+    812,
+    786
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "wall 2",
+   "value": 2,
+   "parameter": "wall_t",
+   "text_box": [
+    791,
+    561,
+    803,
+    591
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "R6 (4x)",
+   "value": 6,
+   "parameter": "corner_r",
+   "text_box": [
+    836,
+    482,
+    852,
+    502
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "4x \u00d83.2 thru floor",
+   "value": 3.2,
+   "parameter": "floor_hole_dia",
+   "text_box": [
+    512,
+    482,
+    547,
+    502
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "\u00d88 thru front wall",
+   "value": 8,
+   "parameter": "front_hole_dia",
+   "text_box": [
+    543,
+    161,
+    563,
+    181
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "\u00d88",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "0.5 x 45\u00b0",
+   "value": 0.5,
+   "parameter": "front_chamfer",
+   "text_box": [
+    623,
+    161,
+    653,
+    181
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 11,
+   "label": "front hole centred",
+   "value": 50,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 1,
+ "not_located": 0,
+ "read_cost": 0.001762,
+ "read_seconds": 33.1,
+ "reread_cost": 0.000279,
+ "reread_seconds": 9.3,
+ "crops": 11,
+ "spec": {
+  "description": "Rectangular enclosure, open top, uniform 2 mm wall. Assumed: floor holes inset 10 mm from all edges (10 dimensioned in X and in Y, symmetric pattern); front hole centred in X and 20 mm above bottom.",
+  "features": [
+   {
+    "distance": "height",
+    "id": "body",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "anchor": "corner",
+     "height": "depth",
+     "radius": "corner_r",
+     "shape": "rounded_rect",
+     "u": 0.0,
+     "v": 0.0,
+     "width": "length"
+    },
+    "type": "extrude"
+   },
+   {
+    "id": "enclosure_shell",
+    "open_faces": [
+     "top"
+    ],
+    "thickness": "wall_t",
+    "type": "shell"
+   },
+   {
+    "center": [
+     "hole_inset_x",
+     "hole_inset_y"
+    ],
+    "diameter": "floor_hole_dia",
+    "face": "bottom",
+    "id": "floor_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 2,
+    "count_v": 2,
+    "feature": "floor_hole",
+    "id": "floor_holes",
+    "spacing_u": "length - hole_inset_x * 2",
+    "spacing_v": "depth - hole_inset_y * 2",
+    "type": "linear_pattern"
+   },
+   {
+    "center": [
+     "length / 2",
+     "front_hole_z"
+    ],
+    "diameter": "front_hole_dia",
+    "face": "front",
+    "id": "front_hole",
+    "through": true,
+    "type": "hole"
+   }
+  ],
+  "name": "enclosure_open_top",
+  "parameters": {
+   "corner_r": {
+    "description": "outer corner radius, 4 places",
+    "value": 6
+   },
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 60
+   },
+   "floor_hole_dia": {
+    "description": "floor mounting hole diameter, 4 places",
+    "value": 3.2
+   },
+   "front_chamfer": {
+    "description": "chamfer on front wall hole, not modelled (no hole-edge chamfer)",
+    "value": 0.5
+   },
+   "front_hole_dia": {
+    "description": "front wall hole diameter",
+    "value": 8
+   },
+   "front_hole_z": {
+    "description": "front hole centre height above bottom",
+    "value": 20
+   },
+   "height": {
+    "description": "overall height along Z",
+    "value": 40
+   },
+   "hole_inset_x": {
+    "description": "floor hole centre from left/right edges",
+    "value": 10
+   },
+   "hole_inset_y": {
+    "description": "floor hole centre from front/back edges",
+    "value": 10
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 100
+   },
+   "wall_t": {
+    "description": "enclosure wall and floor thickness",
+    "value": 2
+   }
+  }
+ }
+}

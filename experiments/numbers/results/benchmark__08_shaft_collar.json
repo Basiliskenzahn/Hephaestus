@@ -1,0 +1,261 @@
+{
+ "name": "benchmark__08_shaft_collar",
+ "group": "benchmark",
+ "key": "08_shaft_collar",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "15",
+   "value": 15,
+   "parameter": "collar_h",
+   "text_box": [
+    302,
+    298,
+    328,
+    353
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 15.0,
+   "reread": "15",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "\u00d84 thru",
+   "value": 4,
+   "parameter": "screw_d",
+   "text_box": [
+    743,
+    190,
+    812,
+    213
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 4.0,
+   "reread": "\u00d84",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "\u00d840",
+   "value": 40,
+   "parameter": "outer_d",
+   "text_box": [
+    290,
+    425,
+    333,
+    448
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "\u00d840",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "\u00d820 thru",
+   "value": 20,
+   "parameter": "inner_d",
+   "text_box": [
+    290,
+    655,
+    375,
+    678
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "\u00d820",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "slit 2",
+   "value": 2,
+   "parameter": "slit_w",
+   "text_box": [
+    775,
+    535,
+    817,
+    558
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 2.0,
+   "reread": "2",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "35",
+   "value": 35,
+   "parameter": "screw_pos",
+   "text_box": [
+    498,
+    825,
+    526,
+    848
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "bore centred",
+   "value": 20,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "bore centred",
+   "value": 20,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "screw centred in height",
+   "value": 7.5,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "slit on centreline",
+   "value": 20,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 0,
+ "not_located": 0,
+ "read_cost": 0.001188,
+ "read_seconds": 45.1,
+ "reread_cost": 0.000245,
+ "reread_seconds": 8.7,
+ "crops": 6,
+ "spec": {
+  "description": "Split shaft collar: outer cylinder with central thru bore, radial slit connecting bore to outside, and transverse clamp screw across the slit. Assumed: bore is centred in the OD; slit is on the mid-plane and runs from the bore to the OD full height; screw is centred in height and goes thru across the slit.",
+  "features": [
+   {
+    "distance": "collar_h",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "diameter": "outer_d",
+     "shape": "circle",
+     "u": "outer_d / 2",
+     "v": "outer_d / 2"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "outer_d / 2",
+     "outer_d / 2"
+    ],
+    "diameter": "inner_d",
+    "face": "top_of_feature:base",
+    "id": "bore",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "distance": "collar_h",
+    "id": "slit_cut",
+    "offset": 0.0,
+    "operation": "cut",
+    "plane": "XY",
+    "profile": {
+     "height": "slit_w",
+     "shape": "rect",
+     "u": "outer_d / 2",
+     "v": "(outer_d - slit_w) / 2",
+     "width": "outer_d / 2"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "screw_pos",
+     "collar_h / 2"
+    ],
+    "diameter": "screw_d",
+    "face": "front",
+    "id": "screw",
+    "through": true,
+    "type": "hole"
+   }
+  ],
+  "name": "shaft_collar",
+  "parameters": {
+   "collar_h": {
+    "description": "collar height / thickness along Z",
+    "value": 15
+   },
+   "inner_d": {
+    "description": "shaft bore diameter",
+    "value": 20
+   },
+   "outer_d": {
+    "description": "collar outside diameter",
+    "value": 40
+   },
+   "screw_d": {
+    "description": "clamp screw cross-hole diameter",
+    "value": 4
+   },
+   "screw_pos": {
+    "description": "screw centre from left edge along X",
+    "value": 35
+   },
+   "slit_w": {
+    "description": "slit gap width",
+    "value": 2
+   }
+  }
+ }
+}

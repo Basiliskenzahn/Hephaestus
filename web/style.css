@@ -244,3 +244,15 @@ input[type="range"]::-moz-range-thumb { width: 10px; height: 14px; background: v
 .edit-status.ask::before { content: "? "; color: var(--accent); font-weight: 600; }
 .edit-status.bad { color: var(--accent); }
 .edited-badge { margin-left: 8px; padding: 1px 6px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); vertical-align: 1px; }
+
+/* the numbers, checked twice: chips on the input drawing */
+.input-wrap { position: relative; display: inline-block; max-width: 100%; }
+.input-wrap img { display: block; max-width: 100%; max-height: 380px; }
+.chips-layer { position: absolute; inset: 0; }
+.chip-num { position: absolute; transform: translate(-2px, -2px); padding: 0 4px; font: 600 11px/16px var(--mono); border: 1px solid var(--rule); background: rgba(255, 255, 255, 0.82); color: var(--ink-3); cursor: default; }
+.chip-num.unverified { border-style: dotted; }
+.chip-num.uncertain { border-color: var(--accent); color: #fff; background: var(--accent); cursor: pointer; box-shadow: 0 0 0 3px var(--accent-wash); }
+.chip-num.by-user { border-color: var(--ink); color: var(--ink); background: #fff; }
+.chip-pop { position: absolute; z-index: 5; display: flex; gap: 4px; padding: 4px; background: #fff; border: 1px solid var(--ink); }
+.chip-pop .btn { padding: 2px 8px; font-size: 12px; }
+.chip-pop input { width: 64px; font: 12px var(--mono); padding: 2px 4px; border: 1px solid var(--rule); }

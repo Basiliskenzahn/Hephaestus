@@ -1,0 +1,282 @@
+{
+ "name": "benchmark__01_plate__photo",
+ "group": "benchmark",
+ "key": "01_plate",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "80",
+   "value": 80.0,
+   "parameter": "length",
+   "text_box": [
+    509,
+    285,
+    534,
+    307
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 80.0,
+   "reread": "80",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "50",
+   "value": 50.0,
+   "parameter": "depth",
+   "text_box": [
+    736,
+    439,
+    754,
+    469
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 50.0,
+   "reread": "50",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "t = 6",
+   "value": 6.0,
+   "parameter": "thick",
+   "text_box": [
+    616,
+    682,
+    646,
+    700
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "6",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "\u00d820 thru",
+   "value": 20.0,
+   "parameter": "bore_dia",
+   "text_box": [
+    592,
+    248,
+    654,
+    272
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "\u00d820",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "4x \u00d86 thru",
+   "value": 6.0,
+   "parameter": "hole_dia",
+   "text_box": [
+    704,
+    250,
+    784,
+    275
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "4x \u00d86",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "8",
+   "value": 8.0,
+   "parameter": "hole_inset",
+   "text_box": [
+    387,
+    618,
+    406,
+    637
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 8.0,
+   "reread": "8",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "8",
+   "value": 8.0,
+   "parameter": "hole_inset",
+   "text_box": [
+    321,
+    544,
+    340,
+    563
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "64",
+   "value": 64.0,
+   "parameter": null,
+   "text_box": [
+    546,
+    650,
+    571,
+    671
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 64.0,
+   "reread": "64",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "34",
+   "value": 34.0,
+   "parameter": null,
+   "text_box": [
+    305,
+    453,
+    325,
+    479
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 34.0,
+   "reread": "34",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "bore centred",
+   "value": 40.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "bore centred",
+   "value": 25.0,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 0,
+ "not_located": 0,
+ "read_cost": 0.00166,
+ "read_seconds": 31.1,
+ "reread_cost": 0.000352,
+ "reread_seconds": 12.6,
+ "crops": 9,
+ "spec": {
+  "description": "Flat rectangular plate with central through bore and four corner through holes. Assumed: central bore is centred (drawn symmetric with centrelines, not dimensioned from an edge); the 8 mm insets apply to all four sides so the 64 and 34 hole spacings follow as length - 2*inset and depth - 2*inset.",
+  "features": [
+   {
+    "distance": "thick",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "height": "depth",
+     "shape": "rect",
+     "width": "length"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "length / 2",
+     "depth / 2"
+    ],
+    "diameter": "bore_dia",
+    "face": "top_of_feature:base",
+    "id": "bore",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "hole_inset",
+     "hole_inset"
+    ],
+    "diameter": "hole_dia",
+    "face": "top_of_feature:base",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 2,
+    "count_v": 2,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_u": "length - 2 * hole_inset",
+    "spacing_v": "depth - 2 * hole_inset",
+    "type": "linear_pattern"
+   }
+  ],
+  "name": "mount_plate",
+  "parameters": {
+   "bore_dia": {
+    "description": "central through bore diameter",
+    "value": 20.0
+   },
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 50.0
+   },
+   "hole_dia": {
+    "description": "corner mounting hole diameter",
+    "value": 6.0
+   },
+   "hole_inset": {
+    "description": "mounting hole centre inset from each edge; hole spacings follow as length - 2*inset and depth - 2*inset",
+    "value": 8.0
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 80.0
+   },
+   "thick": {
+    "description": "plate thickness",
+    "value": 6.0
+   }
+  }
+ }
+}

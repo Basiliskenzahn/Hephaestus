@@ -1,0 +1,298 @@
+{
+ "name": "benchmark__03_block__photo",
+ "group": "benchmark",
+ "key": "03_block",
+ "input_kind": "drawing",
+ "read_perfect": true,
+ "after_taps": true,
+ "numbers": [
+  {
+   "index": 0,
+   "label": "20",
+   "value": 20,
+   "parameter": "height",
+   "text_box": [
+    706,
+    334,
+    730,
+    385
+   ],
+   "confidence": "high",
+   "status": "unverified",
+   "second": null,
+   "reread": "unclear",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 1,
+   "label": "1 x 45\u00b0 all top edges",
+   "value": 1,
+   "parameter": "chamfer_size",
+   "text_box": [
+    630,
+    232,
+    768,
+    254
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 1.0,
+   "reread": "1 x 45\u00b0",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 2,
+   "label": "2x \u00d86 thru",
+   "value": 6,
+   "parameter": "hole_dia",
+   "text_box": [
+    358,
+    498,
+    447,
+    515
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 6.0,
+   "reread": "2x \u00d86",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 3,
+   "label": "\u00d812 thru",
+   "value": 12,
+   "parameter": "bore_dia",
+   "text_box": [
+    504,
+    484,
+    582,
+    504
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 12.0,
+   "reread": "\u00d812",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 4,
+   "label": "R5 (4x)",
+   "value": 5,
+   "parameter": "corner_r",
+   "text_box": [
+    654,
+    470,
+    705,
+    488
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 5.0,
+   "reread": "R5 (4x)",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 5,
+   "label": "40",
+   "value": 40,
+   "parameter": "depth",
+   "text_box": [
+    315,
+    603,
+    338,
+    653
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 40.0,
+   "reread": "40",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 6,
+   "label": "70",
+   "value": 70,
+   "parameter": "length",
+   "text_box": [
+    505,
+    732,
+    536,
+    749
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 70.0,
+   "reread": "70",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 7,
+   "label": "46",
+   "value": 46,
+   "parameter": "hole_spacing",
+   "text_box": [
+    523,
+    758,
+    554,
+    775
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 46.0,
+   "reread": "46",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 8,
+   "label": "20",
+   "value": 20,
+   "parameter": null,
+   "text_box": [
+    685,
+    616,
+    709,
+    658
+   ],
+   "confidence": "high",
+   "status": "confirmed",
+   "second": 20.0,
+   "reread": "20",
+   "written": true,
+   "misread": false
+  },
+  {
+   "index": 9,
+   "label": "bore centred",
+   "value": 35,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  },
+  {
+   "index": 10,
+   "label": "mount holes centred",
+   "value": 12,
+   "parameter": null,
+   "text_box": null,
+   "confidence": "high",
+   "status": "not_located",
+   "second": null,
+   "reread": null,
+   "written": false,
+   "misread": false
+  }
+ ],
+ "misread": 0,
+ "caught": 0,
+ "false_flags": 0,
+ "not_located": 0,
+ "read_cost": 0.000969,
+ "read_seconds": 24.1,
+ "reread_cost": 0.00039,
+ "reread_seconds": 13.2,
+ "crops": 9,
+ "spec": {
+  "description": "Rectangular plate with rounded corners, central thru bore and two thru mounting holes. Assumed: the bore is centred in X and on the mid-line in Y, the two mounting holes are symmetric about the centre in X and on the mid-line in Y (drawn symmetric on centrelines, spacing 46).",
+  "features": [
+   {
+    "distance": "height",
+    "id": "base",
+    "operation": "add",
+    "plane": "XY",
+    "profile": {
+     "anchor": "corner",
+     "height": "depth",
+     "radius": "corner_r",
+     "shape": "rounded_rect",
+     "u": 0.0,
+     "v": 0.0,
+     "width": "length"
+    },
+    "type": "extrude"
+   },
+   {
+    "center": [
+     "length / 2",
+     "depth / 2"
+    ],
+    "diameter": "bore_dia",
+    "face": "top_of_feature:base",
+    "id": "bore",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "center": [
+     "(length - hole_spacing) / 2",
+     "depth / 2"
+    ],
+    "diameter": "hole_dia",
+    "face": "top_of_feature:base",
+    "id": "mount_hole",
+    "through": true,
+    "type": "hole"
+   },
+   {
+    "count_u": 2,
+    "feature": "mount_hole",
+    "id": "mount_holes",
+    "spacing_u": "hole_spacing",
+    "type": "linear_pattern"
+   },
+   {
+    "edges": "top_outer",
+    "id": "cham1",
+    "size": "chamfer_size",
+    "type": "chamfer"
+   }
+  ],
+  "name": "plate_two_holes_bore",
+  "parameters": {
+   "bore_dia": {
+    "description": "central thru bore diameter",
+    "value": 12
+   },
+   "chamfer_size": {
+    "description": "45 deg chamfer size on all top edges",
+    "value": 1
+   },
+   "corner_r": {
+    "description": "corner radius 4x",
+    "value": 5
+   },
+   "depth": {
+    "description": "overall depth along Y",
+    "value": 40
+   },
+   "height": {
+    "description": "overall height / plate thickness",
+    "value": 20
+   },
+   "hole_dia": {
+    "description": "mounting hole diameter 2x",
+    "value": 6
+   },
+   "hole_spacing": {
+    "description": "centre distance between the two mounting holes",
+    "value": 46
+   },
+   "length": {
+    "description": "overall length along X",
+    "value": 70
+   }
+  }
+ }
+}
