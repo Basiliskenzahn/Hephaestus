@@ -31,6 +31,11 @@ PICKS = [
     ("enclosure", "muse-spark-1.3-contributor/round3/05_enclosure__photo.run1.json", "Enclosure, phone photo",
      "Caught: the cable hole went through the back wall too. Fixed. Recorded with the cheaper development model; "
      "the live model reads this photo right the first time."),
+    # the number check: the read took a handwritten 40 for 60, the independent re-read says 40; one tap fixes it
+    # (development-model outputs, replayed through the loop by experiments/numbers/record_block.py)
+    ("block", "experiments/numbers/results/block_replay.json", "Block, hand sketch",
+     "Caught: the read took the handwritten 40 for a 60; the second, independent reading says 40. Tap the red "
+     "number on the drawing to fix it (no model call). Recorded with the cheaper development model."),
     ("shaft_collar", "muse-spark-1.3/rerecord/08_shaft_collar__photo.run1.json", "Shaft collar, phone photo",
      "A split ring with a cross hole: right on the first read, outlines checked by SAM 3.1."),
     ("l_bracket", "muse-spark-1.3/live/02_l_bracket__clean.run1.json", "L-bracket, drawing",
@@ -46,7 +51,7 @@ PICKS = [
 
 def model_outputs(events):
     """The model outputs of a recorded run, in order, as the mock client serves them."""
-    out = {"ReadOutput": [], "CriticOutput": [], "CorrectionOutput": []}
+    out = {"ReadOutput": [], "CriticOutput": [], "CorrectionOutput": [], "RereadOutput": []}
     for e in events:
         if e["event"] == "spec" and e.get("changelog") is None:
             out["ReadOutput"].append({"spec": e["spec"], "callouts": e["callouts"]})
@@ -55,6 +60,9 @@ def model_outputs(events):
                         for d in e.get("disputes") or [] if d.get("replacement")]
             out["CorrectionOutput"].append({"changelog": e["changelog"] or "", "spec": e["spec"],
                                             "disputed_callouts": disputes})
+        elif e["event"] == "numbers" and e.get("available"):
+            texts = [n["reread"] for n in e["numbers"] if n.get("reread") is not None]
+            out["RereadOutput"].append({"readings": [{"image": i, "text": t} for i, t in enumerate(texts, 1)]})
         elif e["event"] == "checks" and e.get("critic"):
             crit = e["critic"]
             out["CriticOutput"] += crit["samples"] if "samples" in crit else [crit]
@@ -69,10 +77,10 @@ def model_of(events):
 
 
 def build_item(pid, rel, title, note):
-    rec = json.load(open(os.path.join(RESULTS, rel)))
+    rec = json.load(open(os.path.join(ROOT, rel) if rel.startswith("experiments/") else os.path.join(RESULTS, rel)))
     part = rec["part"]
-    image = os.path.join(SKETCHES[part[:2]], {"photo": f"{part}__photo.jpg", "rough": f"{part}__rough.jpg",
-                                              "clean": f"{part}.png"}[rec["set"]])
+    image = os.path.join(ROOT, rec["image"]) if rec.get("image") else os.path.join(
+        SKETCHES[part[:2]], {"photo": f"{part}__photo.jpg", "rough": f"{part}__rough.jpg", "clean": f"{part}.png"}[rec["set"]])
     out = os.path.join(GALLERY, pid)
     shutil.rmtree(out, ignore_errors=True)
     os.makedirs(out)

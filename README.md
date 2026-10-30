@@ -1,7 +1,9 @@
 # Hephaestus
 
-**Turn a sketch, a prompt or a real object into a parametric CAD part.**
-Powered by **Talos**, an agent that generates a part, checks it against the input and corrects itself until the geometry matches.
+**Sketch it. Get a verified, editable CAD part.**
+A dimensioned sketch, a phone photo of one, or a description in words becomes a parametric CAD part (STEP, STL,
+sliders). Powered by **Talos**, an agent that builds the part, checks it against your drawing and corrects itself
+until the geometry matches.
 
 Built during the [Meta Global AI Developer Hackathon](https://dev.meta.ai/events/global-hackathon), Oct 26 – Nov 4, 2026, on Meta's Muse Spark, SAM 3.1 and Muse Voice Transcribe models.
 
@@ -12,9 +14,15 @@ Built during the [Meta Global AI Developer Hackathon](https://dev.meta.ai/events
 `web/` (static, Netlify) + `server/` (FastAPI on Modal). Upload a sketch or photo, take one with your phone, or
 describe the part in words; watch Talos read, build, check and correct it live; drag the parameter sliders to
 rebuild the part instantly; change it in words, typed or spoken ("make the holes M6", "remove the slot"); download
-STEP, STL and the spec. Six examples replay recorded runs instantly. Five are
-live-model runs; the enclosure, the one showing Talos catch and fix an error, was recorded with the cheaper
-development model, and says so (the live model reads that photo right the first time). Deployment and limits: [`server/README.md`](server/README.md).
+STEP, STL and the spec. Seven examples replay recorded runs instantly (the first starts on its own). Five are
+live-model runs; the two that show a catch were recorded with the cheaper development model, and say so: the
+enclosure (Talos catches and fixes a hole drilled through the wrong wall; the live model reads that photo right the
+first time) and the hand-sketched block (the read takes a handwritten 40 for a 60, the independent re-read flags it,
+one tap fixes it). Deployment and limits: [`server/README.md`](server/README.md).
+
+![First screen: the enclosure replay, caught and fixed](docs/screenshots/first_screen_desktop.png)
+
+UI check (Playwright, desktop and phone, mock backends): [`experiments/ui/check_ui.js`](experiments/ui/check_ui.js), 60/60.
 
 ## How it works
 
@@ -86,7 +94,8 @@ critic flags from [`experiments/benchmark/results/matrix`](experiments/benchmark
 "3/3 inputs" = the clean drawing, the phone photo and the rough pencil photo. The checks complement each other:
 callouts are exact on every written dimension, the shape check sees the outline of each view (orientation and
 proportions, which no single dimension captures), the critic sees what neither measures (which walls a hole goes
-through). None of them sees a misreading they all share (the angled bracket's 15/10 swap above).
+through). None of them sees a misreading they all share (the angled bracket's 15/10 swap above); a misread digit
+is what the independent number re-read is for (below).
 
 **No false alarms**: the 8 correct parts pass the callouts and the shape check on all 24 inputs (0/24 blocking
 shape issues: for a correct part a mirrored or rotated outline never fits the drawing better than the part as built,

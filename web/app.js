@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { CSS2DRenderer, CSS2DObject } from "three/addons/renderers/CSS2DRenderer.js";
 
 const API = (window.HEPHAESTUS_API || "").replace(/\/$/, "");
 const $ = (sel) => document.querySelector(sel);
@@ -23,41 +24,88 @@ let finalFiles = null;
 
 // ------------------------------------------------------------------ 3D viewer
 const viewer = (() => {
-  let renderer, scene, camera, controls, group, host, fitted = false;
+  let renderer, labels, scene, camera, controls, group, dims, host, fitted = false, showDims = false, waiting = null;
   const loader = new GLTFLoader();
   const ink = new THREE.LineBasicMaterial({ color: 0x1d2733 });
-  const body = new THREE.MeshStandardMaterial({ color: 0xd9dee3, roughness: 0.85, metalness: 0.05,
+  const red = new THREE.LineBasicMaterial({ color: 0xd4441c });
+  const body = new THREE.MeshStandardMaterial({ color: 0xdfe3e7, roughness: 0.78, metalness: 0.04, flatShading: true,
     polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
 
   function init() {
     host = $("#viewer");
     host.innerHTML = "";
-    renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0xffffff);
-    host.append(renderer.domElement, el("span", { class: "hint", text: "drag to rotate · scroll to zoom" }));
+    renderer.setClearColor(0xffffff, 0);
+    labels = new CSS2DRenderer();
+    labels.domElement.className = "labels";
+    host.append(renderer.domElement, labels.domElement,
+      el("span", { class: "hint", text: matchMedia("(pointer: coarse)").matches
+        ? "drag to rotate · pinch to zoom" : "drag to rotate · scroll to zoom · right-drag to pan" }));
     scene = new THREE.Scene();
-    scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8f96, 2.2));
-    const sun = new THREE.DirectionalLight(0xffffff, 1.6);
-    sun.position.set(1, 2, 1.5);
-    scene.add(sun);
-    camera = new THREE.PerspectiveCamera(32, 1, 0.1, 5000);
+    // soft studio light: sky/ground fill, a key light and a weaker rim from behind
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x9aa1a8, 1.9));
+    const key = new THREE.DirectionalLight(0xffffff, 1.5);
+    key.position.set(1.2, 2, 1.6);
+    const rim = new THREE.DirectionalLight(0xffffff, 0.55);
+    rim.position.set(-1.5, 0.8, -1.2);
+    scene.add(key, rim);
+    camera = new THREE.PerspectiveCamera(30, 1, 0.1, 5000);
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
+    controls.dampingFactor = 0.12;
     new ResizeObserver(resize).observe(host);
     resize();
-    renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); });
+    renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); labels.render(scene, camera); });
   }
 
   function resize() {
     const w = host.clientWidth, h = host.clientHeight || 320;
     renderer.setSize(w, h, false);
+    labels.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
   }
 
+  function fit() {
+    const box = new THREE.Box3().setFromObject(group);
+    const c = box.getCenter(new THREE.Vector3()), r = box.getSize(new THREE.Vector3()).length() / 2;
+    controls.target.copy(c);
+    const dist = r / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2)) * (camera.aspect < 1 ? 1.35 / camera.aspect ** 0.5 : 1.1);
+    camera.position.copy(c).add(new THREE.Vector3(1.0, 0.75, 1.25).normalize().multiplyScalar(dist));
+    camera.near = r / 50; camera.far = r * 60; camera.updateProjectionMatrix();
+    controls.update();
+  }
+
+  // overall dimensions as drawing-style lines with labels (CAD X, Y, Z; three.js is Y-up, CAD Y runs along -z)
+  function dimensions() {
+    if (dims) { dims.traverse((o) => o.isCSS2DObject && o.element.remove()); scene.remove(dims); dims = null; }
+    if (!showDims || !group) return;
+    const b = new THREE.Box3().setFromObject(group), s = b.getSize(new THREE.Vector3());
+    const pad = Math.max(s.x, s.y, s.z) * 0.12, V = (x, y, z) => new THREE.Vector3(x, y, z);
+    dims = new THREE.Group();
+    const line = (a, z, ext) => {
+      const pts = [...ext.flatMap(([p, q]) => [p, q]), a, z];
+      dims.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), red));
+      const lab = el("span", { class: "dim-label" });
+      const o = new CSS2DObject(lab);
+      o.position.copy(a.clone().add(z).multiplyScalar(0.5));
+      dims.add(o);
+      return lab;
+    };
+    const y0 = b.min.y, zf = b.max.z, xr = b.max.x;
+    line(V(b.min.x, y0, zf + pad), V(b.max.x, y0, zf + pad),
+      [[V(b.min.x, y0, zf), V(b.min.x, y0, zf + pad * 1.2)], [V(b.max.x, y0, zf), V(b.max.x, y0, zf + pad * 1.2)]]).textContent = `${fmt(s.x)} mm`;
+    line(V(xr + pad, y0, b.min.z), V(xr + pad, y0, zf),
+      [[V(xr, y0, b.min.z), V(xr + pad * 1.2, y0, b.min.z)], [V(xr, y0, zf), V(xr + pad * 1.2, y0, zf)]]).textContent = `${fmt(s.z)} mm`;
+    line(V(xr + pad, b.min.y, zf + pad), V(xr + pad, b.max.y, zf + pad),
+      [[V(xr, b.max.y, zf), V(xr + pad * 1.2, b.max.y, zf + pad * 1.2)]]).textContent = `${fmt(s.y)} mm`;
+    scene.add(dims);
+  }
+
   function show(gltf, refit) {
     if (group) scene.remove(group);
+    if (waiting) { waiting.remove(); waiting = null; }
     group = new THREE.Group();
     gltf.scene.traverse((o) => {
       if (o.isMesh) {
@@ -68,15 +116,18 @@ const viewer = (() => {
     });
     group.rotation.x = -Math.PI / 2;            // CAD is Z-up, three.js is Y-up
     scene.add(group);
-    const box = new THREE.Box3().setFromObject(group);
-    const c = box.getCenter(new THREE.Vector3()), r = box.getSize(new THREE.Vector3()).length() / 2;
-    if (refit || !fitted) {
-      controls.target.copy(c);
-      camera.position.copy(c).add(new THREE.Vector3(1.1, 0.9, 1.3).normalize().multiplyScalar(r * 3.2));
-      camera.near = r / 50; camera.far = r * 50; camera.updateProjectionMatrix();
-      fitted = true;
-    }
+    if (refit || !fitted) { fit(); fitted = true; }
+    dimensions();
+    $("#view-reset").disabled = false;
+    $("#dims-toggle").disabled = false;
   }
+
+  $("#view-reset").addEventListener("click", () => group && fit());
+  $("#dims-toggle").addEventListener("click", (e) => {
+    showDims = !showDims;
+    e.currentTarget.setAttribute("aria-pressed", String(showDims));
+    dimensions();
+  });
 
   return {
     reset() { fitted = false; },
@@ -86,99 +137,169 @@ const viewer = (() => {
         : await new Promise((ok, bad) => loader.parse(src, "", ok, bad));
       show(gltf, refit);
     },
-    clear() { if (group && scene) { scene.remove(group); group = null; } },
+    clear() {
+      if (group && scene) { scene.remove(group); group = null; }
+      if (dims) dimensions();
+      $("#view-reset").disabled = true;
+      $("#dims-toggle").disabled = true;
+    },
+    // while the first read runs: a placeholder instead of an empty box
+    waiting(text) {
+      if (!renderer) init();
+      if (waiting) waiting.remove();
+      waiting = text ? el("div", { class: "building", text }) : null;
+      if (waiting) host.append(waiting);
+    },
   };
 })();
 
 // ------------------------------------------------------------------ timeline
+// One step per thing Talos does: start time (m:ss), what happened in plain words, and how long it took. Raw model
+// details (ids, tokens, cost) only show with the "details" toggle.
+const clockText = (t) => `${Math.floor((t || 0) / 60)}:${String(Math.floor((t || 0) % 60)).padStart(2, "0")}`;
 const timeline = {
-  start(t0Label = "+0.0") { $("#timeline").innerHTML = ""; this.active = null; },
+  start() { $("#timeline").innerHTML = ""; this.active = null; },
+  _li(t, title, cls, body, dur) {
+    const li = el("li", { class: `step ${cls}` }, el("span", { class: "t", text: clockText(t) }),
+      el("div", {}, el("b", { text: title }), body), el("span", { class: "dur", text: dur || "" }));
+    li.dataset.t = t || 0;
+    const ol = $("#timeline");
+    ol.append(li);
+    ol.scrollTop = ol.scrollHeight;          // scroll the timeline box only, never the page
+    return li;
+  },
+  close(li, t) {
+    li.classList.replace("active", "done");
+    const d = (t || 0) - Number(li.dataset.t);
+    const span = li.querySelector(".dur");
+    if (span && !span.textContent && d >= 0.05) span.textContent = `${d < 10 ? d.toFixed(1) : Math.round(d)} s`;
+  },
   add(t, title, cls = "active", body = null) {
-    if (this.active) this.active.classList.replace("active", "done");
-    const li = el("li", { class: `step ${cls}` }, el("span", { class: "t", text: `+${(t || 0).toFixed(1)}` }),
-      el("div", {}, el("b", { text: title }), body));
-    $("#timeline").append(li);
-    li.scrollIntoView({ block: "nearest" });
+    if (this.active) this.close(this.active, t);
+    const li = this._li(t, title, cls, body, cls === "active" ? "…" : "");
+    if (cls === "active") li.querySelector(".dur").textContent = "";
     this.active = cls === "active" ? li : null;
     return li;
   },
-  finishActive() { if (this.active) this.active.classList.replace("active", "done"); this.active = null; },
-  // a step that ran in parallel with the active one: appended without finishing it
-  addAside(t, title, cls, body) {
-    const li = el("li", { class: `step ${cls}` }, el("span", { class: "t", text: `+${(t || 0).toFixed(1)}` }),
-      el("div", {}, el("b", { text: title }), body));
-    $("#timeline").append(li);
-    li.scrollIntoView({ block: "nearest" });
+  finishActive(t) { if (this.active) this.close(this.active, t ?? Number(this.active.dataset.t)); this.active = null; },
+  // a step that ran in parallel with the active one (shape check, number re-read): its own duration, if known
+  addAside(t, title, cls, body, seconds) {
+    return this._li(t, title, cls, body, seconds ? `${seconds < 10 ? seconds.toFixed(1) : Math.round(seconds)} s` : "");
+  },
+  // the moments to remember: "Caught: … Fixed.", "Checked the numbers", "Verified"
+  moment(li, stamp, ok = false) {
+    li.classList.add("moment");
+    if (ok) li.classList.add("ok");
+    if (stamp) li.querySelector("b").append(el("span", { class: "stamp-sm", text: stamp }));
     return li;
   },
 };
 
+// elapsed time while a run is going; replays show the recorded time of each event
+const clock = {
+  timer: null, t0: 0,
+  start(live) {
+    this.stop();
+    const c = $("#clock");
+    c.hidden = false;
+    c.classList.remove("stopped");
+    c.textContent = "0:00";
+    if (live) {
+      this.t0 = performance.now();
+      this.timer = setInterval(() => { c.textContent = clockText((performance.now() - this.t0) / 1000); }, 250);
+    }
+  },
+  show(t) { if (!this.timer) $("#clock").textContent = clockText(t); },
+  stop(t) {
+    clearInterval(this.timer);
+    this.timer = null;
+    const c = $("#clock");
+    if (t != null) c.textContent = clockText(t);
+    c.classList.add("stopped");
+  },
+};
+$("#raw-toggle").addEventListener("change", (e) => $("#timeline").classList.toggle("show-raw", e.target.checked));
+const raw = (text) => (text ? el("div", { class: "raw", text }) : null);
+const callRaw = (c) => c && raw(`${c.model || "model"} · effort ${c.effort || "?"} · ${c.input_tokens ?? "?"} in / ` +
+  `${c.output_tokens ?? "?"} out tokens · $${(c.cost_usd || 0).toFixed(4)} · ${fmt(c.seconds || 0)} s`);
+
 function p(text, cls) { return el("p", cls ? { class: cls } : {}, text); }
 function list(items, cls) { return el("ul", {}, ...items.map((i) => el("li", { class: cls || "", text: i }))); }
 
-// "callout '64' (distance ...) measures 54 on the part, expected 64" -> plain words
+// "callout '64' (distance ...) measures 54 on the part, expected 64" -> plain words, no ids
 function plain(issue) {
   const m = /^callout '(.+?)' \((.+?)\) measures (.+?) on the part, expected (.+)$/.exec(issue.message);
-  if (m) return `${m[1]}: the part has ${m[3]} mm where the drawing says ${m[4]} (${m[2]}).`;
+  if (m) return `${m[1]}: the part has ${m[3]} mm where the drawing says ${m[4]}.`;
   const m2 = /^callout '(.+?)' \((.+?)\): (.+)$/.exec(issue.message);
-  if (m2) return `${m2[1]} (${m2[2]}): ${m2[3]}.`;
-  let s = issue.message.replace(/\s*\((high|medium|low)\)$/, "");
+  if (m2) return `${m2[1]}: ${m2[3].replace(/'[a-z_0-9[\]]+'/gi, "a feature")}.`;
+  let s = issue.message.replace(/\s*\((high|medium|low)\)$/, "").replace(/^[a-z_0-9[\]]+: /i, "");
   if (issue.source === "compile") s = "The spec did not build: " + s.replace(/^spec[^:]*: (Value error, )?/, "");
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 function short(issue) {
-  const s = plain(issue).replace(/^[a-z_0-9]+: /i, "");
+  const s = plain(issue);
   return s.length > 110 ? s.slice(0, 107) + "…" : s.replace(/\.$/, "");
 }
 
+// issues as a list: plain words, the raw message under "details"
+function issueList(issues, cls = "issue") {
+  return el("ul", {}, ...issues.map((i) => el("li", { class: cls }, plain(i), raw(i.message))));
+}
+
 // ------------------------------------------------------------------ event handling
-function setStatus(s) { $("#tb-status").textContent = s; }
+function setStatus(s, live = false) {
+  const d = $("#tb-status");
+  d.textContent = s;
+  d.classList.toggle("live", live);
+}
 
 function fileUrl(rel) { return current.base + rel; }
 
 function onEvent(ev) {
   const t = ev.t || 0;
+  clock.show(t);
   switch (ev.event) {
     case "read_started":
-      setStatus("reading");
-      timeline.add(t, current.kind === "text" ? "Reading the description" : "Reading the drawing",
+      setStatus("reading", true);
+      timeline.add(t, current.kind === "text" ? "Reading your description" : "Reading your drawing",
         "active", p("Muse Spark turns it into a part spec with named parameters, and lists every dimension it reads."));
+      viewer.waiting("Muse Spark is reading the drawing.\nThe part appears as soon as it compiles.");
       break;
     case "spec": {
       current.spec = ev.spec;
       if (ev.iteration === 0 && ev.changelog === null) {
         const n = Object.keys(ev.spec?.parameters || {}).length, c = (ev.callouts || []).length;
         timeline.active && timeline.active.querySelector("p")?.replaceWith(
-          p(`Read ${n} parameters and ${c} dimensions${ev.call ? ` in ${fmt(ev.call.seconds)} s` : ""}.`));
-        $("#tb-part").textContent = ev.spec?.name || "—";
+          el("div", {}, p(`Read ${n} parameters and ${c} dimensions.`), callRaw(ev.call)));
+        $("#tb-part").textContent = (ev.spec?.name || "—").replace(/_/g, " ");
       } else if (ev.iteration > 0) {
-        timeline.finishActive();
-        const rows = [p(ev.changelog || "Updated the spec.")];
+        timeline.finishActive(t);
+        const rows = [p(ev.changelog || "Updated the spec."), callRaw(ev.call)];
         const kept = (ev.disputes || []).filter((d) => d.status === "rejected");
         if (kept.length) rows.push(p(`Kept ${kept.length} measured dimension(s): the correction disputed them without support from the critic.`));
-        timeline.add(t, `Correction ${ev.iteration}`, "done", el("div", {}, ...rows));
+        timeline.add(t, "Fixed", "done", el("div", {}, ...rows));
       }
       break;
     }
     case "compiled": {
-      setStatus("built");
+      setStatus("built", true);
       if (ev.ok) {
         const s = ev.metrics.bbox.size;
         $("#tb-size").textContent = `${fmt(s[0])} × ${fmt(s[1])} × ${fmt(s[2])}`;
-        timeline.add(t, ev.iteration === 0 ? "Part built" : `Part rebuilt (iteration ${ev.iteration})`, "done",
-          p(`${fmt(s[0])} × ${fmt(s[1])} × ${fmt(s[2])} mm, ${fmt(ev.metrics.volume_mm3 / 1000, 1)} cm³, ` +
-            `${ev.metrics.features.length} features. Built by our own compiler (CadQuery), no model involved.`));
+        timeline.add(t, ev.iteration === 0 ? "Part built" : "Part rebuilt", "done",
+          p(`${fmt(s[0])} × ${fmt(s[1])} × ${fmt(s[2])} mm, ${ev.metrics.features.length} features. ` +
+            "Built by our own compiler (CadQuery), no model involved."));
         const f = ev.files || {};
         current.lastFiles = f;
-        $("#iter-label").textContent = ev.iteration ? `iteration ${ev.iteration}` : "first read";
+        $("#iter-label").textContent = ev.iteration ? `after ${ev.iteration} fix${ev.iteration > 1 ? "es" : ""}` : "first read";
         if (f["part.glb"]) viewer.load(fileUrl(f["part.glb"]), ev.iteration === 0).catch(console.error);
         if (f["sheet.png"]) showSheet(fileUrl(f["sheet.png"]));
       } else {
-        timeline.add(t, "Spec did not build", "fix", list((ev.errors || []).map((m) => plain({ message: m, source: "compile" })), "issue"));
+        timeline.add(t, "The spec did not build", "fix", issueList((ev.errors || []).map((m) => ({ message: m, source: "compile" }))));
         break;
       }
-      timeline.add(t, "Checking dimensions", "active", p("Measuring every dimension from the drawing on the built part."));
+      timeline.add(t, "Checking every dimension", "active", p("Measuring each dimension from the drawing on the built part."));
       break;
     }
     case "shape_check":
@@ -188,52 +309,62 @@ function onEvent(ev) {
       numbersStep(ev, t);
       break;
     case "rejected":
-      timeline.add(t, "Can’t build a part from this", "fix", p(ev.message));
+      timeline.add(t, "Can’t build a part from this", "fix", el("div", {}, p(ev.message), callRaw(ev.call)));
       setStatus("needs input");
       break;
     case "checks": {
-      setStatus("checking");
+      setStatus("checking", true);
       const rows = ev.callouts || [];
       const ok = rows.filter((r) => r.status === "ok").length;
       const checked = rows.filter((r) => ["ok", "mismatch", "error"].includes(r.status)).length;
+      const conflicts = rows.filter((r) => r.status === "conflict");
       const callIssues = (ev.issues || []).filter((i) => i.source === "callout");
-      const chips = el("div", { class: "chips" }, ...rows.filter((r) => r.status !== "unchecked" && r.status !== "invalid")
-        .map((r) => el("span", { class: `chip ${r.status === "ok" ? "" : "bad"}`, text: r.label })));
-      if (timeline.active && timeline.active.querySelector("b").textContent === "Checking dimensions") {
-        timeline.active.querySelector("p").replaceWith(el("div", {},
+      const chips = el("div", { class: "chips" }, ...rows.filter((r) => !["unchecked", "invalid"].includes(r.status))
+        .map((r) => el("span", { class: `chip ${r.status === "ok" ? "" : r.status === "conflict" ? "conflict" : "bad"}`,
+          title: r.status === "conflict" ? r.conflict || "contradicts another number" : r.status, text: r.label })));
+      if (timeline.active && /^Checking every dimension/.test(timeline.active.querySelector("b").textContent)) {
+        const li = timeline.active;
+        li.querySelector("p").replaceWith(el("div", {},
           p(rows.length ? `${ok} of ${checked} dimensions match the part.` : "No dimensions to check."), chips,
-          callIssues.length ? list(callIssues.map(plain), "issue") : null));
-        if (callIssues.length) timeline.active.classList.add("fix");
-        timeline.finishActive();
+          conflicts.length ? p(`${conflicts.length} number${conflicts.length > 1 ? "s contradict" : " contradicts"} another one on the drawing: built with the best guess, you pick (red numbers on the drawing).`) : null,
+          callIssues.length ? issueList(callIssues) : null));
+        li.querySelector("b").textContent = callIssues.length ? "Dimensions: something is off" : "Dimensions checked";
+        if (callIssues.length) timeline.moment(li, "CAUGHT");
+        timeline.finishActive(t);
+        li.querySelector(".dur").textContent = "";     // the checks event also waits for the second look
       }
       const critIssues = (ev.issues || []).filter((i) => i.source === "critic");
+      const critT = ev.critic_call?.seconds;
       if (ev.critic) {
-        timeline.add(t, "Critic compared drawing and part", critIssues.length ? "fix" : "done",
-          critIssues.length ? list(critIssues.map(plain), "issue")
-            : p("A second model looked at your drawing and the drawing of the built part: no shape differences."));
+        const li = timeline.addAside(t, critIssues.length ? "Second look: shape differs" : "Second look: no differences",
+          critIssues.length ? "fix" : "done", el("div", {}, critIssues.length ? issueList(critIssues)
+            : p("A separate Muse Spark call compared your drawing with a drawing of the built part."), callRaw(ev.critic_call)), critT);
+        if (critIssues.length) timeline.moment(li, "CAUGHT");
       } else if (ev.critic_skipped) {
-        timeline.add(t, "Critic skipped", "done", p(/shape/.test(ev.critic_skipped)
-          ? "The shape check failed, so Talos fixes that first." : "Dimensions are off, so Talos fixes those first."));
+        timeline.addAside(t, "Second look skipped", "done", p(/shape/.test(ev.critic_skipped)
+          ? "The outline check found a problem, so Talos fixes that first." : "Dimensions are off, so Talos fixes those first.", "muted"));
       } else if (ev.critic_error) {
-        timeline.add(t, "Critic unavailable", "done", p("The visual check failed; the dimension checks still count."));
+        timeline.addAside(t, "Second look unavailable", "done", p("The visual check failed; the measured checks still count.", "muted"));
       }
       if (ev.clean) {
         const shapeOk = current.events.some((e) => e.event === "shape_check" && e.iteration === ev.iteration && e.available);
         const what = [rows.length ? "every dimension matches" : null, shapeOk ? "the outlines match (SAM 3.1)" : null]
           .filter(Boolean).join(", ") || "the part built";
-        const critic = ev.critic ? " and the critic agrees"
-          : ev.critic_error ? "; the critic was unavailable, so it did not look" : "";
-        timeline.add(t, "Verified", "done", p(what.charAt(0).toUpperCase() + what.slice(1) + critic + "."));
+        const critic = ev.critic ? " and the second look agrees"
+          : ev.critic_error ? "; the second look was unavailable" : "";
+        current.verifiedStep = timeline.moment(timeline.addAside(t, "Verified", "done",
+          p(what.charAt(0).toUpperCase() + what.slice(1) + critic + ".")), "", true);
       }
       break;
     }
-    case "correction_started":
-      setStatus("correcting");
-      timeline.add(t, "Correcting", "active", p("Sending the drawing, the spec and what is wrong back to the model."));
+    case "correction_started": {
+      setStatus("correcting", true);
+      const n = (ev.issues || []).length;
+      timeline.add(t, "Correcting", "active", p(`Sending the drawing, the spec and the ${n > 1 ? `${n} problems` : "problem"} back to Muse Spark.`));
       break;
+    }
     case "error":
-      timeline.add(t, "Problem", "fix", el("div", {}, p(friendlyError(ev.message)),
-        el("details", { class: "fine" }, el("summary", { text: "details" }), p(ev.message || ""))));
+      timeline.add(t, "Problem", "fix", el("div", {}, p(friendlyError(ev.message)), raw(ev.message)));
       break;
     case "done":
       finish(ev);
@@ -244,54 +375,72 @@ function onEvent(ev) {
 // ------------------------------------------------------------------ the numbers, checked twice
 // Each written number is read again from a crop of where it is written, with nothing else in view. Chips sit on the
 // input image: confirmed ones are subtle, uncertain ones offer both readings and a field; a choice sets the
-// parameter and rebuilds (no model call).
+// parameter and rebuilds (no model call). A number the read itself found contradictory is shown the same way.
 function numbersStep(ev, t) {
   if (!ev.available) return;
   const located = (ev.numbers || []).filter((n) => n.text_box && n.status !== "not_located");
   const unc = located.filter((n) => n.status === "uncertain");
-  timeline.addAside(t, unc.length ? `Checked the numbers: ${unc.length} uncertain, please confirm`
+  current.uncertain = unc.length;
+  const li = timeline.addAside(t, unc.length ? `Checked the numbers: ${unc.length} uncertain, please confirm`
     : `Checked the numbers: all ${located.length} read the same twice`, unc.length ? "fix" : "done",
-    p(unc.length ? "Each number was read a second time on its own. Tap the highlighted ones on the drawing and pick the right value."
-      : "Each number was read a second time on its own, from a crop of where it is written."));
+    el("div", {}, p(unc.length ? "Each number was read a second time on its own. Tap the red numbers on your drawing and pick the right value."
+      : "Each number was read a second time on its own, from a crop of where it is written."),
+    unc.length ? list(unc.map((n) => n.conflict ? `${n.label}: ${n.conflict}`
+      : `${n.label}: read as ${fmt(n.value)}, second reading ${n.second == null ? "unclear" : fmt(n.second)}`)) : null,
+    raw(`${(ev.calls || []).map((c) => `${c.crops} crops, ${c.model || ""}`).join("; ")} · $${(ev.cost_usd || 0).toFixed(4)}`)),
+    ev.seconds);
+  timeline.moment(li, unc.length ? "CHECK" : "", !unc.length);
   const layer = $("#input-view .chips-layer");
   if (!layer) return;
   layer.innerHTML = "";
   for (const n of located) {
     const [x1, y1, x2, y2] = n.text_box;
     const chip = el("button", { type: "button", class: `chip-num ${n.status}`, title: n.status === "uncertain"
-      ? `Read as ${fmt(n.value)}, re-read as ${n.second == null ? "unclear" : fmt(n.second)}` : `${n.label}: ${n.status}`,
+      ? (n.conflict || `Read as ${fmt(n.value)}, re-read as ${n.second == null ? "unclear" : fmt(n.second)}`) : `${n.label}: ${n.status}`,
       style: `left:${Math.min(x1, x2) / 10}%;top:${Math.min(y1, y2) / 10}%` }, fmt(n.value));
     if (n.status === "uncertain") chip.addEventListener("click", (e) => { e.stopPropagation(); chooser(chip, n); });
+    else chip.tabIndex = -1;
     layer.append(chip);
   }
 }
 
 function chooser(chip, n) {
   document.querySelectorAll(".chip-pop").forEach((x) => x.remove());
-  const pop = el("div", { class: "chip-pop" });
+  const pop = el("div", { class: "chip-pop", role: "dialog", "aria-label": `Which number is ${n.label}?` });
+  pop.append(el("span", { class: "pop-note", text: n.conflict ? `Conflict: ${n.conflict}` : "Which is it?" }));
   const pick = (v) => { pop.remove(); confirmNumber(chip, n, v); };
   for (const v of [n.value, n.second].filter((v, i, a) => v != null && a.indexOf(v) === i)) {
     const b = el("button", { type: "button", class: "btn" }, fmt(v));
     b.addEventListener("click", () => pick(v));
     pop.append(b);
   }
-  const inp = el("input", { type: "number", step: "any", placeholder: "other", "aria-label": `value for ${n.label}` });
+  const inp = el("input", { type: "number", step: "any", inputmode: "decimal", placeholder: "other", "aria-label": `value for ${n.label}` });
   const ok = el("button", { type: "button", class: "btn" }, "OK");
   ok.addEventListener("click", () => inp.value !== "" && pick(Number(inp.value)));
   inp.addEventListener("keydown", (e) => { if (e.key === "Enter" && inp.value !== "") pick(Number(inp.value)); });
   pop.append(inp, ok);
   chip.after(pop);
-  pop.style.left = chip.style.left;
-  pop.style.top = `calc(${chip.style.top} + 26px)`;
+  const left = parseFloat(chip.style.left), top = parseFloat(chip.style.top);
+  pop.style.left = left > 55 ? "auto" : chip.style.left;
+  if (left > 55) pop.style.right = `${Math.max(0, 100 - left - 8)}%`;
+  pop.style[top > 60 ? "bottom" : "top"] = top > 60 ? `calc(${100 - top}% + 6px)` : `calc(${chip.style.top} + 26px)`;
+  pop.querySelector(".btn").focus();
 }
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".chip-pop") && !e.target.closest(".chip-num")) document.querySelectorAll(".chip-pop").forEach((x) => x.remove());
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") document.querySelectorAll(".chip-pop").forEach((x) => x.remove()); });
 
 async function confirmNumber(chip, n, v) {
   chip.classList.remove("uncertain");
   chip.classList.add("by-user");
   chip.textContent = fmt(v);
-  if (v === n.value) return;                                  // the first reading was right: nothing to change
-  const ok = await editor.setNumber(n, v);
-  if (!ok) { chip.classList.add("uncertain"); chip.classList.remove("by-user"); chip.textContent = fmt(n.value); }
+  const ok = v === n.value ? true : await editor.setNumber(n, v);   // the first reading was right: nothing to change
+  if (!ok) { chip.classList.add("uncertain"); chip.classList.remove("by-user"); chip.textContent = fmt(n.value); return; }
+  current.uncertain = Math.max(0, (current.uncertain || 0) - 1);
+  if (!current.uncertain && $("#banner .stamp")?.textContent === "CHECK") {
+    showBanner("CONFIRMED", "Every flagged number is confirmed by you. The part is rebuilt with your values.", true);
+  }
 }
 
 // SAM 3.1 shape check: the straightened sheet (first time), then per view the drawing's outline and the comparison
@@ -299,13 +448,13 @@ function thumb(rel, caption, cls = "") {
   if (!rel) return null;
   const url = fileUrl(rel);
   return el("figure", { class: `shape-fig ${cls}` }, el("a", { href: url, target: "_blank", rel: "noopener" },
-    el("img", { src: url, alt: caption, loading: "lazy" })), el("figcaption", { text: caption }));
+    el("img", { src: url, alt: caption, loading: "lazy", width: 120, height: 76 })), el("figcaption", { text: caption }));
 }
 
 function shapeStep(ev, t) {
-  const title = "Shape check (SAM 3.1)";
+  const sec = ev.sam?.seconds;
   if (!ev.available) {
-    if (ev.iteration === 0) timeline.addAside(t, title, "done", p(`Skipped: ${ev.note || "no usable view outline"}.`, "muted"));
+    if (ev.iteration === 0) timeline.addAside(t, "Outline check skipped", "done", el("div", {}, p("No usable view outline in this drawing; the other checks still count.", "muted"), raw(ev.note)));
     return;
   }
   const body = el("div", {});
@@ -316,16 +465,18 @@ function shapeStep(ev, t) {
   }
   const row = el("div", { class: "shape-row" });
   for (const v of ev.views || []) {
-    if (v.status === "unavailable") { row.append(el("span", { class: "muted", text: `${v.view}: ${v.note}` })); continue; }
+    if (v.status === "unavailable") { row.append(el("span", { class: "muted", text: `${v.view}: no outline` }), raw(v.note)); continue; }
     const mark = v.status === "issue" ? "✗" : "✓";
     if (ev.iteration === 0) row.append(thumb(v.files?.input, `${v.view} outline`));
     row.append(thumb(v.files?.compare, `${v.view} ${mark}`, v.status === "issue" ? "bad" : ""));
   }
-  body.append(row, p("Blue: the drawing's outline found by SAM 3.1. Red: the built part's silhouette.", "fine"));
+  body.append(row, p("Blue: your drawing's outline, found by SAM 3.1. Red: the built part's silhouette.", "fine"));
   const issues = ev.issues || [];
-  body.append(issues.length ? list(issues.map(plain), "issue")
-    : p("Every view's outline in the drawing matches the part: same orientation and proportions."));
-  timeline.addAside(t, title, issues.length ? "fix" : "done", body);
+  body.append(issues.length ? issueList(issues)
+    : p("Every view's outline matches the part: same orientation and proportions."));
+  const li = timeline.addAside(t, issues.length ? "Outlines: the part is mirrored or turned" : "Outlines match (SAM 3.1)",
+    issues.length ? "fix" : "done", body, sec);
+  if (issues.length) timeline.moment(li, "CAUGHT");
 }
 
 // what went wrong, in words a user can act on; the raw message stays available under "details"
@@ -339,15 +490,17 @@ function friendlyError(msg) {
 }
 
 function finish(done) {
-  timeline.finishActive();
+  timeline.finishActive(done.t);
+  clock.stop(done.seconds ?? done.t);
+  viewer.waiting(null);
   const words = {
     pass: "Verified", stuck: "Stopped: the same issue came back", max_iters: "Stopped after the maximum corrections",
     disputed: "Stopped: the model rejected the remaining issues", oscillating: "Stopped: the checks went back and forth",
-    unverified: "Measured checks pass; critic note unverified",
+    unverified: "Measured checks pass; one note to check by eye",
     budget: "Stopped: today’s budget is used up", error: "Stopped: the model did not answer properly",
   };
   setStatus(done.status === "pass" ? "verified" : done.status === "unverified" ? "built, 1 note"
-    : done.status === "rejected" ? "needs input" : done.status);
+    : done.status === "rejected" ? "needs input" : done.status.replace(/_/g, " "));
   if (done.status === "rejected") {
     showBanner("CHECK THE INPUT", done.note || "Talos cannot build a part from this input.", true);
     if (current.mode === "replay") $("#run-actions").hidden = !API;
@@ -357,24 +510,32 @@ function finish(done) {
   if (done.status === "unverified") {
     const notes = done.unverified_notes || [];
     timeline.add(done.t, words.unverified, "done", el("div", {},
-      p("Every dimension and outline check passes. The critic raised the note below; Talos tried one correction, " +
-        "which did not hold up, so it kept the measured part. Check this by eye."),
-      notes.length ? list(notes.map((m) => plain({ message: m })), "note") : null));
+      p("Every dimension and outline check passes. The second look raised the note below; Talos tried one correction, " +
+        "which did not hold up, so it kept the measured part."),
+      notes.length ? issueList(notes.map((m) => ({ message: m })), "note") : null));
   } else if (done.status !== "pass") {
     const note = ["error", "budget"].includes(done.status) ? friendlyError(done.note) : done.note;
     const shown = done.spec ? "Showing the best version Talos found." : "No part could be built.";
     timeline.add(done.t, words[done.status] || done.status, "done",
       el("div", {}, p(note || shown), done.spec && note ? p(shown, "fine") : null,
-        rem.length ? list(rem.map((m) => plain({ message: m })), "issue") : null));
+        rem.length ? issueList(rem.map((m) => ({ message: m }))) : null));
   }
   // what Talos caught and fixed, from the first check that found problems
   const firstChecks = current.events.find((e) => e.event === "checks" && (e.issues || []).length);
   const firstCompile = current.events.find((e) => e.event === "compiled" && !e.ok);
   const caught = firstCompile ? { source: "compile", message: firstCompile.errors[0] } : firstChecks?.issues?.[0];
-  if (done.status === "pass" && done.iterations > 0 && caught) {
-    showBanner("CAUGHT", `${short(caught)}. Fixed in ${done.iterations} correction${done.iterations > 1 ? "s" : ""}.`, false);
+  // run time, except for replays recorded with the slower development model (the live model takes ~40 s)
+  const took = done.seconds && !/contributor/.test(current.model || "") ? ` ${fmt(done.seconds, 0)} s.` : "";
+  if (current.uncertain) {
+    showBanner("CHECK", `Built and checked. ${current.uncertain} number${current.uncertain > 1 ? "s" : ""} on your drawing ` +
+      `${current.uncertain > 1 ? "were" : "was"} read two ways: tap the red one${current.uncertain > 1 ? "s" : ""} to confirm.`, false);
+    if (current.verifiedStep) current.verifiedStep.querySelector("b").firstChild.textContent = "Verified against the numbers as first read";
+  } else if (done.status === "pass" && done.iterations > 0 && caught) {
+    showBanner("CAUGHT", `${short(caught)}. Fixed in ${done.iterations} correction${done.iterations > 1 ? "s" : ""}.${took}`, false);
+    const fixed = [...document.querySelectorAll("#timeline .step")].filter((li) => li.querySelector("b").textContent.startsWith("Fixed"));
+    for (const li of fixed) timeline.moment(li, "FIXED", true);
   } else if (done.status === "pass") {
-    showBanner("VERIFIED", `Right on the first read. ${done.seconds ? `${fmt(done.seconds)} s` : ""}`.trim(), true);
+    showBanner("VERIFIED", `Right on the first read.${took}`, true);
   }
   const built = current.events.some((e) => e.event === "compiled" && e.ok);
   if (done.spec && built) {
@@ -419,41 +580,76 @@ function showInput(src, prompt) {
 // ------------------------------------------------------------------ parameters
 let overrides = {}, compileSeq = 0, compileTimer = null;
 
+// parameters grouped by the first feature that uses them ("Overall" for the base body), labelled with their
+// descriptions and units
+function paramGroups(spec) {
+  const names = Object.keys(spec.parameters || {});
+  const uses = (obj, name) => new RegExp(`(^|[^a-zA-Z0-9_])${name}([^a-zA-Z0-9_]|$)`).test(JSON.stringify(obj));
+  const groups = new Map();
+  for (const name of names) {
+    const ft = (spec.features || []).find((f) => uses({ ...f, id: undefined }, name));
+    const key = !ft ? "Other" : ft === spec.features[0] ? "Overall" : ft.id.replace(/_/g, " ");
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(name);
+  }
+  return groups;
+}
+
+function unitOf(name, prm) {
+  const d = `${name} ${prm.description || ""}`.toLowerCase();
+  if (/angle|deg|°|slope|tilt/.test(d)) return "°";
+  if (/count|number of|^n_|_n$|qty|holes? count/.test(d) && Number.isInteger(prm.value)) return "";
+  return "mm";
+}
+
 function setSpec(spec) {
   current.spec = spec;
   overrides = {};
   const box = $("#params");
   box.innerHTML = "";
   $("#param-errors").hidden = true;
-  const params = Object.entries(spec.parameters || {});
-  if (!params.length) { box.append(el("p", { class: "empty", text: "This part has no named parameters." })); return; }
-  for (const [name, prm] of params) {
-    const row = el("div", { class: "param" });
-    const label = el("label", { for: `p-${name}` }, name, el("small", { text: prm.description || "" }));
-    row.append(label);
-    if (typeof prm.value !== "number") {
-      row.append(el("span", { class: "expr", text: `= ${prm.value}` }));
-      box.append(row);
-      continue;
-    }
-    const v = prm.value;
-    const lo = prm.min ?? (v > 0 ? +(v * 0.5).toFixed(2) : v - 10);
-    const hi = prm.max ?? (v > 0 ? +(v * 1.5).toFixed(2) : v + 10);
-    const step = (hi - lo) <= 20 ? 0.1 : 0.5;
-    const range = el("input", { type: "range", min: lo, max: hi, step, value: v, "aria-label": name });
-    const num = el("input", { type: "number", id: `p-${name}`, step: "any", value: v });
-    const set = (x, from) => {
-      if (from !== range) range.value = x;
-      if (from !== num) num.value = x;
-      row.classList.toggle("changed", Number(x) !== v);
-      if (Number(x) === v) delete overrides[name]; else overrides[name] = Number(x);
-      scheduleCompile();
-    };
-    range.addEventListener("input", () => set(range.value, range));
-    num.addEventListener("change", () => num.value !== "" && set(num.value, num));
-    row.append(range, num);
-    box.append(row);
+  const params = spec.parameters || {};
+  if (!Object.keys(params).length) { box.append(el("p", { class: "empty", text: "This part has no named parameters." })); return; }
+  for (const [group, names] of paramGroups(spec)) {
+    const g = el("div", { class: "pgroup" }, el("h3", { text: group }));
+    for (const name of names) g.append(paramRow(name, params[name]));
+    box.append(g);
   }
+}
+
+function paramRow(name, prm) {
+  const row = el("div", { class: "param" });
+  const desc = (prm.description || "").replace(/^assumed:\s*/i, "assumed: ");
+  row.append(el("label", { for: `p-${name}` }, desc ? desc.charAt(0).toUpperCase() + desc.slice(1) : name,
+    el("span", { class: "pname", text: name })));
+  if (typeof prm.value !== "number") {
+    row.append(el("span", { class: "expr", text: `= ${prm.value}` }));
+    return row;
+  }
+  const v = prm.value, unit = unitOf(name, prm);
+  const lo = prm.min ?? (v > 0 ? +(v * 0.5).toFixed(2) : v - 10);
+  const hi = prm.max ?? (v > 0 ? +(v * 1.5).toFixed(2) : v + 10);
+  const step = (hi - lo) <= 20 ? 0.1 : 0.5;
+  const range = el("input", { type: "range", min: lo, max: hi, step, value: v, "aria-label": `${name}${unit ? ` (${unit})` : ""}` });
+  const num = el("input", { type: "number", id: `p-${name}`, step: "any", value: v, inputmode: "decimal" });
+  let before = null;
+  const set = (x, from) => {
+    if (from !== range) range.value = x;
+    if (from !== num) num.value = x;
+    row.classList.toggle("changed", Number(x) !== v);
+    if (Number(x) === v) delete overrides[name]; else overrides[name] = Number(x);
+    scheduleCompile();
+  };
+  // every finished drag or typed value can be undone
+  const begin = () => { if (!before) before = editor.snapshot(); };
+  const commit = () => { if (before) editor.record(before, `${name} → ${num.value}${unit ? " " + unit : ""}`); before = null; };
+  range.addEventListener("pointerdown", begin);
+  range.addEventListener("keydown", begin);
+  range.addEventListener("input", () => { begin(); set(range.value, range); });
+  range.addEventListener("change", commit);
+  num.addEventListener("change", () => { if (num.value === "") return; begin(); set(num.value, num); commit(); });
+  row.append(range, el("span", { class: "val" }, num, unit ? el("span", { class: "unit", text: unit }) : null));
+  return row;
 }
 
 function scheduleCompile() {
@@ -518,7 +714,7 @@ function begin(opts) {
   $("#run-actions").hidden = true;
   $("#tb-part").textContent = "—";
   $("#tb-size").textContent = "—";
-  setStatus(opts.mode === "replay" ? "replaying" : "starting");
+  setStatus(opts.mode === "replay" ? "replaying" : "starting", true);
   $("#iter-label").textContent = "";
   $("#params").innerHTML = '<p class="empty">Parameters of the part appear here.</p>';
   $("#sheet-view").innerHTML = '<p class="empty">What Talos compares with your drawing.</p>';
@@ -528,8 +724,11 @@ function begin(opts) {
   viewer.reset();
   viewer.clear();
   timeline.start();
+  clock.start(opts.mode === "live");
+  current.uncertain = 0;
+  current.verifiedStep = null;
   $("#run-mode").textContent = opts.mode === "replay"
-    ? `replay of a recorded run · ${opts.model || ""}` : opts.mock ? "live · mock models" : "live";
+    ? `Replay of a recorded run (${/contributor/.test(opts.model || "") ? "development model" : "Muse Spark 1.3"}), about 10× faster.` : "Live run.";
   document.querySelectorAll(".gallery button").forEach((b) => b.classList.toggle("active", b.dataset.id === opts.id));
 }
 
@@ -542,12 +741,13 @@ async function replay(entry) {
   begin({ mode: "replay", id: entry.id, base: `gallery/${entry.id}/`, model: entry.model, entry, kind: "image" });
   const mine = session;
   showInput(`gallery/${entry.id}/${entry.input}`);
-  if (entry.note) timeline.addAside(0, "About this replay", "done", p(entry.note, "fine"));
+  if (entry.note) timeline.addAside(0, "About this example", "done", p(entry.note, "fine"));
   const events = await (await fetch(`gallery/${entry.id}/events.json`)).json();
   let prevT = 0;
   for (const ev of events) {
     if (mine !== session) return;
-    const gap = Math.min(Math.max(((ev.t || prevT) - prevT) * 0.06, 0.12), 1.0);
+    // about 10x faster than the recorded run, but slow enough to follow each step
+    const gap = Math.min(Math.max(((ev.t || prevT) - prevT) * 0.1, 0.4), 1.8);
     prevT = ev.t || prevT;
     await new Promise((r) => setTimeout(r, gap * 1000));
     if (mine !== session) return;
@@ -560,6 +760,7 @@ async function startLive(form, preview) {
   const isText = form.has("prompt");
   begin({ mode: "live", kind: isText ? "text" : "image" });
   const mine = session;
+  if (narrow()) $(".views").scrollIntoView({ block: "start" });
   showInput(preview, isText ? form.get("prompt") : null);
   timeline.add(0, "Uploading", "active", p(isText ? "Sending the description." : "Sending the drawing (resized, metadata removed)."));
   let r, out;
@@ -567,17 +768,18 @@ async function startLive(form, preview) {
     r = await fetch(`${API}/runs`, { method: "POST", body: form });
     out = await r.json();
   } catch (e) {
-    timeline.add(0, "Could not reach the server", "fix", p(e.message));
+    timeline.add(0, "Could not reach the server", "fix", el("div", {}, p("The backend did not answer. Check your connection, or pick an example."), raw(e.message)));
     setStatus("offline");
+    clock.stop();
     return;
   }
   if (mine !== session) return;
-  if (r.status === 429) { showBanner("BUSY", out.message, true); timeline.add(0, "Busy", "done", p(out.message)); setStatus("busy"); return; }
-  if (!r.ok) { timeline.add(0, "Upload refused", "fix", p(out.detail || out.message || r.statusText)); setStatus("error"); return; }
+  if (r.status === 429) { clock.stop(); showBanner("BUSY", out.message, true); timeline.add(0, "Busy", "done", p(out.message)); setStatus("busy"); return; }
+  if (!r.ok) { clock.stop(); timeline.add(0, "Upload refused", "fix", p(out.detail || out.message || r.statusText)); setStatus("error"); return; }
   timeline.start();
   current.base = `${API}/runs/${out.run_id}/files/`;
   current.mock = out.mock;
-  $("#run-mode").textContent = out.mock ? "live · mock models" : "live · Muse Spark";
+  $("#run-mode").textContent = out.mock ? "Live run with recorded model answers (mock mode)." : "Live run: Muse Spark 1.3, SAM 3.1.";
   const es = new EventSource(`${API}/runs/${out.run_id}/events`);
   current.es = es;
   es.addEventListener("talos", (m) => {
@@ -595,6 +797,8 @@ async function startLive(form, preview) {
     timeline.add(current.events.at(-1)?.t || 0, "Connection lost", "fix",
       p("The server lost this run (it may have restarted). Upload the drawing again, or pick an example."));
     setStatus("disconnected");
+    clock.stop();
+    viewer.waiting(null);
   });
 }
 
@@ -631,20 +835,29 @@ $("#run-live").addEventListener("click", async () => {
 $("#sheet-view").addEventListener("click", (e) => { if (e.currentTarget.querySelector("img")) e.currentTarget.classList.toggle("zoom"); });
 
 // ------------------------------------------------------------------ gallery
+// The page opens on a replay of the run where Talos catches and fixes something (?example=<id> picks another,
+// ?autoplay=0 starts empty).
+const narrow = () => window.matchMedia("(max-width: 860px)").matches;
 (async () => {
-  const items = await (await fetch("gallery/index.json")).json();
+  let items = [];
+  try { items = await (await fetch("gallery/index.json")).json(); } catch (e) { console.warn("no gallery", e); return; }
   const ul = $("#gallery");
   for (const it of items) {
-    const btn = el("button", { type: "button", "data-id": it.id },
-      el("img", { src: `gallery/${it.id}/${it.input}`, alt: "", loading: "lazy" }),
+    const caught = it.corrections ? "caught & fixed" : /^Caught/.test(it.note || "") ? "caught · tap to fix" : null;
+    const btn = el("button", { type: "button", "data-id": it.id, title: it.note || it.title },
+      el("img", { src: `gallery/${it.id}/${it.input}`, alt: "", loading: "lazy", width: 160, height: 120 }),
       el("span", { class: "cap" }, el("b", { text: it.title }),
-        it.corrections ? el("span", { class: "fix", text: "caught & fixed" }) : el("span", { class: "replay", text: "replay" })));
-    btn.addEventListener("click", () => replay(it));
+        caught ? el("span", { class: "fix", text: caught }) : el("span", { class: "replay", text: "replay" })));
+    btn.addEventListener("click", () => {
+      replay(it);
+      if (narrow()) $(".views").scrollIntoView({ block: "start" });
+    });
     ul.append(el("li", {}, btn));
   }
-  const first = items.find((i) => i.corrections) || items[0];
   const params = new URLSearchParams(location.search);
+  const first = items.find((i) => i.corrections) || items[0];
   if (params.get("example")) replay(items.find((i) => i.id === params.get("example")) || first);
+  else if (params.get("autoplay") !== "0" && first) replay(first);
 })();
 
 
@@ -728,7 +941,7 @@ const editor = (() => {
       body: JSON.stringify({ spec: prev.spec, overrides: {} }) });
     const out = await r.json();
     if (out.ok) await show(out);
-    setStatus(history.length ? "edited" : "verified part");
+    setStatus(history.length ? "edited" : "as read");
   }
 
   // ---------- voice: MediaRecorder -> decode -> 16 kHz mono 16-bit WAV (the only format the API takes)
@@ -819,6 +1032,8 @@ const editor = (() => {
 
   return {
     setNumber,
+    snapshot: () => liveSpec(),
+    record(spec, label) { history.push({ spec, label }); $("#edit-undo").disabled = false; },
     reset() {
       history = []; verified = null;
       $("#edit-form").hidden = true; $("#edit-undo").disabled = true; $("#edit-text").value = ""; status("");

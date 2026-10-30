@@ -3,9 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hephaestus — sketch to parametric CAD</title>
-  <meta name="description" content="Turn a dimensioned sketch, a phone photo or a text description into a parametric CAD part. Talos builds it, checks it against your drawing and corrects itself.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f3efe4'/%3E%3Cpath d='M6 24 L16 6 L26 24 Z' fill='none' stroke='%231d2733' stroke-width='2'/%3E%3Ccircle cx='16' cy='18' r='3' fill='%23d4441c'/%3E%3C/svg%3E">
+  <title>Hephaestus · sketch it, get a verified CAD part</title>
+  <meta name="description" content="Sketch it. Get a verified, editable CAD part. Talos reads your dimensioned sketch with Meta's Muse Spark, builds a parametric part, checks it against your drawing (dimensions, SAM 3.1 outlines, a second look) and fixes what is off. STEP and STL out.">
+  <meta name="theme-color" content="#f3efe4">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hephaestus-talos.netlify.app/">
+  <meta property="og:title" content="Hephaestus · sketch it, get a verified CAD part">
+  <meta property="og:description" content="A dimensioned sketch becomes a parametric CAD part, checked against your drawing and corrected by Talos until it matches. Built on Meta's Muse Spark, SAM 3.1 and Muse Voice Transcribe.">
+  <meta property="og:image" content="https://hephaestus-talos.netlify.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A hand sketch with dimensions turned into a 3D CAD part">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hephaestus · sketch it, get a verified CAD part">
+  <meta name="twitter:description" content="A dimensioned sketch becomes a parametric CAD part, checked against your drawing and corrected until it matches.">
+  <meta name="twitter:image" content="https://hephaestus-talos.netlify.app/og.png">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -24,88 +37,105 @@
       <span class="mark" aria-hidden="true"></span>
       <div>
         <h1>HEPHAESTUS</h1>
-        <p>Sketch, photo or text &rarr; parametric CAD part, checked against your drawing by <b>Talos</b>.</p>
+        <p class="tagline">Sketch it. Get a verified, editable CAD part.</p>
       </div>
     </div>
     <dl class="tb-cells">
       <div><dt>Part</dt><dd id="tb-part">—</dd></div>
       <div><dt>Size</dt><dd id="tb-size" class="num">—</dd></div>
       <div><dt>Status</dt><dd id="tb-status">ready</dd></div>
-      <div><dt>Units</dt><dd class="num">mm</dd></div>
+      <div class="tb-about"><dt>Units</dt><dd class="num">mm · <a href="#about">about</a></dd></div>
     </dl>
   </header>
+
+  <ol class="steps-strip" aria-label="How it works">
+    <li data-short="Muse Spark"><span class="tag">1</span><div><b>Read</b><span>Muse Spark reads your drawing into a part spec with named parameters</span></div></li>
+    <li data-short="CadQuery"><span class="tag">2</span><div><b>Build</b><span>our compiler builds the solid (CadQuery), no model involved</span></div></li>
+    <li data-short="+ SAM 3.1"><span class="tag">3</span><div><b>Verify</b><span>every dimension measured, outlines compared with SAM 3.1, numbers read twice; what is off goes back for a fix</span></div></li>
+    <li class="steps-edit"><span class="tag">+</span><div><b>Edit</b><span>sliders, or say it: Muse Voice Transcribe</span></div></li>
+  </ol>
 
   <main class="sheet">
     <aside class="inputs">
       <section class="panel" aria-labelledby="h-new">
-        <h2 id="h-new"><span class="tag">01</span> New part</h2>
+        <h2 id="h-new"><span class="tag">01</span> Your part</h2>
+        <label class="btn btn-wide btn-primary camera">
+          <input id="camera" type="file" accept="image/*" capture="environment" hidden>
+          Photograph a sketch
+        </label>
         <label class="drop" id="drop">
           <input id="file" type="file" accept="image/jpeg,image/png,image/heic,image/heif,.heic,.heif" hidden>
           <span class="drop-ticks" aria-hidden="true"></span>
           <strong>Drop a sketch or photo</strong>
-          <span>JPEG, PNG or HEIC, up to 10 MB. Dimensions written on it.</span>
+          <span>Dimensions written on it · JPEG, PNG or HEIC, up to 10 MB</span>
           <span class="btn">Choose file</span>
-        </label>
-        <label class="btn btn-wide camera">
-          <input id="camera" type="file" accept="image/*" capture="environment" hidden>
-          Take a photo
         </label>
         <form id="text-form" class="text-form">
           <label for="prompt">…or describe it</label>
-          <textarea id="prompt" rows="3" maxlength="1000" placeholder="a 60×40 L-bracket, 5 mm thick, two M5 holes in the upright…"></textarea>
+          <textarea id="prompt" rows="2" maxlength="1000" placeholder="a 60×40 L-bracket, 5 mm thick, two M5 holes in the upright…"></textarea>
           <button class="btn btn-wide" type="submit">Build from text</button>
         </form>
-        <p class="fine">Uploads go to Meta's Muse Spark models to read the drawing, are not used for training, and are deleted after 24 hours.</p>
+        <p class="fine">A live run takes 30–60 s. Uploads go to Meta's Muse Spark models, are not used for training, and are deleted after 24 hours.</p>
       </section>
+      <section class="panel timeline-panel" aria-labelledby="h-talos">
+          <h2 id="h-talos"><span class="tag">03</span> Talos
+          <span class="clock num" id="clock" hidden>0:00</span>
+          <label class="raw-toggle"><input type="checkbox" id="raw-toggle"> details</label>
+        </h2>
+        <p class="run-mode fine" id="run-mode">The agent: read, build, check, correct.</p>
+          <ol id="timeline" class="timeline" aria-live="polite">
+            <li class="step idle"><span class="t num">0:00</span><div><b>Waiting</b><p>Pick an example or upload a drawing.</p></div></li>
+          </ol>
+          <div id="run-actions" class="run-actions" hidden>
+            <button id="run-live" class="btn">Run it live</button>
+            <span class="fine">Runs this drawing through the real models now (30–60 s).</span>
+          </div>
+        </section>
 
-      <section class="panel" aria-labelledby="h-ex">
+    </aside>
+
+    <section class="work" id="work">
+      <section class="examples" aria-labelledby="h-ex">
         <h2 id="h-ex"><span class="tag">02</span> Examples <small>recorded runs, replay instantly</small></h2>
         <ul id="gallery" class="gallery"></ul>
       </section>
-    </aside>
 
-    <section class="work">
       <div id="banner" class="banner" hidden></div>
 
       <div class="views">
         <figure class="view">
-          <figcaption><span class="tag">A</span> Input</figcaption>
+          <figcaption><span class="tag">A</span> Your drawing</figcaption>
           <div id="input-view" class="view-body input-view"><p class="empty">Your drawing appears here.</p></div>
         </figure>
         <figure class="view view-3d">
-          <figcaption><span class="tag">B</span> Part <span id="iter-label" class="num muted"></span></figcaption>
+          <figcaption><span class="tag">B</span> Part <span id="iter-label" class="num muted"></span>
+            <span class="view-tools">
+              <button type="button" class="tool" id="dims-toggle" aria-pressed="false" disabled>Dimensions</button>
+              <button type="button" class="tool" id="view-reset" disabled>Reset view</button>
+            </span>
+          </figcaption>
           <div id="viewer" class="view-body"><p class="empty">The part appears as soon as the first read compiles.</p></div>
           <form id="edit-form" class="edit-form" hidden>
             <div class="edit-row">
-              <button type="button" id="mic" class="btn mic" aria-label="Speak an edit" title="Speak an edit"><span class="mic-dot" aria-hidden="true"></span><span class="mic-label">Speak</span></button>
-              <input id="edit-text" type="text" maxlength="300" autocomplete="off" aria-label="Edit the part in words"
+              <input id="edit-text" type="text" maxlength="300" autocomplete="off" aria-label="Change the part in words"
                 placeholder="Change it: “make the holes M6”, “width 100”, “remove the slot”">
+              <button type="button" id="mic" class="btn mic" aria-label="Speak an edit" title="Speak an edit"><span class="mic-dot" aria-hidden="true"></span><span class="mic-label">Speak</span></button>
               <button class="btn" type="submit" id="edit-apply">Apply</button>
-              <button type="button" class="btn" id="edit-undo" disabled>Undo</button>
             </div>
             <p id="edit-status" class="edit-status" aria-live="polite"></p>
           </form>
         </figure>
         <figure class="view">
-          <figcaption><span class="tag">C</span> Drawing from the part</figcaption>
+          <figcaption><span class="tag">C</span> Drawing of the part</figcaption>
           <div id="sheet-view" class="view-body sheet-view"><p class="empty">What Talos compares with your drawing.</p></div>
         </figure>
       </div>
 
       <div class="lower">
-        <section class="panel timeline-panel" aria-labelledby="h-talos">
-          <h2 id="h-talos"><span class="tag">03</span> Talos <small id="run-mode"></small></h2>
-          <ol id="timeline" class="timeline">
-            <li class="step idle"><span class="t num">+0.0</span><div><b>Waiting</b><p>Pick an example or upload a drawing.</p></div></li>
-          </ol>
-          <div id="run-actions" class="run-actions" hidden>
-            <button id="run-live" class="btn">Run live</button>
-            <span class="fine">Runs this drawing through the real models (about 40 s).</span>
-          </div>
-        </section>
-
         <section class="panel params-panel" aria-labelledby="h-params">
-          <h2 id="h-params"><span class="tag">04</span> Parameters <small>drag to rebuild, no model calls</small></h2>
+          <h2 id="h-params"><span class="tag">04</span> Parameters <small>drag to rebuild, no model calls</small>
+            <button type="button" class="tool" id="edit-undo" disabled>Undo</button>
+          </h2>
           <div id="params" class="params"><p class="empty">Parameters of the part appear here.</p></div>
           <p id="param-errors" class="param-errors" role="alert" hidden></p>
           <div class="downloads">
@@ -118,10 +148,44 @@
     </section>
   </main>
 
+  <section class="about" id="about" aria-labelledby="h-about">
+    <h2 id="h-about"><span class="tag">05</span> About</h2>
+    <div class="about-grid">
+      <div>
+        <h3>How it works</h3>
+        <p>Muse Spark 1.3 reads the drawing into a structured part spec: features and named parameters, never free-form
+          CAD code. Our own compiler builds the solid with CadQuery, deterministically. Then Talos checks the part
+          against your drawing: every dimension it read is measured on the solid, SAM 3.1 outlines each view of the
+          drawing and compares it with the part's silhouette, every number is read a second time on its own, and a
+          separate critic call compares the drawing with a drawing of the part. Whatever is off goes back to the model
+          until the checks pass. Sliders and spoken edits (Muse Voice Transcribe) change the spec and rebuild it
+          without asking a model to redraw anything.</p>
+      </div>
+      <div>
+        <h3>Honest limits</h3>
+        <ul>
+          <li>Prismatic and revolved parts: plates, brackets, blocks, bushings, enclosures, pockets, holes, slots. No
+            freeform surfaces, no assemblies.</li>
+          <li>The drawing needs written dimensions; Talos never guesses the scale.</li>
+          <li>On the 24-image benchmark the live model's first read is already right on 23; the loop's value is catching the
+            rest without making correct reads worse. A misreading every check shares (two close numbers swapped) can
+            still get through.</li>
+          <li>Handwriting: 13 of 16 hand sketches right on the first read, 14 after confirming the flagged numbers.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Built for</h3>
+        <p>The Meta Global AI Developer Hackathon, Oct 26 – Nov 4, 2026 (Indie track). Everything here was built during
+          the hackathon. Models: Meta Muse Spark 1.3, SAM 3.1, Muse Voice Transcribe; CAD: CadQuery / OpenCascade.</p>
+        <p class="about-links"><a class="btn" href="https://github.com/Basiliskenzahn/Hephaestus">Source on GitHub</a>
+          <a class="btn" href="https://github.com/Basiliskenzahn/Hephaestus#results-oct-2026">Results and benchmark</a></p>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
-    <span>Built during the Meta Global AI Developer Hackathon, Oct 26 – Nov 4, 2026.</span>
-    <span>Models: Meta Muse Spark 1.3 (reading, critic, corrections), SAM 3.1 (shape check), Muse Voice Transcribe (voice edits). CAD: CadQuery / OpenCascade.</span>
-    <a href="https://github.com/Basiliskenzahn/Hephaestus">Source</a>
+    <span>Hephaestus · built during the Meta Global AI Developer Hackathon 2026</span>
+    <a href="https://github.com/Basiliskenzahn/Hephaestus">GitHub</a>
   </footer>
 
   <script type="module" src="app.js"></script>
