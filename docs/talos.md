@@ -41,7 +41,7 @@ full-resolution image (generous margin: grounding boxes are often a few % off; u
 go in one request with a minimal prompt ("transcribe the number nearest the centre", no drawing, no other numbers),
 read model, low effort. Same number -> `confirmed`; a different number, or "unclear" on a callout the read was not
 sure of -> `uncertain` with both readings; "unclear" on a confident callout -> `unverified` (shown, not highlighted).
-Uncertain numbers never trigger a correction: the loop continues with the first reading and the UI shows chips on
+Crops are tight (25 % of the box + 1.2 % of the image) and a number whose crop would take in more than half of another number's box is not re-read (`unverified`, too close): wider crops picked up the neighbour in half of the false flags. A callout the read marked as conflicting (`conflict`, e.g. Ø40 vs 35) is always `uncertain`, and its callout check reports `conflict` instead of a mismatch. Uncertain numbers never trigger a correction: the loop continues with the first reading and the UI shows chips on
 the drawing; choosing a value sets the parameter and recompiles (no model call). A failed re-read never fails the run.
 
 ## Shape check (SAM 3.1)
@@ -126,7 +126,7 @@ Every event is a JSON-serialisable dict with `event`, `iteration` and `t` (secon
 | event | fields |
 |---|---|
 | `read_started` | (none) |
-| `rejected` | `input_kind` (no_dimensions, not_a_drawing, unreadable, or description/drawing with a problem), `message` (shown to the user), `call`. The read decides this in the same call (fields `input_kind`, `problem`); nothing is compiled |
+| `rejected` | `input_kind` (no_dimensions, not_a_drawing, unreadable, or description/drawing with a problem), `message` (shown to the user), `call`. The read decides this in the same call (fields `input_kind`, `problem`); nothing is compiled. Numbers that contradict each other never reject: the read builds the best guess and marks the callouts (`conflict`); if it stopped anyway, it is asked once more |
 | `spec` | `spec`, `callouts` (the effective, frozen list), `changelog` (null for the first read), `disputes` raised by this correction, `call` {cost_usd, seconds, input_tokens, output_tokens, model, effort} |
 | `compiled` | `ok`; `metrics`, `warnings` and `files` (paths, if out_dir is set), or `errors`. Emitted as soon as the spec compiles, before any check, so the UI can show the part right after the read |
 | `shape_check` | `available`, `note` (why not), `views` [{view, status ok/issue/advisory/unavailable, orientation (IoU per transform), orientation_gap, aspect {drawing, part}, holes {drawing, part}, issues, advisories, files {input, compare}}], `issues` (blocking, source `shape`), `advisories` (holes), `sheet` {method sam/threshold/scan/none, rectified, quad}, `files` {sheet_found, sheet_rectified, input_<view>}, `sam` {calls, cost_usd, seconds}. Emitted before `checks` in every iteration of a drawing run |

@@ -1,0 +1,22 @@
+{
+ "callouts": [],
+ "input_kind": "drawing",
+ "problem": "The collar outer size is dimensioned as Ø40, 35 and 15 mm in different views so they contradict each other. Please send a consistent sketch with one outer diameter and the collar width.",
+ "spec": {
+  "features": [
+   {
+    "distance": 10.0,
+    "id": "base",
+    "plane": "XY",
+    "profile": {
+     "height": 10.0,
+     "shape": "rect",
+     "width": 10.0
+    },
+    "type": "extrude"
+   }
+  ],
+  "name": "placeholder"
+ },
+ "views": []
+}

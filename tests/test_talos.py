@@ -300,12 +300,13 @@ def test_read_rejects_inputs_that_are_not_parts():
                                   ("no_dimensions", None, "at least one size"),
                                   ("unreadable", None, "too blurry"),
                                   ("description", "A 60 mm hole cannot fit in a 50 mm cube.", "60 mm hole")):
-        client = ScriptedClient(ReadOutput=[{"input_kind": kind, "problem": problem, "spec": cube, "callouts": [],
-                                             "views": []}])
+        read = {"input_kind": kind, "problem": problem, "spec": cube, "callouts": [], "views": []}
+        client = ScriptedClient(ReadOutput=[read, read])
         ev = events_of(client)
         assert [e["event"] for e in ev] == ["read_started", "rejected", "done"]
         assert ev[-1]["status"] == "rejected" and expect in ev[-1]["note"] and ev[-1]["spec"] is None
-        assert client.calls == ["ReadOutput"]            # no compile, no critic, no correction
+        # no compile, no critic, no correction; a part the read stopped on is asked for once more first
+        assert client.calls == ["ReadOutput"] * (2 if kind == "description" else 1)
         json.dumps(ev)
 
 

@@ -39,17 +39,43 @@ def numbers(text):
     return [float(n.replace(",", ".")) for n in NUM.findall(text or "")]
 
 
-def crop(img, box, margin=0.6, context=0.025):
-    """The text box (0-1000 normalised) cut from the full-resolution image, upscaled if small. The margin is generous
-    (60 % of the box plus 2.5 % of the image on each side): text boxes from grounding are often a few % off, and a
-    crop that misses the digits reads 'unclear'. The re-read takes the number nearest the centre."""
-    W, H = img.size
+MARGIN, CONTEXT = 0.25, 0.012
+
+
+def region(box, margin=MARGIN, context=CONTEXT):
+    """The crop around a text box, both 0-1000 normalised: 25 % of the box plus 1.2 % of the image on each side.
+    Text boxes from grounding are often a few % off, so some margin is needed; a wider one (60 % + 2.5 %) took in a
+    neighbouring number in half of the false flags (Oct 28 eval, re-checked offline on the saved boxes)."""
     x1, y1, x2, y2 = (float(v) for v in box)
     x1, x2 = sorted((x1, x2))
     y1, y2 = sorted((y1, y2))
-    x1, x2, y1, y2 = x1 / 1000 * W, x2 / 1000 * W, y1 / 1000 * H, y2 / 1000 * H
-    mx, my = margin * (x2 - x1) + context * W, margin * (y2 - y1) + context * H
-    b = (int(max(0, x1 - mx)), int(max(0, y1 - my)), int(min(W, x2 + mx)), int(min(H, y2 + my)))
+    mx, my = margin * (x2 - x1) + context * 1000, margin * (y2 - y1) + context * 1000
+    return max(0, x1 - mx), max(0, y1 - my), min(1000, x2 + mx), min(1000, y2 + my)
+
+
+def crowded(box, others):
+    """True if more than half of another number's text box falls inside this crop: the re-read could read that one."""
+    r = region(box)
+
+    def norm(b):
+        x1, y1, x2, y2 = (float(v) for v in b)
+        return min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)
+
+    for o in others:
+        o = norm(o)
+        area = (o[2] - o[0]) * (o[3] - o[1])
+        inter = max(0, min(r[2], o[2]) - max(r[0], o[0])) * max(0, min(r[3], o[3]) - max(r[1], o[1]))
+        if area > 0 and inter > 0.5 * area:
+            return True
+    return False
+
+
+def crop(img, box, margin=MARGIN, context=CONTEXT):
+    """The text box (0-1000 normalised) cut from the full-resolution image (see region), upscaled if small. The
+    re-read takes the number nearest the centre."""
+    W, H = img.size
+    x1, y1, x2, y2 = region(box, margin, context)
+    b = (int(x1 / 1000 * W), int(y1 / 1000 * H), int(x2 / 1000 * W), int(y2 / 1000 * H))
     if b[2] - b[0] < 4 or b[3] - b[1] < 4:
         return None
     c = img.crop(b)
@@ -81,7 +107,8 @@ def compare(callout, text):
 def reread(client, image, callouts, model=None, effort="low"):
     """Re-read every callout that has a text box. Returns {numbers: [...], calls: [...], cost_usd, seconds}.
     numbers: one entry per callout: {index, label, value, parameter, text_box, confidence, status
-    (confirmed | uncertain | unverified | not_located), second, reread}."""
+    (confirmed | uncertain | unverified | not_located), second, reread, conflict}. A callout the read marked
+    as conflicting is always uncertain."""
     img = Image.open(image if not isinstance(image, (bytes, bytearray)) else io.BytesIO(image))
     img.load()
     out = []
@@ -89,10 +116,16 @@ def reread(client, image, callouts, model=None, effort="low"):
     for k, c in enumerate(callouts or []):
         entry = {"index": k, "label": c.get("label"), "value": c.get("value"), "parameter": c.get("parameter"),
                  "text_box": c.get("text_box"), "confidence": c.get("confidence"), "status": "not_located",
-                 "second": None, "reread": None}
+                 "second": None, "reread": None, "conflict": c.get("conflict")}
         out.append(entry)
         # only numbers actually written: implied positions ("bore centred") have none to re-read
         if c.get("text_box") and isinstance(c.get("value"), (int, float)) and numbers(c.get("label")):
+            others = [o["text_box"] for j, o in enumerate(callouts) if j != k and o.get("text_box")
+                      and numbers(o.get("label")) and o["text_box"] != c["text_box"]]
+            if crowded(c["text_box"], others):
+                entry["status"] = "unverified"      # another number is too close to crop this one alone
+                entry["note"] = "too close to another number to re-read on its own"
+                continue
             data = crop(img, c["text_box"])
             if data:
                 jobs.append((entry, data))
@@ -111,6 +144,14 @@ def reread(client, image, callouts, model=None, effort="low"):
             text = texts.get(i)
             entry["reread"] = text
             entry["status"], entry["second"] = compare(entry, text)
+            if entry["conflict"]:
+                # the read says it contradicts another number: the user picks (both readings, or the conflict)
+                entry["status"] = "uncertain"
+                if entry["second"] is not None and abs(entry["second"] - float(entry["value"])) < 1e-6:
+                    entry["second"] = None
+    for entry in out:
+        if entry["conflict"] and entry["reread"] is None and entry["status"] in ("not_located", "unverified"):
+            entry["status"] = "uncertain"
     return {"numbers": out, "calls": calls, "cost_usd": round(sum(c["cost_usd"] for c in calls), 6),
             "seconds": round(max([c["seconds"] for c in calls] or [0]), 1)}
 

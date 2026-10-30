@@ -278,6 +278,9 @@ class Callout(_Model):
     confidence: Literal["high", "medium", "low"] = Field(description=(
         "how sure you are of the digits: medium or low for ambiguous handwriting (1/7, 3/5/8, 4/9, 6/0), smudges, "
         "or a number next to a crossed-out one"))
+    conflict: Optional[str] = Field(description=(
+        "null, or one short sentence if this number contradicts another one on the drawing (name the other "
+        "number): the part is built with your best guess and the user picks"))
 
 
 class ViewBox(_Model):
@@ -300,7 +303,7 @@ class ReadOutput(_Model):
     problem: Optional[str] = Field(description=(
         "null if a part can be built. Otherwise one or two friendly sentences for the user: what is wrong and what "
         "to send instead (e.g. 'This looks like a photo of a cat, not a drawing. Upload a sketch with at least one "
-        "dimension.' or 'A 60 mm hole cannot fit in a 50 mm cube.')"))
+        "dimension.'). Never for numbers that contradict each other: build the part and mark them (callout conflict)"))
     spec: PartSpec
     callouts: list[Callout] = Field(description="every dimension written on the drawing, once each")
     views: list[ViewBox] = Field(description="each orthographic view drawn on the image, once; [] for a text "

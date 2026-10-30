@@ -79,10 +79,10 @@ Set `input_kind` and `problem` before anything else.
 - A photo of something that is not a drawing (a person, an animal, a room), a screenshot, an empty page:
   "not_a_drawing", problem says what you see and asks for a sketch or drawing with dimensions.
 - Too blurry, dark or small to read the numbers: "unreadable", problem asks for a sharper, brighter photo.
-- Dimensions that contradict each other or describe something that cannot be built: problem explains it in one
-  sentence. Only when no reading of the drawing makes the numbers fit together: a number you cannot place (it may
-  locate a hole, not size the outline) or a sketch that is not to scale is not a contradiction; build the most
-  plausible part.
+- Numbers that seem to contradict each other are never a reason to stop: input_kind "drawing" (or "description"),
+  problem null, build the most plausible part, and set `conflict` on each callout involved (one sentence naming
+  the other number). The user is shown both and picks. A number you cannot place (it may locate a hole, not size
+  the outline) or a sketch that is not to scale is not a contradiction at all.
 Whenever problem is not null, return a placeholder spec (one 10 mm cube, no callouts, no views): it is ignored."""
 
 NUMBERS_GUIDE = """## Reading the numbers
@@ -133,9 +133,9 @@ READ_TEXT_PROMPT = ("You convert a text description of a mechanical part into a 
                     "\"NEMA 17\", \"M5\", \"608 bearing\", \"2020 extrusion\" mean their standard dimensions (say "
                     "which ones you used, marked assumed).\n- Vague but sized (\"a small "
                     "bracket for a 20 mm pipe\"): build a reasonable part and start the description of every parameter "
-                    "you chose with \"assumed:\".\n- Contradictory or impossible (\"a 50 mm cube with a 60 mm hole\"): "
-                    "`problem` explains it in one friendly sentence and suggests a fix; return a placeholder spec (one "
-                    "10 mm cube, no callouts).\n\n"
+                    "you chose with \"assumed:\".\n- Contradictory (\"a 50 mm cube with a 60 mm hole\"): "
+                    "never stop: `problem` null, build the most plausible part (here a hole that fits) and set "
+                    "`conflict` on the callouts involved, one sentence naming the other number; the user picks.\n\n"
                     + _EXAMPLE + "\n\nReturn only the JSON.")
 
 

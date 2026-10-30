@@ -261,8 +261,9 @@ def _depth(ref, g, center, result, lo, hi):
 
 def check(callouts, result, tol=TOL):
     """Evaluate callouts (dicts or Callout models). Returns a list of
-    {label, value, measure, status: ok|mismatch|error|invalid|unchecked, measured, message}.
-    mismatch and error (e.g. the feature does not exist) are issues; invalid (malformed callout) is not."""
+    {label, value, measure, status: ok|mismatch|error|invalid|unchecked|conflict, measured, message}.
+    mismatch and error (e.g. the feature does not exist) are issues; invalid (malformed callout) is not, nor is a
+    mismatch on a callout the read marked as conflicting (status conflict)."""
     cyls = _cylinders(result.solid)
     out = []
     for c in callouts:
@@ -287,6 +288,11 @@ def check(callouts, result, tol=TOL):
         values = got if isinstance(got, list) else [got]
         best = min(values, key=lambda v: abs(v - c["value"]))
         ok = abs(best - c["value"]) <= tol
+        if c.get("conflict") and not ok:
+            # the read itself said this number contradicts another one: the user decides (number chips), the
+            # loop does not try to satisfy both
+            out.append({**row, "status": "conflict", "measured": round(float(best), 3), "conflict": c["conflict"]})
+            continue
         row.update(status="ok" if ok else "mismatch", measured=round(float(best), 3))
         if not ok:
             row["message"] = (f"callout '{c['label']}' ({describe(c)}) measures {_fmt(best)} on the part, "

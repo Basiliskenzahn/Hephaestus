@@ -92,6 +92,11 @@ REJECT = {  # input_kind -> the message when the read gives none
 }
 
 
+RETRY_CONFLICT = ("You stopped on this: \"{}\". Numbers that seem to contradict each other are not a reason to stop. "
+                  "Build the most plausible part, set problem to null, and set `conflict` on each callout involved "
+                  "(one sentence naming the other number): the user is shown both and picks.")
+
+
 def _call_info(info):
     u = info["usage"]
     return {"cost_usd": round(info["cost_usd"], 6), "seconds": info["seconds"],
@@ -260,6 +265,20 @@ def run(drawing=None, max_iters=None, client=None, out_dir=None, start=None, use
             spec, callouts = out.get("spec"), out.get("callouts") or []
             spent[0] += info["cost_usd"]
             kind, problem = out.get("input_kind") or ("description" if prompt is not None else "drawing"), out.get("problem")
+            if problem and kind not in REJECT and not callouts:
+                # a drawing or description the read stopped on (a suspected contradiction): never a rejection; ask
+                # once more for the best-guess part with the conflicting numbers marked
+                out, info2 = client.respond(instructions, content + [meta_api.text(RETRY_CONFLICT.format(problem))],
+                                            json_schema(ReadOutput), "ReadOutput", model=settings.read_model,
+                                            effort=settings.read_effort)
+                spent[0] += info2["cost_usd"]
+                info = {**info2, "cost_usd": info["cost_usd"] + info2["cost_usd"],
+                        "seconds": info["seconds"] + info2["seconds"]}
+                spec, callouts = out.get("spec"), out.get("callouts") or []
+                kind = out.get("input_kind") or kind
+                problem = out.get("problem") if not callouts else None
+            if problem and kind not in REJECT and callouts:
+                problem = None                      # built anyway; the conflicting callouts carry the note
             if problem or kind in REJECT:
                 message = problem or REJECT[kind]
                 yield ev("rejected", input_kind=kind, message=message, call=_call_info(info))
