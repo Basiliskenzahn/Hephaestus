@@ -34,8 +34,8 @@ PICKS = [
     # the number check: the read took a handwritten 40 for 60, the independent re-read says 40; one tap fixes it
     # (development-model outputs, replayed through the loop by experiments/numbers/record_block.py)
     ("block", "experiments/numbers/results/block_replay.json", "Block, hand sketch",
-     "Caught: the read took the handwritten 40 for a 60; the second, independent reading says 40. Tap the red "
-     "number on the drawing to fix it (no model call). Recorded with the cheaper development model."),
+     "Caught: the read took the handwritten 40 for a 60; the second, independent reading says 40. Tap the 60 "
+     "on the drawing to fix it (no model call). Recorded with the cheaper development model."),
     ("shaft_collar", "muse-spark-1.3/rerecord/08_shaft_collar__photo.run1.json", "Shaft collar, phone photo",
      "A split ring with a cross hole: right on the first read, outlines checked by SAM 3.1."),
     ("l_bracket", "muse-spark-1.3/live/02_l_bracket__clean.run1.json", "L-bracket, drawing",

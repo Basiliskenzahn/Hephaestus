@@ -159,3 +159,28 @@ def reread(client, image, callouts, model=None, effort="low"):
 def _schema():
     from .spec import json_schema
     return json_schema(RereadOutput)
+
+
+VIEW_AXES = {"top": ("x", "y"), "front": ("x", "z"), "side": ("y", "z")}
+
+
+def strength(number, callouts, check_rows=None, shape=None):
+    """How the UI shows an uncertain number: 'soft' (a 'confirm?' chip: the two readings differ, nothing else says the
+    first is wrong) or 'red' (another signal backs the other value: the read flagged a conflict with a specific
+    alternative, the callout check measured a mismatch, or the shape check found the proportions of a view along
+    this number's axis off). None for numbers that are not uncertain. Mirrors strengthOf in web/app.js."""
+    if number.get("status") != "uncertain":
+        return None
+    if number.get("conflict") and number.get("second") is not None:
+        return "red"
+    k = number.get("index")
+    row = (check_rows or [])[k] if check_rows and k is not None and k < len(check_rows) else None
+    if row and row.get("status") == "mismatch":
+        return "red"
+    c = (callouts or [])[k] if callouts and k is not None and k < len(callouts) else None
+    if c and c.get("measure") == "overall" and c.get("axis") and shape and shape.get("available"):
+        for v in shape.get("views") or []:
+            flagged = any("outline is" in m for m in (v.get("advisories") or []) + (v.get("issues") or []))
+            if flagged and c["axis"] in VIEW_AXES.get(v.get("view"), ()):
+                return "red"
+    return "soft"

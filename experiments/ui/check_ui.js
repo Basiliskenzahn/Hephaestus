@@ -36,7 +36,7 @@ async function run(b, label, w, h) {
 
   // 1. the default experience: the catch-and-fix replay starts on its own
   await pg.goto(`${WEB}?api=http://localhost:8040`);
-  await pg.waitForSelector('#banner:not([hidden])', { timeout: 30000 });
+  await pg.waitForSelector('#banner:not([hidden]):not(.running)', { timeout: 30000 });
   await pg.waitForTimeout(1200);
   const first = await pg.evaluate(() => ({
     banner: document.querySelector('#banner').innerText.replace(/\s+/g, ' '), active: document.querySelectorAll('.timeline .step.active').length,

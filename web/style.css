@@ -363,7 +363,10 @@ input[type="range"]::-moz-range-thumb { width: 12px; height: 16px; background: v
 .chips-layer { position: absolute; inset: 0; }
 .chip-num { position: absolute; transform: translate(-2px, -2px); padding: 0 4px; font: 600 11px/16px var(--mono); border: 1px solid var(--rule); background: rgba(255, 255, 255, 0.82); color: var(--ink-3); cursor: default; }
 .chip-num.unverified { border-style: dotted; }
-.chip-num.uncertain { border-color: var(--accent); color: #fff; background: var(--accent); cursor: pointer; box-shadow: 0 0 0 3px var(--accent-wash); padding: 2px 6px; font-size: 12px; }
+/* soft: the two readings differ, nothing else says the first is wrong */
+.chip-num.uncertain { border: 1.5px dashed var(--ink); color: var(--ink); background: #fff7d6; cursor: pointer; padding: 1px 6px; font-size: 12px; }
+/* red: another check backs the other value */
+.chip-num.uncertain.red { border: 1px solid var(--accent); color: #fff; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
 .chip-num.uncertain::after { content: " ?"; }
 .chip-num.by-user { border-color: var(--ink); color: var(--ink); background: #fff; }
 .chip-num.by-user::before { content: "✓ "; }
@@ -371,3 +374,14 @@ input[type="range"]::-moz-range-thumb { width: 12px; height: 16px; background: v
 .chip-pop .pop-note { flex: 1 1 100%; font-size: 12px; color: var(--ink-2); margin-bottom: 2px; }
 .chip-pop .btn { padding: 4px 10px; font-size: 13px; min-height: 30px; }
 .chip-pop input { width: 70px; font: 13px var(--mono); padding: 4px; border: 1px solid var(--rule); min-height: 30px; }
+
+/* replays run ~10x faster than the recorded run */
+.replay-pill { font: 600 10px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 6px; border: 1.5px solid var(--ink-2); color: var(--ink-2); background: var(--sheet); }
+.replay-pill.playing { border-color: var(--ink); background: var(--ink); color: var(--sheet); }
+.view-3d { position: relative; }
+.replay-pill.overlay { position: absolute; z-index: 3; left: 24px; top: 62px; }
+.gallery { min-height: 162px; }
+@media (max-width: 520px) { .gallery { min-height: 150px; } }
+.banner.running { border-color: var(--rule); }
+.banner.running .stamp { color: var(--ink-3); border-color: var(--ink-3); transform: none; }
+.banner > span:last-child { min-height: 1.45em; }

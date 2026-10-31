@@ -257,7 +257,15 @@ function setStatus(s, live = false) {
 function fileUrl(rel) { return current.base + rel; }
 
 function onEvent(ev) {
+  handle(ev);
+  if ((ev.event === "checks" || ev.event === "shape_check") && current.uncertain) markStrength();
+}
+
+const RUNNING = { read_started: "Reading your drawing (Muse Spark)…", compiled: "Part built, checking it against your drawing…",
+  correction_started: "Something is off: sending it back to Muse Spark for a fix…" };
+function handle(ev) {
   const t = ev.t || 0;
+  if (RUNNING[ev.event] && $("#banner").classList.contains("running")) $("#banner span:last-child").textContent = RUNNING[ev.event];
   clock.show(t);
   switch (ev.event) {
     case "read_started":
@@ -376,14 +384,44 @@ function onEvent(ev) {
 // Each written number is read again from a crop of where it is written, with nothing else in view. Chips sit on the
 // input image: confirmed ones are subtle, uncertain ones offer both readings and a field; a choice sets the
 // parameter and rebuilds (no model call). A number the read itself found contradictory is shown the same way.
+// A re-read disagreement alone is a soft "confirm?"; red only when another signal backs the other value: the read
+// itself flagged a conflict with a specific alternative, the callout check measured a mismatch, or the shape check
+// found that view's proportions off along this number's axis (same rule as reread.strength in Python).
+const VIEW_AXES = { top: ["x", "y"], front: ["x", "z"], side: ["y", "z"] };
+function strengthOf(n) {
+  if (n.status !== "uncertain") return null;
+  if (n.conflict && n.second != null) return "red";
+  const callout = current.events.find((e) => e.event === "spec" && e.iteration === 0)?.callouts?.[n.index];
+  const row = current.events.find((e) => e.event === "checks" && e.iteration === 0)?.callouts?.[n.index];
+  if (row && row.status === "mismatch") return "red";
+  const shape = current.events.find((e) => e.event === "shape_check" && e.iteration === 0);
+  if (callout?.measure === "overall" && callout.axis && shape?.available) {
+    for (const v of shape.views || []) {
+      const flagged = [...(v.advisories || []), ...(v.issues || [])].some((m) => /outline is/.test(m));
+      if (flagged && (VIEW_AXES[v.view] || []).includes(callout.axis)) return "red";
+    }
+  }
+  return "soft";
+}
+
+function markStrength() {
+  let red = 0;
+  for (const chip of document.querySelectorAll("#input-view .chip-num.uncertain")) {
+    const s = strengthOf(chip._n);
+    chip.classList.toggle("red", s === "red");
+    red += s === "red";
+  }
+  current.red = red;
+}
+
 function numbersStep(ev, t) {
   if (!ev.available) return;
   const located = (ev.numbers || []).filter((n) => n.text_box && n.status !== "not_located");
   const unc = located.filter((n) => n.status === "uncertain");
   current.uncertain = unc.length;
-  const li = timeline.addAside(t, unc.length ? `Checked the numbers: ${unc.length} uncertain, please confirm`
+  const li = timeline.addAside(t, unc.length ? `Checked the numbers: ${unc.length} to confirm`
     : `Checked the numbers: all ${located.length} read the same twice`, unc.length ? "fix" : "done",
-    el("div", {}, p(unc.length ? "Each number was read a second time on its own. Tap the red numbers on your drawing and pick the right value."
+    el("div", {}, p(unc.length ? "Each number was read a second time on its own. Where the two readings differ, tap the number on your drawing and pick the right value."
       : "Each number was read a second time on its own, from a crop of where it is written."),
     unc.length ? list(unc.map((n) => n.conflict ? `${n.label}: ${n.conflict}`
       : `${n.label}: read as ${fmt(n.value)}, second reading ${n.second == null ? "unclear" : fmt(n.second)}`)) : null,
@@ -396,12 +434,14 @@ function numbersStep(ev, t) {
   for (const n of located) {
     const [x1, y1, x2, y2] = n.text_box;
     const chip = el("button", { type: "button", class: `chip-num ${n.status}`, title: n.status === "uncertain"
-      ? (n.conflict || `Read as ${fmt(n.value)}, re-read as ${n.second == null ? "unclear" : fmt(n.second)}`) : `${n.label}: ${n.status}`,
+      ? (n.conflict || `Read as ${fmt(n.value)}, re-read as ${n.second == null ? "unclear" : fmt(n.second)}. Tap to confirm.`) : `${n.label}: ${n.status}`,
       style: `left:${Math.min(x1, x2) / 10}%;top:${Math.min(y1, y2) / 10}%` }, fmt(n.value));
+    chip._n = n;
     if (n.status === "uncertain") chip.addEventListener("click", (e) => { e.stopPropagation(); chooser(chip, n); });
     else chip.tabIndex = -1;
     layer.append(chip);
   }
+  markStrength();
 }
 
 function chooser(chip, n) {
@@ -438,6 +478,7 @@ async function confirmNumber(chip, n, v) {
   const ok = v === n.value ? true : await editor.setNumber(n, v);   // the first reading was right: nothing to change
   if (!ok) { chip.classList.add("uncertain"); chip.classList.remove("by-user"); chip.textContent = fmt(n.value); return; }
   current.uncertain = Math.max(0, (current.uncertain || 0) - 1);
+  chip.classList.remove("red");
   if (!current.uncertain && $("#banner .stamp")?.textContent === "CHECK") {
     showBanner("CONFIRMED", "Every flagged number is confirmed by you. The part is rebuilt with your values.", true);
   }
@@ -489,7 +530,18 @@ function friendlyError(msg) {
   return "Something went wrong while talking to the model. Try again, or pick an example.";
 }
 
+// a replay runs about 10x faster than the recorded run: say so while it plays
+function replayPill(text) {
+  for (const id of ["#replay-pill", "#replay-pill-3d"]) {
+    const x = $(id);
+    x.hidden = !text;
+    x.textContent = text || "";
+    x.classList.toggle("playing", /×/.test(text || ""));
+  }
+}
+
 function finish(done) {
+  if (current.mode === "replay") replayPill("REPLAY");
   timeline.finishActive(done.t);
   clock.stop(done.seconds ?? done.t);
   viewer.waiting(null);
@@ -526,9 +578,11 @@ function finish(done) {
   const caught = firstCompile ? { source: "compile", message: firstCompile.errors[0] } : firstChecks?.issues?.[0];
   // run time, except for replays recorded with the slower development model (the live model takes ~40 s)
   const took = done.seconds && !/contributor/.test(current.model || "") ? ` ${fmt(done.seconds, 0)} s.` : "";
+  if (current.uncertain) markStrength();
   if (current.uncertain) {
-    showBanner("CHECK", `Built and checked. ${current.uncertain} number${current.uncertain > 1 ? "s" : ""} on your drawing ` +
-      `${current.uncertain > 1 ? "were" : "was"} read two ways: tap the red one${current.uncertain > 1 ? "s" : ""} to confirm.`, false);
+    const n = current.uncertain, red = current.red || 0;
+    showBanner("CHECK", `Built and checked. ${n} number${n > 1 ? "s" : ""} on your drawing ${n > 1 ? "were" : "was"} read two ` +
+      `ways${red ? ` (${red} also contradicted by the part)` : ""}: tap ${n > 1 ? "them" : "it"} to confirm.`, !red);
     if (current.verifiedStep) current.verifiedStep.querySelector("b").firstChild.textContent = "Verified against the numbers as first read";
   } else if (done.status === "pass" && done.iterations > 0 && caught) {
     showBanner("CAUGHT", `${short(caught)}. Fixed in ${done.iterations} correction${done.iterations > 1 ? "s" : ""}.${took}`, false);
@@ -554,6 +608,9 @@ function finish(done) {
     viewer.load(fileUrl(fin.files["part.glb"])).catch(console.error);
   }
   if (current.mode === "replay") $("#run-actions").hidden = !API;
+  if ($("#banner").classList.contains("running")) {
+    showBanner(done.status === "pass" ? "VERIFIED" : "STOPPED", done.status === "pass" ? "Verified." : `${words[done.status] || done.status}. The timeline says why.`, true);
+  }
 }
 
 function showBanner(stamp, text, info) {
@@ -710,7 +767,9 @@ function begin(opts) {
   session++;
   if (current?.es) current.es.close();
   current = { events: [], lastId: -1, ...opts };
-  $("#banner").hidden = true;
+  showBanner(opts.mode === "replay" ? "REPLAY" : "RUNNING", opts.mode === "replay"
+    ? `${opts.entry?.title || "Example"}: Talos reads the drawing, builds the part and checks it.` : "Starting…", true);
+  $("#banner").classList.add("running");
   $("#run-actions").hidden = true;
   $("#tb-part").textContent = "—";
   $("#tb-size").textContent = "—";
@@ -725,6 +784,7 @@ function begin(opts) {
   viewer.clear();
   timeline.start();
   clock.start(opts.mode === "live");
+  replayPill(opts.mode === "replay" ? "REPLAY ×10" : null);
   current.uncertain = 0;
   current.verifiedStep = null;
   $("#run-mode").textContent = opts.mode === "replay"
@@ -768,6 +828,7 @@ async function startLive(form, preview) {
     r = await fetch(`${API}/runs`, { method: "POST", body: form });
     out = await r.json();
   } catch (e) {
+    showBanner("OFFLINE", "The backend did not answer. Try again, or pick an example.", true);
     timeline.add(0, "Could not reach the server", "fix", el("div", {}, p("The backend did not answer. Check your connection, or pick an example."), raw(e.message)));
     setStatus("offline");
     clock.stop();
@@ -775,7 +836,7 @@ async function startLive(form, preview) {
   }
   if (mine !== session) return;
   if (r.status === 429) { clock.stop(); showBanner("BUSY", out.message, true); timeline.add(0, "Busy", "done", p(out.message)); setStatus("busy"); return; }
-  if (!r.ok) { clock.stop(); timeline.add(0, "Upload refused", "fix", p(out.detail || out.message || r.statusText)); setStatus("error"); return; }
+  if (!r.ok) { clock.stop(); showBanner("REFUSED", out.detail || out.message || r.statusText, true); timeline.add(0, "Upload refused", "fix", p(out.detail || out.message || r.statusText)); setStatus("error"); return; }
   timeline.start();
   current.base = `${API}/runs/${out.run_id}/files/`;
   current.mock = out.mock;
@@ -797,6 +858,7 @@ async function startLive(form, preview) {
     timeline.add(current.events.at(-1)?.t || 0, "Connection lost", "fix",
       p("The server lost this run (it may have restarted). Upload the drawing again, or pick an example."));
     setStatus("disconnected");
+    showBanner("LOST", "The server lost this run. Upload the drawing again, or pick an example.", true);
     clock.stop();
     viewer.waiting(null);
   });

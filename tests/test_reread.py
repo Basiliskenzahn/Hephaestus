@@ -96,3 +96,16 @@ def test_a_conflict_the_reread_confirms_is_still_shown():
     client = ScriptedClient(RereadOutput=[{"readings": [{"image": 1, "text": "35"}]}])
     n = reread.reread(client, DRAWING, co)["numbers"][0]
     assert n["status"] == "uncertain" and n["second"] is None
+
+
+def test_strength_soft_unless_another_signal_backs_the_other_value():
+    callouts = [{"label": "60", "value": 60, "measure": "overall", "axis": "y"}]
+    n = {"index": 0, "status": "uncertain", "value": 60, "second": 40, "conflict": None}
+    assert reread.strength(n, callouts) == "soft"
+    assert reread.strength({**n, "status": "confirmed"}, callouts) is None
+    assert reread.strength({**n, "conflict": "contradicts the 40 in the side view"}, callouts) == "red"
+    assert reread.strength({**n, "conflict": "x", "second": None}, callouts) == "soft"
+    assert reread.strength(n, callouts, check_rows=[{"status": "mismatch"}]) == "red"
+    view = {"view": "top", "advisories": ["top view: the drawing's outline is 1.8 : 1 ..."], "issues": []}
+    assert reread.strength(n, callouts, shape={"available": True, "views": [view]}) == "red"
+    assert reread.strength(n, callouts, shape={"available": True, "views": [{**view, "view": "front"}]}) == "soft"
