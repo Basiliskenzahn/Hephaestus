@@ -1,0 +1,20 @@
+move_hole: caught by ['callout'] fixed=True pass $0.026 28 s | spent $0.112
+drop_hole: caught by ['callout'] fixed=True pass $0.048 30 s | spent $0.129
+rotate_slot: caught by ['callout'] fixed=True pass $0.050 32 s | spent $0.164
+wrong_diameter: caught by ['callout'] fixed=True pass $0.050 37 s | spent $0.197
+swap_xy: caught by ['callout'] fixed=True pass $0.025 14 s | spent $0.222
+chamfer_for_fillet: caught by ['callout'] fixed=True pass $0.034 21 s | spent $0.241
+through_rear_wall: caught by ['critic'] fixed=False unverified $0.048 42 s | spent $0.379
+correct_plate: caught by [] fixed=True pass $0.013 11 s | spent $0.392
+holes_opposite: caught by ['callout'] fixed=True pass $0.045 39 s | spent $0.408
+upright_at_front: caught by ['shape'] fixed=True pass $0.050 51 s | spent $0.430
+correct_bushing: caught by [] fixed=True pass $0.019 11 s | spent $0.451
+mirror_profile: caught by ['shape'] fixed=True pass $0.062 57 s | spent $0.477
+correct_l_bracket: caught by [] fixed=True pass $0.026 27 s | spent $0.544
+correct_block: caught by [] fixed=True pass $0.031 27 s | spent $0.546
+correct_enclosure: caught by [] fixed=True pass $0.020 16 s | spent $0.557
+correct_pocket_plate: caught by [] fixed=True pass $0.025 21 s | spent $0.579
+correct_angled_bracket: caught by [] fixed=True pass $0.056 41 s | spent $0.633
+correct_shaft_collar: caught by [] fixed=True pass $0.055 41 s | spent $0.685
+
+batch injected: spent $0.6848

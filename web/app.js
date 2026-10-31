@@ -579,15 +579,17 @@ function finish(done) {
   // run time, except for replays recorded with the slower development model (the live model takes ~40 s)
   const took = done.seconds && !/contributor/.test(current.model || "") ? ` ${fmt(done.seconds, 0)} s.` : "";
   if (current.uncertain) markStrength();
-  if (current.uncertain) {
-    const n = current.uncertain, red = current.red || 0;
-    showBanner("CHECK", `Built and checked. ${n} number${n > 1 ? "s" : ""} on your drawing ${n > 1 ? "were" : "was"} read two ` +
-      `ways${red ? ` (${red} also contradicted by the part)` : ""}: tap ${n > 1 ? "them" : "it"} to confirm.`, !red);
-    if (current.verifiedStep) current.verifiedStep.querySelector("b").firstChild.textContent = "Verified against the numbers as first read";
-  } else if (done.status === "pass" && done.iterations > 0 && caught) {
-    showBanner("CAUGHT", `${short(caught)}. Fixed in ${done.iterations} correction${done.iterations > 1 ? "s" : ""}.${took}`, false);
+  const n = current.uncertain || 0, red = current.red || 0;
+  const confirm = n ? `${n} number${n > 1 ? "s" : ""} on your drawing ${n > 1 ? "were" : "was"} read two ways` +
+    `${red ? ` (${red} also contradicted by the part)` : ""}: tap ${n > 1 ? "them" : "it"} to confirm.` : "";
+  if (n && current.verifiedStep) current.verifiedStep.querySelector("b").firstChild.textContent = "Verified against the numbers as first read";
+  if (done.status === "pass" && done.iterations > 0 && caught) {
+    showBanner("CAUGHT", `${short(caught)}. Fixed in ${done.iterations} correction${done.iterations > 1 ? "s" : ""}.${took}` +
+      (confirm ? ` Also: ${confirm.charAt(0).toLowerCase()}${confirm.slice(1)}` : ""), false);
     const fixed = [...document.querySelectorAll("#timeline .step")].filter((li) => li.querySelector("b").textContent.startsWith("Fixed"));
     for (const li of fixed) timeline.moment(li, "FIXED", true);
+  } else if (n) {
+    showBanner("CHECK", `Built and checked. ${confirm}`, !red);
   } else if (done.status === "pass") {
     showBanner("VERIFIED", `Right on the first read.${took}`, true);
   }
@@ -798,11 +800,12 @@ function push(ev) {
 }
 
 async function replay(entry) {
-  begin({ mode: "replay", id: entry.id, base: `gallery/${entry.id}/`, model: entry.model, entry, kind: "image" });
+  const base = `${entry.dir || "gallery"}/${entry.id}/`;      // web/replays/ holds the final-benchmark demo runs
+  begin({ mode: "replay", id: entry.id, base, model: entry.model, entry, kind: entry.prompt ? "text" : "image" });
   const mine = session;
-  showInput(`gallery/${entry.id}/${entry.input}`);
+  showInput(entry.input ? base + entry.input : null, entry.prompt);
   if (entry.note) timeline.addAside(0, "About this example", "done", p(entry.note, "fine"));
-  const events = await (await fetch(`gallery/${entry.id}/events.json`)).json();
+  const events = await (await fetch(`${base}events.json`)).json();
   let prevT = 0;
   for (const ev of events) {
     if (mine !== session) return;
@@ -889,10 +892,11 @@ $("#text-form").addEventListener("submit", (e) => {
 $("#run-live").addEventListener("click", async () => {
   const entry = current?.entry;
   if (!entry) return;
-  const blob = await (await fetch(`gallery/${entry.id}/${entry.input}`)).blob();
   const form = new FormData();
-  form.append("image", blob, entry.input);
-  startLive(form, `gallery/${entry.id}/${entry.input}`);
+  if (entry.prompt) { form.append("prompt", entry.prompt); return startLive(form, null); }
+  const src = `${entry.dir || "gallery"}/${entry.id}/${entry.input}`;
+  form.append("image", await (await fetch(src)).blob(), entry.input);
+  startLive(form, src);
 });
 $("#sheet-view").addEventListener("click", (e) => { if (e.currentTarget.querySelector("img")) e.currentTarget.classList.toggle("zoom"); });
 
@@ -903,11 +907,15 @@ const narrow = () => window.matchMedia("(max-width: 860px)").matches;
 (async () => {
   let items = [];
   try { items = await (await fetch("gallery/index.json")).json(); } catch (e) { console.warn("no gallery", e); return; }
+  // the final benchmark's demo runs (live model) first
+  try { items = [...(await (await fetch("replays/index.json")).json()).map((i) => ({ ...i, dir: "replays" })), ...items]; }
+  catch (e) { console.warn("no replays", e); }
   const ul = $("#gallery");
   for (const it of items) {
-    const caught = it.corrections ? "caught & fixed" : /^Caught/.test(it.note || "") ? "caught · tap to fix" : null;
+    const caught = it.corrections ? "caught & fixed" : /^Caught|confirm/i.test(it.title + " " + (it.note || "")) && /confirm|tap/i.test(it.note || "") ? "tap to confirm" : null;
     const btn = el("button", { type: "button", "data-id": it.id, title: it.note || it.title },
-      el("img", { src: `gallery/${it.id}/${it.input}`, alt: "", loading: "lazy", width: 160, height: 120 }),
+      it.input ? el("img", { src: `${it.dir || "gallery"}/${it.id}/${it.input}`, alt: "", loading: "lazy", width: 160, height: 120 })
+        : el("span", { class: "prompt-thumb", text: `“${it.prompt}”` }),
       el("span", { class: "cap" }, el("b", { text: it.title }),
         caught ? el("span", { class: "fix", text: caught }) : el("span", { class: "replay", text: "replay" })));
     btn.addEventListener("click", () => {

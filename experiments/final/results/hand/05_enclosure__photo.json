@@ -1,0 +1,1759 @@
+{
+ "name": "05_enclosure__photo",
+ "batch": "hand",
+ "key": "05_enclosure",
+ "image": "experiments/hand-sketches/sketches/05_enclosure__photo.jpg",
+ "status": "unverified",
+ "note": "Kept rectangular 100x60 body; top-view waviness is freehand sketch/photo distortion with no locating dims and R6 (4x) confirms rectangle.",
+ "corrections": 1,
+ "read_perfect": true,
+ "final_perfect": true,
+ "failed": "",
+ "taps_perfect": true,
+ "flags": {
+  "available": true,
+  "soft": 1,
+  "red": 0,
+  "false": 1,
+  "caught": 0,
+  "flagged": [
+   {
+    "index": 6,
+    "label": "4x \u00d83.2 thru floor",
+    "value": 3.2,
+    "parameter": "floor_hole_dia",
+    "text_box": [
+     540,
+     448,
+     575,
+     464
+    ],
+    "confidence": "high",
+    "status": "uncertain",
+    "second": 2.0,
+    "reread": ".2",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   }
+  ],
+  "seconds": 3.3,
+  "cost_usd": 0.004368
+ },
+ "first_part_s": 27.4,
+ "verified_s": 49.0,
+ "seconds": 49.0,
+ "cost_usd": 0.090831,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.2
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 26.6,
+   "spec": {
+    "description": "Rectangular open-top enclosure 100x60x40 with 2mm walls. Assumed: sketch waviness is not to scale, body is rectangular with R6 outer vertical corners; floor holes inset 10 from walls; front hole centred in X and 20 above bottom; front 0.5x45 chamfer is a break-edge note not modeled.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "anchor": "corner",
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "u": 0.0,
+       "v": 0.0,
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "id": "shell",
+      "open_faces": [
+       "top"
+      ],
+      "thickness": "wall_t",
+      "type": "shell"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "diameter": "floor_hole_dia",
+      "face": "bottom",
+      "id": "floor_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "floor_hole",
+      "id": "floor_holes",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
+      "type": "linear_pattern"
+     },
+     {
+      "center": [
+       "length / 2",
+       "front_hole_h"
+      ],
+      "depth": "wall_t",
+      "diameter": "front_hole_dia",
+      "face": "front",
+      "id": "front_hole",
+      "type": "hole"
+     }
+    ],
+    "name": "enclosure",
+    "parameters": {
+     "corner_r": {
+      "description": "outer vertical corner radius, 4x",
+      "value": 6
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 60
+     },
+     "floor_hole_dia": {
+      "description": "floor mounting hole diameter, 4x",
+      "value": 3.2
+     },
+     "front_chamfer": {
+      "description": "break edge on front 8mm hole, not modeled",
+      "value": 0.5
+     },
+     "front_hole_dia": {
+      "description": "hole diameter thru front wall",
+      "value": 8
+     },
+     "front_hole_h": {
+      "description": "front hole centre height above bottom",
+      "value": 20
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "hole_inset": {
+      "description": "floor hole centre inset from walls in X and Y",
+      "value": 10
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 100
+     },
+     "wall_t": {
+      "description": "enclosure wall and floor thickness",
+      "value": 2
+     }
+    },
+    "spec_version": "1",
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      318,
+      360,
+      335,
+      395
+     ],
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      411,
+      726,
+      428,
+      748
+     ],
+     "value": 10
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "100",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      523,
+      696,
+      552,
+      714
+     ],
+     "value": 100
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      338,
+      575,
+      356,
+      610
+     ],
+     "value": 60
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      685,
+      622,
+      702,
+      644
+     ],
+     "value": 10
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "R6 (4x)",
+     "measure": "radius",
+     "parameter": "corner_r",
+     "text_box": [
+      697,
+      430,
+      708,
+      445
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "4x \u00d83.2 thru floor",
+     "measure": "diameter",
+     "parameter": "floor_hole_dia",
+     "text_box": [
+      540,
+      448,
+      575,
+      464
+     ],
+     "value": 3.2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "shell",
+     "feature_b": null,
+     "label": "wall 2",
+     "measure": "thickness",
+     "parameter": "wall_t",
+     "text_box": [
+      720,
+      518,
+      730,
+      532
+     ],
+     "value": 2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru front wall",
+     "measure": "diameter",
+     "parameter": "front_hole_dia",
+     "text_box": [
+      533,
+      244,
+      552,
+      266
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "medium",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "0.5 x 45\u00b0",
+     "measure": "unchecked",
+     "parameter": "front_chamfer",
+     "text_box": [
+      680,
+      232,
+      728,
+      250
+     ],
+     "value": 0.5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "parameter": "front_hole_h",
+     "text_box": [
+      680,
+      350,
+      695,
+      385
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "front hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 50
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "floor holes inset in Y",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 10
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.033526,
+    "seconds": 26.4,
+    "input_tokens": 10642,
+    "output_tokens": 6676,
+    "reasoning_tokens": 4962,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 27.4,
+   "ok": true,
+   "metrics": {
+    "name": "enclosure",
+    "volume_mm3": 34832.9343,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      100.0,
+      60.0,
+      40.0
+     ],
+     "size": [
+      100.0,
+      60.0,
+      40.0
+     ]
+    },
+    "faces": 24,
+    "edges": 63,
+    "triangles": 3592,
+    "parameters": {
+     "corner_r": 6.0,
+     "depth": 60.0,
+     "floor_hole_dia": 3.2,
+     "front_chamfer": 0.5,
+     "front_hole_dia": 8.0,
+     "front_hole_h": 20.0,
+     "height": 40.0,
+     "hole_inset": 10.0,
+     "length": 100.0,
+     "wall_t": 2.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 238763.8934
+     },
+     {
+      "id": "shell",
+      "type": "shell",
+      "status": "ok",
+      "volume_delta_mm3": -203766.0883
+     },
+     {
+      "id": "floor_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -16.085
+     },
+     {
+      "id": "floor_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -48.2549
+     },
+     {
+      "id": "front_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -100.531
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       520,
+       320
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       520,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       320,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 31.7,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.28,
+      "part": 1.667
+     },
+     "orientation": {
+      "as_is": 0.796,
+      "mirror_lr": 0.796,
+      "mirror_ud": 0.796,
+      "rot180": 0.796
+     },
+     "orientation_gap": 0.0
+    },
+    {
+     "view": "front",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 2.808,
+      "part": 2.5
+     },
+     "orientation": {
+      "as_is": 0.847,
+      "mirror_lr": 0.847,
+      "mirror_ud": 0.847,
+      "rot180": 0.847
+     },
+     "orientation_gap": 0.0
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "sam",
+    "rectified": true,
+    "quad": [
+     [
+      166.0,
+      278.0
+     ],
+     [
+      1401.0,
+      131.0
+     ],
+     [
+      1440.0,
+      1215.0
+     ],
+     [
+      337.0,
+      1296.0
+     ]
+    ]
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 2,
+    "cost_usd": 0.005,
+    "seconds": 3.56
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 38.5,
+   "clean": false,
+   "callouts": [
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "distance_to_edge",
+     "what": "distance from floor_hole to x_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "100",
+     "value": 100,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 100.0
+    },
+    {
+     "label": "60",
+     "value": 60,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 60.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "distance_to_edge",
+     "what": "distance from floor_hole to x_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "R6 (4x)",
+     "value": 6,
+     "measure": "radius",
+     "what": "radius of base",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "4x \u00d83.2 thru floor",
+     "value": 3.2,
+     "measure": "diameter",
+     "what": "diameter of floor_hole",
+     "status": "ok",
+     "measured": 3.2
+    },
+    {
+     "label": "wall 2",
+     "value": 2,
+     "measure": "thickness",
+     "what": "thickness of shell",
+     "status": "ok",
+     "measured": 2.0
+    },
+    {
+     "label": "\u00d88 thru front wall",
+     "value": 8,
+     "measure": "diameter",
+     "what": "diameter of front_hole",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "0.5 x 45\u00b0",
+     "value": 0.5,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from front_hole to z_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "front hole centred",
+     "value": 50,
+     "measure": "distance_to_edge",
+     "what": "distance from front_hole to x_min",
+     "status": "ok",
+     "measured": 50.0
+    },
+    {
+     "label": "floor holes inset in Y",
+     "value": 10,
+     "measure": "distance_to_edge",
+     "what": "distance from floor_hole to y_min",
+     "status": "ok",
+     "measured": 10.0
+    }
+   ],
+   "critic": {
+    "matches": false,
+    "issues": [
+     {
+      "feature_id": null,
+      "issue": "top outline is a straight 100x60 rectangle, drawing shows irregular angled/kinked walls",
+      "severity": "high"
+     }
+    ],
+    "advisories": [
+     {
+      "feature_id": null,
+      "issue": "body height is uniform 40, drawing shows taper from 40 to 20",
+      "severity": "high"
+     },
+     {
+      "feature_id": "front_hole",
+      "issue": "0.5 x 45 deg break on O8 hole missing",
+      "severity": "low"
+     },
+     {
+      "feature_id": null,
+      "issue": "enclosure is a uniform 40 high box, drawing shows tapered front with 40 high left and 20 high right with sloped top",
+      "severity": "high"
+     }
+    ],
+    "samples": [
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": null,
+        "issue": "top outline is a straight 100x60 rectangle, drawing shows irregular angled/kinked walls",
+        "severity": "high"
+       },
+       {
+        "feature_id": null,
+        "issue": "body height is uniform 40, drawing shows taper from 40 to 20",
+        "severity": "high"
+       },
+       {
+        "feature_id": "front_hole",
+        "issue": "0.5 x 45 deg break on O8 hole missing",
+        "severity": "low"
+       }
+      ]
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": null,
+        "issue": "enclosure is a uniform 40 high box, drawing shows tapered front with 40 high left and 20 high right with sloped top",
+        "severity": "high"
+       }
+      ]
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.023529,
+    "seconds": 6.8,
+    "input_tokens": 9766,
+    "output_tokens": 2855,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [
+    {
+     "feature_id": null,
+     "issue": "body height is uniform 40, drawing shows taper from 40 to 20",
+     "severity": "high"
+    },
+    {
+     "feature_id": "front_hole",
+     "issue": "0.5 x 45 deg break on O8 hole missing",
+     "severity": "low"
+    },
+    {
+     "feature_id": null,
+     "issue": "enclosure is a uniform 40 high box, drawing shows tapered front with 40 high left and 20 high right with sloped top",
+     "severity": "high"
+    }
+   ],
+   "shape_advisories": [],
+   "issues": [
+    {
+     "source": "critic",
+     "message": "top outline is a straight 100x60 rectangle, drawing shows irregular angled/kinked walls (high)",
+     "feature": null
+    }
+   ],
+   "disputes": []
+  },
+  {
+   "event": "numbers",
+   "iteration": 0,
+   "t": 38.5,
+   "available": true,
+   "numbers": [
+    {
+     "index": 0,
+     "label": "40",
+     "value": 40,
+     "parameter": "height",
+     "text_box": [
+      318,
+      360,
+      335,
+      395
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 40.0,
+     "reread": "40",
+     "conflict": null
+    },
+    {
+     "index": 1,
+     "label": "10",
+     "value": 10,
+     "parameter": "hole_inset",
+     "text_box": [
+      411,
+      726,
+      428,
+      748
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 10.0,
+     "reread": "10",
+     "conflict": null
+    },
+    {
+     "index": 2,
+     "label": "100",
+     "value": 100,
+     "parameter": "length",
+     "text_box": [
+      523,
+      696,
+      552,
+      714
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 100.0,
+     "reread": "100",
+     "conflict": null
+    },
+    {
+     "index": 3,
+     "label": "60",
+     "value": 60,
+     "parameter": "depth",
+     "text_box": [
+      338,
+      575,
+      356,
+      610
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 60.0,
+     "reread": "60",
+     "conflict": null
+    },
+    {
+     "index": 4,
+     "label": "10",
+     "value": 10,
+     "parameter": "hole_inset",
+     "text_box": [
+      685,
+      622,
+      702,
+      644
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 10.0,
+     "reread": "10",
+     "conflict": null
+    },
+    {
+     "index": 5,
+     "label": "R6 (4x)",
+     "value": 6,
+     "parameter": "corner_r",
+     "text_box": [
+      697,
+      430,
+      708,
+      445
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 6.0,
+     "reread": "4x",
+     "conflict": null
+    },
+    {
+     "index": 6,
+     "label": "4x \u00d83.2 thru floor",
+     "value": 3.2,
+     "parameter": "floor_hole_dia",
+     "text_box": [
+      540,
+      448,
+      575,
+      464
+     ],
+     "confidence": "high",
+     "status": "uncertain",
+     "second": 2.0,
+     "reread": ".2",
+     "conflict": null
+    },
+    {
+     "index": 7,
+     "label": "wall 2",
+     "value": 2,
+     "parameter": "wall_t",
+     "text_box": [
+      720,
+      518,
+      730,
+      532
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 2.0,
+     "reread": "2",
+     "conflict": null
+    },
+    {
+     "index": 8,
+     "label": "\u00d88 thru front wall",
+     "value": 8,
+     "parameter": "front_hole_dia",
+     "text_box": [
+      533,
+      244,
+      552,
+      266
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 8.0,
+     "reread": "\u00d88",
+     "conflict": null
+    },
+    {
+     "index": 9,
+     "label": "0.5 x 45\u00b0",
+     "value": 0.5,
+     "parameter": "front_chamfer",
+     "text_box": [
+      680,
+      232,
+      728,
+      250
+     ],
+     "confidence": "medium",
+     "status": "confirmed",
+     "second": 0.5,
+     "reread": "x 45\u00b0",
+     "conflict": null
+    },
+    {
+     "index": 10,
+     "label": "20",
+     "value": 20,
+     "parameter": "front_hole_h",
+     "text_box": [
+      680,
+      350,
+      695,
+      385
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 20.0,
+     "reread": "20",
+     "conflict": null
+    },
+    {
+     "index": 11,
+     "label": "front hole centred",
+     "value": 50,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 12,
+     "label": "floor holes inset in Y",
+     "value": 10,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    }
+   ],
+   "uncertain": 1,
+   "calls": [
+    {
+     "seconds": 3.3,
+     "cost_usd": 0.004368,
+     "crops": 11,
+     "model": "muse-spark-1.3"
+    }
+   ],
+   "cost_usd": 0.004368,
+   "seconds": 3.3
+  },
+  {
+   "event": "correction_started",
+   "iteration": 0,
+   "t": 38.5,
+   "issues": [
+    {
+     "source": "critic",
+     "message": "top outline is a straight 100x60 rectangle, drawing shows irregular angled/kinked walls (high)",
+     "feature": null
+    }
+   ]
+  },
+  {
+   "event": "spec",
+   "iteration": 1,
+   "t": 49.0,
+   "spec": {
+    "description": "Rectangular open-top enclosure 100x60x40 with 2mm walls. Assumed: sketch waviness is not to scale, body is rectangular with R6 outer vertical corners; floor holes inset 10 from walls; front hole centred in X and 20 above bottom; front 0.5x45 chamfer is a break-edge note not modeled.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "anchor": "corner",
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "u": 0.0,
+       "v": 0.0,
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "id": "shell",
+      "open_faces": [
+       "top"
+      ],
+      "thickness": "wall_t",
+      "type": "shell"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "diameter": "floor_hole_dia",
+      "face": "bottom",
+      "id": "floor_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "floor_hole",
+      "id": "floor_holes",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
+      "type": "linear_pattern"
+     },
+     {
+      "center": [
+       "length / 2",
+       "front_hole_h"
+      ],
+      "depth": "wall_t",
+      "diameter": "front_hole_dia",
+      "face": "front",
+      "id": "front_hole",
+      "type": "hole"
+     }
+    ],
+    "name": "enclosure",
+    "parameters": {
+     "corner_r": {
+      "description": "outer vertical corner radius, 4x",
+      "value": 6
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 60
+     },
+     "floor_hole_dia": {
+      "description": "floor mounting hole diameter, 4x",
+      "value": 3.2
+     },
+     "front_chamfer": {
+      "description": "break edge on front 8mm hole, not modeled",
+      "value": 0.5
+     },
+     "front_hole_dia": {
+      "description": "hole diameter thru front wall",
+      "value": 8
+     },
+     "front_hole_h": {
+      "description": "front hole centre height above bottom",
+      "value": 20
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "hole_inset": {
+      "description": "floor hole centre inset from walls in X and Y",
+      "value": 10
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 100
+     },
+     "wall_t": {
+      "description": "enclosure wall and floor thickness",
+      "value": 2
+     }
+    },
+    "spec_version": "1",
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      318,
+      360,
+      335,
+      395
+     ],
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      411,
+      726,
+      428,
+      748
+     ],
+     "value": 10
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "100",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      523,
+      696,
+      552,
+      714
+     ],
+     "value": 100
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      338,
+      575,
+      356,
+      610
+     ],
+     "value": 60
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      685,
+      622,
+      702,
+      644
+     ],
+     "value": 10
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "R6 (4x)",
+     "measure": "radius",
+     "parameter": "corner_r",
+     "text_box": [
+      697,
+      430,
+      708,
+      445
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "4x \u00d83.2 thru floor",
+     "measure": "diameter",
+     "parameter": "floor_hole_dia",
+     "text_box": [
+      540,
+      448,
+      575,
+      464
+     ],
+     "value": 3.2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "shell",
+     "feature_b": null,
+     "label": "wall 2",
+     "measure": "thickness",
+     "parameter": "wall_t",
+     "text_box": [
+      720,
+      518,
+      730,
+      532
+     ],
+     "value": 2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru front wall",
+     "measure": "diameter",
+     "parameter": "front_hole_dia",
+     "text_box": [
+      533,
+      244,
+      552,
+      266
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "medium",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "0.5 x 45\u00b0",
+     "measure": "unchecked",
+     "parameter": "front_chamfer",
+     "text_box": [
+      680,
+      232,
+      728,
+      250
+     ],
+     "value": 0.5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "parameter": "front_hole_h",
+     "text_box": [
+      680,
+      350,
+      695,
+      385
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "front hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 50
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "floor holes inset in Y",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 10
+    }
+   ],
+   "changelog": "Kept rectangular 100x60 body; top-view waviness is freehand sketch/photo distortion with no locating dims and R6 (4x) confirms rectangle.",
+   "disputes": [],
+   "call": {
+    "cost_usd": 0.024408,
+    "seconds": 10.5,
+    "input_tokens": 11489,
+    "output_tokens": 2364,
+    "reasoning_tokens": 1701,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "done",
+   "iteration": 1,
+   "t": 49.0,
+   "status": "unverified",
+   "note": "Kept rectangular 100x60 body; top-view waviness is freehand sketch/photo distortion with no locating dims and R6 (4x) confirms rectangle.",
+   "final_iteration": 0,
+   "spec": {
+    "description": "Rectangular open-top enclosure 100x60x40 with 2mm walls. Assumed: sketch waviness is not to scale, body is rectangular with R6 outer vertical corners; floor holes inset 10 from walls; front hole centred in X and 20 above bottom; front 0.5x45 chamfer is a break-edge note not modeled.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "anchor": "corner",
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "u": 0.0,
+       "v": 0.0,
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "id": "shell",
+      "open_faces": [
+       "top"
+      ],
+      "thickness": "wall_t",
+      "type": "shell"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "diameter": "floor_hole_dia",
+      "face": "bottom",
+      "id": "floor_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "floor_hole",
+      "id": "floor_holes",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
+      "type": "linear_pattern"
+     },
+     {
+      "center": [
+       "length / 2",
+       "front_hole_h"
+      ],
+      "depth": "wall_t",
+      "diameter": "front_hole_dia",
+      "face": "front",
+      "id": "front_hole",
+      "type": "hole"
+     }
+    ],
+    "name": "enclosure",
+    "parameters": {
+     "corner_r": {
+      "description": "outer vertical corner radius, 4x",
+      "value": 6
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 60
+     },
+     "floor_hole_dia": {
+      "description": "floor mounting hole diameter, 4x",
+      "value": 3.2
+     },
+     "front_chamfer": {
+      "description": "break edge on front 8mm hole, not modeled",
+      "value": 0.5
+     },
+     "front_hole_dia": {
+      "description": "hole diameter thru front wall",
+      "value": 8
+     },
+     "front_hole_h": {
+      "description": "front hole centre height above bottom",
+      "value": 20
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "hole_inset": {
+      "description": "floor hole centre inset from walls in X and Y",
+      "value": 10
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 100
+     },
+     "wall_t": {
+      "description": "enclosure wall and floor thickness",
+      "value": 2
+     }
+    },
+    "spec_version": "1",
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      318,
+      360,
+      335,
+      395
+     ],
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      411,
+      726,
+      428,
+      748
+     ],
+     "value": 10
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "100",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      523,
+      696,
+      552,
+      714
+     ],
+     "value": 100
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      338,
+      575,
+      356,
+      610
+     ],
+     "value": 60
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      685,
+      622,
+      702,
+      644
+     ],
+     "value": 10
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "R6 (4x)",
+     "measure": "radius",
+     "parameter": "corner_r",
+     "text_box": [
+      697,
+      430,
+      708,
+      445
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "4x \u00d83.2 thru floor",
+     "measure": "diameter",
+     "parameter": "floor_hole_dia",
+     "text_box": [
+      540,
+      448,
+      575,
+      464
+     ],
+     "value": 3.2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "shell",
+     "feature_b": null,
+     "label": "wall 2",
+     "measure": "thickness",
+     "parameter": "wall_t",
+     "text_box": [
+      720,
+      518,
+      730,
+      532
+     ],
+     "value": 2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru front wall",
+     "measure": "diameter",
+     "parameter": "front_hole_dia",
+     "text_box": [
+      533,
+      244,
+      552,
+      266
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "medium",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "0.5 x 45\u00b0",
+     "measure": "unchecked",
+     "parameter": "front_chamfer",
+     "text_box": [
+      680,
+      232,
+      728,
+      250
+     ],
+     "value": 0.5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "parameter": "front_hole_h",
+     "text_box": [
+      680,
+      350,
+      695,
+      385
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "front hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 50
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "floor_hole",
+     "feature_b": null,
+     "label": "floor holes inset in Y",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 10
+    }
+   ],
+   "remaining_issues": [
+    "top outline is a straight 100x60 rectangle, drawing shows irregular angled/kinked walls (high)"
+   ],
+   "unverified_notes": [
+    "top outline is a straight 100x60 rectangle, drawing shows irregular angled/kinked walls (high)"
+   ],
+   "iterations": 1,
+   "corrections": 1,
+   "disputes": [],
+   "cost_usd": 0.090831,
+   "seconds": 49.0,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

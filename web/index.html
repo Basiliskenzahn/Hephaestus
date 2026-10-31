@@ -168,10 +168,11 @@
           <li>Prismatic and revolved parts: plates, brackets, blocks, bushings, enclosures, pockets, holes, slots. No
             freeform surfaces, no assemblies.</li>
           <li>The drawing needs written dimensions; Talos never guesses the scale.</li>
-          <li>On the 24-image benchmark the live model's first read is already right on 23; the loop's value is catching the
-            rest without making correct reads worse. A misreading every check shares (two close numbers swapped) can
-            still get through.</li>
-          <li>Handwriting: 13 of 16 hand sketches right on the first read, 14 after confirming the flagged numbers.</li>
+          <li>Final benchmark (live model, 40 drawings and sketches): 33 right on the first read, 35 after the loop and one
+            tap per flagged number; 0 false alarms on 8 correct parts; 12 of 12 text prompts as expected.</li>
+          <li>A misreading every check shares (two close numbers swapped, a plausible wrong digit) can still get
+            through. About one "confirm?" flag per sketch lands on a number that was right.</li>
+          <li>Test data is ours (rendered, printed, photographed, handwriting fonts); no real users' sketches yet.</li>
         </ul>
       </div>
       <div>

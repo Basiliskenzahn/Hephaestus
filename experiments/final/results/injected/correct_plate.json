@@ -1,0 +1,636 @@
+{
+ "name": "correct_plate",
+ "batch": "injected",
+ "kind": "correct",
+ "part": "plate",
+ "key": "01_plate",
+ "description": "correct part",
+ "caught_by": [],
+ "first_issues": [],
+ "shape_available": true,
+ "fixed": true,
+ "status": "pass",
+ "corrections": 0,
+ "false_alarm": false,
+ "seconds": 10.4,
+ "cost_usd": 0.012861,
+ "events": [
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 0.0,
+   "spec": {
+    "name": "plate",
+    "description": "Reading-spike sketch 01: 80 x 50 x 6 plate, 4x \u00d86 corner holes, \u00d820 centre bore.",
+    "parameters": {
+     "width": {
+      "value": 80,
+      "description": "plate length along X",
+      "min": 30
+     },
+     "depth": {
+      "value": 50,
+      "description": "plate depth along Y",
+      "min": 30
+     },
+     "thickness": {
+      "value": 6,
+      "description": "plate thickness"
+     },
+     "hole_inset": {
+      "value": 8,
+      "description": "corner hole centre distance from the edges"
+     },
+     "hole_d": {
+      "value": 6,
+      "description": "corner hole diameter"
+     },
+     "bore_d": {
+      "value": 20,
+      "description": "centre bore diameter"
+     }
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "plane": "XY",
+      "profile": {
+       "shape": "rect",
+       "width": "width",
+       "height": "depth"
+      },
+      "distance": "thickness"
+     },
+     {
+      "id": "corner_hole",
+      "type": "hole",
+      "face": "top",
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "diameter": "hole_d",
+      "through": true
+     },
+     {
+      "id": "corner_holes",
+      "type": "linear_pattern",
+      "feature": "corner_hole",
+      "count_u": 2,
+      "spacing_u": "width - 2 * hole_inset",
+      "count_v": 2,
+      "spacing_v": "depth - 2 * hole_inset"
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "face": "top",
+      "center": [
+       "width / 2",
+       "depth / 2"
+      ],
+      "diameter": "bore_d",
+      "through": true
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "axis": "x"
+    },
+    {
+     "label": "50",
+     "value": 50,
+     "measure": "overall",
+     "axis": "y"
+    },
+    {
+     "label": "t = 6",
+     "value": 6,
+     "measure": "thickness",
+     "feature": "base"
+    },
+    {
+     "label": "4x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "feature": "corner_hole"
+    },
+    {
+     "label": "\u00d820 thru",
+     "value": 20,
+     "measure": "diameter",
+     "feature": "bore"
+    },
+    {
+     "label": "64",
+     "value": 64,
+     "measure": "distance",
+     "feature": "corner_holes[0]",
+     "feature_b": "corner_holes[1]",
+     "axis": "x"
+    },
+    {
+     "label": "34",
+     "value": 34,
+     "measure": "distance",
+     "feature": "corner_holes[0]",
+     "feature_b": "corner_holes[2]",
+     "axis": "y"
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "feature": "corner_hole",
+     "edge": "x_min"
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "feature": "corner_hole",
+     "edge": "y_min"
+    },
+    {
+     "label": "bore centred",
+     "value": 40,
+     "measure": "distance_to_edge",
+     "feature": "bore",
+     "edge": "x_min"
+    },
+    {
+     "label": "bore centred",
+     "value": 25,
+     "measure": "distance_to_edge",
+     "feature": "bore",
+     "edge": "y_min"
+    }
+   ],
+   "changelog": "(given)",
+   "call": null
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 0.5,
+   "ok": true,
+   "metrics": {
+    "name": "plate",
+    "volume_mm3": 21436.4604,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      50.0,
+      6.0
+     ],
+     "size": [
+      80.0,
+      50.0,
+      6.0
+     ]
+    },
+    "faces": 11,
+    "edges": 27,
+    "triangles": 2552,
+    "parameters": {
+     "bore_d": 20.0,
+     "depth": 50.0,
+     "hole_d": 6.0,
+     "hole_inset": 8.0,
+     "thickness": 6.0,
+     "width": 80.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 24000.0
+     },
+     {
+      "id": "corner_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -169.646
+     },
+     {
+      "id": "corner_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -508.938
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1884.9556
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       270
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       50
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       270,
+       50
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 3.5,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.607,
+      "part": 1.6
+     },
+     "orientation": {
+      "as_is": 0.823,
+      "mirror_lr": 0.823,
+      "mirror_ud": 0.823,
+      "rot180": 0.823
+     },
+     "orientation_gap": 0.0
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "scan",
+    "rectified": false
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 1,
+    "cost_usd": 0.0025,
+    "seconds": 1.76
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 10.4,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "50",
+     "value": 50,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 50.0
+    },
+    {
+     "label": "t = 6",
+     "value": 6,
+     "measure": "thickness",
+     "what": "thickness of base",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "4x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of corner_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "\u00d820 thru",
+     "value": 20,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "64",
+     "value": 64,
+     "measure": "distance",
+     "what": "distance corner_holes[0] \u2192 corner_holes[1] along x",
+     "status": "ok",
+     "measured": 64.0
+    },
+    {
+     "label": "34",
+     "value": 34,
+     "measure": "distance",
+     "what": "distance corner_holes[0] \u2192 corner_holes[2] along y",
+     "status": "ok",
+     "measured": 34.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from corner_hole to x_min",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from corner_hole to y_min",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "bore centred",
+     "value": 40,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "bore centred",
+     "value": 25,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 25.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": true,
+      "issues": []
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.010361,
+    "seconds": 6.9,
+    "input_tokens": 5374,
+    "output_tokens": 2241,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 10.4,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "name": "plate",
+    "description": "Reading-spike sketch 01: 80 x 50 x 6 plate, 4x \u00d86 corner holes, \u00d820 centre bore.",
+    "parameters": {
+     "width": {
+      "value": 80,
+      "description": "plate length along X",
+      "min": 30
+     },
+     "depth": {
+      "value": 50,
+      "description": "plate depth along Y",
+      "min": 30
+     },
+     "thickness": {
+      "value": 6,
+      "description": "plate thickness"
+     },
+     "hole_inset": {
+      "value": 8,
+      "description": "corner hole centre distance from the edges"
+     },
+     "hole_d": {
+      "value": 6,
+      "description": "corner hole diameter"
+     },
+     "bore_d": {
+      "value": 20,
+      "description": "centre bore diameter"
+     }
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "plane": "XY",
+      "profile": {
+       "shape": "rect",
+       "width": "width",
+       "height": "depth"
+      },
+      "distance": "thickness"
+     },
+     {
+      "id": "corner_hole",
+      "type": "hole",
+      "face": "top",
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "diameter": "hole_d",
+      "through": true
+     },
+     {
+      "id": "corner_holes",
+      "type": "linear_pattern",
+      "feature": "corner_hole",
+      "count_u": 2,
+      "spacing_u": "width - 2 * hole_inset",
+      "count_v": 2,
+      "spacing_v": "depth - 2 * hole_inset"
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "face": "top",
+      "center": [
+       "width / 2",
+       "depth / 2"
+      ],
+      "diameter": "bore_d",
+      "through": true
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "axis": "x"
+    },
+    {
+     "label": "50",
+     "value": 50,
+     "measure": "overall",
+     "axis": "y"
+    },
+    {
+     "label": "t = 6",
+     "value": 6,
+     "measure": "thickness",
+     "feature": "base"
+    },
+    {
+     "label": "4x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "feature": "corner_hole"
+    },
+    {
+     "label": "\u00d820 thru",
+     "value": 20,
+     "measure": "diameter",
+     "feature": "bore"
+    },
+    {
+     "label": "64",
+     "value": 64,
+     "measure": "distance",
+     "feature": "corner_holes[0]",
+     "feature_b": "corner_holes[1]",
+     "axis": "x"
+    },
+    {
+     "label": "34",
+     "value": 34,
+     "measure": "distance",
+     "feature": "corner_holes[0]",
+     "feature_b": "corner_holes[2]",
+     "axis": "y"
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "feature": "corner_hole",
+     "edge": "x_min"
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "feature": "corner_hole",
+     "edge": "y_min"
+    },
+    {
+     "label": "bore centred",
+     "value": 40,
+     "measure": "distance_to_edge",
+     "feature": "bore",
+     "edge": "x_min"
+    },
+    {
+     "label": "bore centred",
+     "value": 25,
+     "measure": "distance_to_edge",
+     "feature": "bore",
+     "edge": "y_min"
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.012861,
+   "seconds": 10.4,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

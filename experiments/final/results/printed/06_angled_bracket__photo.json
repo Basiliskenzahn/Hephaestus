@@ -1,0 +1,1395 @@
+{
+ "name": "06_angled_bracket__photo",
+ "batch": "printed",
+ "key": "06_angled_bracket",
+ "image": "experiments/benchmark/sketches/06_angled_bracket__photo.jpg",
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "read_perfect": false,
+ "final_perfect": false,
+ "failed": "slope, 15, \u00d88 thru, 10",
+ "taps_perfect": false,
+ "flags": {
+  "available": true,
+  "soft": 1,
+  "red": 0,
+  "false": 1,
+  "caught": 0,
+  "flagged": [
+   {
+    "index": 5,
+    "label": "15",
+    "value": 15,
+    "parameter": "side_hole_h",
+    "text_box": [
+     678,
+     458,
+     700,
+     490
+    ],
+    "confidence": "high",
+    "status": "uncertain",
+    "second": 10.0,
+    "reread": "10",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   }
+  ],
+  "seconds": 6.0,
+  "cost_usd": 0.006861
+ },
+ "first_part_s": 75.8,
+ "verified_s": 102.7,
+ "seconds": 102.7,
+ "cost_usd": 0.137212,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 74.1,
+   "spec": {
+    "description": "Base flange with a tapered side rib. Assumed: rib top is a single straight edge from (top_len,height) to (length,base_t); rib is centred in Y; base holes are symmetric about the Y centreline with spacing depth/2; dashed lines in FRONT are the hidden base holes.",
+    "features": [
+     {
+      "distance": "base_t",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "top_len"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "arm_t",
+      "id": "arm",
+      "offset": "(depth - arm_t) / 2",
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "base_t"
+        ],
+        [
+         "top_len",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - side_hole_from_right",
+       "side_hole_h"
+      ],
+      "diameter": "side_hole_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "base_hole_from_left",
+       "depth / 4"
+      ],
+      "diameter": "base_hole_dia",
+      "face": "top_of_feature:base",
+      "id": "base_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "base_hole",
+      "id": "base_holes",
+      "spacing_u": 0,
+      "spacing_v": "depth / 2",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "arm_t": {
+      "description": "rib thickness along Y",
+      "value": 8
+     },
+     "base_hole_dia": {
+      "description": "mounting hole diameter in base",
+      "value": 6
+     },
+     "base_hole_from_left": {
+      "description": "mounting hole centre from left edge",
+      "value": 15
+     },
+     "base_t": {
+      "description": "base flange thickness, also rib height at right end",
+      "value": 10
+     },
+     "depth": {
+      "description": "overall depth along Y, base depth",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "side_hole_dia": {
+      "description": "side hole diameter in rib",
+      "value": 8
+     },
+     "side_hole_from_right": {
+      "description": "side hole centre from right edge",
+      "value": 20
+     },
+     "side_hole_h": {
+      "description": "side hole centre height from bottom",
+      "value": 15
+     },
+     "top_len": {
+      "description": "length of flat top and of base flange along X",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "parameter": "top_len",
+     "text_box": [
+      330,
+      305,
+      365,
+      330
+     ],
+     "value": 30
+    },
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      268,
+      428,
+      292,
+      472
+     ],
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "80",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      488,
+      528,
+      522,
+      552
+     ],
+     "value": 80
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_max",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "parameter": "side_hole_from_right",
+     "text_box": [
+      648,
+      378,
+      680,
+      400
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "parameter": "side_hole_dia",
+     "text_box": [
+      498,
+      408,
+      562,
+      430
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "parameter": "side_hole_h",
+     "text_box": [
+      678,
+      458,
+      700,
+      490
+     ],
+     "value": 15
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "10",
+     "measure": "thickness",
+     "parameter": "base_t",
+     "text_box": [
+      708,
+      458,
+      730,
+      492
+     ],
+     "value": 10
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "parameter": "base_hole_from_left",
+     "text_box": [
+      348,
+      578,
+      380,
+      600
+     ],
+     "value": 15
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      298,
+      668,
+      320,
+      702
+     ],
+     "value": 30
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "parameter": "base_hole_dia",
+     "text_box": [
+      488,
+      638,
+      572,
+      662
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "arm",
+     "feature_b": null,
+     "label": "8",
+     "measure": "thickness",
+     "parameter": "arm_t",
+     "text_box": [
+      678,
+      688,
+      700,
+      712
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "arm",
+     "feature_b": null,
+     "label": "arm centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 15
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base_hole",
+     "feature_b": "base_holes[1]",
+     "label": "base holes symmetric",
+     "measure": "distance",
+     "parameter": null,
+     "text_box": null,
+     "value": 15
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.078666,
+    "seconds": 74.0,
+    "input_tokens": 10874,
+    "output_tokens": 17229,
+    "reasoning_tokens": 15512,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 75.8,
+   "ok": true,
+   "metrics": {
+    "name": "angled_bracket",
+    "volume_mm3": 25232.3895,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      30.0,
+      40.0
+     ],
+     "size": [
+      80.0,
+      30.0,
+      40.0
+     ]
+    },
+    "faces": 16,
+    "edges": 42,
+    "triangles": 1564,
+    "parameters": {
+     "arm_t": 8.0,
+     "base_hole_dia": 6.0,
+     "base_hole_from_left": 15.0,
+     "base_t": 10.0,
+     "depth": 30.0,
+     "height": 40.0,
+     "length": 80.0,
+     "side_hole_dia": 8.0,
+     "side_hole_from_right": 20.0,
+     "side_hole_h": 15.0,
+     "top_len": 30.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 9000.0
+     },
+     {
+      "id": "arm",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 17200.0
+     },
+     {
+      "id": "side_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -402.1239
+     },
+     {
+      "id": "base_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -282.7433
+     },
+     {
+      "id": "base_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -282.7433
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       170
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       170,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 80.1,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 2.398,
+      "part": 2.667
+     },
+     "orientation": {
+      "as_is": 0.56,
+      "mirror_lr": 0.464,
+      "mirror_ud": 0.56,
+      "rot180": 0.464
+     },
+     "orientation_gap": 0.0
+    },
+    {
+     "view": "front",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.813,
+      "part": 2.0
+     },
+     "orientation": {
+      "as_is": 0.867,
+      "mirror_lr": 0.538,
+      "mirror_ud": 0.579,
+      "rot180": 0.495
+     },
+     "orientation_gap": -0.288
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "sam",
+    "rectified": true,
+    "quad": [
+     [
+      151.0,
+      291.0
+     ],
+     [
+      1297.0,
+      194.0
+     ],
+     [
+      1356.0,
+      1328.0
+     ],
+     [
+      268.0,
+      1449.0
+     ]
+    ]
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 2,
+    "cost_usd": 0.005,
+    "seconds": 4.23
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 102.7,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to x_max",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "\u00d88 thru",
+     "value": 8,
+     "measure": "diameter",
+     "what": "diameter of side_hole",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from side_hole to z_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "thickness",
+     "what": "thickness of base",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from base_hole to x_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of base_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "thickness",
+     "what": "thickness of arm",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "arm centred",
+     "value": 15,
+     "measure": "distance_to_edge",
+     "what": "distance from arm to y_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "base holes symmetric",
+     "value": 15,
+     "measure": "distance",
+     "what": "distance base_hole \u2192 base_holes[1] along y",
+     "status": "ok",
+     "measured": 15.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [
+     {
+      "feature_id": "arm",
+      "issue": "top edge is a single straight slope, drawing shows two slopes with a kink 20 mm from the right edge",
+      "severity": "high"
+     }
+    ],
+    "samples": [
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "arm",
+        "issue": "top edge is a single straight slope, drawing shows two slopes with a kink 20 mm from the right edge",
+        "severity": "high"
+       }
+      ]
+     },
+     {
+      "matches": true,
+      "issues": []
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.046685,
+    "seconds": 22.5,
+    "input_tokens": 10230,
+    "output_tokens": 8167,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [
+    {
+     "feature_id": "arm",
+     "issue": "top edge is a single straight slope, drawing shows two slopes with a kink 20 mm from the right edge",
+     "severity": "high"
+    }
+   ],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "numbers",
+   "iteration": 0,
+   "t": 102.7,
+   "available": true,
+   "numbers": [
+    {
+     "index": 0,
+     "label": "30",
+     "value": 30,
+     "parameter": "top_len",
+     "text_box": [
+      330,
+      305,
+      365,
+      330
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 30.0,
+     "reread": "30",
+     "conflict": null
+    },
+    {
+     "index": 1,
+     "label": "40",
+     "value": 40,
+     "parameter": "height",
+     "text_box": [
+      268,
+      428,
+      292,
+      472
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 40.0,
+     "reread": "40",
+     "conflict": null
+    },
+    {
+     "index": 2,
+     "label": "80",
+     "value": 80,
+     "parameter": "length",
+     "text_box": [
+      488,
+      528,
+      522,
+      552
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 80.0,
+     "reread": "80",
+     "conflict": null
+    },
+    {
+     "index": 3,
+     "label": "20",
+     "value": 20,
+     "parameter": "side_hole_from_right",
+     "text_box": [
+      648,
+      378,
+      680,
+      400
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 4,
+     "label": "\u00d88 thru",
+     "value": 8,
+     "parameter": "side_hole_dia",
+     "text_box": [
+      498,
+      408,
+      562,
+      430
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 8.0,
+     "reread": "\u00d88",
+     "conflict": null
+    },
+    {
+     "index": 5,
+     "label": "15",
+     "value": 15,
+     "parameter": "side_hole_h",
+     "text_box": [
+      678,
+      458,
+      700,
+      490
+     ],
+     "confidence": "high",
+     "status": "uncertain",
+     "second": 10.0,
+     "reread": "10",
+     "conflict": null
+    },
+    {
+     "index": 6,
+     "label": "10",
+     "value": 10,
+     "parameter": "base_t",
+     "text_box": [
+      708,
+      458,
+      730,
+      492
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 10.0,
+     "reread": "10",
+     "conflict": null
+    },
+    {
+     "index": 7,
+     "label": "15",
+     "value": 15,
+     "parameter": "base_hole_from_left",
+     "text_box": [
+      348,
+      578,
+      380,
+      600
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 15.0,
+     "reread": "15",
+     "conflict": null
+    },
+    {
+     "index": 8,
+     "label": "30",
+     "value": 30,
+     "parameter": "depth",
+     "text_box": [
+      298,
+      668,
+      320,
+      702
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 30.0,
+     "reread": "30",
+     "conflict": null
+    },
+    {
+     "index": 9,
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "parameter": "base_hole_dia",
+     "text_box": [
+      488,
+      638,
+      572,
+      662
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 6.0,
+     "reread": "2x \u00d86",
+     "conflict": null
+    },
+    {
+     "index": 10,
+     "label": "8",
+     "value": 8,
+     "parameter": "arm_t",
+     "text_box": [
+      678,
+      688,
+      700,
+      712
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 11,
+     "label": "arm centred",
+     "value": 15,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 12,
+     "label": "base holes symmetric",
+     "value": 15,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    }
+   ],
+   "uncertain": 1,
+   "calls": [
+    {
+     "seconds": 6.0,
+     "cost_usd": 0.006861,
+     "crops": 11,
+     "model": "muse-spark-1.3"
+    }
+   ],
+   "cost_usd": 0.006861,
+   "seconds": 6.0
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 102.7,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Base flange with a tapered side rib. Assumed: rib top is a single straight edge from (top_len,height) to (length,base_t); rib is centred in Y; base holes are symmetric about the Y centreline with spacing depth/2; dashed lines in FRONT are the hidden base holes.",
+    "features": [
+     {
+      "distance": "base_t",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "top_len"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "arm_t",
+      "id": "arm",
+      "offset": "(depth - arm_t) / 2",
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         "length",
+         0
+        ],
+        [
+         "length",
+         "base_t"
+        ],
+        [
+         "top_len",
+         "height"
+        ],
+        [
+         0,
+         "height"
+        ]
+       ],
+       "shape": "polygon"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length - side_hole_from_right",
+       "side_hole_h"
+      ],
+      "diameter": "side_hole_dia",
+      "face": "front",
+      "id": "side_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "base_hole_from_left",
+       "depth / 4"
+      ],
+      "diameter": "base_hole_dia",
+      "face": "top_of_feature:base",
+      "id": "base_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 1,
+      "count_v": 2,
+      "feature": "base_hole",
+      "id": "base_holes",
+      "spacing_u": 0,
+      "spacing_v": "depth / 2",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "angled_bracket",
+    "parameters": {
+     "arm_t": {
+      "description": "rib thickness along Y",
+      "value": 8
+     },
+     "base_hole_dia": {
+      "description": "mounting hole diameter in base",
+      "value": 6
+     },
+     "base_hole_from_left": {
+      "description": "mounting hole centre from left edge",
+      "value": 15
+     },
+     "base_t": {
+      "description": "base flange thickness, also rib height at right end",
+      "value": 10
+     },
+     "depth": {
+      "description": "overall depth along Y, base depth",
+      "value": 30
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "side_hole_dia": {
+      "description": "side hole diameter in rib",
+      "value": 8
+     },
+     "side_hole_from_right": {
+      "description": "side hole centre from right edge",
+      "value": 20
+     },
+     "side_hole_h": {
+      "description": "side hole centre height from bottom",
+      "value": 15
+     },
+     "top_len": {
+      "description": "length of flat top and of base flange along X",
+      "value": 30
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "parameter": "top_len",
+     "text_box": [
+      330,
+      305,
+      365,
+      330
+     ],
+     "value": 30
+    },
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      268,
+      428,
+      292,
+      472
+     ],
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "80",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      488,
+      528,
+      522,
+      552
+     ],
+     "value": 80
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_max",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "parameter": "side_hole_from_right",
+     "text_box": [
+      648,
+      378,
+      680,
+      400
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru",
+     "measure": "diameter",
+     "parameter": "side_hole_dia",
+     "text_box": [
+      498,
+      408,
+      562,
+      430
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "side_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "parameter": "side_hole_h",
+     "text_box": [
+      678,
+      458,
+      700,
+      490
+     ],
+     "value": 15
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "10",
+     "measure": "thickness",
+     "parameter": "base_t",
+     "text_box": [
+      708,
+      458,
+      730,
+      492
+     ],
+     "value": 10
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "parameter": "base_hole_from_left",
+     "text_box": [
+      348,
+      578,
+      380,
+      600
+     ],
+     "value": 15
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      298,
+      668,
+      320,
+      702
+     ],
+     "value": 30
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "parameter": "base_hole_dia",
+     "text_box": [
+      488,
+      638,
+      572,
+      662
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "arm",
+     "feature_b": null,
+     "label": "8",
+     "measure": "thickness",
+     "parameter": "arm_t",
+     "text_box": [
+      678,
+      688,
+      700,
+      712
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "arm",
+     "feature_b": null,
+     "label": "arm centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 15
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base_hole",
+     "feature_b": "base_holes[1]",
+     "label": "base holes symmetric",
+     "measure": "distance",
+     "parameter": null,
+     "text_box": null,
+     "value": 15
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.137212,
+   "seconds": 102.7,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

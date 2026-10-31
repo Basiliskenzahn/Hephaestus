@@ -1,0 +1,1057 @@
+{
+ "name": "08_shaft_collar__photo",
+ "batch": "printed",
+ "key": "08_shaft_collar",
+ "image": "experiments/benchmark/sketches/08_shaft_collar__photo.jpg",
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "read_perfect": true,
+ "final_perfect": true,
+ "failed": "",
+ "taps_perfect": true,
+ "flags": {
+  "available": true,
+  "soft": 0,
+  "red": 0,
+  "false": 0,
+  "caught": 0,
+  "flagged": [],
+  "seconds": 3.3,
+  "cost_usd": 0.003462
+ },
+ "first_part_s": 32.2,
+ "verified_s": 50.6,
+ "seconds": 50.6,
+ "cost_usd": 0.075037,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 30.1,
+   "spec": {
+    "description": "Shaft collar: outer cylinder with central thru bore, radial slit and transverse clamp screw. Assumed: bore centred in X/Y, slit on Y centreline from bore to outer, screw hole centred in Z and thru in Y.",
+    "features": [
+     {
+      "distance": "collar_h",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "outer_dia",
+       "shape": "circle",
+       "u": "outer_dia / 2",
+       "v": "outer_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "outer_dia / 2",
+       "outer_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "distance": "collar_h",
+      "id": "slit_cut",
+      "operation": "cut",
+      "plane": "XY",
+      "profile": {
+       "height": "slit_w",
+       "shape": "rect",
+       "u": "outer_dia / 2",
+       "v": "(outer_dia - slit_w) / 2",
+       "width": "outer_dia / 2 + 1"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "screw_x",
+       "collar_h / 2"
+      ],
+      "diameter": "screw_dia",
+      "face": "front",
+      "id": "screw_hole",
+      "through": true,
+      "type": "hole"
+     }
+    ],
+    "name": "shaft_collar",
+    "parameters": {
+     "bore_dia": {
+      "description": "central bore diameter, thru in Z",
+      "value": 20
+     },
+     "collar_h": {
+      "description": "overall height along Z",
+      "value": 15
+     },
+     "outer_dia": {
+      "description": "outer diameter, overall in X and Y",
+      "value": 40
+     },
+     "screw_dia": {
+      "description": "clamp screw hole diameter, thru in Y",
+      "value": 4
+     },
+     "screw_x": {
+      "description": "screw hole centre from x_min (left outer edge)",
+      "value": 35
+     },
+     "slit_w": {
+      "description": "radial slit width in Y",
+      "value": 2
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "\u00d840",
+     "measure": "diameter",
+     "parameter": "outer_dia",
+     "text_box": [
+      353,
+      442,
+      391,
+      460
+     ],
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d820 thru",
+     "measure": "diameter",
+     "parameter": "bore_dia",
+     "text_box": [
+      308,
+      579,
+      372,
+      598
+     ],
+     "value": 20
+    },
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "15",
+     "measure": "overall",
+     "parameter": "collar_h",
+     "text_box": [
+      335,
+      354,
+      354,
+      390
+     ],
+     "value": 15
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "slit 2",
+     "measure": "unchecked",
+     "parameter": "slit_w",
+     "text_box": [
+      639,
+      510,
+      679,
+      525
+     ],
+     "value": 2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "screw_hole",
+     "feature_b": null,
+     "label": "\u00d84 thru",
+     "measure": "diameter",
+     "parameter": "screw_dia",
+     "text_box": [
+      610,
+      285,
+      669,
+      303
+     ],
+     "value": 4
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "screw_hole",
+     "feature_b": null,
+     "label": "35",
+     "measure": "distance_to_edge",
+     "parameter": "screw_x",
+     "text_box": [
+      498,
+      685,
+      518,
+      700
+     ],
+     "value": 35
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "screw_hole",
+     "feature_b": null,
+     "label": "screw_hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 7.5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "slit_cut",
+     "feature_b": null,
+     "label": "slit centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.032537,
+    "seconds": 30.1,
+    "input_tokens": 10531,
+    "output_tokens": 6476,
+    "reasoning_tokens": 5164,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 32.2,
+   "ok": true,
+   "metrics": {
+    "name": "shaft_collar",
+    "volume_mm3": 13532.0396,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      -0.0
+     ],
+     "max": [
+      39.974984,
+      40.0,
+      15.0
+     ],
+     "size": [
+      39.974985,
+      40.0,
+      15.0
+     ]
+    },
+    "faces": 8,
+    "edges": 18,
+    "triangles": 2120,
+    "parameters": {
+     "bore_dia": 20.0,
+     "collar_h": 15.0,
+     "outer_dia": 40.0,
+     "screw_dia": 4.0,
+     "screw_x": 35.0,
+     "slit_w": 2.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 18849.5559
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -4712.389
+     },
+     {
+      "id": "slit_cut",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": -300.2507
+     },
+     {
+      "id": "screw_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -304.8767
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       221,
+       222
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       221,
+       97
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       222,
+       97
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 34.5,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 0.87,
+      "part": 1.0
+     },
+     "orientation": {
+      "as_is": 0.647,
+      "mirror_lr": 0.646,
+      "mirror_ud": 0.647,
+      "rot180": 0.646
+     },
+     "orientation_gap": 0.0
+    },
+    {
+     "view": "front",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 2.803,
+      "part": 2.667
+     },
+     "orientation": {
+      "as_is": 0.684,
+      "mirror_lr": 0.684,
+      "mirror_ud": 0.684,
+      "rot180": 0.684
+     },
+     "orientation_gap": 0.0
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "sam",
+    "rectified": true,
+    "quad": [
+     [
+      176.0,
+      297.0
+     ],
+     [
+      1183.0,
+      243.0
+     ],
+     [
+      1287.0,
+      1382.0
+     ],
+     [
+      261.0,
+      1336.0
+     ]
+    ]
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 2,
+    "cost_usd": 0.005,
+    "seconds": 4.8
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 50.6,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "\u00d840",
+     "value": 40,
+     "measure": "diameter",
+     "what": "diameter of base",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "\u00d820 thru",
+     "value": 20,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "15",
+     "value": 15,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "slit 2",
+     "value": 2,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "\u00d84 thru",
+     "value": 4,
+     "measure": "diameter",
+     "what": "diameter of screw_hole",
+     "status": "ok",
+     "measured": 4.0
+    },
+    {
+     "label": "35",
+     "value": 35,
+     "measure": "distance_to_edge",
+     "what": "distance from screw_hole to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "screw_hole centred",
+     "value": 7.5,
+     "measure": "distance_to_edge",
+     "what": "distance from screw_hole to z_min",
+     "status": "ok",
+     "measured": 7.5
+    },
+    {
+     "label": "slit centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from slit_cut to y_min",
+     "status": "ok",
+     "measured": 20.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [
+     {
+      "feature_id": "base",
+      "issue": "TOP width to slit-side face is 40, drawing shows 35 indicating a flat is missing",
+      "severity": "medium"
+     }
+    ],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "base",
+        "issue": "TOP width to slit-side face is 40, drawing shows 35 indicating a flat is missing",
+        "severity": "medium"
+       }
+      ]
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.034038,
+    "seconds": 16.1,
+    "input_tokens": 9544,
+    "output_tokens": 5393,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [
+    {
+     "feature_id": "base",
+     "issue": "TOP width to slit-side face is 40, drawing shows 35 indicating a flat is missing",
+     "severity": "medium"
+    }
+   ],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "numbers",
+   "iteration": 0,
+   "t": 50.6,
+   "available": true,
+   "numbers": [
+    {
+     "index": 0,
+     "label": "\u00d840",
+     "value": 40,
+     "parameter": "outer_dia",
+     "text_box": [
+      353,
+      442,
+      391,
+      460
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 40.0,
+     "reread": "\u00d840",
+     "conflict": null
+    },
+    {
+     "index": 1,
+     "label": "\u00d820 thru",
+     "value": 20,
+     "parameter": "bore_dia",
+     "text_box": [
+      308,
+      579,
+      372,
+      598
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 20.0,
+     "reread": "\u00d820",
+     "conflict": null
+    },
+    {
+     "index": 2,
+     "label": "15",
+     "value": 15,
+     "parameter": "collar_h",
+     "text_box": [
+      335,
+      354,
+      354,
+      390
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 15.0,
+     "reread": "15",
+     "conflict": null
+    },
+    {
+     "index": 3,
+     "label": "slit 2",
+     "value": 2,
+     "parameter": "slit_w",
+     "text_box": [
+      639,
+      510,
+      679,
+      525
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 2.0,
+     "reread": "2",
+     "conflict": null
+    },
+    {
+     "index": 4,
+     "label": "\u00d84 thru",
+     "value": 4,
+     "parameter": "screw_dia",
+     "text_box": [
+      610,
+      285,
+      669,
+      303
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 4.0,
+     "reread": "\u00d84",
+     "conflict": null
+    },
+    {
+     "index": 5,
+     "label": "35",
+     "value": 35,
+     "parameter": "screw_x",
+     "text_box": [
+      498,
+      685,
+      518,
+      700
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 6,
+     "label": "bore centred",
+     "value": 20,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 7,
+     "label": "bore centred",
+     "value": 20,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 8,
+     "label": "screw_hole centred",
+     "value": 7.5,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 9,
+     "label": "slit centred",
+     "value": 20,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    }
+   ],
+   "uncertain": 0,
+   "calls": [
+    {
+     "seconds": 3.3,
+     "cost_usd": 0.003462,
+     "crops": 6,
+     "model": "muse-spark-1.3"
+    }
+   ],
+   "cost_usd": 0.003462,
+   "seconds": 3.3
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 50.6,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Shaft collar: outer cylinder with central thru bore, radial slit and transverse clamp screw. Assumed: bore centred in X/Y, slit on Y centreline from bore to outer, screw hole centred in Z and thru in Y.",
+    "features": [
+     {
+      "distance": "collar_h",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "outer_dia",
+       "shape": "circle",
+       "u": "outer_dia / 2",
+       "v": "outer_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "outer_dia / 2",
+       "outer_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "distance": "collar_h",
+      "id": "slit_cut",
+      "operation": "cut",
+      "plane": "XY",
+      "profile": {
+       "height": "slit_w",
+       "shape": "rect",
+       "u": "outer_dia / 2",
+       "v": "(outer_dia - slit_w) / 2",
+       "width": "outer_dia / 2 + 1"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "screw_x",
+       "collar_h / 2"
+      ],
+      "diameter": "screw_dia",
+      "face": "front",
+      "id": "screw_hole",
+      "through": true,
+      "type": "hole"
+     }
+    ],
+    "name": "shaft_collar",
+    "parameters": {
+     "bore_dia": {
+      "description": "central bore diameter, thru in Z",
+      "value": 20
+     },
+     "collar_h": {
+      "description": "overall height along Z",
+      "value": 15
+     },
+     "outer_dia": {
+      "description": "outer diameter, overall in X and Y",
+      "value": 40
+     },
+     "screw_dia": {
+      "description": "clamp screw hole diameter, thru in Y",
+      "value": 4
+     },
+     "screw_x": {
+      "description": "screw hole centre from x_min (left outer edge)",
+      "value": 35
+     },
+     "slit_w": {
+      "description": "radial slit width in Y",
+      "value": 2
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "\u00d840",
+     "measure": "diameter",
+     "parameter": "outer_dia",
+     "text_box": [
+      353,
+      442,
+      391,
+      460
+     ],
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d820 thru",
+     "measure": "diameter",
+     "parameter": "bore_dia",
+     "text_box": [
+      308,
+      579,
+      372,
+      598
+     ],
+     "value": 20
+    },
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "15",
+     "measure": "overall",
+     "parameter": "collar_h",
+     "text_box": [
+      335,
+      354,
+      354,
+      390
+     ],
+     "value": 15
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "slit 2",
+     "measure": "unchecked",
+     "parameter": "slit_w",
+     "text_box": [
+      639,
+      510,
+      679,
+      525
+     ],
+     "value": 2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "screw_hole",
+     "feature_b": null,
+     "label": "\u00d84 thru",
+     "measure": "diameter",
+     "parameter": "screw_dia",
+     "text_box": [
+      610,
+      285,
+      669,
+      303
+     ],
+     "value": 4
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "screw_hole",
+     "feature_b": null,
+     "label": "35",
+     "measure": "distance_to_edge",
+     "parameter": "screw_x",
+     "text_box": [
+      498,
+      685,
+      518,
+      700
+     ],
+     "value": 35
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "screw_hole",
+     "feature_b": null,
+     "label": "screw_hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 7.5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "slit_cut",
+     "feature_b": null,
+     "label": "slit centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.075037,
+   "seconds": 50.6,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

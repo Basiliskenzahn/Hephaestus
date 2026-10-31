@@ -14,11 +14,10 @@ Built during the [Meta Global AI Developer Hackathon](https://dev.meta.ai/events
 `web/` (static, Netlify) + `server/` (FastAPI on Modal). Upload a sketch or photo, take one with your phone, or
 describe the part in words; watch Talos read, build, check and correct it live; drag the parameter sliders to
 rebuild the part instantly; change it in words, typed or spoken ("make the holes M6", "remove the slot"); download
-STEP, STL and the spec. Seven examples replay recorded runs instantly (the first starts on its own). Five are
-live-model runs; the two that show a catch were recorded with the cheaper development model, and say so: the
-enclosure (Talos catches and fixes a hole drilled through the wrong wall; the live model reads that photo right the
-first time) and the hand-sketched block (the read takes a handwritten 40 for a 60, the independent re-read flags it,
-one tap fixes it). Deployment and limits: [`server/README.md`](server/README.md).
+STEP, STL and the spec. Ten examples replay recorded runs instantly; the first starts on its own: a hand-sketched
+enclosure where Talos catches a hole drilled through the wrong wall and fixes it. The four demo runs from the final
+benchmark (live model, full event streams) are in [`web/replays`](web/replays/); one older example, the hand-sketched
+block whose 40 is read as 60, was recorded with the cheaper development model and says so. Deployment and limits: [`server/README.md`](server/README.md).
 
 ![First screen: the enclosure replay, caught and fixed](docs/screenshots/first_screen_desktop.png)
 
@@ -44,103 +43,59 @@ UI check (Playwright, desktop and phone, mock backends): [`experiments/ui/check_
 
 Details: [`docs/talos.md`](docs/talos.md). Run it with `python -m hephaestus.talos drawing.png --out out/run1/`.
 
-## Results (Oct 2026)
+## Results (final, Nov 2026)
 
-Everything below is measured on compiled geometry: a part is *perfect* when it matches the true part (bbox,
-volume IoU ≥ 0.98, every dimension written on the drawing within 0.5 mm).
+One run of the shipping product on every test input (Oct 31, 2026): live preset (`muse-spark-1.3`), every check
+on (callouts, SAM 3.1 shape check, number re-read, 2-sample critic), 1 run each, 70 runs, **$4.49**. A part is
+*perfect* when its compiled geometry matches the true part (bbox, volume IoU ≥ 0.98, every written dimension within
+0.5 mm). Script and every event stream: [`experiments/final`](experiments/final/)
+([summary](experiments/final/results/summary.md)). Earlier development rounds: [`docs/experiments.md`](docs/experiments.md).
 
-**Speed** with the live settings (`muse-spark-1.3`, see [`docs/talos.md`](docs/talos.md#presets-talospresets)):
-the first part appears after **25 s** (median; p90 36 s) and a full verified run takes **38 s** (median; p90 76 s),
-about $0.05. With the cheaper contributor models the same run took 111–137 s.
+**Drawings and sketches** (8 parts: plates, brackets, a revolved bushing, a shelled enclosure, a pocket plate, a
+shaft collar):
 
-**Benchmark**: 8 parts (plates, brackets, a revolved bushing, a shelled enclosure, an angled bracket, a pocket
-plate, a shaft collar) as clean drawings, fake phone photos and rougher pencil photos
-([`experiments/benchmark`](experiments/benchmark/)).
+| input | perfect read | after the loop | after one tap per flagged number | first part (median / p90) | verified (median / p90) | cost / run |
+|---|---|---|---|---|---|---|
+| printed drawing, clean | 7/8 | 7/8 | 7/8 | 29 s / 72 s | 44 s / 101 s | $0.08 |
+| printed drawing, phone photo | 7/8 | 7/8 | 7/8 | 28 s / 33 s | 46 s / 75 s | $0.08 |
+| printed drawing, rough pencil photo | 7/8 | 7/8 | 7/8 | 28 s / 43 s | 42 s / 93 s | $0.09 |
+| hand sketch (not to scale), scan | 6/8 | **7/8** | 7/8 | 28 s / 41 s | 52 s / 94 s | $0.08 |
+| hand sketch, phone photo | 6/8 | 6/8 | **7/8** | 25 s / 37 s | 42 s / 60 s | $0.08 |
+| **all 40** | 33/40 | 34/40 | **35/40** | 27 s | 46 s | $0.08 |
 
-| input | live settings, 1 run per part: read only → with loop | contributor models, 2 runs per part: read only → with loop |
+- **The loop** fixed one sketch outright: the enclosure's cable hole was drilled through both walls; the second look
+  (a separate Muse Spark call) saw it and one correction fixed it. On the rough L-bracket it caught the upright at
+  the wrong side (SAM shape check) and moved it, but other misread dimensions remained.
+- **The number re-read** flagged the one misread digit it could see: the bushing's handwritten flange 5, read as 3.
+  One tap fixes the part. It cost $0.005 and 4 s per run (median), in parallel with the first compile.
+- **Flags on correct numbers**: 36 "confirm?" chips over 40 runs (0.9 per run, at most 4), and 1 red chip (the
+  hand block photo's 70, backed by the shape check's proportion note on a not-to-scale sketch). A chip only asks;
+  nothing changes until you tap.
+
+**Injected errors**: a correct spec with one deliberate mistake, checked against the real (clean) drawing:
+
+| error | caught by | fixed |
 |---|---|---|
-| clean drawing | 8/8 → 8/8 | 16/16 → 16/16 (earlier round) |
-| phone photo | 8/8 → 7/8 ¹ | 15/16 → 15/16 |
-| rough pencil photo | 7/8 → 7/8 | 14/16 → 14/16 |
+| hole moved 5 mm · hole missing · wrong diameter · chamfer instead of fillet · slot turned 90° · plate X/Y swapped · hole pair at the wrong end | callouts | 7/7 |
+| upright at the front instead of the back (L-bracket) · slope profile mirrored (angled bracket) | SAM 3.1 shape check | 2/2 |
+| cable hole drilled through both walls | critic (second look) | **no**: its correction dropped a hole depth, did not compile, and the critic gets one try |
+| *false alarms on the 8 correct parts* | | **0/8** |
 
-The honest summary: **on these drawings the loop does not raise accuracy**. Reading alone is already right 88–100%
-of the time, and the remaining misses are misreadings that every check shares: the angled bracket's two close
-dimensions (15 and 10) get swapped, and the checks built from the same reading agree with it. The loop's value is
-catching the errors reads *do* make sometimes (it fixed duplicate feature ids, and a cable hole that wrongly went
-through the back wall, in earlier rounds) and not making correct reads worse.
+**Text prompts**: 12/12 as expected ($0.04 per run, first part after 20 s). The interesting ones:
+- "a mounting plate for a NEMA 17 stepper motor": no number given, the named standard supplies them (42.3 mm square,
+  31 mm hole spacing, 22 mm pilot), each marked *assumed*.
+- "a 50 mm cube with a 60 mm hole": not refused; it builds a 40 mm hole and flags the 60 as conflicting, so you pick.
+- "a simple washer": no size at all, so it asks for one (Talos never guesses the scale).
 
-¹ The loop made one correct read worse here: a single critic sample hallucinated a kink in the bracket's slope and
-the correction invented an unwritten 28 mm height to add it. Since then the critic needs two samples to agree and
-corrections may not invent dimensions; on a rerun the critic hallucinated the same kink in both samples, and the
-correction refused because the drawing gives no such size, so the read stayed intact.
-
-**Injected errors**: a correct spec with one deliberate mistake, checked against the real drawing. Which check
-catches it ([`experiments/loop-eval`](experiments/loop-eval/), [`experiments/shape-check`](experiments/shape-check/),
-critic flags from [`experiments/benchmark/results/matrix`](experiments/benchmark/results/matrix/summary.md)):
-
-| error | callouts | shape check (SAM 3.1) | critic (2 samples) | fixed by the loop (live, 2 runs) |
-|---|---|---|---|---|
-| slot turned 90° | ✓ | – | ✓ | 2/2, 23 s |
-| hole moved 5 mm | ✓ | – | – | 2/2, 10 s |
-| hole missing | ✓ | – | ✓ | 2/2, 21 s |
-| wrong diameter | ✓ | – | – | 2/2, 18 s |
-| chamfer instead of fillet | ✓ | – | ✓ | 2/2, 15 s |
-| plate X/Y swapped | ✓ | note only ² | – | 2/2, 12 s |
-| cable hole drilled through both walls | – | – | ✓ | 2/2, 33 s |
-| upright at the front instead of the back | – | **✓ (3/3 inputs)** | – | not re-run since the shape check ¹ |
-| angled bracket's slope mirrored | – | **✓ (3/3 inputs)** | not tested | not run |
-| hole pair moved to the other end | ✓ | – | not tested | not run |
-
-"3/3 inputs" = the clean drawing, the phone photo and the rough pencil photo. The checks complement each other:
-callouts are exact on every written dimension, the shape check sees the outline of each view (orientation and
-proportions, which no single dimension captures), the critic sees what neither measures (which walls a hole goes
-through). None of them sees a misreading they all share (the angled bracket's 15/10 swap above); a misread digit
-is what the independent number re-read is for (below).
-
-**No false alarms**: the 8 correct parts pass the callouts and the shape check on all 24 inputs (0/24 blocking
-shape issues: for a correct part a mirrored or rotated outline never fits the drawing better than the part as built,
-while the injected flips fit better by at least 0.29 IoU; the flag needs 0.10), and the 2-sample critic
-raised 0/4 on a recheck (1/16 with a single sample, which is why it takes two). The shape check's hole comparison
-is switched off: it flagged 18 of 24 correct parts (text, centre lines and gaps in sketched circles), so it would
-only be noise.
-
-**Hand sketches** ([`experiments/hand-sketches`](experiments/hand-sketches/)): the 8 parts drawn sloppily in
-handwriting fonts, not to scale, with a crossed-out and corrected number, as scans and phone photos (16 images,
-contributor models, 1 run each). Most misses were misread numbers, which every check shares. So every written number
-is now **read a second time** from a crop of where the read says it is written, with nothing else in view (one extra
-call, all crops in one request, in parallel with the first compile: ~10 s, ~$0.0003 per run with contributor models).
-Numbers the two readings disagree on are shown on the drawing as chips with both readings; one tap sets the
-parameter and rebuilds, no model call ([`experiments/numbers`](experiments/numbers/)).
-
-| hand sketches (16) | read perfect | perfect after the user taps the flagged numbers |
-|---|---|---|
-| before (read only, loop on) | 11/16 | – |
-| with the number rules + re-read | 13/16 | **14/16** |
-
-The misread 60 (written 40) on the block was flagged with "40" as the second reading; tapping it makes the part
-perfect. A crossed-out 10 is no longer used (the read prompt now says so; the plate and pocket plate were also redrawn so the strike
-is visible). False flags: 15 correct numbers on 16 sketches (max 4 on one, ~1 per sketch), 16 on the 24 printed
-benchmark images (max 2). The remaining misses are not digit errors (a hole through the wrong wall, the 15/10 swap of
-two correct numbers), which a re-read cannot see. Single runs on partly redrawn images: read the before/after as
-indicative, not exact.
-
-¹ In the earlier loop evaluation, before the shape check existed, nothing caught it (0/2).
-² The shape check's proportion test flags it on all 3 inputs, but only as a note: hand sketches are not to scale
-(a correct part's view came out 1.47× off in the hand-sketch set), so proportions cannot block.
-
-## Experiments
-
-| Experiment | Question |
-|---|---|
-| [`reading-spike`](experiments/reading-spike/) | Can Muse Spark read a dimensioned sketch into a correct part spec? (v0 box spec) |
-| [`reading-spike-v2`](experiments/reading-spike-v2/) | Can it fill in the full parametric spec v1? 26/27 perfect |
-| [`loop-eval`](experiments/loop-eval/) | Does the loop catch and fix known errors, without false alarms? |
-| [`benchmark`](experiments/benchmark/) | Reading only vs the full loop on 8 parts × 3 input qualities |
-| [`sam-spike`](experiments/sam-spike/) | Can SAM 3.1 segment line drawings (views, through-holes) and find the paper in a photo? |
-| [`shape-check`](experiments/shape-check/) | Does the SAM shape check flag wrong parts without false alarms on correct ones? |
-| [`edits`](experiments/edits/) | Voice and typed edits: 8 spoken instructions → Muse Voice Transcribe → structured edit (recorded for the tests) |
-| [`numbers`](experiments/numbers/) | Does an independent re-read of every written number flag misread handwriting, without flagging correct numbers? |
-| [`load`](experiments/load/) | Does SAM mask decoding stall the sliders? `/compile` p50 during 3 runs: 730 ms → 134 ms with worker processes |
+**Honest limits**
+- A misreading every check shares gets through: the angled bracket's 15 and 10 swap places (printed clean and phone
+  photo), and the hand block's 46 read as 40 by both readings. The re-read catches illegible digits, not plausible
+  wrong ones.
+- About one "confirm?" flag per sketch on numbers that were right.
+- Synthetic test data: the drawings, photos and hand sketches are ours (rendered, printed, photographed, drawn in
+  handwriting fonts); no real users' sketches yet.
+- Photos of real objects (no drawing) are not shipped; the code is in `object_photo.py`, hidden until tested on real
+  photos.
 
 ## Third-party code
 

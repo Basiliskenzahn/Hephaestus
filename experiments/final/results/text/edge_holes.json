@@ -1,0 +1,569 @@
+{
+ "name": "edge_holes",
+ "kind": "contradictory",
+ "prompt": "a 40 x 40 x 5 plate with four \u00d810 holes 2 mm from each edge",
+ "status": "pass",
+ "note": null,
+ "cost_usd": 0.055635,
+ "seconds": 40.3,
+ "corrections": 0,
+ "ok": true,
+ "detail": "40x40x5 plate with four dia 10 through holes. Assumed: 2 mm means clearance from hole edge to plate edge (centre 2 mm would overlap the edge",
+ "batch": "text",
+ "first_part_s": 37.6,
+ "verified_s": 40.3,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 37.3,
+   "spec": {
+    "description": "40x40x5 plate with four dia 10 through holes. Assumed: 2 mm means clearance from hole edge to plate edge (centre 2 mm would overlap the edge for dia 10 holes); hole centres are 7 mm from each edge and through the thickness.",
+    "features": [
+     {
+      "distance": "thickness",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "edge_clear + hole_dia / 2",
+       "edge_clear + hole_dia / 2"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "hole",
+      "id": "holes",
+      "spacing_u": "length - 2 * (edge_clear + hole_dia / 2)",
+      "spacing_v": "depth - 2 * (edge_clear + hole_dia / 2)",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "plate_40x40_4x_holes",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40.0
+     },
+     "edge_clear": {
+      "description": "assumed: clearance from hole edge to plate edge; hole centre is edge_clear + hole_dia/2 = 7 from edges because centre 2 mm would not fit a dia 10 hole",
+      "value": 2.0
+     },
+     "hole_dia": {
+      "description": "through hole diameter",
+      "value": 10.0
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 40.0
+     },
+     "thickness": {
+      "description": "plate thickness along Z",
+      "value": 5.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40 (length)",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": null,
+     "value": 40.0
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40 (depth)",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": null,
+     "value": 40.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "5 (thickness)",
+     "measure": "thickness",
+     "parameter": "thickness",
+     "text_box": null,
+     "value": 5.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "hole",
+     "feature_b": null,
+     "label": "\u00d810",
+     "measure": "diameter",
+     "parameter": "hole_dia",
+     "text_box": null,
+     "value": 10.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "hole",
+     "feature_b": null,
+     "label": "2 mm from each edge",
+     "measure": "unchecked",
+     "parameter": "edge_clear",
+     "text_box": null,
+     "value": 2.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "hole",
+     "feature_b": null,
+     "label": "hole centre from edge (2 mm clearance + radius)",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 7.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "hole",
+     "feature_b": null,
+     "label": "hole centre from edge (2 mm clearance + radius)",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 7.0
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.048229,
+    "seconds": 37.3,
+    "input_tokens": 7317,
+    "output_tokens": 9196,
+    "reasoning_tokens": 8256,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 37.6,
+   "ok": true,
+   "metrics": {
+    "name": "plate_40x40_4x_holes",
+    "volume_mm3": 6429.2037,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      40.0,
+      40.0,
+      5.0
+     ],
+     "size": [
+      40.0,
+      40.0,
+      5.0
+     ]
+    },
+    "faces": 10,
+    "edges": 24,
+    "triangles": 2044,
+    "parameters": {
+     "depth": 40.0,
+     "edge_clear": 2.0,
+     "hole_dia": 10.0,
+     "length": 40.0,
+     "thickness": 5.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 8000.0
+     },
+     {
+      "id": "hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -392.6991
+     },
+     {
+      "id": "holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -1178.0972
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       220
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       45
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       45
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 40.3,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "40 (length)",
+     "value": 40.0,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "40 (depth)",
+     "value": 40.0,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "5 (thickness)",
+     "value": 5.0,
+     "measure": "thickness",
+     "what": "thickness of base",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "\u00d810",
+     "value": 10.0,
+     "measure": "diameter",
+     "what": "diameter of hole",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "2 mm from each edge",
+     "value": 2.0,
+     "measure": "unchecked",
+     "what": "unchecked of hole",
+     "status": "unchecked"
+    },
+    {
+     "label": "hole centre from edge (2 mm clearance + radius)",
+     "value": 7.0,
+     "measure": "distance_to_edge",
+     "what": "distance from hole to x_min",
+     "status": "ok",
+     "measured": 7.0
+    },
+    {
+     "label": "hole centre from edge (2 mm clearance + radius)",
+     "value": 7.0,
+     "measure": "distance_to_edge",
+     "what": "distance from hole to y_min",
+     "status": "ok",
+     "measured": 7.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": true,
+      "issues": []
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.007406,
+    "seconds": 2.7,
+    "input_tokens": 3376,
+    "output_tokens": 812,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 40.3,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "40x40x5 plate with four dia 10 through holes. Assumed: 2 mm means clearance from hole edge to plate edge (centre 2 mm would overlap the edge for dia 10 holes); hole centres are 7 mm from each edge and through the thickness.",
+    "features": [
+     {
+      "distance": "thickness",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "edge_clear + hole_dia / 2",
+       "edge_clear + hole_dia / 2"
+      ],
+      "diameter": "hole_dia",
+      "face": "top",
+      "id": "hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "hole",
+      "id": "holes",
+      "spacing_u": "length - 2 * (edge_clear + hole_dia / 2)",
+      "spacing_v": "depth - 2 * (edge_clear + hole_dia / 2)",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "plate_40x40_4x_holes",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40.0
+     },
+     "edge_clear": {
+      "description": "assumed: clearance from hole edge to plate edge; hole centre is edge_clear + hole_dia/2 = 7 from edges because centre 2 mm would not fit a dia 10 hole",
+      "value": 2.0
+     },
+     "hole_dia": {
+      "description": "through hole diameter",
+      "value": 10.0
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 40.0
+     },
+     "thickness": {
+      "description": "plate thickness along Z",
+      "value": 5.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40 (length)",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": null,
+     "value": 40.0
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40 (depth)",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": null,
+     "value": 40.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "5 (thickness)",
+     "measure": "thickness",
+     "parameter": "thickness",
+     "text_box": null,
+     "value": 5.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "hole",
+     "feature_b": null,
+     "label": "\u00d810",
+     "measure": "diameter",
+     "parameter": "hole_dia",
+     "text_box": null,
+     "value": 10.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "hole",
+     "feature_b": null,
+     "label": "2 mm from each edge",
+     "measure": "unchecked",
+     "parameter": "edge_clear",
+     "text_box": null,
+     "value": 2.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "hole",
+     "feature_b": null,
+     "label": "hole centre from edge (2 mm clearance + radius)",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 7.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "hole",
+     "feature_b": null,
+     "label": "hole centre from edge (2 mm clearance + radius)",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 7.0
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.055635,
+   "seconds": 40.3,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ],
+ "read_perfect": null
+}

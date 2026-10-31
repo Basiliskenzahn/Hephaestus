@@ -1,0 +1,1184 @@
+{
+ "name": "01_plate__photo",
+ "batch": "hand",
+ "key": "01_plate",
+ "image": "experiments/hand-sketches/sketches/01_plate__photo.jpg",
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "read_perfect": true,
+ "final_perfect": true,
+ "failed": "",
+ "taps_perfect": true,
+ "flags": {
+  "available": true,
+  "soft": 3,
+  "red": 0,
+  "false": 3,
+  "caught": 0,
+  "flagged": [
+   {
+    "index": 1,
+    "label": "50",
+    "value": 50,
+    "parameter": "depth",
+    "text_box": [
+     708,
+     440,
+     734,
+     505
+    ],
+    "confidence": "high",
+    "status": "uncertain",
+    "second": 59.0,
+    "reread": "59",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   },
+   {
+    "index": 7,
+    "label": "8",
+    "value": 8,
+    "parameter": "inset_x",
+    "text_box": [
+     353,
+     633,
+     381,
+     661
+    ],
+    "confidence": "medium",
+    "status": "uncertain",
+    "second": 10.0,
+    "reread": "10",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   },
+   {
+    "index": 8,
+    "label": "8",
+    "value": 8,
+    "parameter": "inset_y",
+    "text_box": [
+     306,
+     578,
+     331,
+     610
+    ],
+    "confidence": "medium",
+    "status": "uncertain",
+    "second": 60.0,
+    "reread": "60",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   }
+  ],
+  "seconds": 10.2,
+  "cost_usd": 0.009392
+ },
+ "first_part_s": 23.4,
+ "verified_s": 32.6,
+ "seconds": 32.6,
+ "cost_usd": 0.056651,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 22.3,
+   "spec": {
+    "description": "Flat rectangular plate with central thru hole and four corner thru holes. Assumed: central hole is centred (drawn symmetric with centre marks, not dimensioned from edges).",
+    "features": [
+     {
+      "distance": "thickness",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "depth / 2"
+      ],
+      "diameter": "center_dia",
+      "face": "top_of_feature:base",
+      "id": "center_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "inset_x",
+       "inset_y"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:base",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "pitch_x",
+      "spacing_v": "pitch_y",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "drilled_plate",
+    "parameters": {
+     "center_dia": {
+      "description": "central thru hole diameter",
+      "value": 20
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 50
+     },
+     "inset_x": {
+      "description": "mount hole centre from left/right edges along X, consistent with length and pitch_x",
+      "value": 8
+     },
+     "inset_y": {
+      "description": "mount hole centre from bottom/top edges along Y, consistent with depth and pitch_y",
+      "value": 8
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "mount_dia": {
+      "description": "corner mounting hole diameter",
+      "value": 6
+     },
+     "pitch_x": {
+      "description": "mount hole centre spacing along X",
+      "value": 64
+     },
+     "pitch_y": {
+      "description": "mount hole centre spacing along Y",
+      "value": 34
+     },
+     "thickness": {
+      "description": "plate thickness",
+      "value": 6
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "80",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      498,
+      325,
+      533,
+      350
+     ],
+     "value": 80
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "50",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      708,
+      440,
+      734,
+      505
+     ],
+     "value": 50
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "plate, t = 6",
+     "measure": "thickness",
+     "parameter": "thickness",
+     "text_box": [
+      578,
+      691,
+      595,
+      710
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "center_hole",
+     "feature_b": null,
+     "label": "\u00d820 thru",
+     "measure": "diameter",
+     "parameter": "center_dia",
+     "text_box": [
+      554,
+      296,
+      630,
+      330
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d86 thru",
+     "measure": "diameter",
+     "parameter": "mount_dia",
+     "text_box": [
+      677,
+      287,
+      765,
+      325
+     ],
+     "value": 6
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "64",
+     "measure": "distance",
+     "parameter": "pitch_x",
+     "text_box": [
+      497,
+      688,
+      530,
+      714
+     ],
+     "value": 64
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[2]",
+     "label": "34",
+     "measure": "distance",
+     "parameter": "pitch_y",
+     "text_box": [
+      284,
+      503,
+      310,
+      559
+     ],
+     "value": 34
+    },
+    {
+     "axis": null,
+     "confidence": "medium",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "8",
+     "measure": "distance_to_edge",
+     "parameter": "inset_x",
+     "text_box": [
+      353,
+      633,
+      381,
+      661
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "medium",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "8",
+     "measure": "distance_to_edge",
+     "parameter": "inset_y",
+     "text_box": [
+      306,
+      578,
+      331,
+      610
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "center_hole",
+     "feature_b": null,
+     "label": "center hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "center_hole",
+     "feature_b": null,
+     "label": "center hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 25
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.027,
+    "seconds": 22.2,
+    "input_tokens": 10178,
+    "output_tokens": 5277,
+    "reasoning_tokens": 3898,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 23.4,
+   "ok": true,
+   "metrics": {
+    "name": "drilled_plate",
+    "volume_mm3": 21436.4604,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      80.0,
+      50.0,
+      6.0
+     ],
+     "size": [
+      80.0,
+      50.0,
+      6.0
+     ]
+    },
+    "faces": 11,
+    "edges": 27,
+    "triangles": 2552,
+    "parameters": {
+     "center_dia": 20.0,
+     "depth": 50.0,
+     "inset_x": 8.0,
+     "inset_y": 8.0,
+     "length": 80.0,
+     "mount_dia": 6.0,
+     "pitch_x": 64.0,
+     "pitch_y": 34.0,
+     "thickness": 6.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 24000.0
+     },
+     {
+      "id": "center_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -1884.9556
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -169.646
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -508.938
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       270
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       420,
+       50
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       270,
+       50
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 27.5,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.797,
+      "part": 1.6
+     },
+     "orientation": {
+      "as_is": 0.862,
+      "mirror_lr": 0.862,
+      "mirror_ud": 0.862,
+      "rot180": 0.862
+     },
+     "orientation_gap": 0.0
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "sam",
+    "rectified": true,
+    "quad": [
+     [
+      211.0,
+      346.0
+     ],
+     [
+      1333.0,
+      166.0
+     ],
+     [
+      1332.0,
+      977.0
+     ],
+     [
+      276.0,
+      1081.0
+     ]
+    ]
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 2,
+    "cost_usd": 0.005,
+    "seconds": 3.85
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 32.0,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "80",
+     "value": 80,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "50",
+     "value": 50,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 50.0
+    },
+    {
+     "label": "plate, t = 6",
+     "value": 6,
+     "measure": "thickness",
+     "what": "thickness of base",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "\u00d820 thru",
+     "value": 20,
+     "measure": "diameter",
+     "what": "diameter of center_hole",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "4x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "64",
+     "value": 64,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[1] along x",
+     "status": "ok",
+     "measured": 64.0
+    },
+    {
+     "label": "34",
+     "value": 34,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[2] along y",
+     "status": "ok",
+     "measured": 34.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "8",
+     "value": 8,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "center hole centred",
+     "value": 40,
+     "measure": "distance_to_edge",
+     "what": "distance from center_hole to x_min",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "center hole centred",
+     "value": 25,
+     "measure": "distance_to_edge",
+     "what": "distance from center_hole to y_min",
+     "status": "ok",
+     "measured": 25.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": true,
+      "issues": []
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.015259,
+    "seconds": 4.5,
+    "input_tokens": 8838,
+    "output_tokens": 1182,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "numbers",
+   "iteration": 0,
+   "t": 32.6,
+   "available": true,
+   "numbers": [
+    {
+     "index": 0,
+     "label": "80",
+     "value": 80,
+     "parameter": "length",
+     "text_box": [
+      498,
+      325,
+      533,
+      350
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 80.0,
+     "reread": "80",
+     "conflict": null
+    },
+    {
+     "index": 1,
+     "label": "50",
+     "value": 50,
+     "parameter": "depth",
+     "text_box": [
+      708,
+      440,
+      734,
+      505
+     ],
+     "confidence": "high",
+     "status": "uncertain",
+     "second": 59.0,
+     "reread": "59",
+     "conflict": null
+    },
+    {
+     "index": 2,
+     "label": "plate, t = 6",
+     "value": 6,
+     "parameter": "thickness",
+     "text_box": [
+      578,
+      691,
+      595,
+      710
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 6.0,
+     "reread": "6",
+     "conflict": null
+    },
+    {
+     "index": 3,
+     "label": "\u00d820 thru",
+     "value": 20,
+     "parameter": "center_dia",
+     "text_box": [
+      554,
+      296,
+      630,
+      330
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 20.0,
+     "reread": "\u00d820",
+     "conflict": null
+    },
+    {
+     "index": 4,
+     "label": "4x \u00d86 thru",
+     "value": 6,
+     "parameter": "mount_dia",
+     "text_box": [
+      677,
+      287,
+      765,
+      325
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 6.0,
+     "reread": "\u00d86",
+     "conflict": null
+    },
+    {
+     "index": 5,
+     "label": "64",
+     "value": 64,
+     "parameter": "pitch_x",
+     "text_box": [
+      497,
+      688,
+      530,
+      714
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 64.0,
+     "reread": "64",
+     "conflict": null
+    },
+    {
+     "index": 6,
+     "label": "34",
+     "value": 34,
+     "parameter": "pitch_y",
+     "text_box": [
+      284,
+      503,
+      310,
+      559
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 34.0,
+     "reread": "34",
+     "conflict": null
+    },
+    {
+     "index": 7,
+     "label": "8",
+     "value": 8,
+     "parameter": "inset_x",
+     "text_box": [
+      353,
+      633,
+      381,
+      661
+     ],
+     "confidence": "medium",
+     "status": "uncertain",
+     "second": 10.0,
+     "reread": "10",
+     "conflict": null
+    },
+    {
+     "index": 8,
+     "label": "8",
+     "value": 8,
+     "parameter": "inset_y",
+     "text_box": [
+      306,
+      578,
+      331,
+      610
+     ],
+     "confidence": "medium",
+     "status": "uncertain",
+     "second": 60.0,
+     "reread": "60",
+     "conflict": null
+    },
+    {
+     "index": 9,
+     "label": "center hole centred",
+     "value": 40,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 10,
+     "label": "center hole centred",
+     "value": 25,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    }
+   ],
+   "uncertain": 3,
+   "calls": [
+    {
+     "seconds": 10.2,
+     "cost_usd": 0.009392,
+     "crops": 9,
+     "model": "muse-spark-1.3"
+    }
+   ],
+   "cost_usd": 0.009392,
+   "seconds": 10.2
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 32.6,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Flat rectangular plate with central thru hole and four corner thru holes. Assumed: central hole is centred (drawn symmetric with centre marks, not dimensioned from edges).",
+    "features": [
+     {
+      "distance": "thickness",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "depth / 2"
+      ],
+      "diameter": "center_dia",
+      "face": "top_of_feature:base",
+      "id": "center_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "inset_x",
+       "inset_y"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:base",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "pitch_x",
+      "spacing_v": "pitch_y",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "drilled_plate",
+    "parameters": {
+     "center_dia": {
+      "description": "central thru hole diameter",
+      "value": 20
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 50
+     },
+     "inset_x": {
+      "description": "mount hole centre from left/right edges along X, consistent with length and pitch_x",
+      "value": 8
+     },
+     "inset_y": {
+      "description": "mount hole centre from bottom/top edges along Y, consistent with depth and pitch_y",
+      "value": 8
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 80
+     },
+     "mount_dia": {
+      "description": "corner mounting hole diameter",
+      "value": 6
+     },
+     "pitch_x": {
+      "description": "mount hole centre spacing along X",
+      "value": 64
+     },
+     "pitch_y": {
+      "description": "mount hole centre spacing along Y",
+      "value": 34
+     },
+     "thickness": {
+      "description": "plate thickness",
+      "value": 6
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "80",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      498,
+      325,
+      533,
+      350
+     ],
+     "value": 80
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "50",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      708,
+      440,
+      734,
+      505
+     ],
+     "value": 50
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "plate, t = 6",
+     "measure": "thickness",
+     "parameter": "thickness",
+     "text_box": [
+      578,
+      691,
+      595,
+      710
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "center_hole",
+     "feature_b": null,
+     "label": "\u00d820 thru",
+     "measure": "diameter",
+     "parameter": "center_dia",
+     "text_box": [
+      554,
+      296,
+      630,
+      330
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d86 thru",
+     "measure": "diameter",
+     "parameter": "mount_dia",
+     "text_box": [
+      677,
+      287,
+      765,
+      325
+     ],
+     "value": 6
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "64",
+     "measure": "distance",
+     "parameter": "pitch_x",
+     "text_box": [
+      497,
+      688,
+      530,
+      714
+     ],
+     "value": 64
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[2]",
+     "label": "34",
+     "measure": "distance",
+     "parameter": "pitch_y",
+     "text_box": [
+      284,
+      503,
+      310,
+      559
+     ],
+     "value": 34
+    },
+    {
+     "axis": null,
+     "confidence": "medium",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "8",
+     "measure": "distance_to_edge",
+     "parameter": "inset_x",
+     "text_box": [
+      353,
+      633,
+      381,
+      661
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "medium",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "8",
+     "measure": "distance_to_edge",
+     "parameter": "inset_y",
+     "text_box": [
+      306,
+      578,
+      331,
+      610
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "center_hole",
+     "feature_b": null,
+     "label": "center hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "center_hole",
+     "feature_b": null,
+     "label": "center hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 25
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.056651,
+   "seconds": 32.6,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

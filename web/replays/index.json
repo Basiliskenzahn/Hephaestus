@@ -1,0 +1,43 @@
+[
+ {
+  "id": "enclosure_hand_catch",
+  "title": "Enclosure, hand sketch",
+  "note": "Caught: the cable hole went through the back wall too; the second look (Muse Spark, fresh context) saw it, one correction fixed it. Live model, final benchmark.",
+  "input": "input.png",
+  "model": "muse-spark-1.3",
+  "seconds": 94.0,
+  "corrections": 1,
+  "status": "pass"
+ },
+ {
+  "id": "bushing_hand_confirm",
+  "title": "Bushing, hand sketch photo",
+  "note": "The read took the flange's handwritten 5 for a 3; the second reading could not read it, so the number asks to be confirmed. Tap it and type 5: the part rebuilds, no model call. Live model, final benchmark.",
+  "input": "input.jpg",
+  "model": "muse-spark-1.3",
+  "seconds": 26.0,
+  "corrections": 0,
+  "status": "pass"
+ },
+ {
+  "id": "nema17_text",
+  "title": "Text: NEMA 17 motor plate",
+  "note": "No drawing: the named standard gives the sizes (31 mm hole pattern, 22 mm pilot), every choice marked assumed. Live model, final benchmark.",
+  "input": null,
+  "model": "muse-spark-1.3",
+  "seconds": 35.7,
+  "corrections": 0,
+  "status": "pass",
+  "prompt": "a mounting plate for a NEMA 17 stepper motor"
+ },
+ {
+  "id": "l_bracket_hand",
+  "title": "L-bracket, hand sketch photo",
+  "note": "A sloppy, not-to-scale hand sketch photographed on a desk: right on the first read. Live model, final benchmark.",
+  "input": "input.jpg",
+  "model": "muse-spark-1.3",
+  "seconds": 43.6,
+  "corrections": 0,
+  "status": "pass"
+ }
+]

@@ -1,0 +1,14 @@
+bushing: pass ok=True  $0.031 19 s | spent $0.082
+plate: pass ok=True  $0.037 24 s | spent $0.101
+block: pass ok=True  $0.042 26 s | spent $0.109
+pipe_bracket: pass ok=True 7/8 parameters marked assumed; given sizes kept: True $0.030 17 s | spent $0.212
+pocket_plate: pass ok=True  $0.049 32 s | spent $0.292
+shaft_collar: pass ok=True  $0.044 33 s | spent $0.304
+l_bracket: pass ok=True  $0.073 57 s | spent $0.304
+spacer: pass ok=True 2/3 parameters marked assumed; given sizes kept: True $0.027 11 s | spent $0.331
+washer: rejected ok=True This description gives no sizes for the washer. Please send its outer diameter,  $0.017 9 s | spent $0.349
+nema17: pass ok=True 5/5 parameters marked assumed; given sizes kept: True $0.054 36 s | spent $0.403
+cube_hole: pass ok=False  $0.044 34 s | spent $0.446
+edge_holes: pass ok=False  $0.056 40 s | spent $0.502
+
+batch text: spent $0.5019

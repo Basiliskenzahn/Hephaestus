@@ -1,0 +1,1046 @@
+{
+ "name": "04_bushing__clean",
+ "batch": "printed",
+ "key": "04_bushing",
+ "image": "experiments/benchmark/sketches/04_bushing.png",
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "read_perfect": true,
+ "final_perfect": true,
+ "failed": "",
+ "taps_perfect": true,
+ "flags": {
+  "available": true,
+  "soft": 1,
+  "red": 0,
+  "false": 1,
+  "caught": 0,
+  "flagged": [
+   {
+    "index": 2,
+    "label": "\u00d824",
+    "value": 24,
+    "parameter": "stem_dia",
+    "text_box": [
+     331,
+     454,
+     370,
+     474
+    ],
+    "confidence": "high",
+    "status": "uncertain",
+    "second": 2.0,
+    "reread": "\u00d82",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   }
+  ],
+  "seconds": 3.1,
+  "cost_usd": 0.002194
+ },
+ "first_part_s": 26.9,
+ "verified_s": 35.6,
+ "seconds": 35.6,
+ "cost_usd": 0.059,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 26.3,
+   "spec": {
+    "description": "Flanged bushing with central through bore and four flange bolt holes on a PCD. Assumed: stem, bore and bolt PCD are coaxial with flange centre (drawn concentric).",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "overall_h - flange_t",
+      "id": "stem",
+      "offset": "flange_t",
+      "plane": "XY",
+      "profile": {
+       "diameter": "stem_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2 + pcd / 2"
+      ],
+      "diameter": "bolt_dia",
+      "face": "top_of_feature:flange",
+      "id": "bolt_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "bolt_hole",
+      "id": "bolt_holes",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "bolt_dia": {
+      "description": "flange bolt hole diameter",
+      "value": 4
+     },
+     "bore_dia": {
+      "description": "central through bore diameter",
+      "value": 16
+     },
+     "flange_dia": {
+      "description": "flange outer diameter",
+      "value": 40
+     },
+     "flange_t": {
+      "description": "flange thickness",
+      "value": 5
+     },
+     "overall_h": {
+      "description": "overall height including flange",
+      "value": 30
+     },
+     "pcd": {
+      "description": "bolt hole pitch circle diameter",
+      "value": 32
+     },
+     "stem_dia": {
+      "description": "stem outer diameter",
+      "value": 24
+     }
+    },
+    "spec_version": "1",
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "parameter": "overall_h",
+     "text_box": [
+      314,
+      254,
+      340,
+      287
+     ],
+     "value": 30
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "parameter": "flange_t",
+     "text_box": [
+      637,
+      331,
+      665,
+      351
+     ],
+     "value": 5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "stem",
+     "feature_b": null,
+     "label": "\u00d824",
+     "measure": "diameter",
+     "parameter": "stem_dia",
+     "text_box": [
+      331,
+      454,
+      370,
+      474
+     ],
+     "value": 24
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "\u00d840",
+     "measure": "diameter",
+     "parameter": "flange_dia",
+     "text_box": [
+      693,
+      445,
+      734,
+      465
+     ],
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bolt_hole",
+     "feature_b": null,
+     "label": "4x \u00d84 thru",
+     "measure": "diameter",
+     "parameter": "bolt_dia",
+     "text_box": [
+      695,
+      566,
+      788,
+      587
+     ],
+     "value": 4
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bolt_holes[0]",
+     "feature_b": "bolt_holes[2]",
+     "label": "PCD \u00d832",
+     "measure": "distance",
+     "parameter": "pcd",
+     "text_box": [
+      335,
+      760,
+      424,
+      782
+     ],
+     "value": 32
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d816 thru",
+     "measure": "diameter",
+     "parameter": "bore_dia",
+     "text_box": [
+      623,
+      791,
+      719,
+      812
+     ],
+     "value": 16
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.040959,
+    "seconds": 26.3,
+    "input_tokens": 8950,
+    "output_tokens": 7005,
+    "reasoning_tokens": 5699,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 26.9,
+   "ok": true,
+   "metrics": {
+    "name": "flanged_bushing",
+    "volume_mm3": 11309.7336,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      40.0,
+      40.0,
+      30.0
+     ],
+     "size": [
+      40.0,
+      40.0,
+      30.0
+     ]
+    },
+    "faces": 10,
+    "edges": 21,
+    "triangles": 3544,
+    "parameters": {
+     "bolt_dia": 4.0,
+     "bore_dia": 16.0,
+     "flange_dia": 40.0,
+     "flange_t": 5.0,
+     "overall_h": 30.0,
+     "pcd": 32.0,
+     "stem_dia": 24.0
+    },
+    "features": [
+     {
+      "id": "flange",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 6283.1853
+     },
+     {
+      "id": "stem",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 11309.7336
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -6031.8579
+     },
+     {
+      "id": "bolt_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -62.8319
+     },
+     {
+      "id": "bolt_holes",
+      "type": "circular_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -188.4956
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       220
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 30.0,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 0.991,
+      "part": 1.0
+     },
+     "orientation": {
+      "as_is": 0.95,
+      "mirror_lr": 0.95,
+      "mirror_ud": 0.95,
+      "rot180": 0.95
+     },
+     "orientation_gap": 0.0
+    },
+    {
+     "view": "front",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.327,
+      "part": 1.333
+     },
+     "orientation": {
+      "as_is": 0.962,
+      "mirror_lr": 0.962,
+      "mirror_ud": 0.796,
+      "rot180": 0.796
+     },
+     "orientation_gap": 0.0
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "scan",
+    "rectified": false
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 1,
+    "cost_usd": 0.0025,
+    "seconds": 1.86
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 35.6,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "5",
+     "value": 5,
+     "measure": "thickness",
+     "what": "thickness of flange",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "\u00d824",
+     "value": 24,
+     "measure": "diameter",
+     "what": "diameter of stem",
+     "status": "ok",
+     "measured": 24.0
+    },
+    {
+     "label": "\u00d840",
+     "value": 40,
+     "measure": "diameter",
+     "what": "diameter of flange",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "4x \u00d84 thru",
+     "value": 4,
+     "measure": "diameter",
+     "what": "diameter of bolt_hole",
+     "status": "ok",
+     "measured": 4.0
+    },
+    {
+     "label": "PCD \u00d832",
+     "value": 32,
+     "measure": "distance",
+     "what": "distance bolt_holes[0] \u2192 bolt_holes[2] along y",
+     "status": "ok",
+     "measured": 32.0
+    },
+    {
+     "label": "\u00d816 thru",
+     "value": 16,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 16.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 20.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": true,
+      "issues": []
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.013347,
+    "seconds": 5.6,
+    "input_tokens": 6382,
+    "output_tokens": 1359,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "numbers",
+   "iteration": 0,
+   "t": 35.6,
+   "available": true,
+   "numbers": [
+    {
+     "index": 0,
+     "label": "30",
+     "value": 30,
+     "parameter": "overall_h",
+     "text_box": [
+      314,
+      254,
+      340,
+      287
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 30.0,
+     "reread": "30",
+     "conflict": null
+    },
+    {
+     "index": 1,
+     "label": "5",
+     "value": 5,
+     "parameter": "flange_t",
+     "text_box": [
+      637,
+      331,
+      665,
+      351
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 2,
+     "label": "\u00d824",
+     "value": 24,
+     "parameter": "stem_dia",
+     "text_box": [
+      331,
+      454,
+      370,
+      474
+     ],
+     "confidence": "high",
+     "status": "uncertain",
+     "second": 2.0,
+     "reread": "\u00d82",
+     "conflict": null
+    },
+    {
+     "index": 3,
+     "label": "\u00d840",
+     "value": 40,
+     "parameter": "flange_dia",
+     "text_box": [
+      693,
+      445,
+      734,
+      465
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 40.0,
+     "reread": "\u00d840",
+     "conflict": null
+    },
+    {
+     "index": 4,
+     "label": "4x \u00d84 thru",
+     "value": 4,
+     "parameter": "bolt_dia",
+     "text_box": [
+      695,
+      566,
+      788,
+      587
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 5,
+     "label": "PCD \u00d832",
+     "value": 32,
+     "parameter": "pcd",
+     "text_box": [
+      335,
+      760,
+      424,
+      782
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 6,
+     "label": "\u00d816 thru",
+     "value": 16,
+     "parameter": "bore_dia",
+     "text_box": [
+      623,
+      791,
+      719,
+      812
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 7,
+     "label": "bore centred",
+     "value": 20,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 8,
+     "label": "bore centred",
+     "value": 20,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    }
+   ],
+   "uncertain": 1,
+   "calls": [
+    {
+     "seconds": 3.1,
+     "cost_usd": 0.002194,
+     "crops": 7,
+     "model": "muse-spark-1.3"
+    }
+   ],
+   "cost_usd": 0.002194,
+   "seconds": 3.1
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 35.6,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Flanged bushing with central through bore and four flange bolt holes on a PCD. Assumed: stem, bore and bolt PCD are coaxial with flange centre (drawn concentric).",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "overall_h - flange_t",
+      "id": "stem",
+      "offset": "flange_t",
+      "plane": "XY",
+      "profile": {
+       "diameter": "stem_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2 + pcd / 2"
+      ],
+      "diameter": "bolt_dia",
+      "face": "top_of_feature:flange",
+      "id": "bolt_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "bolt_hole",
+      "id": "bolt_holes",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "bolt_dia": {
+      "description": "flange bolt hole diameter",
+      "value": 4
+     },
+     "bore_dia": {
+      "description": "central through bore diameter",
+      "value": 16
+     },
+     "flange_dia": {
+      "description": "flange outer diameter",
+      "value": 40
+     },
+     "flange_t": {
+      "description": "flange thickness",
+      "value": 5
+     },
+     "overall_h": {
+      "description": "overall height including flange",
+      "value": 30
+     },
+     "pcd": {
+      "description": "bolt hole pitch circle diameter",
+      "value": 32
+     },
+     "stem_dia": {
+      "description": "stem outer diameter",
+      "value": 24
+     }
+    },
+    "spec_version": "1",
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "parameter": "overall_h",
+     "text_box": [
+      314,
+      254,
+      340,
+      287
+     ],
+     "value": 30
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "parameter": "flange_t",
+     "text_box": [
+      637,
+      331,
+      665,
+      351
+     ],
+     "value": 5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "stem",
+     "feature_b": null,
+     "label": "\u00d824",
+     "measure": "diameter",
+     "parameter": "stem_dia",
+     "text_box": [
+      331,
+      454,
+      370,
+      474
+     ],
+     "value": 24
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "\u00d840",
+     "measure": "diameter",
+     "parameter": "flange_dia",
+     "text_box": [
+      693,
+      445,
+      734,
+      465
+     ],
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bolt_hole",
+     "feature_b": null,
+     "label": "4x \u00d84 thru",
+     "measure": "diameter",
+     "parameter": "bolt_dia",
+     "text_box": [
+      695,
+      566,
+      788,
+      587
+     ],
+     "value": 4
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bolt_holes[0]",
+     "feature_b": "bolt_holes[2]",
+     "label": "PCD \u00d832",
+     "measure": "distance",
+     "parameter": "pcd",
+     "text_box": [
+      335,
+      760,
+      424,
+      782
+     ],
+     "value": 32
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d816 thru",
+     "measure": "diameter",
+     "parameter": "bore_dia",
+     "text_box": [
+      623,
+      791,
+      719,
+      812
+     ],
+     "value": 16
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.059,
+   "seconds": 35.6,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

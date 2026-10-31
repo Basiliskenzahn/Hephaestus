@@ -26,11 +26,7 @@ MOCK = os.path.join(ROOT, "server", "mock_data")
 
 # id, recorded run, title, note shown with the replay
 PICKS = [
-    # kept from development: the live model reads this photo right the first time (re-recorded Oct 28,
-    # muse-spark-1.3/rerecord), so this catch-and-fix comes from the cheaper contributor model, and says so
-    ("enclosure", "muse-spark-1.3-contributor/round3/05_enclosure__photo.run1.json", "Enclosure, phone photo",
-     "Caught: the cable hole went through the back wall too. Fixed. Recorded with the cheaper development model; "
-     "the live model reads this photo right the first time."),
+    # the development-model enclosure catch-and-fix is superseded by the live one in web/replays (final benchmark)
     # the number check: the read took a handwritten 40 for 60, the independent re-read says 40; one tap fixes it
     # (development-model outputs, replayed through the loop by experiments/numbers/record_block.py)
     ("block", "experiments/numbers/results/block_replay.json", "Block, hand sketch",
@@ -76,16 +72,18 @@ def model_of(events):
     return "muse-spark-1.3-contributor"
 
 
-def build_item(pid, rel, title, note):
+def build_item(pid, rel, title, note, out_root=GALLERY, write_mock=True):
     rec = json.load(open(os.path.join(ROOT, rel) if rel.startswith("experiments/") else os.path.join(RESULTS, rel)))
-    part = rec["part"]
-    image = os.path.join(ROOT, rec["image"]) if rec.get("image") else os.path.join(
+    part = rec.get("part") or rec.get("key")
+    prompt = rec.get("prompt") if not rec.get("image") and rec.get("prompt") else None
+    image = None if prompt else os.path.join(ROOT, rec["image"]) if rec.get("image") else os.path.join(
         SKETCHES[part[:2]], {"photo": f"{part}__photo.jpg", "rough": f"{part}__rough.jpg", "clean": f"{part}.png"}[rec["set"]])
-    out = os.path.join(GALLERY, pid)
+    out = os.path.join(out_root, pid)
     shutil.rmtree(out, ignore_errors=True)
     os.makedirs(out)
-    ext = os.path.splitext(image)[1]
-    shutil.copy(image, os.path.join(out, "input" + ext))
+    ext = os.path.splitext(image)[1] if image else ""
+    if image:
+        shutil.copy(image, os.path.join(out, "input" + ext))
     events, iteration_files = [], {}
     for e in rec["events"]:
         e = dict(e)
@@ -115,10 +113,13 @@ def build_item(pid, rel, title, note):
     with open(os.path.join(out, "events.json"), "w") as f:
         json.dump(events, f, separators=(",", ":"))
     done = events[-1]
-    entry = {"id": pid, "title": title, "note": note, "input": f"input{ext}", "model": model_of(rec["events"]),
+    entry = {"id": pid, "title": title, "note": note, "input": f"input{ext}" if image else None, "model": model_of(rec["events"]),
              "seconds": done.get("seconds"), "corrections": done.get("iterations", 0), "status": done.get("status")}
-    with open(os.path.join(MOCK, f"{pid}.json"), "w") as f:
-        json.dump({"kind": "image", "source": rel, "outputs": model_outputs(rec["events"])}, f)
+    if prompt:
+        entry["prompt"] = prompt
+    if write_mock:
+        with open(os.path.join(MOCK, f"{pid}.json"), "w") as f:
+            json.dump({"kind": "image", "source": rel, "outputs": model_outputs(rec["events"])}, f)
     return entry
 
 
@@ -146,7 +147,37 @@ def text_recording():
                   f, indent=1)
 
 
+# the demo runs of the final benchmark (live preset, Nov 2026), full event streams, playable like the gallery:
+# web/replays/<id>/ (events.json, input, compiled iterations) + web/replays/index.json. Filled in after the run.
+REPLAYS_DIR = os.path.join(ROOT, "web", "replays")
+F = "experiments/final/results/"
+REPLAYS = [
+    ("enclosure_hand_catch", F + "hand/05_enclosure__scan.json", "Enclosure, hand sketch",
+     "Caught: the cable hole went through the back wall too; the second look (Muse Spark, fresh context) saw it, "
+     "one correction fixed it. Live model, final benchmark."),
+    ("bushing_hand_confirm", F + "hand/04_bushing__photo.json", "Bushing, hand sketch photo",
+     "The read took the flange's handwritten 5 for a 3; the second reading could not read it, so the number asks to "
+     "be confirmed. Tap it and type 5: the part rebuilds, no model call. Live model, final benchmark."),
+    ("nema17_text", F + "text/nema17.json", "Text: NEMA 17 motor plate",
+     "No drawing: the named standard gives the sizes (31 mm hole pattern, 22 mm pilot), every choice marked assumed. "
+     "Live model, final benchmark."),
+    ("l_bracket_hand", F + "hand/02_l_bracket__photo.json", "L-bracket, hand sketch photo",
+     "A sloppy, not-to-scale hand sketch photographed on a desk: right on the first read. Live model, final benchmark."),
+]
+
+
+def build_replays():
+    os.makedirs(REPLAYS_DIR, exist_ok=True)
+    entries = [build_item(*r, out_root=REPLAYS_DIR, write_mock=False) for r in REPLAYS]
+    with open(os.path.join(REPLAYS_DIR, "index.json"), "w") as f:
+        json.dump(entries, f, indent=1)
+    for e in entries:
+        print("replay", e["id"], e["status"], e["corrections"], e["model"])
+
+
 def main():
+    if "--replays" in sys.argv:
+        return build_replays()
     os.makedirs(GALLERY, exist_ok=True)
     os.makedirs(MOCK, exist_ok=True)
     entries = [build_item(*p) for p in PICKS]

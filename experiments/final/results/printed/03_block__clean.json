@@ -1,0 +1,1243 @@
+{
+ "name": "03_block__clean",
+ "batch": "printed",
+ "key": "03_block",
+ "image": "experiments/reading-spike/sketches/03_block.png",
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "read_perfect": true,
+ "final_perfect": true,
+ "failed": "",
+ "taps_perfect": true,
+ "flags": {
+  "available": true,
+  "soft": 1,
+  "red": 0,
+  "false": 1,
+  "caught": 0,
+  "flagged": [
+   {
+    "index": 0,
+    "label": "20",
+    "value": 20,
+    "parameter": "height",
+    "text_box": [
+     732,
+     259,
+     754,
+     311
+    ],
+    "confidence": "high",
+    "status": "uncertain",
+    "second": 70.0,
+    "reread": "70",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   }
+  ],
+  "seconds": 10.4,
+  "cost_usd": 0.012391
+ },
+ "first_part_s": 23.7,
+ "verified_s": 40.9,
+ "seconds": 40.9,
+ "cost_usd": 0.078609,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.1
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 22.9,
+   "spec": {
+    "description": "Rectangular plate 70x40x20 with rounded corners R5, 1 mm 45 deg chamfer on all top edges, central 12 mm through hole and two 6 mm through holes symmetric about the centre on the midline. Assumed: all three holes lie on the Y centreline and the hole pattern is centred in X (drawn symmetric, not dimensioned from an edge).",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "anchor": "corner",
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "u": 0.0,
+       "v": 0.0,
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "depth / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top_of_feature:base",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - hole_pitch) / 2",
+       "depth / 2"
+      ],
+      "diameter": "hole_dia",
+      "face": "top_of_feature:base",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 1,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "top_chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     }
+    ],
+    "name": "plate_three_holes",
+    "parameters": {
+     "bore_dia": {
+      "description": "central through hole diameter",
+      "value": 12
+     },
+     "chamfer_size": {
+      "description": "45 deg chamfer size on all top edges",
+      "value": 1
+     },
+     "corner_r": {
+      "description": "corner radius of plate, 4 places",
+      "value": 5
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 20
+     },
+     "hole_dia": {
+      "description": "side through hole diameter, 2 places",
+      "value": 6
+     },
+     "hole_pitch": {
+      "description": "centre distance between the two side holes; pattern stays centred in X",
+      "value": 46
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "20",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      732,
+      259,
+      754,
+      311
+     ],
+     "value": 20
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      203,
+      587,
+      227,
+      645
+     ],
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "70",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      455,
+      758,
+      481,
+      780
+     ],
+     "value": 70
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "parameter": "hole_dia",
+     "text_box": [
+      284,
+      450,
+      386,
+      469
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "parameter": "bore_dia",
+     "text_box": [
+      468,
+      450,
+      553,
+      468
+     ],
+     "value": 12
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "parameter": "corner_r",
+     "text_box": [
+      697,
+      448,
+      771,
+      467
+     ],
+     "value": 5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "top_chamfer",
+     "feature_b": null,
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "parameter": "chamfer_size",
+     "text_box": [
+      710,
+      138,
+      904,
+      157
+     ],
+     "value": 1
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "parameter": "hole_pitch",
+     "text_box": [
+      428,
+      832,
+      477,
+      853
+     ],
+     "value": 46
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": [
+      733,
+      645,
+      753,
+      700
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 35
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore on centreline",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 12
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.037689,
+    "seconds": 22.8,
+    "input_tokens": 8806,
+    "output_tokens": 6278,
+    "reasoning_tokens": 4728,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 23.7,
+   "ok": true,
+   "metrics": {
+    "name": "plate_three_holes",
+    "volume_mm3": 52073.2155,
+    "bbox": {
+     "min": [
+      -0.0,
+      -0.0,
+      0.0
+     ],
+     "max": [
+      70.0,
+      40.0,
+      20.0
+     ],
+     "size": [
+      70.0,
+      40.0,
+      20.0
+     ]
+    },
+    "faces": 21,
+    "edges": 49,
+    "triangles": 2552,
+    "parameters": {
+     "bore_dia": 12.0,
+     "chamfer_size": 1.0,
+     "corner_r": 5.0,
+     "depth": 40.0,
+     "height": 20.0,
+     "hole_dia": 6.0,
+     "hole_pitch": 46.0,
+     "length": 70.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 55570.7963
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -2261.9467
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -565.4867
+     },
+     {
+      "id": "top_chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -104.6608
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.2
+      ],
+      "size_px": [
+       371,
+       221
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       371,
+       120
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.2,
+       -2.0
+      ],
+      "size_px": [
+       221,
+       120
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 29.3,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.577,
+      "part": 1.75
+     },
+     "orientation": {
+      "as_is": 0.908,
+      "mirror_lr": 0.908,
+      "mirror_ud": 0.908,
+      "rot180": 0.908
+     },
+     "orientation_gap": 0.0
+    },
+    {
+     "view": "front",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 3.675,
+      "part": 3.5
+     },
+     "orientation": {
+      "as_is": 0.958,
+      "mirror_lr": 0.958,
+      "mirror_ud": 0.958,
+      "rot180": 0.958
+     },
+     "orientation_gap": 0.0
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "scan",
+    "rectified": false
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 1,
+    "cost_usd": 0.0025,
+    "seconds": 1.16
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 40.9,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "70",
+     "value": 70,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 70.0
+    },
+    {
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "\u00d812 thru",
+     "value": 12,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 12.0
+    },
+    {
+     "label": "R5 (4x)",
+     "value": 5,
+     "measure": "radius",
+     "what": "radius of base",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "1 x 45\u00b0 all top edges",
+     "value": 1,
+     "measure": "chamfer_size",
+     "what": "chamfer size of top_chamfer",
+     "status": "ok",
+     "measured": 1.0
+    },
+    {
+     "label": "46",
+     "value": 46,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[1] along x",
+     "status": "ok",
+     "measured": 46.0
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 35,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 35.0
+    },
+    {
+     "label": "bore on centreline",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "mount holes centred",
+     "value": 12,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 12.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [
+     {
+      "feature_id": "bore",
+      "issue": "central \u00d812 hole is offset along length, not centered on plate midway between the \u00d86 holes",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "base",
+      "issue": "outer top edges and hole top edges have a round / no break instead of the required 1 x 45 deg chamfer on all top edges",
+      "severity": "high"
+     }
+    ],
+    "samples": [
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "bore",
+        "issue": "central \u00d812 hole is offset along length, not centered on plate midway between the \u00d86 holes",
+        "severity": "medium"
+       }
+      ]
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "base",
+        "issue": "outer top edges and hole top edges have a round / no break instead of the required 1 x 45 deg chamfer on all top edges",
+        "severity": "high"
+       }
+      ]
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.026029,
+    "seconds": 11.6,
+    "input_tokens": 6094,
+    "output_tokens": 4332,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [
+    {
+     "feature_id": "bore",
+     "issue": "central \u00d812 hole is offset along length, not centered on plate midway between the \u00d86 holes",
+     "severity": "medium"
+    },
+    {
+     "feature_id": "base",
+     "issue": "outer top edges and hole top edges have a round / no break instead of the required 1 x 45 deg chamfer on all top edges",
+     "severity": "high"
+    }
+   ],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "numbers",
+   "iteration": 0,
+   "t": 40.9,
+   "available": true,
+   "numbers": [
+    {
+     "index": 0,
+     "label": "20",
+     "value": 20,
+     "parameter": "height",
+     "text_box": [
+      732,
+      259,
+      754,
+      311
+     ],
+     "confidence": "high",
+     "status": "uncertain",
+     "second": 70.0,
+     "reread": "70",
+     "conflict": null
+    },
+    {
+     "index": 1,
+     "label": "40",
+     "value": 40,
+     "parameter": "depth",
+     "text_box": [
+      203,
+      587,
+      227,
+      645
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 40.0,
+     "reread": "40",
+     "conflict": null
+    },
+    {
+     "index": 2,
+     "label": "70",
+     "value": 70,
+     "parameter": "length",
+     "text_box": [
+      455,
+      758,
+      481,
+      780
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 70.0,
+     "reread": "70",
+     "conflict": null
+    },
+    {
+     "index": 3,
+     "label": "2x \u00d86 thru",
+     "value": 6,
+     "parameter": "hole_dia",
+     "text_box": [
+      284,
+      450,
+      386,
+      469
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 6.0,
+     "reread": "\u00d86",
+     "conflict": null
+    },
+    {
+     "index": 4,
+     "label": "\u00d812 thru",
+     "value": 12,
+     "parameter": "bore_dia",
+     "text_box": [
+      468,
+      450,
+      553,
+      468
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 12.0,
+     "reread": "\u00d812",
+     "conflict": null
+    },
+    {
+     "index": 5,
+     "label": "R5 (4x)",
+     "value": 5,
+     "parameter": "corner_r",
+     "text_box": [
+      697,
+      448,
+      771,
+      467
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 5.0,
+     "reread": "R5",
+     "conflict": null
+    },
+    {
+     "index": 6,
+     "label": "1 x 45\u00b0 all top edges",
+     "value": 1,
+     "parameter": "chamfer_size",
+     "text_box": [
+      710,
+      138,
+      904,
+      157
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 1.0,
+     "reread": "1 x 45\u00b0",
+     "conflict": null
+    },
+    {
+     "index": 7,
+     "label": "46",
+     "value": 46,
+     "parameter": "hole_pitch",
+     "text_box": [
+      428,
+      832,
+      477,
+      853
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 46.0,
+     "reread": "46",
+     "conflict": null
+    },
+    {
+     "index": 8,
+     "label": "20",
+     "value": 20,
+     "parameter": null,
+     "text_box": [
+      733,
+      645,
+      753,
+      700
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 20.0,
+     "reread": "20",
+     "conflict": null
+    },
+    {
+     "index": 9,
+     "label": "bore centred",
+     "value": 35,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 10,
+     "label": "bore on centreline",
+     "value": 20,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 11,
+     "label": "mount holes centred",
+     "value": 12,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    }
+   ],
+   "uncertain": 1,
+   "calls": [
+    {
+     "seconds": 10.4,
+     "cost_usd": 0.012391,
+     "crops": 9,
+     "model": "muse-spark-1.3"
+    }
+   ],
+   "cost_usd": 0.012391,
+   "seconds": 10.4
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 40.9,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Rectangular plate 70x40x20 with rounded corners R5, 1 mm 45 deg chamfer on all top edges, central 12 mm through hole and two 6 mm through holes symmetric about the centre on the midline. Assumed: all three holes lie on the Y centreline and the hole pattern is centred in X (drawn symmetric, not dimensioned from an edge).",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "anchor": "corner",
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "u": 0.0,
+       "v": 0.0,
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "length / 2",
+       "depth / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top_of_feature:base",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "(length - hole_pitch) / 2",
+       "depth / 2"
+      ],
+      "diameter": "hole_dia",
+      "face": "top_of_feature:base",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 1,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "edges": "top_outer",
+      "id": "top_chamfer",
+      "size": "chamfer_size",
+      "type": "chamfer"
+     }
+    ],
+    "name": "plate_three_holes",
+    "parameters": {
+     "bore_dia": {
+      "description": "central through hole diameter",
+      "value": 12
+     },
+     "chamfer_size": {
+      "description": "45 deg chamfer size on all top edges",
+      "value": 1
+     },
+     "corner_r": {
+      "description": "corner radius of plate, 4 places",
+      "value": 5
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 20
+     },
+     "hole_dia": {
+      "description": "side through hole diameter, 2 places",
+      "value": 6
+     },
+     "hole_pitch": {
+      "description": "centre distance between the two side holes; pattern stays centred in X",
+      "value": 46
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 70
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "20",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      732,
+      259,
+      754,
+      311
+     ],
+     "value": 20
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      203,
+      587,
+      227,
+      645
+     ],
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "70",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      455,
+      758,
+      481,
+      780
+     ],
+     "value": 70
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "2x \u00d86 thru",
+     "measure": "diameter",
+     "parameter": "hole_dia",
+     "text_box": [
+      284,
+      450,
+      386,
+      469
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d812 thru",
+     "measure": "diameter",
+     "parameter": "bore_dia",
+     "text_box": [
+      468,
+      450,
+      553,
+      468
+     ],
+     "value": 12
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "R5 (4x)",
+     "measure": "radius",
+     "parameter": "corner_r",
+     "text_box": [
+      697,
+      448,
+      771,
+      467
+     ],
+     "value": 5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "top_chamfer",
+     "feature_b": null,
+     "label": "1 x 45\u00b0 all top edges",
+     "measure": "chamfer_size",
+     "parameter": "chamfer_size",
+     "text_box": [
+      710,
+      138,
+      904,
+      157
+     ],
+     "value": 1
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "46",
+     "measure": "distance",
+     "parameter": "hole_pitch",
+     "text_box": [
+      428,
+      832,
+      477,
+      853
+     ],
+     "value": 46
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": [
+      733,
+      645,
+      753,
+      700
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 35
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore on centreline",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "mount holes centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 12
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.078609,
+   "seconds": 40.9,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

@@ -8,7 +8,8 @@ Expected behaviour:
 - vague but sized: a part that builds, honours the sizes given, and marks its own choices "assumed:" in the
   parameter descriptions;
 - no size at all: rejected with a request for one (we never guess the scale);
-- contradictory or impossible: rejected with a clear message, no crash.
+- contradictory or impossible: since Oct 30 never rejected (contradictions never reject): a part that builds, with
+  the conflicting numbers flagged (callout conflict) or the reinterpretation stated as an assumption.
 """
 import argparse
 import json
@@ -59,6 +60,9 @@ PROMPTS = [  # name, kind, prompt, truth key (complete) or sizes that must appea
 ]
 
 
+PROMPTS_BY_NAME = [(n, truth) for n, _, _, truth in PROMPTS]
+
+
 def evaluate(name, kind, prompt, truth, events):
     done = events[-1]
     spec = done.get("spec")
@@ -75,9 +79,16 @@ def evaluate(name, kind, prompt, truth, events):
         has_sizes = all(any(abs(v - t) < 1.5 for v in values) for t in truth)
         rec["ok"] = done.get("status") not in ("rejected", "error") and bool(assumed) and has_sizes
         rec["detail"] = f"{len(assumed)}/{len(params)} parameters marked assumed; given sizes kept: {has_sizes}"
-    else:
+    elif kind == "no_size":
         rec["ok"] = done.get("status") == "rejected" and bool(done.get("note"))
         rec["detail"] = (done.get("note") or "")[:160]
+    else:
+        read = next((e for e in events if e["event"] == "spec"), {})
+        conflicts = [c["label"] for c in read.get("callouts") or [] if c.get("conflict")]
+        desc = ((spec or {}).get("description") or "") if isinstance(spec, dict) else ""
+        stated = bool(re.search(r"assum|cannot|can't|instead|to fit", desc, re.I))
+        rec["ok"] = done.get("status") not in ("rejected", "error") and bool(conflicts or stated)
+        rec["detail"] = (f"conflict flagged on {', '.join(conflicts)}; " if conflicts else "") + desc[:140]
     return rec
 
 
@@ -86,7 +97,7 @@ def summarize():
             if os.path.exists(os.path.join(RESULTS, f"{n}.json"))]
     lines = ["| prompt | kind | expected | status | result | detail | cost |", "|---|---|---|---|---|---|---|"]
     expect = {"complete": "the true part", "vague": "a part + assumptions", "no_size": "ask for a size",
-              "contradictory": "clear message"}
+              "contradictory": "best guess + conflict flagged"}
     for r in recs:
         lines.append(f"| {r['prompt'][:70]} | {r['kind']} | {expect[r['kind']]} | {r['status']} | "
                      f"{'ok' if r['ok'] else '**fail**'} | {r['detail'][:140]} | ${r['cost_usd'] or 0:.4f} |")

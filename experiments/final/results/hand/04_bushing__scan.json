@@ -1,0 +1,1122 @@
+{
+ "name": "04_bushing__scan",
+ "batch": "hand",
+ "key": "04_bushing",
+ "image": "experiments/hand-sketches/sketches/04_bushing.png",
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "read_perfect": true,
+ "final_perfect": true,
+ "failed": "",
+ "taps_perfect": true,
+ "flags": {
+  "available": true,
+  "soft": 0,
+  "red": 0,
+  "false": 0,
+  "caught": 0,
+  "flagged": [],
+  "seconds": 4.0,
+  "cost_usd": 0.004531
+ },
+ "first_part_s": 21.8,
+ "verified_s": 31.0,
+ "seconds": 31.0,
+ "cost_usd": 0.045008,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.1
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 21.1,
+   "spec": {
+    "description": "Flanged bushing with central thru bore and 4 mounting holes on a PCD. Assumed: flange, barrel, bore and bolt circle are all coaxial and centred on the flange centre (drawn concentric, not dimensioned from an edge). Barrel height follows as overall height minus flange thickness.",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "height - flange_t",
+      "id": "barrel",
+      "offset": "flange_t",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "barrel_od",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2 + pcd / 2"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:flange",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "mount_hole",
+      "id": "mount_pattern",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "barrel_od": {
+      "description": "outer diameter of bush barrel",
+      "value": 24
+     },
+     "bore_dia": {
+      "description": "central thru bore diameter",
+      "value": 16
+     },
+     "flange_dia": {
+      "description": "flange outer diameter",
+      "value": 40
+     },
+     "flange_t": {
+      "description": "flange thickness",
+      "value": 5
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 30
+     },
+     "mount_dia": {
+      "description": "mounting hole diameter",
+      "value": 4
+     },
+     "pcd": {
+      "description": "pitch circle diameter for 4 mounting holes",
+      "value": 32
+     }
+    },
+    "spec_version": "1",
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      327,
+      282,
+      351,
+      312
+     ],
+     "value": 30
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "parameter": "flange_t",
+     "text_box": [
+      792,
+      339,
+      811,
+      355
+     ],
+     "value": 5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "\u00d840",
+     "measure": "diameter",
+     "parameter": "flange_dia",
+     "text_box": [
+      709,
+      462,
+      751,
+      487
+     ],
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "\u00d824",
+     "measure": "diameter",
+     "parameter": "barrel_od",
+     "text_box": [
+      325,
+      496,
+      367,
+      519
+     ],
+     "value": 24
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d816 thru",
+     "measure": "diameter",
+     "parameter": "bore_dia",
+     "text_box": [
+      686,
+      717,
+      776,
+      745
+     ],
+     "value": 16
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d84 thru",
+     "measure": "diameter",
+     "parameter": "mount_dia",
+     "text_box": [
+      740,
+      524,
+      841,
+      547
+     ],
+     "value": 4
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_pattern[0]",
+     "feature_b": "mount_pattern[2]",
+     "label": "PCD \u00d832",
+     "measure": "distance",
+     "parameter": "pcd",
+     "text_box": [
+      318,
+      749,
+      422,
+      775
+     ],
+     "value": 32
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.026923,
+    "seconds": 21.0,
+    "input_tokens": 8950,
+    "output_tokens": 5620,
+    "reasoning_tokens": 4141,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 21.8,
+   "ok": true,
+   "metrics": {
+    "name": "flanged_bushing",
+    "volume_mm3": 11309.7336,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      40.0,
+      40.0,
+      30.0
+     ],
+     "size": [
+      40.0,
+      40.0,
+      30.0
+     ]
+    },
+    "faces": 10,
+    "edges": 21,
+    "triangles": 3544,
+    "parameters": {
+     "barrel_od": 24.0,
+     "bore_dia": 16.0,
+     "flange_dia": 40.0,
+     "flange_t": 5.0,
+     "height": 30.0,
+     "mount_dia": 4.0,
+     "pcd": 32.0
+    },
+    "features": [
+     {
+      "id": "flange",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 6283.1853
+     },
+     {
+      "id": "barrel",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 11309.7336
+     },
+     {
+      "id": "bore",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -6031.8579
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -62.8319
+     },
+     {
+      "id": "mount_pattern",
+      "type": "circular_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -188.4956
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       220
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       170
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 28.1,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.171,
+      "part": 1.0
+     },
+     "orientation": {
+      "as_is": 0.892,
+      "mirror_lr": 0.892,
+      "mirror_ud": 0.892,
+      "rot180": 0.892
+     },
+     "orientation_gap": 0.0
+    },
+    {
+     "view": "front",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.376,
+      "part": 1.333
+     },
+     "orientation": {
+      "as_is": 0.704,
+      "mirror_lr": 0.704,
+      "mirror_ud": 0.617,
+      "rot180": 0.617
+     },
+     "orientation_gap": 0.0
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "scan",
+    "rectified": false
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 1,
+    "cost_usd": 0.0025,
+    "seconds": 2.12
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 31.0,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "30",
+     "value": 30,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "5",
+     "value": 5,
+     "measure": "thickness",
+     "what": "thickness of flange",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "\u00d840",
+     "value": 40,
+     "measure": "diameter",
+     "what": "diameter of flange",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "\u00d824",
+     "value": 24,
+     "measure": "diameter",
+     "what": "diameter of barrel",
+     "status": "ok",
+     "measured": 24.0
+    },
+    {
+     "label": "\u00d816 thru",
+     "value": 16,
+     "measure": "diameter",
+     "what": "diameter of bore",
+     "status": "ok",
+     "measured": 16.0
+    },
+    {
+     "label": "4x \u00d84 thru",
+     "value": 4,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 4.0
+    },
+    {
+     "label": "PCD \u00d832",
+     "value": 32,
+     "measure": "distance",
+     "what": "distance mount_pattern[0] \u2192 mount_pattern[2] along y",
+     "status": "ok",
+     "measured": 32.0
+    },
+    {
+     "label": "barrel centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from barrel to x_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "barrel centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from barrel to y_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to x_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "bore centred",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from bore to y_min",
+     "status": "ok",
+     "measured": 20.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": true,
+      "issues": []
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.011054,
+    "seconds": 2.9,
+    "input_tokens": 6382,
+    "output_tokens": 915,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "numbers",
+   "iteration": 0,
+   "t": 31.0,
+   "available": true,
+   "numbers": [
+    {
+     "index": 0,
+     "label": "30",
+     "value": 30,
+     "parameter": "height",
+     "text_box": [
+      327,
+      282,
+      351,
+      312
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 1,
+     "label": "5",
+     "value": 5,
+     "parameter": "flange_t",
+     "text_box": [
+      792,
+      339,
+      811,
+      355
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 2,
+     "label": "\u00d840",
+     "value": 40,
+     "parameter": "flange_dia",
+     "text_box": [
+      709,
+      462,
+      751,
+      487
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 3,
+     "label": "\u00d824",
+     "value": 24,
+     "parameter": "barrel_od",
+     "text_box": [
+      325,
+      496,
+      367,
+      519
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 4,
+     "label": "\u00d816 thru",
+     "value": 16,
+     "parameter": "bore_dia",
+     "text_box": [
+      686,
+      717,
+      776,
+      745
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 5,
+     "label": "4x \u00d84 thru",
+     "value": 4,
+     "parameter": "mount_dia",
+     "text_box": [
+      740,
+      524,
+      841,
+      547
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 4.0,
+     "reread": "\u00d84",
+     "conflict": null
+    },
+    {
+     "index": 6,
+     "label": "PCD \u00d832",
+     "value": 32,
+     "parameter": "pcd",
+     "text_box": [
+      318,
+      749,
+      422,
+      775
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 7,
+     "label": "barrel centred",
+     "value": 20,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 8,
+     "label": "barrel centred",
+     "value": 20,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 9,
+     "label": "bore centred",
+     "value": 20,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 10,
+     "label": "bore centred",
+     "value": 20,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    }
+   ],
+   "uncertain": 0,
+   "calls": [
+    {
+     "seconds": 4.0,
+     "cost_usd": 0.004531,
+     "crops": 7,
+     "model": "muse-spark-1.3"
+    }
+   ],
+   "cost_usd": 0.004531,
+   "seconds": 4.0
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 31.0,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Flanged bushing with central thru bore and 4 mounting holes on a PCD. Assumed: flange, barrel, bore and bolt circle are all coaxial and centred on the flange centre (drawn concentric, not dimensioned from an edge). Barrel height follows as overall height minus flange thickness.",
+    "features": [
+     {
+      "distance": "flange_t",
+      "id": "flange",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "flange_dia",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "height - flange_t",
+      "id": "barrel",
+      "offset": "flange_t",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "diameter": "barrel_od",
+       "shape": "circle",
+       "u": "flange_dia / 2",
+       "v": "flange_dia / 2"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "diameter": "bore_dia",
+      "face": "top",
+      "id": "bore",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2 + pcd / 2"
+      ],
+      "diameter": "mount_dia",
+      "face": "top_of_feature:flange",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "center": [
+       "flange_dia / 2",
+       "flange_dia / 2"
+      ],
+      "count": 4,
+      "feature": "mount_hole",
+      "id": "mount_pattern",
+      "type": "circular_pattern"
+     }
+    ],
+    "name": "flanged_bushing",
+    "parameters": {
+     "barrel_od": {
+      "description": "outer diameter of bush barrel",
+      "value": 24
+     },
+     "bore_dia": {
+      "description": "central thru bore diameter",
+      "value": 16
+     },
+     "flange_dia": {
+      "description": "flange outer diameter",
+      "value": 40
+     },
+     "flange_t": {
+      "description": "flange thickness",
+      "value": 5
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 30
+     },
+     "mount_dia": {
+      "description": "mounting hole diameter",
+      "value": 4
+     },
+     "pcd": {
+      "description": "pitch circle diameter for 4 mounting holes",
+      "value": 32
+     }
+    },
+    "spec_version": "1",
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      327,
+      282,
+      351,
+      312
+     ],
+     "value": 30
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "parameter": "flange_t",
+     "text_box": [
+      792,
+      339,
+      811,
+      355
+     ],
+     "value": 5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "flange",
+     "feature_b": null,
+     "label": "\u00d840",
+     "measure": "diameter",
+     "parameter": "flange_dia",
+     "text_box": [
+      709,
+      462,
+      751,
+      487
+     ],
+     "value": 40
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "\u00d824",
+     "measure": "diameter",
+     "parameter": "barrel_od",
+     "text_box": [
+      325,
+      496,
+      367,
+      519
+     ],
+     "value": 24
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "bore",
+     "feature_b": null,
+     "label": "\u00d816 thru",
+     "measure": "diameter",
+     "parameter": "bore_dia",
+     "text_box": [
+      686,
+      717,
+      776,
+      745
+     ],
+     "value": 16
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d84 thru",
+     "measure": "diameter",
+     "parameter": "mount_dia",
+     "text_box": [
+      740,
+      524,
+      841,
+      547
+     ],
+     "value": 4
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_pattern[0]",
+     "feature_b": "mount_pattern[2]",
+     "label": "PCD \u00d832",
+     "measure": "distance",
+     "parameter": "pcd",
+     "text_box": [
+      318,
+      749,
+      422,
+      775
+     ],
+     "value": 32
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "barrel",
+     "feature_b": null,
+     "label": "barrel centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "bore",
+     "feature_b": null,
+     "label": "bore centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 20
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.045008,
+   "seconds": 31.0,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

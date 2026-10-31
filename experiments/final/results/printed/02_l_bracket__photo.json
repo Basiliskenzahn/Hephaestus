@@ -1,0 +1,1514 @@
+{
+ "name": "02_l_bracket__photo",
+ "batch": "printed",
+ "key": "02_l_bracket",
+ "image": "experiments/reading-spike/sketches/02_l_bracket__photo.jpg",
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "read_perfect": true,
+ "final_perfect": true,
+ "failed": "",
+ "taps_perfect": true,
+ "flags": {
+  "available": true,
+  "soft": 0,
+  "red": 0,
+  "false": 0,
+  "caught": 0,
+  "flagged": [],
+  "seconds": 2.6,
+  "cost_usd": 0.003871
+ },
+ "first_part_s": 33.0,
+ "verified_s": 75.0,
+ "seconds": 75.0,
+ "cost_usd": 0.100209,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 32.6,
+   "spec": {
+    "description": "L-bracket made from two overlapping plates. Assumed: 28 is hole centre height from the bottom; holes are symmetric (15 from each side); base slot is through, along X, centred in X and 17.5 from the front edge to centre.",
+    "features": [
+     {
+      "distance": "thick",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "width"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "thick",
+      "id": "back",
+      "offset": "depth - thick",
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "height": "height",
+       "shape": "rect",
+       "u": 0.0,
+       "v": 0.0,
+       "width": "width"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_z"
+      ],
+      "diameter": "hole_dia",
+      "face": "back",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "angle": 0.0,
+      "center": [
+       "width / 2",
+       "slot_y"
+      ],
+      "face": "top_of_feature:base",
+      "id": "base_slot",
+      "length": "slot_len",
+      "through": true,
+      "type": "slot",
+      "width": "slot_w"
+     }
+    ],
+    "name": "l_bracket",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40.0
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40.0
+     },
+     "hole_dia": {
+      "description": "vertical-plate hole diameter",
+      "value": 5.0
+     },
+     "hole_inset": {
+      "description": "left hole centre from left edge; right side follows symmetric",
+      "value": 15.0
+     },
+     "hole_pitch": {
+      "description": "distance between the two hole centres along X",
+      "value": 30.0
+     },
+     "hole_z": {
+      "description": "hole centre height from the bottom",
+      "value": 28.0
+     },
+     "slot_len": {
+      "description": "base slot overall length along X",
+      "value": 20.0
+     },
+     "slot_w": {
+      "description": "base slot width along Y",
+      "value": 6.0
+     },
+     "slot_y": {
+      "description": "slot centre from the front edge along Y",
+      "value": 17.5
+     },
+     "thick": {
+      "description": "wall thickness of both legs",
+      "value": 5.0
+     },
+     "width": {
+      "description": "overall width along X",
+      "value": 60.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "width",
+     "text_box": [
+      330.0,
+      330.0,
+      370.0,
+      350.0
+     ],
+     "value": 60.0
+    },
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      255.0,
+      420.0,
+      275.0,
+      455.0
+     ],
+     "value": 40.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      290.0,
+      375.0,
+      310.0,
+      390.0
+     ],
+     "value": 15.0
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "30",
+     "measure": "distance",
+     "parameter": "hole_pitch",
+     "text_box": [
+      335.0,
+      365.0,
+      360.0,
+      380.0
+     ],
+     "value": 30.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "2x \u00d85 thru",
+     "measure": "diameter",
+     "parameter": "hole_dia",
+     "text_box": [
+      485.0,
+      305.0,
+      550.0,
+      330.0
+     ],
+     "value": 5.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "28",
+     "measure": "distance_to_edge",
+     "parameter": "hole_z",
+     "text_box": [
+      460.0,
+      415.0,
+      480.0,
+      450.0
+     ],
+     "value": 28.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "back",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "parameter": "thick",
+     "text_box": [
+      670.0,
+      290.0,
+      685.0,
+      310.0
+     ],
+     "value": 5.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "parameter": "thick",
+     "text_box": [
+      520.0,
+      460.0,
+      535.0,
+      475.0
+     ],
+     "value": 5.0
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      595.0,
+      475.0,
+      620.0,
+      495.0
+     ],
+     "value": 40.0
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      275.0,
+      610.0,
+      295.0,
+      645.0
+     ],
+     "value": 40.0
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "width",
+     "text_box": [
+      355.0,
+      705.0,
+      380.0,
+      725.0
+     ],
+     "value": 60.0
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "20",
+     "measure": "slot_length",
+     "parameter": "slot_len",
+     "text_box": [
+      365.0,
+      725.0,
+      390.0,
+      740.0
+     ],
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "slot w = 6",
+     "measure": "slot_width",
+     "parameter": "slot_w",
+     "text_box": [
+      440.0,
+      575.0,
+      500.0,
+      600.0
+     ],
+     "value": 6.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "17.5",
+     "measure": "distance_to_edge",
+     "parameter": "slot_y",
+     "text_box": [
+      485.0,
+      625.0,
+      510.0,
+      660.0
+     ],
+     "value": 17.5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "slot centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 30.0
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.050859,
+    "seconds": 32.6,
+    "input_tokens": 10410,
+    "output_tokens": 8905,
+    "reasoning_tokens": 6886,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 33.0,
+   "ok": true,
+   "metrics": {
+    "name": "l_bracket",
+    "volume_mm3": 21742.2788,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      60.0,
+      40.0,
+      40.0
+     ],
+     "size": [
+      60.0,
+      40.0,
+      40.0
+     ]
+    },
+    "faces": 14,
+    "edges": 36,
+    "triangles": 1552,
+    "parameters": {
+     "depth": 40.0,
+     "height": 40.0,
+     "hole_dia": 5.0,
+     "hole_inset": 15.0,
+     "hole_pitch": 30.0,
+     "hole_z": 28.0,
+     "slot_len": 20.0,
+     "slot_w": 6.0,
+     "slot_y": 17.5,
+     "thick": 5.0,
+     "width": 60.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 12000.0
+     },
+     {
+      "id": "back",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 10500.0
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -98.1748
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -98.1748
+     },
+     {
+      "id": "base_slot",
+      "type": "slot",
+      "status": "ok",
+      "volume_delta_mm3": -561.3717
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       320,
+       220
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       320,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       220,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 36.8,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.511,
+      "part": 1.5
+     },
+     "orientation": {
+      "as_is": 0.843,
+      "mirror_lr": 0.843,
+      "mirror_ud": 0.843,
+      "rot180": 0.843
+     },
+     "orientation_gap": 0.0
+    },
+    {
+     "view": "front",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.565,
+      "part": 1.5
+     },
+     "orientation": {
+      "as_is": 0.902,
+      "mirror_lr": 0.902,
+      "mirror_ud": 0.902,
+      "rot180": 0.902
+     },
+     "orientation_gap": 0.0
+    },
+    {
+     "view": "side",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 0.796,
+      "part": 1.0
+     },
+     "orientation": {
+      "as_is": 0.495,
+      "mirror_lr": 0.177,
+      "mirror_ud": 0.275,
+      "rot180": 0.035
+     },
+     "orientation_gap": -0.22
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "sam",
+    "rectified": true,
+    "quad": [
+     [
+      160.0,
+      335.0
+     ],
+     [
+      1318.0,
+      146.0
+     ],
+     [
+      1330.0,
+      1145.0
+     ],
+     [
+      264.0,
+      1195.0
+     ]
+    ]
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 2,
+    "cost_usd": 0.005,
+    "seconds": 3.35
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 75.0,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "60",
+     "value": 60.0,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 60.0
+    },
+    {
+     "label": "40",
+     "value": 40.0,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "15",
+     "value": 15.0,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 15.0
+    },
+    {
+     "label": "30",
+     "value": 30.0,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[1] along x",
+     "status": "ok",
+     "measured": 30.0
+    },
+    {
+     "label": "2x \u00d85 thru",
+     "value": 5.0,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "28",
+     "value": 28.0,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to z_min",
+     "status": "ok",
+     "measured": 28.0
+    },
+    {
+     "label": "5",
+     "value": 5.0,
+     "measure": "thickness",
+     "what": "thickness of back",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "5",
+     "value": 5.0,
+     "measure": "thickness",
+     "what": "thickness of base",
+     "status": "ok",
+     "measured": 5.0
+    },
+    {
+     "label": "40",
+     "value": 40.0,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "40",
+     "value": 40.0,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "60",
+     "value": 60.0,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 60.0
+    },
+    {
+     "label": "20",
+     "value": 20.0,
+     "measure": "slot_length",
+     "what": "slot length of base_slot along x",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "slot w = 6",
+     "value": 6.0,
+     "measure": "slot_width",
+     "what": "slot width of base_slot",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "17.5",
+     "value": 17.5,
+     "measure": "distance_to_edge",
+     "what": "distance from base_slot to y_min",
+     "status": "ok",
+     "measured": 17.5
+    },
+    {
+     "label": "slot centred",
+     "value": 30.0,
+     "measure": "distance_to_edge",
+     "what": "distance from base_slot to x_min",
+     "status": "ok",
+     "measured": 30.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [
+     {
+      "feature_id": "base_slot",
+      "issue": "slot runs left-right along width, drawing shows it front-back along depth",
+      "severity": "high"
+     },
+     {
+      "feature_id": "base_slot",
+      "issue": "slot is centered in depth, drawing dimensions it 17.5 from edge",
+      "severity": "medium"
+     }
+    ],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "base_slot",
+        "issue": "slot runs left-right along width, drawing shows it front-back along depth",
+        "severity": "high"
+       },
+       {
+        "feature_id": "base_slot",
+        "issue": "slot is centered in depth, drawing dimensions it 17.5 from edge",
+        "severity": "medium"
+       }
+      ]
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.040479,
+    "seconds": 38.2,
+    "input_tokens": 9302,
+    "output_tokens": 6884,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [
+    {
+     "feature_id": "base_slot",
+     "issue": "slot runs left-right along width, drawing shows it front-back along depth",
+     "severity": "high"
+    },
+    {
+     "feature_id": "base_slot",
+     "issue": "slot is centered in depth, drawing dimensions it 17.5 from edge",
+     "severity": "medium"
+    }
+   ],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "numbers",
+   "iteration": 0,
+   "t": 75.0,
+   "available": true,
+   "numbers": [
+    {
+     "index": 0,
+     "label": "60",
+     "value": 60.0,
+     "parameter": "width",
+     "text_box": [
+      330.0,
+      330.0,
+      370.0,
+      350.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 60.0,
+     "reread": "60",
+     "conflict": null
+    },
+    {
+     "index": 1,
+     "label": "40",
+     "value": 40.0,
+     "parameter": "height",
+     "text_box": [
+      255.0,
+      420.0,
+      275.0,
+      455.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 40.0,
+     "reread": "40",
+     "conflict": null
+    },
+    {
+     "index": 2,
+     "label": "15",
+     "value": 15.0,
+     "parameter": "hole_inset",
+     "text_box": [
+      290.0,
+      375.0,
+      310.0,
+      390.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 15.0,
+     "reread": "15",
+     "conflict": null
+    },
+    {
+     "index": 3,
+     "label": "30",
+     "value": 30.0,
+     "parameter": "hole_pitch",
+     "text_box": [
+      335.0,
+      365.0,
+      360.0,
+      380.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 30.0,
+     "reread": "30",
+     "conflict": null
+    },
+    {
+     "index": 4,
+     "label": "2x \u00d85 thru",
+     "value": 5.0,
+     "parameter": "hole_dia",
+     "text_box": [
+      485.0,
+      305.0,
+      550.0,
+      330.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 5.0,
+     "reread": "2x \u00d85",
+     "conflict": null
+    },
+    {
+     "index": 5,
+     "label": "28",
+     "value": 28.0,
+     "parameter": "hole_z",
+     "text_box": [
+      460.0,
+      415.0,
+      480.0,
+      450.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 28.0,
+     "reread": "28",
+     "conflict": null
+    },
+    {
+     "index": 6,
+     "label": "5",
+     "value": 5.0,
+     "parameter": "thick",
+     "text_box": [
+      670.0,
+      290.0,
+      685.0,
+      310.0
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 7,
+     "label": "5",
+     "value": 5.0,
+     "parameter": "thick",
+     "text_box": [
+      520.0,
+      460.0,
+      535.0,
+      475.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 5.0,
+     "reread": "5",
+     "conflict": null
+    },
+    {
+     "index": 8,
+     "label": "40",
+     "value": 40.0,
+     "parameter": "depth",
+     "text_box": [
+      595.0,
+      475.0,
+      620.0,
+      495.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 40.0,
+     "reread": "40",
+     "conflict": null
+    },
+    {
+     "index": 9,
+     "label": "40",
+     "value": 40.0,
+     "parameter": "depth",
+     "text_box": [
+      275.0,
+      610.0,
+      295.0,
+      645.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 40.0,
+     "reread": "40",
+     "conflict": null
+    },
+    {
+     "index": 10,
+     "label": "60",
+     "value": 60.0,
+     "parameter": "width",
+     "text_box": [
+      355.0,
+      705.0,
+      380.0,
+      725.0
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": null,
+     "conflict": null,
+     "note": "too close to another number to re-read on its own"
+    },
+    {
+     "index": 11,
+     "label": "20",
+     "value": 20.0,
+     "parameter": "slot_len",
+     "text_box": [
+      365.0,
+      725.0,
+      390.0,
+      740.0
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": null,
+     "conflict": null,
+     "note": "too close to another number to re-read on its own"
+    },
+    {
+     "index": 12,
+     "label": "slot w = 6",
+     "value": 6.0,
+     "parameter": "slot_w",
+     "text_box": [
+      440.0,
+      575.0,
+      500.0,
+      600.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 6.0,
+     "reread": "6",
+     "conflict": null
+    },
+    {
+     "index": 13,
+     "label": "17.5",
+     "value": 17.5,
+     "parameter": "slot_y",
+     "text_box": [
+      485.0,
+      625.0,
+      510.0,
+      660.0
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 17.5,
+     "reread": "17.5",
+     "conflict": null
+    },
+    {
+     "index": 14,
+     "label": "slot centred",
+     "value": 30.0,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    }
+   ],
+   "uncertain": 0,
+   "calls": [
+    {
+     "seconds": 2.6,
+     "cost_usd": 0.003871,
+     "crops": 12,
+     "model": "muse-spark-1.3"
+    }
+   ],
+   "cost_usd": 0.003871,
+   "seconds": 2.6
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 75.0,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "L-bracket made from two overlapping plates. Assumed: 28 is hole centre height from the bottom; holes are symmetric (15 from each side); base slot is through, along X, centred in X and 17.5 from the front edge to centre.",
+    "features": [
+     {
+      "distance": "thick",
+      "id": "base",
+      "operation": "add",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "width"
+      },
+      "type": "extrude"
+     },
+     {
+      "distance": "thick",
+      "id": "back",
+      "offset": "depth - thick",
+      "operation": "add",
+      "plane": "XZ",
+      "profile": {
+       "height": "height",
+       "shape": "rect",
+       "u": 0.0,
+       "v": 0.0,
+       "width": "width"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_z"
+      ],
+      "diameter": "hole_dia",
+      "face": "back",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "hole_pitch",
+      "type": "linear_pattern"
+     },
+     {
+      "angle": 0.0,
+      "center": [
+       "width / 2",
+       "slot_y"
+      ],
+      "face": "top_of_feature:base",
+      "id": "base_slot",
+      "length": "slot_len",
+      "through": true,
+      "type": "slot",
+      "width": "slot_w"
+     }
+    ],
+    "name": "l_bracket",
+    "parameters": {
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 40.0
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40.0
+     },
+     "hole_dia": {
+      "description": "vertical-plate hole diameter",
+      "value": 5.0
+     },
+     "hole_inset": {
+      "description": "left hole centre from left edge; right side follows symmetric",
+      "value": 15.0
+     },
+     "hole_pitch": {
+      "description": "distance between the two hole centres along X",
+      "value": 30.0
+     },
+     "hole_z": {
+      "description": "hole centre height from the bottom",
+      "value": 28.0
+     },
+     "slot_len": {
+      "description": "base slot overall length along X",
+      "value": 20.0
+     },
+     "slot_w": {
+      "description": "base slot width along Y",
+      "value": 6.0
+     },
+     "slot_y": {
+      "description": "slot centre from the front edge along Y",
+      "value": 17.5
+     },
+     "thick": {
+      "description": "wall thickness of both legs",
+      "value": 5.0
+     },
+     "width": {
+      "description": "overall width along X",
+      "value": 60.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "width",
+     "text_box": [
+      330.0,
+      330.0,
+      370.0,
+      350.0
+     ],
+     "value": 60.0
+    },
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      255.0,
+      420.0,
+      275.0,
+      455.0
+     ],
+     "value": 40.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "15",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      290.0,
+      375.0,
+      310.0,
+      390.0
+     ],
+     "value": 15.0
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "30",
+     "measure": "distance",
+     "parameter": "hole_pitch",
+     "text_box": [
+      335.0,
+      365.0,
+      360.0,
+      380.0
+     ],
+     "value": 30.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "2x \u00d85 thru",
+     "measure": "diameter",
+     "parameter": "hole_dia",
+     "text_box": [
+      485.0,
+      305.0,
+      550.0,
+      330.0
+     ],
+     "value": 5.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "28",
+     "measure": "distance_to_edge",
+     "parameter": "hole_z",
+     "text_box": [
+      460.0,
+      415.0,
+      480.0,
+      450.0
+     ],
+     "value": 28.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "back",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "parameter": "thick",
+     "text_box": [
+      670.0,
+      290.0,
+      685.0,
+      310.0
+     ],
+     "value": 5.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "5",
+     "measure": "thickness",
+     "parameter": "thick",
+     "text_box": [
+      520.0,
+      460.0,
+      535.0,
+      475.0
+     ],
+     "value": 5.0
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      595.0,
+      475.0,
+      620.0,
+      495.0
+     ],
+     "value": 40.0
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      275.0,
+      610.0,
+      295.0,
+      645.0
+     ],
+     "value": 40.0
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "width",
+     "text_box": [
+      355.0,
+      705.0,
+      380.0,
+      725.0
+     ],
+     "value": 60.0
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "20",
+     "measure": "slot_length",
+     "parameter": "slot_len",
+     "text_box": [
+      365.0,
+      725.0,
+      390.0,
+      740.0
+     ],
+     "value": 20.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "slot w = 6",
+     "measure": "slot_width",
+     "parameter": "slot_w",
+     "text_box": [
+      440.0,
+      575.0,
+      500.0,
+      600.0
+     ],
+     "value": 6.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "17.5",
+     "measure": "distance_to_edge",
+     "parameter": "slot_y",
+     "text_box": [
+      485.0,
+      625.0,
+      510.0,
+      660.0
+     ],
+     "value": 17.5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "base_slot",
+     "feature_b": null,
+     "label": "slot centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 30.0
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.100209,
+   "seconds": 75.0,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

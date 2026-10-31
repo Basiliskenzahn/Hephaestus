@@ -1,0 +1,1566 @@
+{
+ "name": "07_pocket_plate__photo",
+ "batch": "hand",
+ "key": "07_pocket_plate",
+ "image": "experiments/hand-sketches/sketches/07_pocket_plate__photo.jpg",
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "read_perfect": true,
+ "final_perfect": true,
+ "failed": "",
+ "taps_perfect": true,
+ "flags": {
+  "available": true,
+  "soft": 4,
+  "red": 0,
+  "false": 4,
+  "caught": 0,
+  "flagged": [
+   {
+    "index": 3,
+    "label": "80",
+    "value": 80.0,
+    "parameter": null,
+    "text_box": [
+     532,
+     710,
+     555,
+     727
+    ],
+    "confidence": "high",
+    "status": "uncertain",
+    "second": 100.0,
+    "reread": "100",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   },
+   {
+    "index": 5,
+    "label": "40",
+    "value": 40.0,
+    "parameter": null,
+    "text_box": [
+     682,
+     595,
+     700,
+     620
+    ],
+    "confidence": "high",
+    "status": "uncertain",
+    "second": 10.0,
+    "reread": "10",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   },
+   {
+    "index": 11,
+    "label": "\u00d811",
+    "value": 11.0,
+    "parameter": "cb_dia",
+    "text_box": [
+     740,
+     365,
+     760,
+     385
+    ],
+    "confidence": "high",
+    "status": "uncertain",
+    "second": 6.4,
+    "reread": "6.4",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   },
+   {
+    "index": 13,
+    "label": "pocket 4 deep",
+    "value": 4.0,
+    "parameter": "pocket_depth",
+    "text_box": [
+     590,
+     405,
+     600,
+     420
+    ],
+    "confidence": "high",
+    "status": "uncertain",
+    "second": 6.6,
+    "reread": "\u00d86.6",
+    "conflict": null,
+    "strength": "soft",
+    "misread": false
+   }
+  ],
+  "seconds": 6.4,
+  "cost_usd": 0.006377
+ },
+ "first_part_s": 22.2,
+ "verified_s": 36.7,
+ "seconds": 36.7,
+ "cost_usd": 0.074595,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 21.5,
+   "spec": {
+    "description": "Rectangular pocket plate with central rectangular pocket and 4 counterbored holes. Assumed: pocket is centred (drawn symmetric, not dimensioned from edge); counterbores are on the top face; hole spacing follows from 10 inset from edges.",
+    "features": [
+     {
+      "distance": "thickness",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "direction": "negative",
+      "distance": "pocket_depth",
+      "id": "pocket",
+      "offset": "thickness",
+      "operation": "cut",
+      "plane": "XY",
+      "profile": {
+       "anchor": "center",
+       "height": "pocket_w",
+       "radius": "pocket_r",
+       "shape": "rounded_rect",
+       "u": "length / 2",
+       "v": "depth / 2",
+       "width": "pocket_len"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "counterbore": {
+       "depth": "cb_depth",
+       "diameter": "cb_dia"
+      },
+      "diameter": "hole_dia",
+      "face": "top_of_feature:base",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "pocket_plate",
+    "parameters": {
+     "cb_depth": {
+      "description": "counterbore depth",
+      "value": 6.4
+     },
+     "cb_dia": {
+      "description": "counterbore diameter",
+      "value": 11.0
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 60.0
+     },
+     "hole_dia": {
+      "description": "through hole diameter",
+      "value": 6.6
+     },
+     "hole_inset": {
+      "description": "hole centre from each edge; hole spacing follows as length/depth - 2 * hole_inset",
+      "value": 10.0
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 100.0
+     },
+     "pocket_depth": {
+      "description": "pocket depth from top",
+      "value": 4.0
+     },
+     "pocket_len": {
+      "description": "pocket length along X",
+      "value": 50.0
+     },
+     "pocket_r": {
+      "description": "pocket corner radius",
+      "value": 3.0
+     },
+     "pocket_w": {
+      "description": "pocket width along Y",
+      "value": 30.0
+     },
+     "thickness": {
+      "description": "plate thickness",
+      "value": 10.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "10",
+     "measure": "thickness",
+     "parameter": "thickness",
+     "text_box": [
+      327,
+      309,
+      343,
+      330
+     ],
+     "value": 10.0
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      347,
+      610,
+      367,
+      640
+     ],
+     "value": 60.0
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "100",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      535,
+      760,
+      565,
+      775
+     ],
+     "value": 100.0
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "80",
+     "measure": "distance",
+     "parameter": null,
+     "text_box": [
+      532,
+      710,
+      555,
+      727
+     ],
+     "value": 80.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      406,
+      712,
+      426,
+      729
+     ],
+     "value": 10.0
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[2]",
+     "label": "40",
+     "measure": "distance",
+     "parameter": null,
+     "text_box": [
+      682,
+      595,
+      700,
+      620
+     ],
+     "value": 40.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      682,
+      645,
+      697,
+      665
+     ],
+     "value": 10.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "50",
+     "measure": "unchecked",
+     "parameter": "pocket_len",
+     "text_box": [
+      525,
+      465,
+      545,
+      482
+     ],
+     "value": 50.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "parameter": "pocket_w",
+     "text_box": [
+      625,
+      565,
+      640,
+      590
+     ],
+     "value": 30.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "R3",
+     "measure": "radius",
+     "parameter": "pocket_r",
+     "text_box": [
+      420,
+      540,
+      442,
+      560
+     ],
+     "value": 3.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d86.6 thru",
+     "measure": "diameter",
+     "parameter": "hole_dia",
+     "text_box": [
+      625,
+      370,
+      650,
+      390
+     ],
+     "value": 6.6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "\u00d811",
+     "measure": "diameter",
+     "parameter": "cb_dia",
+     "text_box": [
+      740,
+      365,
+      760,
+      385
+     ],
+     "value": 11.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "6.4 deep",
+     "measure": "unchecked",
+     "parameter": "cb_depth",
+     "text_box": [
+      775,
+      360,
+      800,
+      380
+     ],
+     "value": 6.4
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket 4 deep",
+     "measure": "depth",
+     "parameter": "pocket_depth",
+     "text_box": [
+      590,
+      405,
+      600,
+      420
+     ],
+     "value": 4.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 50.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 30.0
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.031999,
+    "seconds": 21.5,
+    "input_tokens": 10526,
+    "output_tokens": 6351,
+    "reasoning_tokens": 4397,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 22.2,
+   "ok": true,
+   "metrics": {
+    "name": "pocket_plate",
+    "volume_mm3": 51105.4013,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      100.0,
+      60.0,
+      10.0
+     ],
+     "size": [
+      100.0,
+      60.0,
+      10.0
+     ]
+    },
+    "faces": 27,
+    "edges": 60,
+    "triangles": 4588,
+    "parameters": {
+     "cb_depth": 6.4,
+     "cb_dia": 11.0,
+     "depth": 60.0,
+     "hole_dia": 6.6,
+     "hole_inset": 10.0,
+     "length": 100.0,
+     "pocket_depth": 4.0,
+     "pocket_len": 50.0,
+     "pocket_r": 3.0,
+     "pocket_w": 30.0,
+     "thickness": 10.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 60000.0
+     },
+     {
+      "id": "pocket",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": -5969.0973
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -731.3753
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -2194.126
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       520,
+       320
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       520,
+       70
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       320,
+       70
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 24.6,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.601,
+      "part": 1.667
+     },
+     "orientation": {
+      "as_is": 0.888,
+      "mirror_lr": 0.888,
+      "mirror_ud": 0.888,
+      "rot180": 0.888
+     },
+     "orientation_gap": 0.0
+    },
+    {
+     "view": "front",
+     "status": "unavailable",
+     "note": "SAM found no part outline in the box"
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "sam",
+    "rectified": true,
+    "quad": [
+     [
+      174.0,
+      313.0
+     ],
+     [
+      1335.0,
+      209.0
+     ],
+     [
+      1357.0,
+      1144.0
+     ],
+     [
+      331.0,
+      1248.0
+     ]
+    ]
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 2,
+    "cost_usd": 0.005,
+    "seconds": 2.61
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 36.7,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "10",
+     "value": 10.0,
+     "measure": "thickness",
+     "what": "thickness of base",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "60",
+     "value": 60.0,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 60.0
+    },
+    {
+     "label": "100",
+     "value": 100.0,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 100.0
+    },
+    {
+     "label": "80",
+     "value": 80.0,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[1] along x",
+     "status": "ok",
+     "measured": 80.0
+    },
+    {
+     "label": "10",
+     "value": 10.0,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "40",
+     "value": 40.0,
+     "measure": "distance",
+     "what": "distance mount_hole \u2192 mount_holes[2] along y",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "10",
+     "value": 10.0,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "50",
+     "value": 50.0,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "30",
+     "value": 30.0,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "R3",
+     "value": 3.0,
+     "measure": "radius",
+     "what": "radius of pocket",
+     "status": "ok",
+     "measured": 3.0
+    },
+    {
+     "label": "4x \u00d86.6 thru",
+     "value": 6.6,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 6.6
+    },
+    {
+     "label": "\u00d811",
+     "value": 11.0,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 11.0
+    },
+    {
+     "label": "6.4 deep",
+     "value": 6.4,
+     "measure": "unchecked",
+     "what": "unchecked of None",
+     "status": "unchecked"
+    },
+    {
+     "label": "pocket 4 deep",
+     "value": 4.0,
+     "measure": "depth",
+     "what": "depth of pocket",
+     "status": "ok",
+     "measured": 4.0
+    },
+    {
+     "label": "pocket centred",
+     "value": 50.0,
+     "measure": "distance_to_edge",
+     "what": "distance from pocket to x_min",
+     "status": "ok",
+     "measured": 50.0
+    },
+    {
+     "label": "pocket centred",
+     "value": 30.0,
+     "measure": "distance_to_edge",
+     "what": "distance from pocket to y_min",
+     "status": "ok",
+     "measured": 30.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [
+     {
+      "feature_id": "mount_holes",
+      "issue": "only 2 of 4 holes show the counterbore, drawing requires 4x Dia 6.6 thru with Dia 11 x 6.4 deep counterbore",
+      "severity": "high"
+     }
+    ],
+    "samples": [
+     {
+      "matches": true,
+      "issues": []
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "mount_holes",
+        "issue": "only 2 of 4 holes show the counterbore, drawing requires 4x Dia 6.6 thru with Dia 11 x 6.4 deep counterbore",
+        "severity": "high"
+       }
+      ]
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.031219,
+    "seconds": 12.2,
+    "input_tokens": 9534,
+    "output_tokens": 4637,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [
+    {
+     "feature_id": "mount_holes",
+     "issue": "only 2 of 4 holes show the counterbore, drawing requires 4x Dia 6.6 thru with Dia 11 x 6.4 deep counterbore",
+     "severity": "high"
+    }
+   ],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "numbers",
+   "iteration": 0,
+   "t": 36.7,
+   "available": true,
+   "numbers": [
+    {
+     "index": 0,
+     "label": "10",
+     "value": 10.0,
+     "parameter": "thickness",
+     "text_box": [
+      327,
+      309,
+      343,
+      330
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 1,
+     "label": "60",
+     "value": 60.0,
+     "parameter": "depth",
+     "text_box": [
+      347,
+      610,
+      367,
+      640
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 2,
+     "label": "100",
+     "value": 100.0,
+     "parameter": "length",
+     "text_box": [
+      535,
+      760,
+      565,
+      775
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 3,
+     "label": "80",
+     "value": 80.0,
+     "parameter": null,
+     "text_box": [
+      532,
+      710,
+      555,
+      727
+     ],
+     "confidence": "high",
+     "status": "uncertain",
+     "second": 100.0,
+     "reread": "100",
+     "conflict": null
+    },
+    {
+     "index": 4,
+     "label": "10",
+     "value": 10.0,
+     "parameter": "hole_inset",
+     "text_box": [
+      406,
+      712,
+      426,
+      729
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 5,
+     "label": "40",
+     "value": 40.0,
+     "parameter": null,
+     "text_box": [
+      682,
+      595,
+      700,
+      620
+     ],
+     "confidence": "high",
+     "status": "uncertain",
+     "second": 10.0,
+     "reread": "10",
+     "conflict": null
+    },
+    {
+     "index": 6,
+     "label": "10",
+     "value": 10.0,
+     "parameter": "hole_inset",
+     "text_box": [
+      682,
+      645,
+      697,
+      665
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 7,
+     "label": "50",
+     "value": 50.0,
+     "parameter": "pocket_len",
+     "text_box": [
+      525,
+      465,
+      545,
+      482
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 50.0,
+     "reread": "50",
+     "conflict": null
+    },
+    {
+     "index": 8,
+     "label": "30",
+     "value": 30.0,
+     "parameter": "pocket_w",
+     "text_box": [
+      625,
+      565,
+      640,
+      590
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 9,
+     "label": "R3",
+     "value": 3.0,
+     "parameter": "pocket_r",
+     "text_box": [
+      420,
+      540,
+      442,
+      560
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 3.0,
+     "reread": "R3",
+     "conflict": null
+    },
+    {
+     "index": 10,
+     "label": "4x \u00d86.6 thru",
+     "value": 6.6,
+     "parameter": "hole_dia",
+     "text_box": [
+      625,
+      370,
+      650,
+      390
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 11,
+     "label": "\u00d811",
+     "value": 11.0,
+     "parameter": "cb_dia",
+     "text_box": [
+      740,
+      365,
+      760,
+      385
+     ],
+     "confidence": "high",
+     "status": "uncertain",
+     "second": 6.4,
+     "reread": "6.4",
+     "conflict": null
+    },
+    {
+     "index": 12,
+     "label": "6.4 deep",
+     "value": 6.4,
+     "parameter": "cb_depth",
+     "text_box": [
+      775,
+      360,
+      800,
+      380
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 13,
+     "label": "pocket 4 deep",
+     "value": 4.0,
+     "parameter": "pocket_depth",
+     "text_box": [
+      590,
+      405,
+      600,
+      420
+     ],
+     "confidence": "high",
+     "status": "uncertain",
+     "second": 6.6,
+     "reread": "\u00d86.6",
+     "conflict": null
+    },
+    {
+     "index": 14,
+     "label": "pocket centred",
+     "value": 50.0,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    },
+    {
+     "index": 15,
+     "label": "pocket centred",
+     "value": 30.0,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    }
+   ],
+   "uncertain": 4,
+   "calls": [
+    {
+     "seconds": 6.4,
+     "cost_usd": 0.006377,
+     "crops": 14,
+     "model": "muse-spark-1.3"
+    }
+   ],
+   "cost_usd": 0.006377,
+   "seconds": 6.4
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 36.7,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Rectangular pocket plate with central rectangular pocket and 4 counterbored holes. Assumed: pocket is centred (drawn symmetric, not dimensioned from edge); counterbores are on the top face; hole spacing follows from 10 inset from edges.",
+    "features": [
+     {
+      "distance": "thickness",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "shape": "rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "direction": "negative",
+      "distance": "pocket_depth",
+      "id": "pocket",
+      "offset": "thickness",
+      "operation": "cut",
+      "plane": "XY",
+      "profile": {
+       "anchor": "center",
+       "height": "pocket_w",
+       "radius": "pocket_r",
+       "shape": "rounded_rect",
+       "u": "length / 2",
+       "v": "depth / 2",
+       "width": "pocket_len"
+      },
+      "type": "extrude"
+     },
+     {
+      "center": [
+       "hole_inset",
+       "hole_inset"
+      ],
+      "counterbore": {
+       "depth": "cb_depth",
+       "diameter": "cb_dia"
+      },
+      "diameter": "hole_dia",
+      "face": "top_of_feature:base",
+      "id": "mount_hole",
+      "through": true,
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "length - 2 * hole_inset",
+      "spacing_v": "depth - 2 * hole_inset",
+      "type": "linear_pattern"
+     }
+    ],
+    "name": "pocket_plate",
+    "parameters": {
+     "cb_depth": {
+      "description": "counterbore depth",
+      "value": 6.4
+     },
+     "cb_dia": {
+      "description": "counterbore diameter",
+      "value": 11.0
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 60.0
+     },
+     "hole_dia": {
+      "description": "through hole diameter",
+      "value": 6.6
+     },
+     "hole_inset": {
+      "description": "hole centre from each edge; hole spacing follows as length/depth - 2 * hole_inset",
+      "value": 10.0
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 100.0
+     },
+     "pocket_depth": {
+      "description": "pocket depth from top",
+      "value": 4.0
+     },
+     "pocket_len": {
+      "description": "pocket length along X",
+      "value": 50.0
+     },
+     "pocket_r": {
+      "description": "pocket corner radius",
+      "value": 3.0
+     },
+     "pocket_w": {
+      "description": "pocket width along Y",
+      "value": 30.0
+     },
+     "thickness": {
+      "description": "plate thickness",
+      "value": 10.0
+     }
+    }
+   },
+   "callouts": [
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "10",
+     "measure": "thickness",
+     "parameter": "thickness",
+     "text_box": [
+      327,
+      309,
+      343,
+      330
+     ],
+     "value": 10.0
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      347,
+      610,
+      367,
+      640
+     ],
+     "value": 60.0
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "100",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      535,
+      760,
+      565,
+      775
+     ],
+     "value": 100.0
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[1]",
+     "label": "80",
+     "measure": "distance",
+     "parameter": null,
+     "text_box": [
+      532,
+      710,
+      555,
+      727
+     ],
+     "value": 80.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      406,
+      712,
+      426,
+      729
+     ],
+     "value": 10.0
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": "mount_holes[2]",
+     "label": "40",
+     "measure": "distance",
+     "parameter": null,
+     "text_box": [
+      682,
+      595,
+      700,
+      620
+     ],
+     "value": 40.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "hole_inset",
+     "text_box": [
+      682,
+      645,
+      697,
+      665
+     ],
+     "value": 10.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "50",
+     "measure": "unchecked",
+     "parameter": "pocket_len",
+     "text_box": [
+      525,
+      465,
+      545,
+      482
+     ],
+     "value": 50.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "30",
+     "measure": "unchecked",
+     "parameter": "pocket_w",
+     "text_box": [
+      625,
+      565,
+      640,
+      590
+     ],
+     "value": 30.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "R3",
+     "measure": "radius",
+     "parameter": "pocket_r",
+     "text_box": [
+      420,
+      540,
+      442,
+      560
+     ],
+     "value": 3.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d86.6 thru",
+     "measure": "diameter",
+     "parameter": "hole_dia",
+     "text_box": [
+      625,
+      370,
+      650,
+      390
+     ],
+     "value": 6.6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "\u00d811",
+     "measure": "diameter",
+     "parameter": "cb_dia",
+     "text_box": [
+      740,
+      365,
+      760,
+      385
+     ],
+     "value": 11.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "6.4 deep",
+     "measure": "unchecked",
+     "parameter": "cb_depth",
+     "text_box": [
+      775,
+      360,
+      800,
+      380
+     ],
+     "value": 6.4
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket 4 deep",
+     "measure": "depth",
+     "parameter": "pocket_depth",
+     "text_box": [
+      590,
+      405,
+      600,
+      420
+     ],
+     "value": 4.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 50.0
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "pocket",
+     "feature_b": null,
+     "label": "pocket centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 30.0
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.074595,
+   "seconds": 36.7,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}

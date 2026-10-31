@@ -1,0 +1,1309 @@
+{
+ "name": "05_enclosure__photo",
+ "batch": "printed",
+ "key": "05_enclosure",
+ "image": "experiments/benchmark/sketches/05_enclosure__photo.jpg",
+ "status": "pass",
+ "note": null,
+ "corrections": 0,
+ "read_perfect": true,
+ "final_perfect": true,
+ "failed": "",
+ "taps_perfect": true,
+ "flags": {
+  "available": true,
+  "soft": 0,
+  "red": 0,
+  "false": 0,
+  "caught": 0,
+  "flagged": [],
+  "seconds": 3.2,
+  "cost_usd": 0.004153
+ },
+ "first_part_s": 25.5,
+ "verified_s": 38.4,
+ "seconds": 38.4,
+ "cost_usd": 0.075042,
+ "events": [
+  {
+   "event": "read_started",
+   "iteration": 0,
+   "t": 0.0
+  },
+  {
+   "event": "spec",
+   "iteration": 0,
+   "t": 24.5,
+   "spec": {
+    "description": "Rectangular enclosure, open top, with wall thickness 2. Assumed: front hole is centred in X (drawn centred) and 20 is its centre height from the bottom; mounting holes are 10 from front/back/left/right edges and symmetric via pattern.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "id": "hollow",
+      "open_faces": [
+       "top"
+      ],
+      "thickness": "wall_t",
+      "type": "shell"
+     },
+     {
+      "center": [
+       "mount_inset",
+       "mount_inset"
+      ],
+      "depth": "wall_t",
+      "diameter": "mount_dia",
+      "face": "bottom",
+      "id": "mount_hole",
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "length - 2 * mount_inset",
+      "spacing_v": "depth - 2 * mount_inset",
+      "type": "linear_pattern"
+     },
+     {
+      "center": [
+       "length / 2",
+       "front_z"
+      ],
+      "depth": "wall_t",
+      "diameter": "front_dia",
+      "face": "front",
+      "id": "front_hole",
+      "type": "hole"
+     },
+     {
+      "edges": "top_of_feature:front_hole",
+      "id": "front_chamfer",
+      "size": "front_chamfer",
+      "type": "chamfer"
+     }
+    ],
+    "name": "enclosure",
+    "parameters": {
+     "corner_r": {
+      "description": "outer corner radius, 4x",
+      "value": 6
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 60
+     },
+     "front_chamfer": {
+      "description": "chamfer on front hole",
+      "value": 0.5
+     },
+     "front_dia": {
+      "description": "front wall hole diameter",
+      "value": 8
+     },
+     "front_z": {
+      "description": "front hole centre height from bottom",
+      "value": 20
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 100
+     },
+     "mount_dia": {
+      "description": "floor mounting hole diameter, 4x",
+      "value": 3.2
+     },
+     "mount_inset": {
+      "description": "mounting hole centre from all side walls; spacing follows",
+      "value": 10
+     },
+     "wall_t": {
+      "description": "wall and floor thickness",
+      "value": 2
+     }
+    },
+    "spec_version": "1",
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      328,
+      362,
+      342,
+      392
+     ],
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "100",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      524,
+      678,
+      550,
+      692
+     ],
+     "value": 100
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      340,
+      584,
+      355,
+      615
+     ],
+     "value": 60
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "hollow",
+     "feature_b": null,
+     "label": "wall 2",
+     "measure": "thickness",
+     "parameter": "wall_t",
+     "text_box": [
+      733,
+      500,
+      742,
+      512
+     ],
+     "value": 2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "R6 (4x)",
+     "measure": "radius",
+     "parameter": "corner_r",
+     "text_box": [
+      666,
+      414,
+      690,
+      430
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d83.2 thru floor",
+     "measure": "diameter",
+     "parameter": "mount_dia",
+     "text_box": [
+      525,
+      441,
+      560,
+      455
+     ],
+     "value": 3.2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "mount_inset",
+     "text_box": [
+      383,
+      725,
+      407,
+      739
+     ],
+     "value": 10
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "mount_inset",
+     "text_box": [
+      669,
+      596,
+      685,
+      618
+     ],
+     "value": 10
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru front wall",
+     "measure": "diameter",
+     "parameter": "front_dia",
+     "text_box": [
+      538,
+      237,
+      560,
+      253
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "front_chamfer",
+     "feature_b": null,
+     "label": "0.5 x 45\u00b0",
+     "measure": "chamfer_size",
+     "parameter": "front_chamfer",
+     "text_box": [
+      606,
+      220,
+      672,
+      238
+     ],
+     "value": 0.5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "parameter": "front_z",
+     "text_box": [
+      667,
+      323,
+      684,
+      352
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "front hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 50
+    }
+   ],
+   "changelog": null,
+   "call": {
+    "cost_usd": 0.040605,
+    "seconds": 24.5,
+    "input_tokens": 10642,
+    "output_tokens": 6424,
+    "reasoning_tokens": 4807,
+    "model": "muse-spark-1.3",
+    "effort": "medium"
+   }
+  },
+  {
+   "event": "compiled",
+   "iteration": 0,
+   "t": 25.5,
+   "ok": true,
+   "metrics": {
+    "name": "enclosure",
+    "volume_mm3": 34829.6618,
+    "bbox": {
+     "min": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "max": [
+      100.0,
+      60.0,
+      40.0
+     ],
+     "size": [
+      100.0,
+      60.0,
+      40.0
+     ]
+    },
+    "faces": 25,
+    "edges": 65,
+    "triangles": 3970,
+    "parameters": {
+     "corner_r": 6.0,
+     "depth": 60.0,
+     "front_chamfer": 0.5,
+     "front_dia": 8.0,
+     "front_z": 20.0,
+     "height": 40.0,
+     "length": 100.0,
+     "mount_dia": 3.2,
+     "mount_inset": 10.0,
+     "wall_t": 2.0
+    },
+    "features": [
+     {
+      "id": "base",
+      "type": "extrude",
+      "status": "ok",
+      "volume_delta_mm3": 238763.8934
+     },
+     {
+      "id": "hollow",
+      "type": "shell",
+      "status": "ok",
+      "volume_delta_mm3": -203766.0883
+     },
+     {
+      "id": "mount_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -16.085
+     },
+     {
+      "id": "mount_holes",
+      "type": "linear_pattern",
+      "status": "ok",
+      "volume_delta_mm3": -48.2549
+     },
+     {
+      "id": "front_hole",
+      "type": "hole",
+      "status": "ok",
+      "volume_delta_mm3": -100.531
+     },
+     {
+      "id": "front_chamfer",
+      "type": "chamfer",
+      "status": "ok",
+      "volume_delta_mm3": -3.2725
+     }
+    ],
+    "silhouettes": {
+     "top": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       520,
+       320
+      ],
+      "axes": [
+       "x",
+       "y"
+      ]
+     },
+     "front": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       520,
+       220
+      ],
+      "axes": [
+       "x",
+       "z"
+      ]
+     },
+     "side": {
+      "mm_per_px": 0.2,
+      "origin_mm": [
+       -2.0,
+       -2.0
+      ],
+      "size_px": [
+       320,
+       220
+      ],
+      "axes": [
+       "y",
+       "z"
+      ]
+     }
+    },
+    "warnings": []
+   },
+   "warnings": [],
+   "files": {}
+  },
+  {
+   "event": "shape_check",
+   "iteration": 0,
+   "t": 29.8,
+   "available": true,
+   "views": [
+    {
+     "view": "top",
+     "status": "ok",
+     "issues": [],
+     "advisories": [],
+     "files": {
+      "input": null
+     },
+     "aspect": {
+      "drawing": 1.333,
+      "part": 1.667
+     },
+     "orientation": {
+      "as_is": 0.784,
+      "mirror_lr": 0.784,
+      "mirror_ud": 0.784,
+      "rot180": 0.784
+     },
+     "orientation_gap": 0.0
+    },
+    {
+     "view": "front",
+     "status": "unavailable",
+     "note": "SAM's outline covers only part of the view box"
+    }
+   ],
+   "issues": [],
+   "advisories": [],
+   "sheet": {
+    "method": "sam",
+    "rectified": true,
+    "quad": [
+     [
+      236.0,
+      345.0
+     ],
+     [
+      1328.0,
+      129.0
+     ],
+     [
+      1383.0,
+      1177.0
+     ],
+     [
+      283.0,
+      1352.0
+     ]
+    ]
+   },
+   "files": {},
+   "note": null,
+   "sam": {
+    "calls": 2,
+    "cost_usd": 0.005,
+    "seconds": 5.24
+   }
+  },
+  {
+   "event": "checks",
+   "iteration": 0,
+   "t": 38.4,
+   "clean": true,
+   "callouts": [
+    {
+     "label": "40",
+     "value": 40,
+     "measure": "overall",
+     "what": "overall size along z",
+     "status": "ok",
+     "measured": 40.0
+    },
+    {
+     "label": "100",
+     "value": 100,
+     "measure": "overall",
+     "what": "overall size along x",
+     "status": "ok",
+     "measured": 100.0
+    },
+    {
+     "label": "60",
+     "value": 60,
+     "measure": "overall",
+     "what": "overall size along y",
+     "status": "ok",
+     "measured": 60.0
+    },
+    {
+     "label": "wall 2",
+     "value": 2,
+     "measure": "thickness",
+     "what": "thickness of hollow",
+     "status": "ok",
+     "measured": 2.0
+    },
+    {
+     "label": "R6 (4x)",
+     "value": 6,
+     "measure": "radius",
+     "what": "radius of base",
+     "status": "ok",
+     "measured": 6.0
+    },
+    {
+     "label": "4x \u00d83.2 thru floor",
+     "value": 3.2,
+     "measure": "diameter",
+     "what": "diameter of mount_hole",
+     "status": "ok",
+     "measured": 3.2
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to x_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "10",
+     "value": 10,
+     "measure": "distance_to_edge",
+     "what": "distance from mount_hole to y_min",
+     "status": "ok",
+     "measured": 10.0
+    },
+    {
+     "label": "\u00d88 thru front wall",
+     "value": 8,
+     "measure": "diameter",
+     "what": "diameter of front_hole",
+     "status": "ok",
+     "measured": 8.0
+    },
+    {
+     "label": "0.5 x 45\u00b0",
+     "value": 0.5,
+     "measure": "chamfer_size",
+     "what": "chamfer size of front_chamfer",
+     "status": "ok",
+     "measured": 0.511
+    },
+    {
+     "label": "20",
+     "value": 20,
+     "measure": "distance_to_edge",
+     "what": "distance from front_hole to z_min",
+     "status": "ok",
+     "measured": 20.0
+    },
+    {
+     "label": "front hole centred",
+     "value": 50,
+     "measure": "distance_to_edge",
+     "what": "distance from front_hole to x_min",
+     "status": "ok",
+     "measured": 50.0
+    }
+   ],
+   "critic": {
+    "matches": true,
+    "issues": [],
+    "advisories": [
+     {
+      "feature_id": "front_hole",
+      "issue": "chamfer is 0.45 x 45 deg instead of 0.5 x 45 deg",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "front_hole",
+      "issue": "hole centre height is about 24.5 mm instead of 20 mm given in drawing",
+      "severity": "medium"
+     },
+     {
+      "feature_id": "front_hole",
+      "issue": "0.5 x 45 degree break on the dia 8 thru hole is missing",
+      "severity": "low"
+     }
+    ],
+    "samples": [
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "front_hole",
+        "issue": "chamfer is 0.45 x 45 deg instead of 0.5 x 45 deg",
+        "severity": "medium"
+       }
+      ]
+     },
+     {
+      "matches": false,
+      "issues": [
+       {
+        "feature_id": "front_hole",
+        "issue": "hole centre height is about 24.5 mm instead of 20 mm given in drawing",
+        "severity": "medium"
+       },
+       {
+        "feature_id": "front_hole",
+        "issue": "0.5 x 45 degree break on the dia 8 thru hole is missing",
+        "severity": "low"
+       }
+      ]
+     }
+    ],
+    "agreed_features": []
+   },
+   "critic_call": {
+    "cost_usd": 0.025285,
+    "seconds": 8.6,
+    "input_tokens": 9766,
+    "output_tokens": 3268,
+    "reasoning_tokens": null,
+    "model": "muse-spark-1.3",
+    "effort": "low"
+   },
+   "advisories": [
+    {
+     "feature_id": "front_hole",
+     "issue": "chamfer is 0.45 x 45 deg instead of 0.5 x 45 deg",
+     "severity": "medium"
+    },
+    {
+     "feature_id": "front_hole",
+     "issue": "hole centre height is about 24.5 mm instead of 20 mm given in drawing",
+     "severity": "medium"
+    },
+    {
+     "feature_id": "front_hole",
+     "issue": "0.5 x 45 degree break on the dia 8 thru hole is missing",
+     "severity": "low"
+    }
+   ],
+   "shape_advisories": [],
+   "issues": [],
+   "disputes": []
+  },
+  {
+   "event": "numbers",
+   "iteration": 0,
+   "t": 38.4,
+   "available": true,
+   "numbers": [
+    {
+     "index": 0,
+     "label": "40",
+     "value": 40,
+     "parameter": "height",
+     "text_box": [
+      328,
+      362,
+      342,
+      392
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 40.0,
+     "reread": "40",
+     "conflict": null
+    },
+    {
+     "index": 1,
+     "label": "100",
+     "value": 100,
+     "parameter": "length",
+     "text_box": [
+      524,
+      678,
+      550,
+      692
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 100.0,
+     "reread": "100",
+     "conflict": null
+    },
+    {
+     "index": 2,
+     "label": "60",
+     "value": 60,
+     "parameter": "depth",
+     "text_box": [
+      340,
+      584,
+      355,
+      615
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 60.0,
+     "reread": "60",
+     "conflict": null
+    },
+    {
+     "index": 3,
+     "label": "wall 2",
+     "value": 2,
+     "parameter": "wall_t",
+     "text_box": [
+      733,
+      500,
+      742,
+      512
+     ],
+     "confidence": "high",
+     "status": "unverified",
+     "second": null,
+     "reread": "unclear",
+     "conflict": null
+    },
+    {
+     "index": 4,
+     "label": "R6 (4x)",
+     "value": 6,
+     "parameter": "corner_r",
+     "text_box": [
+      666,
+      414,
+      690,
+      430
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 6.0,
+     "reread": "R6 (4x)",
+     "conflict": null
+    },
+    {
+     "index": 5,
+     "label": "4x \u00d83.2 thru floor",
+     "value": 3.2,
+     "parameter": "mount_dia",
+     "text_box": [
+      525,
+      441,
+      560,
+      455
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 3.2,
+     "reread": "3.2",
+     "conflict": null
+    },
+    {
+     "index": 6,
+     "label": "10",
+     "value": 10,
+     "parameter": "mount_inset",
+     "text_box": [
+      383,
+      725,
+      407,
+      739
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 10.0,
+     "reread": "10",
+     "conflict": null
+    },
+    {
+     "index": 7,
+     "label": "10",
+     "value": 10,
+     "parameter": "mount_inset",
+     "text_box": [
+      669,
+      596,
+      685,
+      618
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 10.0,
+     "reread": "10",
+     "conflict": null
+    },
+    {
+     "index": 8,
+     "label": "\u00d88 thru front wall",
+     "value": 8,
+     "parameter": "front_dia",
+     "text_box": [
+      538,
+      237,
+      560,
+      253
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 8.0,
+     "reread": "\u00d88",
+     "conflict": null
+    },
+    {
+     "index": 9,
+     "label": "0.5 x 45\u00b0",
+     "value": 0.5,
+     "parameter": "front_chamfer",
+     "text_box": [
+      606,
+      220,
+      672,
+      238
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 0.5,
+     "reread": "0.5 x 45\u00b0",
+     "conflict": null
+    },
+    {
+     "index": 10,
+     "label": "20",
+     "value": 20,
+     "parameter": "front_z",
+     "text_box": [
+      667,
+      323,
+      684,
+      352
+     ],
+     "confidence": "high",
+     "status": "confirmed",
+     "second": 20.0,
+     "reread": "20",
+     "conflict": null
+    },
+    {
+     "index": 11,
+     "label": "front hole centred",
+     "value": 50,
+     "parameter": null,
+     "text_box": null,
+     "confidence": "high",
+     "status": "not_located",
+     "second": null,
+     "reread": null,
+     "conflict": null
+    }
+   ],
+   "uncertain": 0,
+   "calls": [
+    {
+     "seconds": 3.2,
+     "cost_usd": 0.004153,
+     "crops": 11,
+     "model": "muse-spark-1.3"
+    }
+   ],
+   "cost_usd": 0.004153,
+   "seconds": 3.2
+  },
+  {
+   "event": "done",
+   "iteration": 0,
+   "t": 38.4,
+   "status": "pass",
+   "note": null,
+   "final_iteration": 0,
+   "spec": {
+    "description": "Rectangular enclosure, open top, with wall thickness 2. Assumed: front hole is centred in X (drawn centred) and 20 is its centre height from the bottom; mounting holes are 10 from front/back/left/right edges and symmetric via pattern.",
+    "features": [
+     {
+      "distance": "height",
+      "id": "base",
+      "plane": "XY",
+      "profile": {
+       "height": "depth",
+       "radius": "corner_r",
+       "shape": "rounded_rect",
+       "width": "length"
+      },
+      "type": "extrude"
+     },
+     {
+      "id": "hollow",
+      "open_faces": [
+       "top"
+      ],
+      "thickness": "wall_t",
+      "type": "shell"
+     },
+     {
+      "center": [
+       "mount_inset",
+       "mount_inset"
+      ],
+      "depth": "wall_t",
+      "diameter": "mount_dia",
+      "face": "bottom",
+      "id": "mount_hole",
+      "type": "hole"
+     },
+     {
+      "count_u": 2,
+      "count_v": 2,
+      "feature": "mount_hole",
+      "id": "mount_holes",
+      "spacing_u": "length - 2 * mount_inset",
+      "spacing_v": "depth - 2 * mount_inset",
+      "type": "linear_pattern"
+     },
+     {
+      "center": [
+       "length / 2",
+       "front_z"
+      ],
+      "depth": "wall_t",
+      "diameter": "front_dia",
+      "face": "front",
+      "id": "front_hole",
+      "type": "hole"
+     },
+     {
+      "edges": "top_of_feature:front_hole",
+      "id": "front_chamfer",
+      "size": "front_chamfer",
+      "type": "chamfer"
+     }
+    ],
+    "name": "enclosure",
+    "parameters": {
+     "corner_r": {
+      "description": "outer corner radius, 4x",
+      "value": 6
+     },
+     "depth": {
+      "description": "overall depth along Y",
+      "value": 60
+     },
+     "front_chamfer": {
+      "description": "chamfer on front hole",
+      "value": 0.5
+     },
+     "front_dia": {
+      "description": "front wall hole diameter",
+      "value": 8
+     },
+     "front_z": {
+      "description": "front hole centre height from bottom",
+      "value": 20
+     },
+     "height": {
+      "description": "overall height along Z",
+      "value": 40
+     },
+     "length": {
+      "description": "overall length along X",
+      "value": 100
+     },
+     "mount_dia": {
+      "description": "floor mounting hole diameter, 4x",
+      "value": 3.2
+     },
+     "mount_inset": {
+      "description": "mounting hole centre from all side walls; spacing follows",
+      "value": 10
+     },
+     "wall_t": {
+      "description": "wall and floor thickness",
+      "value": 2
+     }
+    },
+    "spec_version": "1",
+    "units": "mm"
+   },
+   "callouts": [
+    {
+     "axis": "z",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "40",
+     "measure": "overall",
+     "parameter": "height",
+     "text_box": [
+      328,
+      362,
+      342,
+      392
+     ],
+     "value": 40
+    },
+    {
+     "axis": "x",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "100",
+     "measure": "overall",
+     "parameter": "length",
+     "text_box": [
+      524,
+      678,
+      550,
+      692
+     ],
+     "value": 100
+    },
+    {
+     "axis": "y",
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": null,
+     "feature_b": null,
+     "label": "60",
+     "measure": "overall",
+     "parameter": "depth",
+     "text_box": [
+      340,
+      584,
+      355,
+      615
+     ],
+     "value": 60
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "hollow",
+     "feature_b": null,
+     "label": "wall 2",
+     "measure": "thickness",
+     "parameter": "wall_t",
+     "text_box": [
+      733,
+      500,
+      742,
+      512
+     ],
+     "value": 2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "base",
+     "feature_b": null,
+     "label": "R6 (4x)",
+     "measure": "radius",
+     "parameter": "corner_r",
+     "text_box": [
+      666,
+      414,
+      690,
+      430
+     ],
+     "value": 6
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "4x \u00d83.2 thru floor",
+     "measure": "diameter",
+     "parameter": "mount_dia",
+     "text_box": [
+      525,
+      441,
+      560,
+      455
+     ],
+     "value": 3.2
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "mount_inset",
+     "text_box": [
+      383,
+      725,
+      407,
+      739
+     ],
+     "value": 10
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "y_min",
+     "feature": "mount_hole",
+     "feature_b": null,
+     "label": "10",
+     "measure": "distance_to_edge",
+     "parameter": "mount_inset",
+     "text_box": [
+      669,
+      596,
+      685,
+      618
+     ],
+     "value": 10
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "\u00d88 thru front wall",
+     "measure": "diameter",
+     "parameter": "front_dia",
+     "text_box": [
+      538,
+      237,
+      560,
+      253
+     ],
+     "value": 8
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": null,
+     "feature": "front_chamfer",
+     "feature_b": null,
+     "label": "0.5 x 45\u00b0",
+     "measure": "chamfer_size",
+     "parameter": "front_chamfer",
+     "text_box": [
+      606,
+      220,
+      672,
+      238
+     ],
+     "value": 0.5
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "z_min",
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "20",
+     "measure": "distance_to_edge",
+     "parameter": "front_z",
+     "text_box": [
+      667,
+      323,
+      684,
+      352
+     ],
+     "value": 20
+    },
+    {
+     "axis": null,
+     "confidence": "high",
+     "conflict": null,
+     "edge": "x_min",
+     "feature": "front_hole",
+     "feature_b": null,
+     "label": "front hole centred",
+     "measure": "distance_to_edge",
+     "parameter": null,
+     "text_box": null,
+     "value": 50
+    }
+   ],
+   "remaining_issues": [],
+   "unverified_notes": [],
+   "iterations": 0,
+   "corrections": 0,
+   "disputes": [],
+   "cost_usd": 0.075042,
+   "seconds": 38.4,
+   "settings": {
+    "read_model": "muse-spark-1.3",
+    "read_effort": "medium",
+    "correct_model": "muse-spark-1.3",
+    "correct_effort": "medium",
+    "critic_model": "muse-spark-1.3",
+    "critic_effort": "low",
+    "critic_samples": 2,
+    "critic_max_tokens": 10000,
+    "max_iters": 4
+   }
+  }
+ ]
+}
